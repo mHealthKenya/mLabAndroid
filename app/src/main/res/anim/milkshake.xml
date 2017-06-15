@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+android:duration="2000"
+android:fromDegrees="-45"
+android:pivotX="60%"
+android:pivotY="60%"
+android:repeatCount="20"
+android:repeatMode="reverse"
+android:toDegrees="30" />
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<set xmlns:android="http://schemas.android.com/apk/res/android" >-->
+
+    <!--<scale-->
+        <!--android:duration="5000"-->
+        <!--android:fromXScale="0.3"-->
+        <!--android:toXScale="1.0"-->
+        <!--android:fromYScale="0.3"-->
+        <!--android:toYScale="1.0"-->
+        <!--android:pivotX="150%"-->
+        <!--android:pivotY="150%" />-->
+<!--</set>-->
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<translate xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:fromXDelta="0"-->
+    <!--android:toXDelta="10"-->
+    <!--android:duration="1000"-->
+    <!--android:interpolator="@anim/cycle" />-->
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<rotate xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:duration="100"-->
+    <!--android:fromDegrees="-5"-->
+    <!--android:pivotX="50%"-->
+    <!--android:pivotY="50%"-->
+    <!--android:repeatCount="10"-->
+    <!--android:repeatMode="reverse"-->
+    <!--android:toDegrees="5" />-->

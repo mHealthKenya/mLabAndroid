@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">mLab</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_helpline">Help Line</string>
+    <string name="logout">Logout</string>
+    <string name="share">Choose an action</string>
+    <string name="title_activity_composing">Composing</string>
+    <string name="title_activity_clickedmessage2">Clickedmessage2</string>
+</resources>

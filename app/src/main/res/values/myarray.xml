@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string-array name="status_bar_entries">
+
+        <item>red</item>
+        <item>blue</item>
+        <item>green</item>
+
+    </string-array>
+
+    <string-array name="status_bar_entry_values">
+
+        <item>#ff0000</item>
+        <item>#0000ff</item>
+        <item>#00ff00</item>
+
+    </string-array>
+
+    <string-array name="tool_bar_entries">
+
+        <item>red</item>
+        <item>blue</item>
+        <item>light blue</item>
+        <item>green</item>
+
+    </string-array>
+
+    <string-array name="tool_bar_entry_values">
+
+        <item>#ff0000</item>
+        <item>#0000ff</item>
+        <item>#8080ff</item>
+        <item>#00ff00</item>
+
+    </string-array>
+
+    <string-array name="tablayout_entries">
+
+        <item>red</item>
+        <item>blue</item>
+        <item>green</item>
+
+    </string-array>
+
+    <string-array name="tablayout_entry_values">
+
+        <item>#ff0000</item>
+        <item>#0000ff</item>
+        <item>#00ff00</item>
+
+    </string-array>
+
+
+    <string-array name="background_entries">
+
+        <item>red</item>
+        <item>blue</item>
+        <item>green</item>
+        <item>white</item>
+
+    </string-array>
+
+
+    <string-array name="background_values">
+
+        <item>#ff0000</item>
+        <item>#0000ff</item>
+        <item>#00ff00</item>
+        <item>#ffffff</item>
+
+    </string-array>
+    
+    <string-array name="spinentries">
+
+        <item>Monthly</item>
+        <item>Weekly</item>
+
+    </string-array>
+
+    <string-array name="weeklyentries">
+
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+
+    </string-array>
+
+    <string-array name="yearlyentries">
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+
+    </string-array>
+
+
+</resources>

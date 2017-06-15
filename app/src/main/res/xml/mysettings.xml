@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+
+        android:title="Colour Settings">
+
+        <CheckBoxPreference
+            android:key="use_colour"
+            android:title="Use Custom Colour"
+            android:summary="Use custom colour, or just use default settings"
+            android:defaultValue="false"
+            />
+        <CheckBoxPreference
+            android:key="default_colour"
+            android:title="Use Default Settings"
+            android:summary="Use Default settings"
+            android:defaultValue="false"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Select your Colour"
+        >
+
+   <ListPreference
+       android:key="status_bar_colours"
+       android:title="Status Bar Colour"
+       android:summary="Colour to appear on the Status bar of the application"
+       android:dependency="use_colour"
+       android:entries="@array/status_bar_entries"
+       android:defaultValue="#000066"
+       android:entryValues="@array/status_bar_entry_values"/>
+
+        <ListPreference
+            android:key="tool_bar_colours"
+            android:title="Tool Bar Colour"
+            android:summary="Colour to appear on the tool bar of the application"
+            android:dependency="use_colour"
+            android:entries="@array/tool_bar_entries"
+            android:defaultValue="#3333ff"
+            android:entryValues="@array/tool_bar_entry_values"/>
+
+
+        <ListPreference
+            android:key="tablayout_colours"
+            android:title="Tab Layout Colour"
+            android:summary="Colour to appear on the Tabs of the application"
+            android:dependency="use_colour"
+            android:entries="@array/tablayout_entries"
+            android:defaultValue="#4d4dff"
+            android:entryValues="@array/tablayout_entry_values"/>
+
+        <ListPreference
+            android:key="background_colours"
+            android:title="Background Colour"
+            android:summary="Colour to appear on the Background of the application"
+            android:dependency="use_colour"
+            android:entries="@array/background_entries"
+            android:defaultValue="#f2f2f2"
+            android:entryValues="@array/background_values"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

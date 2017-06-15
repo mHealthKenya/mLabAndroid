@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#ffffff"
+    android:layout_weight="1"
+    android:padding="16dp">
+
+<ScrollView
+    android:layout_width="wrap_content"
+    android:scrollbars="vertical"
+    android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/top1"
+    android:layout_alignParentTop="true"
+    android:layout_width="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="50sp"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/myanim"
+                android:background="@drawable/circle"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:drawableTop="@mipmap/resultsicon"
+                android:layout_marginBottom="100sp"
+                android:onClick="Results"
+                android:layout_marginLeft="100sp"
+                style="?android:attr/buttonStyleSmall"
+                android:theme="@style/MyButton"
+                android:text="Results"
+                android:textColor="#fff" />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:drawableTop="@mipmap/dashfaceff"
+                android:id="@+id/myanim2"
+                android:onClick="Dashboard"
+                style="?android:attr/buttonStyleSmall"
+                android:theme="@style/MyButton"
+                android:layout_marginLeft="250sp"
+                android:text="Dashboard"
+                android:textColor="#fff" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="50sp"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/myanim3"
+                android:background="@drawable/circle"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:drawableTop="@android:drawable/ic_dialog_info"
+                android:paddingTop="20dp"
+                android:onClick="About"
+                android:layout_marginLeft="100sp"
+                style="?android:attr/buttonStyleSmall"
+                android:theme="@style/MyButton"
+                android:text="About"
+                android:textColor="#fff" />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:drawableTop="@android:drawable/ic_dialog_email"
+                android:layout_marginBottom="100sp"
+                android:id="@+id/myanim4"
+                android:onClick="Contact"
+                style="?android:attr/buttonStyleSmall"
+                android:theme="@style/MyButton"
+                android:layout_marginLeft="250sp"
+
+                android:text="Contact"
+                android:textColor="#fff" />
+
+        </TableRow>
+
+
+    </TableLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+
+    <!--<Button-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:background="@drawable/circle"-->
+        <!--android:foreground="?android:attr/selectableItemBackground"-->
+        <!--android:drawableTop="@android:drawable/ic_delete"-->
+        <!--android:paddingTop="20dp"-->
+        <!--android:id="@+id/myanim3"-->
+        <!--android:onClick="animate"-->
+        <!--style="?android:attr/buttonStyleSmall"-->
+        <!--android:theme="@style/MyButton"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_marginLeft="50sp"-->
+        <!--android:text="Contact"-->
+        <!--android:textColor="#fff" />-->
+
+
+    <!--<Button-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:background="@drawable/circle"-->
+        <!--android:foreground="?android:attr/selectableItemBackground"-->
+        <!--android:drawableTop="@android:drawable/ic_delete"-->
+        <!--android:paddingTop="20dp"-->
+        <!--android:id="@+id/myanim4"-->
+        <!--android:onClick="animate"-->
+        <!--style="?android:attr/buttonStyleSmall"-->
+        <!--android:theme="@style/MyButton"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_marginLeft="50sp"-->
+        <!--android:layout_marginTop="30sp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:text="Contact"-->
+        <!--android:textColor="#fff" />-->
+
+
+
+
+
+
+
+
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:src="@drawable/organisations"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content" />
+
+</RelativeLayout>

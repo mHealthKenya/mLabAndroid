@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/myaddr"
+        android:hint="your address here"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_width="match_parent"
+        android:minLines="10"
+        android:hint="message here.."
+        android:id="@+id/mybdy"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="match_parent"
+        android:text="Send"
+        android:onClick="sendSms"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

@@ -1,0 +1,685 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="vertical"
+    android:scrollbarStyle="insideInset"
+    android:fillViewport="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff"
+        >
+
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="23dp">-->
+
+
+        <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:onClick="goToResults"-->
+        <!--android:textColor="#b666d2"-->
+        <!--android:layout_weight="1"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:layout_marginTop="233dp"-->
+        <!--android:background="@drawable/button"-->
+        <!--android:text="Results"-->
+        <!--android:id="@+id/button" />-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="23dp">-->
+
+
+        <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:onClick="goToDb"-->
+        <!--android:textColor="#e50000"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:background="@drawable/buttonred"-->
+        <!--android:text="Dashboard"/>-->
+        <!--</LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:layout_gravity="top"
+            android:orientation="vertical" >
+
+
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                android:textSize="25dp"
+                android:textColor="#b666d2"
+                android:background="@mipmap/logo"
+                android:gravity="center_horizontal"></TextView>
+            <TextView
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="EID,VL lab results"
+                android:textSize="15dp"
+                android:textColor="#000"
+                android:gravity="center"></TextView>
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="goToResults"
+                android:textColor="#b666d2"
+                android:textAllCaps="false"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/button"
+                android:text="Results"
+                android:id="@+id/button" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="4dp"
+                android:onClick="goToDb"
+                android:textColor="#b666d2"
+                android:textAllCaps="false"
+                android:background="@drawable/button"
+                android:text="Dashboard"/>
+
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="4dp"
+                android:onClick="doRegister"
+                android:textColor="#b666d2"
+                android:textAllCaps="false"
+                android:background="@drawable/button"
+                android:text="Add Client"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="4dp"
+                android:onClick="messaging"
+                android:textColor="#b666d2"
+                android:textAllCaps="false"
+                android:background="@drawable/button"
+                android:text="Messaging"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mohkenya"
+                android:padding="4dp"
+                android:onClick="gomoh"
+                android:id="@+id/imageView2"
+                android:layout_weight="1"/>
+
+
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:onClick="gocdc"-->
+                <!--android:src="@drawable/cdc"-->
+                <!--android:padding="4dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:id="@+id/imageView3"></ImageView>-->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pepfarkenya"
+                android:layout_weight="1"
+                android:onClick="gopepfar"
+                android:padding="4dp"
+                android:id="@+id/imageView4">
+
+            </ImageView>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mhealthlogotwo"
+                android:id="@+id/imageView"
+                android:padding="4dp"
+                android:onClick="gomhealth"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="version"
+            android:textStyle="italic"
+            android:id="@+id/version"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</ScrollView>
+
+
+
+
+
+
+
+
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:background="#fff">-->
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="20dp"-->
+
+    <!--&gt;-->
+
+
+    <!--<ImageView-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="80dp"-->
+    <!--android:src="@drawable/mohs"-->
+    <!--android:padding="4dp"-->
+    <!--android:id="@+id/imageView2"-->
+    <!--android:layout_weight="1"-->
+    <!--android:scaleType="fitXY"/>-->
+
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/btnReport"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/report"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#fff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:drawableTop="@mipmap/expo"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="?android:attr/borderlessButtonStyle"&ndash;&gt;-->
+    <!--&lt;!&ndash;/>&ndash;&gt;-->
+    <!--<ImageView-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="105dp"-->
+    <!--android:src="@drawable/cdc"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:padding="4dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:id="@+id/imageView3"></ImageView>-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="20dp"-->
+    <!--&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:onClick="faq"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#fff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/faq"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:drawableTop="@mipmap/faqasset"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="?android:attr/borderlessButtonStyle"&ndash;&gt;-->
+    <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="105dp"-->
+    <!--android:src="@drawable/pepfar"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:layout_weight="1"-->
+    <!--android:padding="4dp">-->
+
+    <!--</ImageView>-->
+
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:onClick="mfl"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/mfl"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#fff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:drawableTop="@mipmap/listasset"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="?android:attr/borderlessButtonStyle"&ndash;&gt;-->
+    <!--&lt;!&ndash;/>&ndash;&gt;-->
+    <!--<ImageView-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="105dp"-->
+    <!--android:src="@drawable/mhealthlogotwo"-->
+    <!--android:id="@+id/imageView"-->
+    <!--android:padding="4dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:scaleType="fitXY"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="23dp"-->
+    <!--&gt;-->
+
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:onClick="artguidelines"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/Art"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#fff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:drawableTop="@mipmap/artasset"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="?android:attr/borderlessButtonStyle"&ndash;&gt;-->
+    <!--&lt;!&ndash;/>&ndash;&gt;-->
+    <!--<Button-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:onClick="goToResults"-->
+    <!--android:textColor="#b666d2"-->
+    <!--android:textAllCaps="false"-->
+    <!--android:background="@drawable/button"-->
+    <!--android:text="Results"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="23dp"-->
+    <!--&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:onClick="nascopwebsite"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#fff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/nascop_website"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:drawableTop="@mipmap/webasset"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="?android:attr/borderlessButtonStyle"&ndash;&gt;-->
+    <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+    <!--<Button-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:onClick="goToDb"-->
+    <!--android:textColor="#e50000"-->
+    <!--android:textAllCaps="false"-->
+    <!--android:background="@drawable/buttonred"-->
+    <!--android:text="Dashboard"/>-->
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+
+
+
+
+
+
+    <!--&lt;!&ndash;<?xml version="1.0" encoding="utf-8"?>&ndash;&gt;-->
+    <!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:scrollbars="vertical"-->
+    <!--android:scrollbarStyle="insideInset"-->
+    <!--android:fillViewport="true"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_width="match_parent">-->
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="10dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:background="#fff">-->
+
+    <!--&lt;!&ndash;<android.support.v7.widget.Toolbar&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/toolbar2"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="?attr/actionBarSize"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="?attr/colorPrimary"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_scrollFlags="scroll|enterAlways"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />&ndash;&gt;-->
+
+
+
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="120dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:src="@drawable/mohs"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="4dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/imageView2"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="197dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="4dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:src="@drawable/pepfar"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"></ImageView>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="197dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="4dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:src="@drawable/cdc"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"></ImageView>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="120dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:src="@drawable/mhealthlogotwo"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/imageView"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="4dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"/>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:paddingTop="8dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:onClick="goToResults"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#b666d2"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textAllCaps="false"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@drawable/button"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Results"/>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:paddingTop="10dp"&ndash;&gt;-->
+
+    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:onClick="goToDb"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#e50000"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textAllCaps="false"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@drawable/buttonred"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Dashboard"/>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+
+
+
+    <!--&lt;!&ndash;&lt;!&ndash;<ImageView&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;android:layout_width="197dp"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;android:padding="4dp"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;android:src="@drawable/pepfar"&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;android:layout_weight="1"></ImageView>&ndash;&gt;&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+
+
+
+    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="120dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:src="@drawable/mhealthlogotwo"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/imageView"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="4dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"/>&ndash;&gt;-->
+
+
+
+
+
+
+
+
+    <!--&lt;!&ndash;<?xml version="1.0" encoding="utf-8"?>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"&ndash;&gt;-->
+    <!--&lt;!&ndash;xmlns:app="http://schemas.android.com/apk/res-auto"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="#fff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="match_parent">&ndash;&gt;-->
+    <!--&lt;!&ndash;<android.support.v7.widget.Toolbar&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/toolbar2"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="?attr/actionBarSize"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="?attr/colorPrimary"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_scrollFlags="scroll|enterAlways"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="fill_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_below="@+id/login_title"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginLeft="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginRight="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="70dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="#d3d3d3"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginBottom="80sp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:elevation="18dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:translationZ="20sp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:backgroundTint="@color/colorPrimary"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:backgroundTintMode="src_over"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="20dp">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Results"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:theme="@style/MyButton"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#fff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:elevation="4sp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:drawableTop="@mipmap/resultsicon"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="?android:attr/borderlessButtonStyle"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:onClick="goToResults"/>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="fill_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_below="@+id/login_title"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginLeft="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginRight="100dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="70dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="#d3d3d3"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginBottom="80sp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:elevation="18dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:translationZ="20sp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:backgroundTint="@color/colorPrimary"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:backgroundTintMode="src_over"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="20dp">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Database"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:theme="@style/MyButton"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#fff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:drawableTop="@mipmap/dashfaceff"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="?android:attr/borderlessButtonStyle"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:onClick="goToDb"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:background="#fff"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar2"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="?attr/colorPrimary"-->
+    <!--app:layout_scrollFlags="scroll|enterAlways"-->
+    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/login_title"-->
+    <!--android:layout_marginLeft="100dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_marginRight="100dp"-->
+    <!--android:layout_marginTop="70dp"-->
+    <!--android:background="#d3d3d3"-->
+    <!--android:layout_marginBottom="80sp"-->
+    <!--android:elevation="18dp"-->
+    <!--android:translationZ="20sp"-->
+    <!--android:backgroundTint="@color/colorPrimary"-->
+    <!--android:backgroundTintMode="src_over"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="20dp">-->
+
+    <!--<Button-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:text="Results"-->
+    <!--android:theme="@style/MyButton"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:textColor="#fff"-->
+    <!--android:layout_weight="1"-->
+    <!--android:elevation="4sp"-->
+    <!--android:drawableTop="@mipmap/resultsicon"-->
+    <!--style="?android:attr/borderlessButtonStyle"-->
+    <!--android:onClick="goToResults"/>-->
+
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/login_title"-->
+    <!--android:layout_marginLeft="100dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_marginRight="100dp"-->
+    <!--android:layout_marginTop="70dp"-->
+    <!--android:background="#d3d3d3"-->
+    <!--android:layout_marginBottom="80sp"-->
+    <!--android:elevation="18dp"-->
+    <!--android:translationZ="20sp"-->
+    <!--android:backgroundTint="@color/colorPrimary"-->
+    <!--android:backgroundTintMode="src_over"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="20dp">-->
+
+    <!--<Button-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:text="Database"-->
+    <!--android:layout_weight="1"-->
+    <!--android:theme="@style/MyButton"-->
+    <!--android:textColor="#fff"-->
+    <!--android:drawableTop="@mipmap/dashfaceff"-->
+    <!--style="?android:attr/borderlessButtonStyle"-->
+    <!--android:onClick="goToDb"/>-->
+    <!--</LinearLayout>-->
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/organisations"-->
+
+    <!--/>-->
+
+
+    <!--</LinearLayout>-->
