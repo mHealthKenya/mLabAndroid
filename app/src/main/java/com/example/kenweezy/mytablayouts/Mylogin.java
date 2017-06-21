@@ -65,7 +65,7 @@ public class Mylogin extends AppCompatActivity {
         setContentView(R.layout.mylogin);
         myPackageName=getApplicationContext().getPackageName();
 
-        checkDefaultApp();
+//        checkDefaultApp();
 
         String getName="";
         Intent intent = getIntent();
