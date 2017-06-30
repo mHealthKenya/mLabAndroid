@@ -222,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         reportsvlselected = false;
                         MyBottomNav();
                         if (geteidNegativeCount() > 0) {
+
                             bottomNavigation.setNotification(Integer.toString(geteidNegativeCount()), 0);
 
                         } else {
@@ -417,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         } else {
-            Toast.makeText(this, "none active", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -828,7 +829,7 @@ public class MainActivity extends AppCompatActivity {
             long mytimelong = Long.parseLong(mytime);
             long diff = now - mytimelong;
 
-            if ((diff / 1000) > 30) {
+            if ((diff / 1000) > 50) {
 //                Toast.makeText(this, "logging out", Toast.LENGTH_SHORT).show();
 
 
@@ -941,7 +942,7 @@ public class MainActivity extends AppCompatActivity {
 //            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
 //            int indexBody = smsInboxCursor.getColumnIndex("body");
 //            int indexAddress = smsInboxCursor.getColumnIndex("address");
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' and read=? group by m_body", "unread");
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
             if (bdy.isEmpty()) {
                 value=0;
@@ -973,8 +974,9 @@ return value;
 //            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
 //            int indexBody = smsInboxCursor.getColumnIndex("body");
 //            int indexAddress = smsInboxCursor.getColumnIndex("address");
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where read=? group by m_body", "unread");
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
 
+//            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
             if (bdy.isEmpty()) {
                 value=0;
 
@@ -982,6 +984,8 @@ return value;
             else{
 
                 value=bdy.size();
+
+
             }
 
 
@@ -1004,7 +1008,7 @@ return value;
 //            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
 //            int indexBody = smsInboxCursor.getColumnIndex("body");
 //            int indexAddress = smsInboxCursor.getColumnIndex("address");
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' and read=? group by m_body", "unread");
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
 
             if (bdy.isEmpty()) {
                 value=0;
@@ -1035,7 +1039,7 @@ return value;
 //            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
 //            int indexBody = smsInboxCursor.getColumnIndex("body");
 //            int indexAddress = smsInboxCursor.getColumnIndex("address");
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Negative%' and read=? group by m_body", "unread");
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Negative%' group by m_body", null);
 
             if (bdy.isEmpty()) {
                 value=0;
@@ -1062,7 +1066,7 @@ return value;
         try {
 
 
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Positive%' and read=? group by m_body", "unread");
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Positive%' group by m_body", null);
 
             if (bdy.isEmpty()) {
                 value=0;
@@ -1091,15 +1095,22 @@ return value;
         try {
 
 
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Invalid%' and read=? group by m_body", "unread");
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
 
             if (bdy.isEmpty()) {
                 value=0;
 
             }
             else{
+                for(int x=0;x<bdy.size();x++){
 
-                value=bdy.size();
+                    String messbdy=bdy.get(x).getmBody();
+
+                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                        value+=1;
+                    }
+                }
+
             }
 
 
@@ -1118,19 +1129,78 @@ return value;
         int value=0;
         try {
 
-//            ContentResolver contentResolver = getActivity().getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
-//            int indexBody = smsInboxCursor.getColumnIndex("body");
-//            int indexAddress = smsInboxCursor.getColumnIndex("address");
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' and m_body not like'%LDL%' and m_body not like'%Invalid%' and read=? group by m_body", "unread");
 
-            if (bdy.isEmpty()) {
-                value=0;
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
-            }
-            else{
+//        if (bdy.isEmpty())
+//            return 0;
+//        myadapter.clear();
 
-                value=bdy.size();
+
+            for(int x=0;x<bdy.size();x++){
+
+                String messbdy=bdy.get(x).getmBody();
+                String ndate = bdy.get(x).getmTimeStamp();
+
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+
+
+
+                    String[] mymessarray=messbdy.split(":");
+
+
+                    String splitVal="";
+
+                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
+                        splitVal=mymessarray[6];
+
+                    }
+                    else{
+
+                        splitVal=mymessarray[3];
+                    }
+
+
+                    String[] splitvalarray=splitVal.split("\\s+");
+
+
+                    if(splitvalarray[0].contains("<")){
+
+                        value += 1;
+
+
+
+                    }
+
+                    else{
+
+
+                        int myval=Integer.parseInt(splitvalarray[0]);
+                        if(myval>1000){
+
+
+                        }
+                        else{
+
+                            value += 1;
+
+
+
+
+                        }
+
+
+                    }
+
+
+
+
+                }
+
+
+
+
+
             }
 
 
@@ -1146,7 +1216,93 @@ return value;
 
 
 
+
     public int getvlUnsuppressedCount() {
+        int value=0;
+        try {
+
+
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
+
+//        if (bdy.isEmpty())
+//            return 0;
+//        myadapter.clear();
+
+
+            for(int x=0;x<bdy.size();x++){
+
+                String messbdy=bdy.get(x).getmBody();
+                String ndate = bdy.get(x).getmTimeStamp();
+
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+
+                    String[] mymessarray=messbdy.split(":");
+
+                    String splitVal="";
+
+                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
+                        splitVal=mymessarray[6];
+
+                    }
+                    else{
+
+                        splitVal=mymessarray[3];
+                    }
+
+
+                    String[] splitvalarray=splitVal.split("\\s+");
+
+
+                    if(splitvalarray[0].contains("<")){
+
+
+
+
+
+                    }
+
+                    else{
+
+
+                        int myval=Integer.parseInt(splitvalarray[0]);
+                        if(myval>1000){
+
+                            value += 1;
+
+
+                        }
+                        else{
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+
+
+            }
+
+
+
+
+        }
+        catch(Exception e){
+
+        }
+
+        return value;
+    }
+
+
+
+    public int getvlUnsuppressedCount23() {
         int value=0;
         try {
 
@@ -1186,15 +1342,22 @@ return value;
 //            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
 //            int indexBody = smsInboxCursor.getColumnIndex("body");
 //            int indexAddress = smsInboxCursor.getColumnIndex("address");
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%Invalid%' and read=? group by m_body", "unread");
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body",null);
 
             if (bdy.isEmpty()) {
                 value=0;
 
             }
             else{
+                for(int x=0;x<bdy.size();x++){
 
-                value=bdy.size();
+                    String messbdy=bdy.get(x).getmBody();
+                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                        value+=1;
+                    }
+                }
+
+
             }
 
 
@@ -1213,7 +1376,7 @@ return value;
     public void refreshSmsInboxTest() {
         try {
             ContentResolver contentResolver = getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40149'", null, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
             int indexDate = smsInboxCursor.getColumnIndex("date");

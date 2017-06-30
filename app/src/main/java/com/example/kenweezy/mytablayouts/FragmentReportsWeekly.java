@@ -404,7 +404,7 @@ public class FragmentReportsWeekly extends Fragment {
         int counter=0;
 
         try {
-            List myl2=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body like'%FFViral%' and m_body not like'%Collect new sample%' group by m_body");
+            List myl2=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body like'%FFViral%' group by m_body");
 
             int x=0;
 
@@ -422,80 +422,103 @@ public class FragmentReportsWeekly extends Fragment {
                 String mydate=ms.getmTimeStamp();
 
 
-                String[] checkSplitdate=mydate.split("/");
 
-
-                if(checkSplitdate.length>1){
-
-                }
-                else{
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(Long.parseLong(mydate));
-                    mydate = formatter.format(calendar.getTime());
-
-                }
-
-                String[] splitedDate=mydate.split("/");
-                String yeararr=splitedDate[2];//returns the string like 2017 11:10:30.366
-                String[] myyeararr=yeararr.split("\\s+");//split the white space to get only the year e.g 2017
-
-
-                String mymnth=splitedDate[1];
-                String myyear=myyeararr[0];
-                String myday=splitedDate[0];
-
-
-                List x2=getNumberOfWeeks(year1,month1);
-
-                String[] mys1=myarr.get(0).toString().split("-");
-                String[] mys2=myarr.get(1).toString().split("-");
-
-                int mys1val=Integer.parseInt(mys1[0]);
-                int mys2val=Integer.parseInt(mys2[0]);
-
-                int mnth1val=Integer.parseInt(mys1[1]);
-                int mnth2val=Integer.parseInt(mys2[1]);
-
-                int year1val=Integer.parseInt(mys1[2]);
-                int year2val=Integer.parseInt(mys2[2]);
-
-                int testdate=Integer.parseInt(myday);
-                int testmnth=Integer.parseInt(mymnth);
-                int testyear=Integer.parseInt(myyear);
-
-                String[] mymessarray=mystrbdy.split(":");
-                System.out.println("the split array suppresed::::: is "+mymessarray[6]);
-                String splitVal=mymessarray[6];
-                String[] splitvalarray=splitVal.split("\\s+");
-                int myval=0;
+                if(!(mystrbdy.contains("Collect new sample")||mystrbdy.contains("Invalid"))){
 
 
 
-                if(splitvalarray[0].contentEquals("<")){
-                    if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val){
-
-//                if((((testdate<=mys1val && mnth1val<mnth2val && mnth2val<testmnth )|| (testdate>=mys1val && mnth1val==testmnth && mnth2val>mnth1val ))) && testyear==year1val && stw.contains("FFEID") && stw.contains("Negative")){
-                        counter += 1;
-
-                    }
+                    String[] checkSplitdate=mydate.split("/");
 
 
-
-
-                }
-
-                else{
-                    myval=Integer.parseInt(splitvalarray[0]);
-                    if(myval>=1000){
-                        System.out.println("i am unsuppressed with a value "+myval);
+                    if(checkSplitdate.length>1){
 
                     }
                     else{
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(Long.parseLong(mydate));
+                        mydate = formatter.format(calendar.getTime());
+
+                    }
+
+                    String[] splitedDate=mydate.split("/");
+                    String yeararr=splitedDate[2];//returns the string like 2017 11:10:30.366
+                    String[] myyeararr=yeararr.split("\\s+");//split the white space to get only the year e.g 2017
+
+
+                    String mymnth=splitedDate[1];
+                    String myyear=myyeararr[0];
+                    String myday=splitedDate[0];
+
+
+                    List x2=getNumberOfWeeks(year1,month1);
+
+                    String[] mys1=myarr.get(0).toString().split("-");
+                    String[] mys2=myarr.get(1).toString().split("-");
+
+                    int mys1val=Integer.parseInt(mys1[0]);
+                    int mys2val=Integer.parseInt(mys2[0]);
+
+                    int mnth1val=Integer.parseInt(mys1[1]);
+                    int mnth2val=Integer.parseInt(mys2[1]);
+
+                    int year1val=Integer.parseInt(mys1[2]);
+                    int year2val=Integer.parseInt(mys2[2]);
+
+                    int testdate=Integer.parseInt(myday);
+                    int testmnth=Integer.parseInt(mymnth);
+                    int testyear=Integer.parseInt(myyear);
+
+                    String[] mymessarray=mystrbdy.split(":");
+
+
+                    String splitVal="";
+
+                    if(mystrbdy.contains("Sex") && mystrbdy.contains("Age")){
+                        splitVal=mymessarray[6];
+
+                    }
+                    else{
+
+                        splitVal=mymessarray[3];
+                    }
+
+
+                    String[] splitvalarray=splitVal.split("\\s+");
+                    int myval=0;
+
+
+
+                    if(splitvalarray[0].contains("<")){
                         if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val){
 
 //                if((((testdate<=mys1val && mnth1val<mnth2val && mnth2val<testmnth )|| (testdate>=mys1val && mnth1val==testmnth && mnth2val>mnth1val ))) && testyear==year1val && stw.contains("FFEID") && stw.contains("Negative")){
                             counter += 1;
+
+                        }
+
+
+
+
+                    }
+
+                    else{
+
+
+
+                        myval=Integer.parseInt(splitvalarray[0]);
+                        if(myval>=1000){
+                            System.out.println("i am unsuppressed with a value "+myval);
+
+                        }
+                        else{
+                            if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val){
+
+//                if((((testdate<=mys1val && mnth1val<mnth2val && mnth2val<testmnth )|| (testdate>=mys1val && mnth1val==testmnth && mnth2val>mnth1val ))) && testyear==year1val && stw.contains("FFEID") && stw.contains("Negative")){
+                                counter += 1;
+
+                            }
+
 
                         }
 
@@ -505,12 +528,14 @@ public class FragmentReportsWeekly extends Fragment {
 
 
 
+                    x++;
+
+
+
+
                 }
 
 
-
-
-                x++;
 
             } while (x<myl2.size());
         }
@@ -638,58 +663,64 @@ public class FragmentReportsWeekly extends Fragment {
                 String stw = new String(mystrbdy);
                 String mydate=ms.getmTimeStamp();
 
-                String[] checkSplitdate=mydate.split("/");
+                if((mystrbdy.contains("Collect new sample")||mystrbdy.contains("Invalid"))){
+
+                    String[] checkSplitdate=mydate.split("/");
 
 
-                if(checkSplitdate.length>1){
+                    if(checkSplitdate.length>1){
 
-                }
-                else{
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(Long.parseLong(mydate));
-                    mydate = formatter.format(calendar.getTime());
+                    }
+                    else{
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(Long.parseLong(mydate));
+                        mydate = formatter.format(calendar.getTime());
 
-                }
-
-
-                String[] splitedDate=mydate.split("/");
-                String yeararr=splitedDate[2];//returns the string like 2017 11:10:30.366
-                String[] myyeararr=yeararr.split("\\s+");//split the white space to get only the year e.g 2017
+                    }
 
 
-                String mymnth=splitedDate[1];
-                String myyear=myyeararr[0];
-                String myday=splitedDate[0];
+                    String[] splitedDate=mydate.split("/");
+                    String yeararr=splitedDate[2];//returns the string like 2017 11:10:30.366
+                    String[] myyeararr=yeararr.split("\\s+");//split the white space to get only the year e.g 2017
 
 
-                List x2=getNumberOfWeeks(year1,month1);
-
-                String[] mys1=myarr.get(0).toString().split("-");
-                String[] mys2=myarr.get(1).toString().split("-");
-
-                int mys1val=Integer.parseInt(mys1[0]);
-                int mys2val=Integer.parseInt(mys2[0]);
-
-                int mnth1val=Integer.parseInt(mys1[1]);
-                int mnth2val=Integer.parseInt(mys2[1]);
-
-                int year1val=Integer.parseInt(mys1[2]);
-                int year2val=Integer.parseInt(mys2[2]);
-
-                int testdate=Integer.parseInt(myday);
-                int testmnth=Integer.parseInt(mymnth);
-                int testyear=Integer.parseInt(myyear);
+                    String mymnth=splitedDate[1];
+                    String myyear=myyeararr[0];
+                    String myday=splitedDate[0];
 
 
-                if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val && mystrbdy.contains("Collect new sample")){
+                    List x2=getNumberOfWeeks(year1,month1);
+
+                    String[] mys1=myarr.get(0).toString().split("-");
+                    String[] mys2=myarr.get(1).toString().split("-");
+
+                    int mys1val=Integer.parseInt(mys1[0]);
+                    int mys2val=Integer.parseInt(mys2[0]);
+
+                    int mnth1val=Integer.parseInt(mys1[1]);
+                    int mnth2val=Integer.parseInt(mys2[1]);
+
+                    int year1val=Integer.parseInt(mys1[2]);
+                    int year2val=Integer.parseInt(mys2[2]);
+
+                    int testdate=Integer.parseInt(myday);
+                    int testmnth=Integer.parseInt(mymnth);
+                    int testyear=Integer.parseInt(myyear);
+
+
+                    if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val && mystrbdy.contains("Collect new sample")){
 
 //                if((((testdate<=mys1val && mnth1val<mnth2val && mnth2val<testmnth )|| (testdate>=mys1val && mnth1val==testmnth && mnth2val>mnth1val ))) && testyear==year1val && stw.contains("FFEID") && stw.contains("Negative")){
-                    counter += 1;
+                        counter += 1;
+
+                    }
+
+                    x++;
 
                 }
 
-                x++;
+
 
             } while (x<myl2.size());
         }
@@ -802,7 +833,7 @@ public class FragmentReportsWeekly extends Fragment {
         int counter=0;
 
         try {
-            List myl2=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body like'%FFViral%' and m_body not like'%Collect new sample%' group by m_body");
+            List myl2=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body like'%FFViral%' group by m_body");
 
             int x=0;
 
@@ -819,75 +850,101 @@ public class FragmentReportsWeekly extends Fragment {
                 String stw = new String(mystrbdy);
                 String mydate=ms.getmTimeStamp();
 
-
-                String[] checkSplitdate=mydate.split("/");
-
-
-                if(checkSplitdate.length>1){
-
-                }
-                else{
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(Long.parseLong(mydate));
-                    mydate = formatter.format(calendar.getTime());
-
-                }
-
-                String[] splitedDate=mydate.split("/");
-                String yeararr=splitedDate[2];//returns the string like 2017 11:10:30.366
-                String[] myyeararr=yeararr.split("\\s+");//split the white space to get only the year e.g 2017
-
-
-                String mymnth=splitedDate[1];
-                String myyear=myyeararr[0];
-                String myday=splitedDate[0];
-
-
-                List x2=getNumberOfWeeks(year1,month1);
-
-                String[] mys1=myarr.get(0).toString().split("-");
-                String[] mys2=myarr.get(1).toString().split("-");
-
-                int mys1val=Integer.parseInt(mys1[0]);
-                int mys2val=Integer.parseInt(mys2[0]);
-
-                int mnth1val=Integer.parseInt(mys1[1]);
-                int mnth2val=Integer.parseInt(mys2[1]);
-
-                int year1val=Integer.parseInt(mys1[2]);
-                int year2val=Integer.parseInt(mys2[2]);
-
-                int testdate=Integer.parseInt(myday);
-                int testmnth=Integer.parseInt(mymnth);
-                int testyear=Integer.parseInt(myyear);
-
-                String[] mymessarray=mystrbdy.split(":");
-                System.out.println("the split array suppresed::::: is "+mymessarray[6]);
-                String splitVal=mymessarray[6];
-                String[] splitvalarray=splitVal.split("\\s+");
-                int myval=0;
+                if(!(mystrbdy.contains("Collect new sample")||mystrbdy.contains("Invalid"))){
 
 
 
-                if(splitvalarray[0].contentEquals("<")){
 
 
-                }
+                    String[] checkSplitdate=mydate.split("/");
 
-                else{
-                    myval=Integer.parseInt(splitvalarray[0]);
-                    if(myval>=1000){
-                        if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val){
 
-//                if((((testdate<=mys1val && mnth1val<mnth2val && mnth2val<testmnth )|| (testdate>=mys1val && mnth1val==testmnth && mnth2val>mnth1val ))) && testyear==year1val && stw.contains("FFEID") && stw.contains("Negative")){
-                            counter += 1;
+                    if(checkSplitdate.length>1){
 
-                        }
+                    }
+                    else{
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(Long.parseLong(mydate));
+                        mydate = formatter.format(calendar.getTime());
+
+                    }
+
+                    String[] splitedDate=mydate.split("/");
+                    String yeararr=splitedDate[2];//returns the string like 2017 11:10:30.366
+                    String[] myyeararr=yeararr.split("\\s+");//split the white space to get only the year e.g 2017
+
+
+                    String mymnth=splitedDate[1];
+                    String myyear=myyeararr[0];
+                    String myday=splitedDate[0];
+
+
+                    List x2=getNumberOfWeeks(year1,month1);
+
+                    String[] mys1=myarr.get(0).toString().split("-");
+                    String[] mys2=myarr.get(1).toString().split("-");
+
+                    int mys1val=Integer.parseInt(mys1[0]);
+                    int mys2val=Integer.parseInt(mys2[0]);
+
+                    int mnth1val=Integer.parseInt(mys1[1]);
+                    int mnth2val=Integer.parseInt(mys2[1]);
+
+                    int year1val=Integer.parseInt(mys1[2]);
+                    int year2val=Integer.parseInt(mys2[2]);
+
+                    int testdate=Integer.parseInt(myday);
+                    int testmnth=Integer.parseInt(mymnth);
+                    int testyear=Integer.parseInt(myyear);
+
+                    String[] mymessarray=mystrbdy.split(":");
+
+
+                    String splitVal="";
+
+                    if(mystrbdy.contains("Sex") && mystrbdy.contains("Age")){
+                        splitVal=mymessarray[6];
 
                     }
                     else{
 
+                        splitVal=mymessarray[3];
+                    }
+
+
+
+                    String[] splitvalarray=splitVal.split("\\s+");
+                    int myval=0;
+
+
+
+                    if(splitvalarray[0].contains("<")){
+
+
+                    }
+
+
+                    else{
+
+
+
+                        myval=Integer.parseInt(splitvalarray[0]);
+                        if(myval>=1000){
+                            if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val){
+
+//                if((((testdate<=mys1val && mnth1val<mnth2val && mnth2val<testmnth )|| (testdate>=mys1val && mnth1val==testmnth && mnth2val>mnth1val ))) && testyear==year1val && stw.contains("FFEID") && stw.contains("Negative")){
+                                counter += 1;
+
+                            }
+
+                        }
+                        else{
+
+
+
+                        }
+
 
 
                     }
@@ -895,12 +952,14 @@ public class FragmentReportsWeekly extends Fragment {
 
 
 
+                    x++;
+
+
+
+
                 }
 
 
-
-
-                x++;
 
             } while (x<myl2.size());
         }

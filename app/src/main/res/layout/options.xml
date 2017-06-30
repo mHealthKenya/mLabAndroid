@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff"
+        android:layout_marginRight="0dp"
+
+        android:background="@drawable/border"
         >
 
 
@@ -88,7 +90,8 @@
                 android:onClick="goToResults"
                 android:textColor="#b666d2"
                 android:textAllCaps="false"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/button"
                 android:text="Results"
@@ -98,7 +101,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:onClick="goToDb"
                 android:textColor="#b666d2"
                 android:textAllCaps="false"
@@ -112,7 +116,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:onClick="doRegister"
                 android:textColor="#b666d2"
                 android:textAllCaps="false"

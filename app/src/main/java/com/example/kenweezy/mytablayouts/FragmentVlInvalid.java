@@ -118,7 +118,7 @@ public class FragmentVlInvalid extends Fragment {
 //        fl=(FrameLayout) v.findViewById(R.id.eid);
 
         mymesslist=new ArrayList<>();
-        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%Collect new sample%' group by m_body", null);
+        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
 //        if (bdy.isEmpty())
 //            return 0;
@@ -131,21 +131,32 @@ public class FragmentVlInvalid extends Fragment {
             String messbdy=bdy.get(x).getmBody();
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
-            String[] checkSplitdate=ndate.split("/");
+
+            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
 
 
-            if(checkSplitdate.length>1){
+
+
+                String[] checkSplitdate=ndate.split("/");
+
+
+                if(checkSplitdate.length>1){
+
+                }
+                else{
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(Long.parseLong(ndate));
+                    ndate = formatter.format(calendar.getTime());
+
+                }
+
+                mymesslist.add(new Mydata(messbdy,ndate,read));
+
 
             }
-            else{
-                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(Long.parseLong(ndate));
-                ndate = formatter.format(calendar.getTime());
 
-            }
 
-            mymesslist.add(new Mydata(messbdy,ndate,read));
 
 
         }
@@ -349,7 +360,7 @@ public class FragmentVlInvalid extends Fragment {
 
 
                     mymesslist.clear();
-                    List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%Collect new sample%' group by m_body", null);
+                    List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
                     if (bdy.isEmpty())
                         return;
@@ -363,21 +374,29 @@ public class FragmentVlInvalid extends Fragment {
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
 
-                        String[] checkSplitdate=ndate.split("/");
+                        if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
 
 
-                        if(checkSplitdate.length>1){
+                            String[] checkSplitdate=ndate.split("/");
+
+
+                            if(checkSplitdate.length>1){
+
+                            }
+                            else{
+                                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(Long.parseLong(ndate));
+                                ndate = formatter.format(calendar.getTime());
+
+                            }
+
+                            mymesslist.add(new Mydata(messbdy,ndate,read));
+
+
 
                         }
-                        else{
-                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTimeInMillis(Long.parseLong(ndate));
-                            ndate = formatter.format(calendar.getTime());
 
-                        }
-
-                        mymesslist.add(new Mydata(messbdy,ndate,read));
 
 
                     }
@@ -485,7 +504,7 @@ public class FragmentVlInvalid extends Fragment {
     public void refreshSmsInbox() {
         try {
 
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%Invalid' group by m_body", null);
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
             if (bdy.isEmpty())
                 return;
@@ -503,25 +522,38 @@ public class FragmentVlInvalid extends Fragment {
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
 
-                String bdycont=messbdy+"@"+ndate;
-
-                String[] checkSplitdate=ndate.split("/");
 
 
-                if(checkSplitdate.length>1){
+                if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
 
-                }
-                else{
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(Long.parseLong(ndate));
-                    ndate = formatter.format(calendar.getTime());
 
-                }
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+
+
+
+                    String bdycont=messbdy+"@"+ndate;
+
+                    String[] checkSplitdate=ndate.split("/");
+
+
+                    if(checkSplitdate.length>1){
+
+                    }
+                    else{
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(Long.parseLong(ndate));
+                        ndate = formatter.format(calendar.getTime());
+
+                    }
+                    mymesslist.add(new Mydata(messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
-                myadapter=new MessagesAdapter(getActivity(),mymesslist);
+                    myadapter=new MessagesAdapter(getActivity(),mymesslist);
+
+
+
+                }
+
 
 
             }
