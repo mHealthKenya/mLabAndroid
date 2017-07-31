@@ -202,7 +202,7 @@ public class Clickedmessage2 extends AppCompatActivity {
             long mytimelong = Long.parseLong(mytime);
             long diff = now - mytimelong;
 
-            if ((diff / 1000) > 30) {
+            if ((diff / 1000) > 60) {
 //                Toast.makeText(this, "logging out", Toast.LENGTH_SHORT).show();
 
 

@@ -127,66 +127,80 @@ public class FragmentVlSuppressed extends Fragment {
         for(int x=0;x<bdy.size();x++){
 
 
-            String messbdy=bdy.get(x).getmBody();
-            String ndate = bdy.get(x).getmTimeStamp();
-            String read=bdy.get(x).getRead();
-            String mytimestamp=null;
-
-            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
-
-                String[] checkSplitdate = ndate.split("/");
 
 
-                String[] mymessarray = messbdy.split(":");
-                String splitVal = "";
+            try{
 
-                if (messbdy.contains("Sex") && messbdy.contains("Age")) {
-                    splitVal = mymessarray[6];
 
-                } else {
 
-                    splitVal = mymessarray[3];
-                }
+
+
+                String messbdy=bdy.get(x).getmBody();
+                String ndate = bdy.get(x).getmTimeStamp();
+                String read=bdy.get(x).getRead();
+                String mytimestamp=null;
+
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
+
+                    String[] checkSplitdate = ndate.split("/");
+
+
+                    String[] mymessarray = messbdy.split(":");
+                    String splitVal = "";
+
+                    if (messbdy.contains("Sex") && messbdy.contains("Age")) {
+                        splitVal = mymessarray[6];
+
+                    } else {
+
+                        splitVal = mymessarray[3];
+                    }
 
 //            System.out.println("the split array suppresed::::: is "+mymessarray[3]);
 
-                String[] splitvalarray = splitVal.split("\\s+");
-                if (checkSplitdate.length > 1) {
-
-                } else {
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(Long.parseLong(ndate));
-                    ndate = formatter.format(calendar.getTime());
-
-                }
-
-                if (splitvalarray[0].contains("<")) {
-                    System.out.println("i am suppressed " + splitvalarray[0]);
-                    counter += 1;
-                    mymesslist.add(new Mydata(messbdy, ndate, read));
-
-
-                } else {
-
-                    int myval = Integer.parseInt(splitvalarray[0]);
-                    if (myval > 1000) {
-                        System.out.println("i am unsuppressed with a value " + myval);
+                    String[] splitvalarray = splitVal.split("\\s+");
+                    if (checkSplitdate.length > 1) {
 
                     } else {
-                        System.out.println("i am suppressed with a value " + myval);
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(Long.parseLong(ndate));
+                        ndate = formatter.format(calendar.getTime());
+
+                    }
+
+                    if (splitvalarray[0].contains("<")) {
+                        System.out.println("i am suppressed " + splitvalarray[0]);
                         counter += 1;
-
-
                         mymesslist.add(new Mydata(messbdy, ndate, read));
+
+
+                    } else {
+
+                        int myval = Integer.parseInt(splitvalarray[0]);
+                        if (myval > 1000) {
+                            System.out.println("i am unsuppressed with a value " + myval);
+
+                        } else {
+                            System.out.println("i am suppressed with a value " + myval);
+                            counter += 1;
+
+
+                            mymesslist.add(new Mydata(messbdy, ndate, read));
+
+
+                        }
 
 
                     }
 
-
                 }
-
             }
+            catch(Exception e){
+
+                System.out.println("exception occured "+e);
+            }
+
 
 
 

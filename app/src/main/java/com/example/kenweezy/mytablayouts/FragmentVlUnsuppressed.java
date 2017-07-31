@@ -129,52 +129,57 @@ public class FragmentVlUnsuppressed extends Fragment {
 
         for(int x=0;x<bdy.size();x++){
 
-
-            String messbdy=bdy.get(x).getmBody();
-            String ndate = bdy.get(x).getmTimeStamp();
-            String read=bdy.get(x).getRead();
-
-            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
+            try{
 
 
-                String[] mymessarray=messbdy.split(":");
+                String messbdy=bdy.get(x).getmBody();
+                String ndate = bdy.get(x).getmTimeStamp();
+                String read=bdy.get(x).getRead();
+
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
 
 
-                String splitVal="";
-
-                if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                    splitVal=mymessarray[6];
-
-                }
-                else{
-
-                    splitVal=mymessarray[3];
-                }
+                    String[] mymessarray=messbdy.split(":");
 
 
+                    String splitVal="";
 
-
-                String[] splitvalarray=splitVal.split("\\s+");
-                if(splitvalarray[0].contains("<")){
-                    System.out.println("i am suppressed "+splitvalarray[0]);
-
-
-
-                }
-
-                else{
-
-
-
-                    int myval=Integer.parseInt(splitvalarray[0]);
-                    if(myval>1000){
-                        System.out.println("i am unsuppressed with a value "+myval);
-                        counter += 1;
-                        mymesslist.add(new Mydata(messbdy,ndate,read));
+                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
+                        splitVal=mymessarray[6];
 
                     }
                     else{
-                        System.out.println("i am suppressed with a value "+myval);
+
+                        splitVal=mymessarray[3];
+                    }
+
+
+
+
+                    String[] splitvalarray=splitVal.split("\\s+");
+                    if(splitvalarray[0].contains("<")){
+                        System.out.println("i am suppressed "+splitvalarray[0]);
+
+
+
+                    }
+
+                    else{
+
+
+
+                        int myval=Integer.parseInt(splitvalarray[0]);
+                        if(myval>1000){
+                            System.out.println("i am unsuppressed with a value "+myval);
+                            counter += 1;
+                            mymesslist.add(new Mydata(messbdy,ndate,read));
+
+                        }
+                        else{
+                            System.out.println("i am suppressed with a value "+myval);
+
+
+                        }
 
 
                     }
@@ -184,8 +189,11 @@ public class FragmentVlUnsuppressed extends Fragment {
 
 
             }
+            catch(Exception e){
 
+                System.out.println("exception occured "+e);
 
+            }
 
 
         }
