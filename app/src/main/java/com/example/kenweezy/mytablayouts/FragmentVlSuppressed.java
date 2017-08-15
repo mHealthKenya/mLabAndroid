@@ -172,7 +172,7 @@ public class FragmentVlSuppressed extends Fragment {
                     if (splitvalarray[0].contains("<")) {
                         System.out.println("i am suppressed " + splitvalarray[0]);
                         counter += 1;
-                        mymesslist.add(new Mydata(messbdy, ndate, read));
+                        mymesslist.add(new Mydata(false,messbdy, ndate, read));
 
 
                     } else {
@@ -186,7 +186,7 @@ public class FragmentVlSuppressed extends Fragment {
                             counter += 1;
 
 
-                            mymesslist.add(new Mydata(messbdy, ndate, read));
+                            mymesslist.add(new Mydata(false,messbdy, ndate, read));
 
 
                         }
@@ -363,7 +363,7 @@ public class FragmentVlSuppressed extends Fragment {
 
                                 System.out.println("i am suppressed " + splitvalarray[0]);
                                 counter += 1;
-                                mymesslist.add(new Mydata(messbdy, ndate, read));
+                                mymesslist.add(new Mydata(false,messbdy, ndate, read));
                                 myadapter.notifyDataSetChanged();
 
 
@@ -576,7 +576,7 @@ public class FragmentVlSuppressed extends Fragment {
 
                         System.out.println("i am suppressed "+splitvalarray[0]);
                         counter += 1;
-                        mymesslist.add(new Mydata(messbdy,ndate,read));
+                        mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 
                     }
@@ -584,7 +584,7 @@ public class FragmentVlSuppressed extends Fragment {
 
                 }
 
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);

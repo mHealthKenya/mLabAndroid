@@ -16,6 +16,10 @@
 
     app:cardUseCompatPadding="true">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="50dp">
+
 
 
    <LinearLayout
@@ -68,7 +72,7 @@
            android:layout_height="match_parent">
 
            <TextView
-               android:layout_width="match_parent"
+               android:layout_width="wrap_content"
                android:id="@+id/msgdte"
                android:padding="1sp"
                android:text="Message date"
@@ -80,6 +84,17 @@
 
 
    </LinearLayout>
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/iv_check_box"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/check"/>
+
+    </RelativeLayout>
 
 
 </android.support.v7.widget.CardView>

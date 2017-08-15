@@ -151,7 +151,7 @@ public class FragmentVlInvalid extends Fragment {
 
                 }
 
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 
             }
@@ -391,7 +391,7 @@ public class FragmentVlInvalid extends Fragment {
 
                             }
 
-                            mymesslist.add(new Mydata(messbdy,ndate,read));
+                            mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 
 
@@ -545,7 +545,7 @@ public class FragmentVlInvalid extends Fragment {
                         ndate = formatter.format(calendar.getTime());
 
                     }
-                    mymesslist.add(new Mydata(messbdy,ndate,read));
+                    mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                     myadapter=new MessagesAdapter(getActivity(),mymesslist);

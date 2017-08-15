@@ -9,13 +9,24 @@ public class Mydata {
     private String msgbody;
     private String date;
     private String read;
+    private boolean isSelected;
 
-    public Mydata(String mbdy,String date,String read){
+    public Mydata(boolean isSelected,String mbdy,String date,String read){
 
         this.msgbody=mbdy;
         this.date=date;
         this.read=read;
+        this.isSelected=isSelected;
     }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
     public void setMsgbody(String msgbdy){
 
         this.msgbody=msgbdy;

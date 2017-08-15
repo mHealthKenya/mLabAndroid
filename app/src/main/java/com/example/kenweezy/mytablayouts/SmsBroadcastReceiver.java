@@ -77,7 +77,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
             try {
                 if(getAdd.contentEquals("40149")){
 
-                    Messages ms = new Messages(getAdd,smsMessageStr,mytimestamp,"unread","null");
+                    Messages ms = new Messages("false",getAdd,smsMessageStr,mytimestamp,"unread","null");
                     ms.save();
 
                     context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {"40149"});

@@ -803,7 +803,7 @@ public class Mylogin extends AppCompatActivity {
                 calendar.setTimeInMillis(mydate);
                 String mytimestamp=formatter.format(calendar.getTime());
 
-                Messages ms=new Messages(addr,str,mytimestamp,"unread","null");
+                Messages ms=new Messages("false",addr,str,mytimestamp,"unread","null");
                 ms.save();
 
             } while (smsInboxCursor.moveToNext());

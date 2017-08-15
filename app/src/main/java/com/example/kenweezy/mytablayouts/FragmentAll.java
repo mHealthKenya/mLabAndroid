@@ -86,6 +86,14 @@ public class FragmentAll extends Fragment{
             String messbdy=bdy.get(x).getmBody();
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
+            String mychk=bdy.get(x).getChkd();
+            boolean mychkB;
+            if(mychk.contentEquals("true")){
+                mychkB=true;
+            }
+            else{
+                mychkB=false;
+            }
 
             String[] checkSplitdate=ndate.split("/");
 
@@ -101,7 +109,7 @@ public class FragmentAll extends Fragment{
 
             }
 
-            mymesslist.add(new Mydata(messbdy,ndate,read));
+            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read));
 
 
         }
@@ -110,50 +118,6 @@ public class FragmentAll extends Fragment{
         myadapter=new MessagesAdapter(getActivity(),mymesslist);
         lv.setAdapter(myadapter);
 
-
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                try {
-//
-//                    String[] msgbdy=smsMessagesList.get(position).split("@");
-//                    String date=msgbdy[1];
-//                    String bdycont=msgbdy[0];
-////                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
-//
-//                    final String[] smsMessages = smsMessagesList.get(position).split("\n");
-//                    final String address = smsMessages[0];
-//
-//
-//
-//                    List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",bdycont);
-//                    for(int x=0;x<myl.size();x++){
-//
-//                        Messages ms=(Messages) myl.get(x);
-//                        ms.getId();
-//                        ms.setRead("read");
-////                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
-//                        ms.save();
-//                    }
-//
-//
-//                    List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages", null);
-//
-//                    for(int x=0;x<bdy.size();x++) {
-//                        String messbdy = bdy.get(x).getmBody();
-//                        String read=bdy.get(x).getRead();
-//                        System.out.println(messbdy+" /*** "+read);
-//                    }
-//
-//                }
-//                catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//
-//            }
-//        });
 
 
 
@@ -164,6 +128,7 @@ public class FragmentAll extends Fragment{
                 TextView tvread=(TextView) view.findViewById(R.id.mstitle);
                 tvread.setText("read");
                 boolean sending=false;
+                boolean txtChkd;
 
                 try{
 
@@ -226,6 +191,15 @@ public class FragmentAll extends Fragment{
                         String messbdy=bdy.get(x).getmBody();
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
+                        String chkds=bdy.get(x).getChkd();
+                        if(chkds.contentEquals("true")){
+
+                            txtChkd=true;
+                        }
+                        else{
+
+                            txtChkd=false;
+                        }
 
 
                         String[] checkSplitdate=ndate.split("/");
@@ -243,10 +217,51 @@ public class FragmentAll extends Fragment{
                         }
 
 
-                        mymesslist.add(new Mydata(messbdy,ndate,read));
+
+
+                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
+
+
+
 
 
                     }
+
+                    Mydata model = mymesslist.get(position);
+
+                    if (model.isSelected()) {
+
+                        model.setSelected(false);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+
+
+                                ms.getId();
+
+                                ms.setChkd("false");
+                                ms.save();
+
+                        }
+
+                    }
+                    else{
+
+                        model.setSelected(true);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+
+
+                            ms.getId();
+
+                            ms.setChkd("true");
+                            ms.save();
+
+                        }
+
+                    }
+                    mymesslist.set(position, model);
 
                     myadapter.notifyDataSetChanged();
 
@@ -354,6 +369,19 @@ public class FragmentAll extends Fragment{
 
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
+                String mychkd=bdy.get(x).getChkd();
+                boolean txtChkd;
+
+                if(mychkd.contentEquals("true")){
+
+                    txtChkd=true;
+                }
+                else{
+                    txtChkd=false;
+
+
+                }
+
 
                 String bdycont=messbdy+"@"+ndate;
 
@@ -373,7 +401,7 @@ public class FragmentAll extends Fragment{
                 }
 
 
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);

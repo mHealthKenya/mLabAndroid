@@ -12,18 +12,28 @@ public class Messages extends SugarRecord {
     public String mTimeStamp;
     public String read;
     public String dateRead;
+    public String chkd;
 
     public Messages(){
 
     }
 
-    public Messages(String mAddress,String mBody,String mTimeStamp,String Read,String dateRead){
+    public Messages(String chkd,String mAddress,String mBody,String mTimeStamp,String Read,String dateRead){
 
         this.mAddress=mAddress;
         this.mBody=mBody;
         this.mTimeStamp=mTimeStamp;
         this.read=Read;
         this.dateRead=dateRead;
+        this.chkd=chkd;
+    }
+
+    public String getChkd() {
+        return chkd;
+    }
+
+    public void setChkd(String chkd) {
+        this.chkd = chkd;
     }
 
     public String getmAddress(){

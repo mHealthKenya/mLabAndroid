@@ -59,6 +59,7 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
             TextView tvbdy = (TextView) v.findViewById(R.id.msgbdy);
             TextView tvdate = (TextView) v.findViewById(R.id.msgdte);
             ImageView imgv = (ImageView) v.findViewById(R.id.imgv);
+            ImageView imgchk = (ImageView) v.findViewById(R.id.iv_check_box);
 
             String mybdyString=mylist.get(position).getMsgbody();
 //            String[] splitBdy=mybdyString.split("Result",5);
@@ -147,6 +148,22 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
             }
 
+            Mydata model = mylist.get(position);
+
+
+            if (model.isSelected()){
+
+                imgchk.setBackgroundResource(R.drawable.checked);
+            }
+
+
+            else{
+
+                imgchk.setBackgroundResource(R.drawable.check);
+
+            }
+
+
         }
         catch(Exception e){
 
@@ -184,7 +201,7 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
                     if(filterList.get(i).getMsgbody().toUpperCase().contains(constraint)){
 
-                        Mydata md=new Mydata(filterList.get(i).getMsgbody(),filterList.get(i).getDate(),filterList.get(i).getRead());
+                        Mydata md=new Mydata(false,filterList.get(i).getMsgbody(),filterList.get(i).getDate(),filterList.get(i).getRead());
                         filters.add(md);
                     }
                 }

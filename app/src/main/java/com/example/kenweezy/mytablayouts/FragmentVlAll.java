@@ -156,7 +156,7 @@ public class FragmentVlAll extends Fragment {
 
             }
 
-            mymesslist.add(new Mydata(messbdy,ndate,read));
+            mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 
         }
@@ -300,7 +300,7 @@ public class FragmentVlAll extends Fragment {
 
                         }
 
-                        mymesslist.add(new Mydata(messbdy,ndate,read));
+                        mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 
                     }
@@ -455,7 +455,7 @@ public class FragmentVlAll extends Fragment {
                 }
 
                 String bdycont=messbdy+"@"+ndate;
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);

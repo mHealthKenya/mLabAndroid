@@ -96,7 +96,7 @@ public class FragmentEidNegative extends Fragment {
 
             }
 
-            mymesslist.add(new Mydata(messbdy,ndate,read));
+            mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 
         }
@@ -331,7 +331,7 @@ public class FragmentEidNegative extends Fragment {
 
                     }
 
-                    mymesslist.add(new Mydata(messbdy,ndate,read));
+                    mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 
                 }
@@ -617,7 +617,7 @@ public class FragmentEidNegative extends Fragment {
 
                 }
 
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);

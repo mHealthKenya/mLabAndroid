@@ -148,7 +148,7 @@ public class FragmentEidInvalid extends Fragment {
 
             if(messbdy.contains("Collect new sample") || messbdy.contains("Invalid")){
                 counter += 1;
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
             }
 
@@ -389,7 +389,7 @@ public class FragmentEidInvalid extends Fragment {
 
                         if(messbdy.contains("Collect new sample") || messbdy.contains("Invalid")){
                             counter += 1;
-                            mymesslist.add(new Mydata(messbdy,ndate,read));
+                            mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
                         }
 
@@ -541,7 +541,7 @@ public class FragmentEidInvalid extends Fragment {
 
                 if(messbdy.contains("Collect new sample") || messbdy.contains("Invalid")){
                     counter += 1;
-                    mymesslist.add(new Mydata(messbdy,ndate,read));
+                    mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
                 }
 

@@ -172,7 +172,7 @@ public class FragmentVlUnsuppressed extends Fragment {
                         if(myval>1000){
                             System.out.println("i am unsuppressed with a value "+myval);
                             counter += 1;
-                            mymesslist.add(new Mydata(messbdy,ndate,read));
+                            mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
                         }
                         else{
@@ -462,7 +462,7 @@ public class FragmentVlUnsuppressed extends Fragment {
                                 if(myval>1000){
                                     System.out.println("i am unsuppressed with a value "+myval);
                                     counter += 1;
-                                    mymesslist.add(new Mydata(messbdy,ndate,read));
+                                    mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
                                 }
                                 else{
@@ -616,7 +616,7 @@ public class FragmentVlUnsuppressed extends Fragment {
                 String read=bdy.get(x).getRead();
 
                 String bdycont=messbdy+"@"+ndate;
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);
@@ -683,7 +683,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                         System.out.println("i am unsuppressed "+splitvalarray[0]);
                         counter += 1;
-                        mymesslist.add(new Mydata(messbdy,ndate,read));
+                        mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 
                     }
@@ -691,7 +691,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                 }
 
-                mymesslist.add(new Mydata(messbdy,ndate,read));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);
