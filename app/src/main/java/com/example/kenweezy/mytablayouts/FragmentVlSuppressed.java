@@ -138,6 +138,17 @@ public class FragmentVlSuppressed extends Fragment {
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
+
+
+                String mychk=bdy.get(x).getChkd();
+                boolean mychkB;
+                if(mychk.contentEquals("true")){
+                    mychkB=true;
+                }
+                else{
+                    mychkB=false;
+                }
+
                 String mytimestamp=null;
 
                 if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
@@ -172,7 +183,7 @@ public class FragmentVlSuppressed extends Fragment {
                     if (splitvalarray[0].contains("<")) {
                         System.out.println("i am suppressed " + splitvalarray[0]);
                         counter += 1;
-                        mymesslist.add(new Mydata(false,messbdy, ndate, read));
+                        mymesslist.add(new Mydata(mychkB,messbdy, ndate, read));
 
 
                     } else {
@@ -186,7 +197,7 @@ public class FragmentVlSuppressed extends Fragment {
                             counter += 1;
 
 
-                            mymesslist.add(new Mydata(false,messbdy, ndate, read));
+                            mymesslist.add(new Mydata(mychkB,messbdy, ndate, read));
 
 
                         }
@@ -247,6 +258,7 @@ public class FragmentVlSuppressed extends Fragment {
                 TextView tvread=(TextView) view.findViewById(R.id.mstitle);
                 tvread.setText("read");
                 boolean sending=false;
+                boolean txtChkd;
 
                 try{
 
@@ -318,6 +330,19 @@ public class FragmentVlSuppressed extends Fragment {
                         String messbdy=bdy.get(x).getmBody();
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
+
+
+                        String chkds=bdy.get(x).getChkd();
+                        if(chkds.contentEquals("true")){
+
+                            txtChkd=true;
+                        }
+                        else{
+
+                            txtChkd=false;
+                        }
+
+
                         String[] checkSplitdate=ndate.split("/");
 
                         if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
@@ -363,7 +388,10 @@ public class FragmentVlSuppressed extends Fragment {
 
                                 System.out.println("i am suppressed " + splitvalarray[0]);
                                 counter += 1;
-                                mymesslist.add(new Mydata(false,messbdy, ndate, read));
+                                mymesslist.add(new Mydata(txtChkd,messbdy, ndate, read));
+
+
+
                                 myadapter.notifyDataSetChanged();
 
 
@@ -402,6 +430,45 @@ public class FragmentVlSuppressed extends Fragment {
 
 
                     }
+
+
+
+
+                    Mydata model = mymesslist.get(position);
+
+                    if (model.isSelected()) {
+
+                        model.setSelected(false);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+
+
+                            ms.getId();
+
+                            ms.setChkd("false");
+                            ms.save();
+
+                        }
+
+                    }
+                    else{
+
+                        model.setSelected(true);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+
+
+                            ms.getId();
+
+                            ms.setChkd("true");
+                            ms.save();
+
+                        }
+
+                    }
+                    mymesslist.set(position, model);
 
                     myadapter.notifyDataSetChanged();
 
@@ -531,6 +598,21 @@ public class FragmentVlSuppressed extends Fragment {
 
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
+
+                String mychkd=bdy.get(x).getChkd();
+                boolean txtChkd;
+
+                if(mychkd.contentEquals("true")){
+
+                    txtChkd=true;
+                }
+                else{
+                    txtChkd=false;
+
+
+                }
+
+
                 String[] checkSplitdate=ndate.split("/");
 
 //                String bdycont=messbdy+"@"+ndate;
@@ -576,7 +658,7 @@ public class FragmentVlSuppressed extends Fragment {
 
                         System.out.println("i am suppressed "+splitvalarray[0]);
                         counter += 1;
-                        mymesslist.add(new Mydata(false,messbdy,ndate,read));
+                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
 
 
                     }
@@ -584,7 +666,7 @@ public class FragmentVlSuppressed extends Fragment {
 
                 }
 
-                mymesslist.add(new Mydata(false,messbdy,ndate,read));
+                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);

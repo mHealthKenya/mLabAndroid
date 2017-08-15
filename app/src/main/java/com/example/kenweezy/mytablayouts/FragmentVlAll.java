@@ -142,6 +142,15 @@ public class FragmentVlAll extends Fragment {
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
 
+            String mychk=bdy.get(x).getChkd();
+            boolean mychkB;
+            if(mychk.contentEquals("true")){
+                mychkB=true;
+            }
+            else{
+                mychkB=false;
+            }
+
             String[] checkSplitdate=ndate.split("/");
 
 
@@ -156,7 +165,7 @@ public class FragmentVlAll extends Fragment {
 
             }
 
-            mymesslist.add(new Mydata(false,messbdy,ndate,read));
+            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read));
 
 
         }
@@ -243,6 +252,7 @@ public class FragmentVlAll extends Fragment {
 
                 TextView tvread=(TextView) view.findViewById(R.id.mstitle);
                 tvread.setText("read");
+                boolean txtChkd;
 
                 try{
 
@@ -286,6 +296,16 @@ public class FragmentVlAll extends Fragment {
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
 
+                        String chkds=bdy.get(x).getChkd();
+                        if(chkds.contentEquals("true")){
+
+                            txtChkd=true;
+                        }
+                        else{
+
+                            txtChkd=false;
+                        }
+
                         String[] checkSplitdate=ndate.split("/");
 
 
@@ -300,10 +320,47 @@ public class FragmentVlAll extends Fragment {
 
                         }
 
-                        mymesslist.add(new Mydata(false,messbdy,ndate,read));
+                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
 
 
                     }
+
+
+                    Mydata model = mymesslist.get(position);
+
+                    if (model.isSelected()) {
+
+                        model.setSelected(false);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+
+
+                            ms.getId();
+
+                            ms.setChkd("false");
+                            ms.save();
+
+                        }
+
+                    }
+                    else{
+
+                        model.setSelected(true);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+
+
+                            ms.getId();
+
+                            ms.setChkd("true");
+                            ms.save();
+
+                        }
+
+                    }
+                    mymesslist.set(position, model);
 
                     myadapter.notifyDataSetChanged();
 
@@ -440,6 +497,19 @@ public class FragmentVlAll extends Fragment {
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
 
+                String mychkd=bdy.get(x).getChkd();
+                boolean txtChkd;
+
+                if(mychkd.contentEquals("true")){
+
+                    txtChkd=true;
+                }
+                else{
+                    txtChkd=false;
+
+
+                }
+
                 String[] checkSplitdate=ndate.split("/");
 
 
@@ -455,7 +525,7 @@ public class FragmentVlAll extends Fragment {
                 }
 
                 String bdycont=messbdy+"@"+ndate;
-                mymesslist.add(new Mydata(false,messbdy,ndate,read));
+                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);
