@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -133,6 +134,7 @@ public class FragmentEidAll extends Fragment {
 //            }
 //        };
 
+        Collections.sort(mymesslist,Mydata.VlcountComparator);
         myadapter=new MessagesAdapter(getActivity(),mymesslist);
         lv.setAdapter(myadapter);
 
@@ -258,6 +260,8 @@ public class FragmentEidAll extends Fragment {
 
 
                     }
+
+                    Collections.sort(mymesslist,Mydata.VlcountComparator);
 
                     Mydata model = mymesslist.get(position);
 
@@ -512,7 +516,7 @@ public class FragmentEidAll extends Fragment {
                 mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
 
 //                myadapter.add(bdycont);
-                myadapter=new MessagesAdapter(getActivity(),mymesslist);
+
 
 
             }
@@ -529,6 +533,8 @@ public class FragmentEidAll extends Fragment {
         try {
 //            myadapter.insert(smsMessage, 0);
             refreshSmsInbox();
+            Collections.sort(mymesslist,Mydata.VlcountComparator);
+            myadapter=new MessagesAdapter(getActivity(),mymesslist);
             myadapter.notifyDataSetChanged();
         }
         catch(Exception e){
