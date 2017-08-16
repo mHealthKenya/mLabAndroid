@@ -77,7 +77,11 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
             try {
                 if(getAdd.contentEquals("40149")){
 
-                    Messages ms = new Messages("false",getAdd,smsMessageStr,mytimestamp,"unread","null");
+
+                    GetViralCounts gvc=new GetViralCounts();
+                    String vcounts=Integer.toString(gvc.getViralCount(smsMessageStr));
+
+                    Messages ms = new Messages("false",getAdd,smsMessageStr,mytimestamp,"unread","null",vcounts);
                     ms.save();
 
                     context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {"40149"});
@@ -131,6 +135,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
     }
+
+
 
 
 }

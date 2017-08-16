@@ -87,6 +87,8 @@ public class FragmentAll extends Fragment{
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
             String mychk=bdy.get(x).getChkd();
+            String mvcnt=bdy.get(x).getViralCount();
+            int vcount=Integer.parseInt(mvcnt);
             boolean mychkB;
             if(mychk.contentEquals("true")){
                 mychkB=true;
@@ -109,7 +111,7 @@ public class FragmentAll extends Fragment{
 
             }
 
-            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read));
+            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
 
 
         }
@@ -192,6 +194,8 @@ public class FragmentAll extends Fragment{
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
                         String chkds=bdy.get(x).getChkd();
+                        String mvcnt=bdy.get(x).getViralCount();
+                        int vcount=Integer.parseInt(mvcnt);
                         if(chkds.contentEquals("true")){
 
                             txtChkd=true;
@@ -219,7 +223,7 @@ public class FragmentAll extends Fragment{
 
 
 
-                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
+                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
 
 
 
@@ -370,6 +374,9 @@ public class FragmentAll extends Fragment{
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
                 String mychkd=bdy.get(x).getChkd();
+
+                String mvcnt=bdy.get(x).getViralCount();
+                int vcount=Integer.parseInt(mvcnt);
                 boolean txtChkd;
 
                 if(mychkd.contentEquals("true")){
@@ -401,7 +408,7 @@ public class FragmentAll extends Fragment{
                 }
 
 
-                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
+                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);

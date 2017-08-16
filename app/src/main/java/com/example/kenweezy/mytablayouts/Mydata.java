@@ -10,13 +10,23 @@ public class Mydata {
     private String date;
     private String read;
     private boolean isSelected;
+    private int vcount;
 
-    public Mydata(boolean isSelected,String mbdy,String date,String read){
+    public Mydata(boolean isSelected,String mbdy,String date,String read,int vcount){
 
         this.msgbody=mbdy;
         this.date=date;
         this.read=read;
         this.isSelected=isSelected;
+        this.vcount=vcount;
+    }
+
+    public int getVcount() {
+        return vcount;
+    }
+
+    public void setVcount(int vcount) {
+        this.vcount = vcount;
     }
 
     public boolean isSelected() {

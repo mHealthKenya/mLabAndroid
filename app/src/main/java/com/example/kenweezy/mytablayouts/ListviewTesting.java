@@ -42,7 +42,10 @@ public class ListviewTesting extends AppCompatActivity {
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
 
-            mymesslist.add(new Mydata(false,messbdy,ndate,read));
+            String mvcnt=bdy.get(x).getViralCount();
+            int vcount=Integer.parseInt(mvcnt);
+
+            mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount));
 
 
         }
@@ -92,7 +95,10 @@ public class ListviewTesting extends AppCompatActivity {
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
 
-                        mymesslist.add(new Mydata(false,messbdy,ndate,read));
+                        String mvcnt=bdy.get(x).getViralCount();
+                        int vcount=Integer.parseInt(mvcnt);
+
+                        mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount));
 
 
                     }
@@ -131,7 +137,10 @@ public class ListviewTesting extends AppCompatActivity {
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
 
-                mymesslist.add(new Mydata(false,messbdy,ndate,read));
+                String mvcnt=bdy.get(x).getViralCount();
+                int vcount=Integer.parseInt(mvcnt);
+
+                mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount));
                 System.out.println(messbdy+" /***/ "+read);
 
 

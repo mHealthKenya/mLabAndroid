@@ -2,6 +2,7 @@ package com.example.kenweezy.mytablayouts;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -56,12 +57,15 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
             String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
             TextView tvtitle = (TextView) v.findViewById(R.id.mstitle);
+            TextView tvmycount = (TextView) v.findViewById(R.id.msvcount);
             TextView tvbdy = (TextView) v.findViewById(R.id.msgbdy);
             TextView tvdate = (TextView) v.findViewById(R.id.msgdte);
             ImageView imgv = (ImageView) v.findViewById(R.id.imgv);
             ImageView imgchk = (ImageView) v.findViewById(R.id.iv_check_box);
+            CardView cview=(CardView) v.findViewById(R.id.ly_root);
 
             String mybdyString=mylist.get(position).getMsgbody();
+            int thecount=mylist.get(position).getVcount();
 //            String[] splitBdy=mybdyString.split("Result",5);
             String subBodyString="";
 
@@ -148,6 +152,14 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
             }
 
+            if(thecount>1000){
+
+//                tvbdy.setTextColor(Color.parseColor("#ff0000"));
+                cview.setCardBackgroundColor(Color.parseColor("#ff0000"));
+
+
+            }
+
             Mydata model = mylist.get(position);
 
 
@@ -201,7 +213,10 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
                     if(filterList.get(i).getMsgbody().toUpperCase().contains(constraint)){
 
-                        Mydata md=new Mydata(false,filterList.get(i).getMsgbody(),filterList.get(i).getDate(),filterList.get(i).getRead());
+
+                        int vcount=filterList.get(i).getVcount();
+
+                        Mydata md=new Mydata(false,filterList.get(i).getMsgbody(),filterList.get(i).getDate(),filterList.get(i).getRead(),vcount);
                         filters.add(md);
                     }
                 }

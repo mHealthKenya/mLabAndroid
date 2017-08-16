@@ -13,12 +13,13 @@ public class Messages extends SugarRecord {
     public String read;
     public String dateRead;
     public String chkd;
+    public String viralCount;
 
     public Messages(){
 
     }
 
-    public Messages(String chkd,String mAddress,String mBody,String mTimeStamp,String Read,String dateRead){
+    public Messages(String chkd,String mAddress,String mBody,String mTimeStamp,String Read,String dateRead,String vcount){
 
         this.mAddress=mAddress;
         this.mBody=mBody;
@@ -26,6 +27,15 @@ public class Messages extends SugarRecord {
         this.read=Read;
         this.dateRead=dateRead;
         this.chkd=chkd;
+        this.viralCount=vcount;
+    }
+
+    public String getViralCount() {
+        return viralCount;
+    }
+
+    public void setViralCount(String viralCount) {
+        this.viralCount = viralCount;
     }
 
     public String getChkd() {

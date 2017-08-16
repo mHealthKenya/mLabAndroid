@@ -802,8 +802,10 @@ public class Mylogin extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(mydate);
                 String mytimestamp=formatter.format(calendar.getTime());
+                GetViralCounts gvc=new GetViralCounts();
+                String vcounts=Integer.toString(gvc.getViralCount(str));
 
-                Messages ms=new Messages("false",addr,str,mytimestamp,"unread","null");
+                Messages ms=new Messages("false",addr,str,mytimestamp,"unread","null",vcounts);
                 ms.save();
 
             } while (smsInboxCursor.moveToNext());

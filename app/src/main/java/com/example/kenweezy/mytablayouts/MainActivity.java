@@ -371,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
         getDefaultSettings();
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        displayDbVcounts();
 
     }
 
@@ -1397,7 +1398,10 @@ return value;
                 calendar.setTimeInMillis(mydate);
                 String mytimestamp=formatter.format(calendar.getTime());
 
-                Messages ms=new Messages("false",addr,str,mytimestamp,"unread","null");
+                GetViralCounts gvc=new GetViralCounts();
+                String vcounts=Integer.toString(gvc.getViralCount(str));
+
+                Messages ms=new Messages("false",addr,str,mytimestamp,"unread","null",vcounts);
                 ms.save();
 
             } while (smsInboxCursor.moveToNext());
@@ -1409,6 +1413,8 @@ return value;
 
 
     }
+
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -1868,6 +1874,35 @@ return value;
         bn.setTextColor(Color.BLUE);
         bP.setTextColor(Color.RED);
 
+    }
+
+
+    public void displayDbVcounts(){
+
+        try{
+            System.out.println("viral count***************************************************************************viral count");
+
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+            for(int x=0;x<bdy.size();x++){
+                String messbdy=bdy.get(x).getmBody();
+                String count=bdy.get(x).getViralCount();
+
+                System.out.println(messbdy+"**count****"+count);
+
+
+
+            }
+
+
+            System.out.println("viral count***************************************************************************viral count");
+
+
+        }
+
+        catch(Exception e){
+
+
+        }
     }
 
 }

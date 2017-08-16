@@ -136,6 +136,10 @@ public class FragmentVlUnsuppressed extends Fragment {
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
                 String mychk=bdy.get(x).getChkd();
+
+                String mvcnt=bdy.get(x).getViralCount();
+                int vcount=Integer.parseInt(mvcnt);
+
                 boolean mychkB;
                 if(mychk.contentEquals("true")){
                     mychkB=true;
@@ -180,7 +184,7 @@ public class FragmentVlUnsuppressed extends Fragment {
                         if(myval>1000){
                             System.out.println("i am unsuppressed with a value "+myval);
                             counter += 1;
-                            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read));
+                            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
 
                         }
                         else{
@@ -435,6 +439,9 @@ public class FragmentVlUnsuppressed extends Fragment {
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
 
+                        String mvcnt=bdy.get(x).getViralCount();
+                        int vcount=Integer.parseInt(mvcnt);
+
                         String chkds=bdy.get(x).getChkd();
                         if(chkds.contentEquals("true")){
 
@@ -481,7 +488,7 @@ public class FragmentVlUnsuppressed extends Fragment {
                                 if(myval>1000){
                                     System.out.println("i am unsuppressed with a value "+myval);
                                     counter += 1;
-                                    mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
+                                    mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
 
                                 }
                                 else{
@@ -671,8 +678,11 @@ public class FragmentVlUnsuppressed extends Fragment {
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
 
+                String mvcnt=bdy.get(x).getViralCount();
+                int vcount=Integer.parseInt(mvcnt);
+
                 String bdycont=messbdy+"@"+ndate;
-                mymesslist.add(new Mydata(false,messbdy,ndate,read));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);
@@ -707,6 +717,9 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
+
+                String mvcnt=bdy.get(x).getViralCount();
+                int vcount=Integer.parseInt(mvcnt);
 
                 String mychkd=bdy.get(x).getChkd();
                 boolean txtChkd;
@@ -753,7 +766,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                         System.out.println("i am unsuppressed "+splitvalarray[0]);
                         counter += 1;
-                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
+                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
 
 
                     }
@@ -761,7 +774,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                 }
 
-                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read));
+                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
 
 //                myadapter.add(bdycont);
                 myadapter=new MessagesAdapter(getActivity(),mymesslist);
