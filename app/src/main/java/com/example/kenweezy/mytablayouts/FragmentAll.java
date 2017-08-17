@@ -1,5 +1,6 @@
 package com.example.kenweezy.mytablayouts;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +15,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +35,18 @@ import java.util.List;
  * Created by KENWEEZY on 2017-01-12.
  */
 
-public class FragmentAll extends Fragment{
+public class FragmentAll extends Fragment  implements AdapterView.OnItemSelectedListener{
 
+    EditText date,frmweek,toweek;
+    LinearLayout weekl,dayl;
+    View v;
+
+    DatePickerDialog datePickerDialog;
+
+    String[] otpions = {"please select an Option","filter by date","Filter by week"};
+    SpinnerAdapter optionsAdapter;
+    String optionsSelected;
+    Spinner filterspinner;
 
     public FragmentAll(){
 
@@ -70,8 +85,13 @@ public class FragmentAll extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragmentallall, container, false);
+        v=inflater.inflate(R.layout.fragmentallall, container, false);
         lv=(ListView) v.findViewById(R.id.lvallall);
+
+        initialise();
+        dateListener();
+        populateFilterSpinner();
+        setSpinnerListeners();
 
         mymesslist=new ArrayList<>();
         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
@@ -293,6 +313,95 @@ public class FragmentAll extends Fragment{
     }
 
 
+    public void initialise(){
+        try{
+
+            date=(EditText) v.findViewById(R.id.filter_date);
+            frmweek=(EditText) v.findViewById(R.id.filter_frmweek);
+            toweek=(EditText) v.findViewById(R.id.filter_toweek);
+            filterspinner=(Spinner) v.findViewById(R.id.filter_spinner);
+            weekl=(LinearLayout) v.findViewById(R.id.weeklinear);
+            dayl=(LinearLayout) v.findViewById(R.id.datelinear);
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+    public void setSpinnerListeners(){
+
+        try{
+
+
+
+            filterspinner.setOnItemSelectedListener(this);
+
+
+
+
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    public void populateFilterSpinner() {
+
+
+        try {
+
+            optionsAdapter = new SpinnerAdapter(getActivity(), otpions);
+
+            filterspinner.setAdapter(optionsAdapter);
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+    public void dateListener(){
+
+        try{
+
+            date.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // calender class's instance and get current date , month and year from calender
+                    final Calendar c = Calendar.getInstance();
+                    int mYear = c.get(Calendar.YEAR); // current year
+                    int mMonth = c.get(Calendar.MONTH); // current month
+                    int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                    // date picker dialog
+                    datePickerDialog = new DatePickerDialog(getActivity(),
+                            new DatePickerDialog.OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    // set day of month , month and year value in the edit text
+                                    date.setText(dayOfMonth + "/"
+                                            + (monthOfYear + 1) + "/" + year);
+
+                                }
+                            }, mYear, mMonth, mDay);
+                    datePickerDialog.show();
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
     public void MydialogBuilder(final String message,final String date){
 
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
@@ -438,5 +547,52 @@ public class FragmentAll extends Fragment{
         catch(Exception e){
 
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+        switch(parent.getId()){
+
+            case R.id.filter_spinner:
+
+                optionsSelected=optionsAdapter.getItem(filterspinner.getSelectedItemPosition()).toString();
+
+                try{
+                    if(optionsSelected.contentEquals("please select an Option")){
+                        dayl.setVisibility(View.GONE);
+                        weekl.setVisibility(View.GONE);
+
+
+                    }
+                    else if(optionsSelected.contentEquals("filter by date")){
+                        weekl.setVisibility(View.GONE);
+                        dayl.setVisibility(View.VISIBLE);
+
+
+                    }
+                   else{
+
+                        dayl.setVisibility(View.GONE);
+                        weekl.setVisibility(View.VISIBLE);
+
+
+
+                    }
+                }
+                catch(Exception e){
+
+
+                }
+                break;
+
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
