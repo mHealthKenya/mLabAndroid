@@ -37,9 +37,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="70dp"
             android:gravity="center_horizontal"
-            android:text="register"
+            android:text="Register Client"
             android:textColor="#fff"
             android:textSize="26sp"
             android:textStyle="bold" />
@@ -93,7 +93,7 @@
                         android:singleLine="true"
 
                         android:drawableTint="#FF4081"
-                        android:hint="first name"
+                        android:hint="First Name"
                         android:id="@+id/fname"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
@@ -109,7 +109,7 @@
                         android:singleLine="true"
 
                         android:drawableTint="#FF4081"
-                        android:hint="last name"
+                        android:hint="Last Name"
                         android:id="@+id/lname"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
@@ -125,7 +125,7 @@
                         android:singleLine="true"
 
                         android:drawableTint="#FF4081"
-                        android:hint="phone number"
+                        android:hint="Phone number"
                         android:id="@+id/pno"
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="22dp"
                     android:background="#d67601"
-                    android:text="Add Client"
+                    android:text="Client Registration"
                     android:onClick="registerCheck"
                     android:textAllCaps="false"
                     android:textColor="#fff"

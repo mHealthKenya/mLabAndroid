@@ -38,6 +38,8 @@ public class FragmentEidPositive extends Fragment {
     ArrayAdapter arrayAdapter;
     int counter=0;
     String smsMessage = "";
+
+    Myshortcodes msc=new Myshortcodes();
     public static FragmentEidPositive instance() {
         return (new FragmentEidPositive());
     }
@@ -359,7 +361,7 @@ public class FragmentEidPositive extends Fragment {
                                 else{
                                     String sendMessage=msgbdy+"*"+mytime;
                                     SmsManager sm = SmsManager.getDefault();
-                                    sm.sendTextMessage("40148", null,sendMessage, null, null);
+                                    sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
 
                                 }
                             }

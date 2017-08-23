@@ -124,6 +124,19 @@
                 android:background="@drawable/button"
                 android:text="Add Client"/>
 
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:onClick="sampleLogin"
+                android:textColor="#b666d2"
+                android:textAllCaps="false"
+                android:background="@drawable/button"
+                android:text="Sample Remote Login"/>
+
             <!--<Button-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->

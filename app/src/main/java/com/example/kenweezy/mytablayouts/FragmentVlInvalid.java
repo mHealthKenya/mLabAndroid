@@ -35,6 +35,7 @@ public class FragmentVlInvalid extends Fragment {
     ArrayList<String> smsMessagesList = new ArrayList<String>();
     ListView smsListView;
     ArrayAdapter arrayAdapter;
+    Myshortcodes msc=new Myshortcodes();
     int counter=0;
     String smsMessage = "";
     public static FragmentVlInvalid instance() {
@@ -367,7 +368,7 @@ public class FragmentVlInvalid extends Fragment {
 
                         String sendMessage=msgbdy+"*"+mytime;
                         SmsManager sm = SmsManager.getDefault();
-                        sm.sendTextMessage("40148", null,sendMessage, null, null);
+                        sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
 
                     }
 

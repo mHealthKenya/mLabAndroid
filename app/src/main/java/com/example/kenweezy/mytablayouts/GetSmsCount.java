@@ -12,6 +12,8 @@ import android.net.Uri;
 public class GetSmsCount {
     Activity myAct;
 
+    Myshortcodes msc=new Myshortcodes();
+
 public GetSmsCount(Activity myact){
     myAct=myact;
 
@@ -22,7 +24,7 @@ public GetSmsCount(Activity myact){
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -57,7 +59,7 @@ return counter;
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -91,7 +93,7 @@ return counter;
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='?'", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -123,7 +125,7 @@ return counter;
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -157,7 +159,7 @@ return counter;
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -192,7 +194,7 @@ return counter;
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -228,7 +230,7 @@ return counter;
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -262,7 +264,7 @@ return counter;
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -296,7 +298,7 @@ return counter;
         int counter=0;
         try {
             ContentResolver contentResolver = myAct.getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 
@@ -305,7 +307,7 @@ return counter;
 
             do {
                 String str = smsInboxCursor.getString(indexBody);
-                String mystrbdy = smsInboxCursor.getString(indexBody);
+                 String mystrbdy = smsInboxCursor.getString(indexBody);
                 String stw = new String(mystrbdy);
                 String msgaddr = smsInboxCursor.getString(indexAddress);
 

@@ -2,6 +2,7 @@ package com.example.kenweezy.mytablayouts;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
     private List<Mydata> mylist;
     CustomFilter filter;
     private List<Mydata> filterList;
+    boolean chkd;
 
 
    public MessagesAdapter(Context cont,List<Mydata> mlist){
@@ -155,7 +157,10 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
             if(thecount>1000){
 
 //                tvbdy.setTextColor(Color.parseColor("#ff0000"));
-                cview.setCardBackgroundColor(Color.parseColor("#ff0000"));
+                cview.setCardBackgroundColor(Color.parseColor("#A9A9A9"));
+                tvbdy.setTextColor(Color.parseColor("#000000"));
+                tvbdy.setTypeface(tvbdy.getTypeface(), Typeface.BOLD);
+
 
 
             }
@@ -215,8 +220,9 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
 
                         int vcount=filterList.get(i).getVcount();
+                        chkd=filterList.get(i).isSelected();
 
-                        Mydata md=new Mydata(false,filterList.get(i).getMsgbody(),filterList.get(i).getDate(),filterList.get(i).getRead(),vcount);
+                        Mydata md=new Mydata(chkd,filterList.get(i).getMsgbody(),filterList.get(i).getDate(),filterList.get(i).getRead(),vcount);
                         filters.add(md);
                     }
                 }

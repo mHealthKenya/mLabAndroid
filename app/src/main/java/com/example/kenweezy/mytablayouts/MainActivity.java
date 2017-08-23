@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Toolbar toolbar;
 
+    Myshortcodes msc=new Myshortcodes();
+
     private MenuItem mSearchAction;
     private boolean isSearchOpened = false;
     private EditText edtSeach;
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
+       System.out.println("*********the shortcode is********"+msc.mainShortcode);
 
         //  Toast.makeText(this, "oncreate method called", Toast.LENGTH_SHORT).show();
 
@@ -310,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                         freport = (ReportsFragment) newadapt.getFragment(index);
                         bottomNavigation.setNotification("", 0);
                         bottomNavigation.setNotification("", 1);
-                        bottomNavigation.setNotification("", 2);
+//                        bottomNavigation.setNotification("", 2);
                         falls = false;
                         feids = false;
                         fvls = false;
@@ -333,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                         freportvl = (ReportsFragmentVL) newadapt.getFragment(index);
                         bottomNavigation.setNotification("", 0);
                         bottomNavigation.setNotification("", 1);
-                        bottomNavigation.setNotification("", 2);
+//                        bottomNavigation.setNotification("", 2);
                         falls = false;
                         feids = false;
                         fvls = false;
@@ -441,11 +443,11 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigationItem vlInvalid = new AHBottomNavigationItem("Invalid", R.mipmap.reorder, R.color.colorPrimary);
 
         AHBottomNavigationItem rmonthly = new AHBottomNavigationItem("Monthly", R.mipmap.reorder, R.color.colorPrimary);
-        AHBottomNavigationItem rweekly = new AHBottomNavigationItem("Weekly", R.mipmap.reorder, R.color.colorAccent);
+//        AHBottomNavigationItem rweekly = new AHBottomNavigationItem("Weekly", R.mipmap.reorder, R.color.colorAccent);
         AHBottomNavigationItem ryearly = new AHBottomNavigationItem("Yearly", R.mipmap.reorder, R.color.colorPrimary);
 
         AHBottomNavigationItem rvlmonthly = new AHBottomNavigationItem("Monthly VL", R.mipmap.reorder, R.color.colorPrimary);
-        AHBottomNavigationItem rvlweekly = new AHBottomNavigationItem("Weekly VL", R.mipmap.reorder, R.color.colorAccent);
+//        AHBottomNavigationItem rvlweekly = new AHBottomNavigationItem("Weekly VL", R.mipmap.reorder, R.color.colorAccent);
         AHBottomNavigationItem rvlyearly = new AHBottomNavigationItem("Yearly VL", R.mipmap.reorder, R.color.colorPrimary);
 
 // Add items
@@ -480,7 +482,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (reportseidselected) {
 
             bottomNavigation.removeAllItems();
-            bottomNavigation.addItem(rweekly);
+//            bottomNavigation.addItem(rweekly);
             bottomNavigation.addItem(rmonthly);
             bottomNavigation.addItem(ryearly);
 
@@ -494,7 +496,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (reportsvlselected) {
 
             bottomNavigation.removeAllItems();
-            bottomNavigation.addItem(rvlweekly);
+//            bottomNavigation.addItem(rvlweekly);
             bottomNavigation.addItem(rvlmonthly);
             bottomNavigation.addItem(rvlyearly);
 
@@ -553,19 +555,23 @@ public class MainActivity extends AppCompatActivity {
 //
                             myfvl.replaceContent(new FragmentVlSuppressed());
 //
-                        } else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Weekly") {
+                        }
+
+                        else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Monthly") {
 
 
 //
-                            freport.replaceContent(new FragmentReportsEidWeekly());
+                            freport.replaceContent(new FragmentReportsEidMonthly());
 //
-                        } else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Weekly VL") {
+                        } else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Monthly VL") {
 
 
 //
-                            freportvl.replaceContent(new FragmentReportsWeekly());
+                            freportvl.replaceContent(new FragmentReportsMonthly());
 //
-                        } else {
+                        }
+
+                        else {
 
                             myfeid.replaceContent(new FragmentEidNegative());
 
@@ -581,19 +587,24 @@ public class MainActivity extends AppCompatActivity {
 
                             myfvl.replaceContent(new FragmentVlUnsuppressed());
 //
-                        } else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Monthly") {
+                        }
+
+
+                        else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Yearly") {
 
 
 //
-                            freport.replaceContent(new FragmentReportsEidMonthly());
+                            freport.replaceContent(new FragmentReportsEidYearly());
 //
-                        } else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Monthly VL") {
+                        } else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Yearly VL") {
 
 
 //
-                            freportvl.replaceContent(new FragmentReportsMonthly());
+                            freportvl.replaceContent(new FragmentReportsYearly());
 //
-                        } else {
+                        }
+
+                        else {
                             myfeid.replaceContent(new FragmentEidPositive());
                             feidpositiveselected = true;
                             feidnegselected = false;
@@ -609,19 +620,7 @@ public class MainActivity extends AppCompatActivity {
                         if (bottomNavigation.getItem(2).getTitle(getApplicationContext()).toString() == "Invalid") {
                             myfvl.replaceContent(new FragmentVlInvalid());
 //
-                        } else if (bottomNavigation.getItem(2).getTitle(getApplicationContext()).toString() == "Yearly") {
-
-
-//
-                            freport.replaceContent(new FragmentReportsEidYearly());
-//
-                        } else if (bottomNavigation.getItem(2).getTitle(getApplicationContext()).toString() == "Yearly VL") {
-
-
-//
-                            freportvl.replaceContent(new FragmentReportsYearly());
-//
-                        } else {
+                        }  else {
 
                             myfeid.replaceContent(new FragmentEidInvalid());
                             feidnegselected = false;
@@ -830,7 +829,7 @@ public class MainActivity extends AppCompatActivity {
             long mytimelong = Long.parseLong(mytime);
             long diff = now - mytimelong;
 
-            if ((diff / 1000) > 60) {
+            if ((diff / 1000) > 180) {
 //                Toast.makeText(this, "logging out", Toast.LENGTH_SHORT).show();
 
 
@@ -1377,7 +1376,7 @@ return value;
     public void refreshSmsInboxTest() {
         try {
             ContentResolver contentResolver = getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40149'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
             int indexDate = smsInboxCursor.getColumnIndex("date");
@@ -1698,7 +1697,7 @@ return value;
 
                 Intent smsIntent = new Intent(Intent.ACTION_VIEW);
                 smsIntent.setType("vnd.android-dir/mms-sms");
-                smsIntent.putExtra("address", "40148");
+                smsIntent.putExtra("address", msc.sendSmsShortcode);
                 smsIntent.putExtra("sms_body","your message here...");
                 startActivity(smsIntent);
 
@@ -1819,7 +1818,7 @@ return value;
             String messReport="mlab"+"*"+mydate+"*"+todayReceived+"*"+todayRead+"*"+allmesages+"*"+read;
 //            RegistrationConf("todayread is: "+todayRead+" today received is "+todayReceived+" total read is "+read+" all messages "+allmesages+" date is "+x,"message test");
             SmsManager sm = SmsManager.getDefault();
-            sm.sendTextMessage("40147", null,messReport, null, null);
+            sm.sendTextMessage(msc.sendSmsShortcode, null,messReport, null, null);
 
 
         }

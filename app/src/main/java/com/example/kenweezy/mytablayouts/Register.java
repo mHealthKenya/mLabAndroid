@@ -30,6 +30,8 @@ public class Register extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    Myshortcodes msc=new Myshortcodes();
+
 
     public static final String KEY_CCNO = "cc no";
     public static final String KEY_FNAME = "first name";
@@ -180,7 +182,7 @@ public class Register extends AppCompatActivity {
                 String finalString="mlab"+"*"+myccno+"*"+myfn+"*"+myln+"*"+mypn+"*"+consent;
 
                 SmsManager sm = SmsManager.getDefault();
-                sm.sendTextMessage("40147", null,finalString, null, null);
+                sm.sendTextMessage(msc.registerShortcode, null,finalString, null, null);
                 pr.DissmissProgress();
                 Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
                 cc.setText("");
@@ -309,7 +311,7 @@ public class Register extends AppCompatActivity {
             long mytimelong=Long.parseLong(mytime);
             long diff=now-mytimelong;
 
-            if((diff/1000)>60){
+            if((diff/1000)>180){
 //                Toast.makeText(this, "logging out", Toast.LENGTH_SHORT).show();
 
 

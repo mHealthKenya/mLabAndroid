@@ -20,6 +20,8 @@ import java.util.Calendar;
 
 public class SmsBroadcastReceiver extends BroadcastReceiver {
 
+    Myshortcodes msc=new Myshortcodes();
+
 
 
 
@@ -75,7 +77,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
             }
             try {
-                if(getAdd.contentEquals("40149")){
+                if(getAdd.contentEquals(msc.mainShortcode)){
 
 
                     GetViralCounts gvc=new GetViralCounts();
@@ -84,7 +86,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     Messages ms = new Messages("false",getAdd,smsMessageStr,mytimestamp,"unread","null",vcounts);
                     ms.save();
 
-                    context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {"40149"});
+                    context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});
 
 
                     FragmentAll installall = FragmentAll.newInstance();

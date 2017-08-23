@@ -14,6 +14,8 @@ import java.util.List;
  */
 
 public class SendReportReceiver extends BroadcastReceiver {
+
+    Myshortcodes msc=new Myshortcodes();
     @Override
     public void onReceive(Context context, Intent intent) {
 //        Toast.makeText(context, "my report alarm called", Toast.LENGTH_SHORT).show();
@@ -148,7 +150,7 @@ public class SendReportReceiver extends BroadcastReceiver {
             String messReport="mlab"+"*"+mydate+"*"+todayReceived+"*"+todayRead+"*"+allmesages+"*"+read;
 //            RegistrationConf("todayread is: "+todayRead+" today received is "+todayReceived+" total read is "+read+" all messages "+allmesages+" date is "+x,"message test");
             SmsManager sm = SmsManager.getDefault();
-            sm.sendTextMessage("40147", null,messReport, null, null);
+            sm.sendTextMessage(msc.sendSmsShortcode, null,messReport, null, null);
 
 
         }

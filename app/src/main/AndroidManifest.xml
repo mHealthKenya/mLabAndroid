@@ -17,7 +17,7 @@
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
-        android:icon="@mipmap/logo3"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
@@ -206,6 +206,16 @@
         <activity
             android:name=".Composing"
             android:label="@string/title_activity_composing"
+            android:parentActivityName=".Options"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kenweezy.mytablayouts.Options" />
+        </activity>
+
+        <activity
+            android:name=".SampleLogin"
+            android:label="sample login"
             android:parentActivityName=".Options"
             android:theme="@style/MyMaterialTheme">
             <meta-data

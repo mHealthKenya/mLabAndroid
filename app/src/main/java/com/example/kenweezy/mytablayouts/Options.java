@@ -159,6 +159,31 @@ public class Options extends AppCompatActivity {
         }
     }
 
+    public void sampleLogin(View v){
+
+        try{
+
+
+            Intent intent = new Intent(getApplicationContext(),SampleLogin.class);
+            startActivity(intent);
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    public void setToolBar(){
+
+        try{
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
     public void messaging(View v){
 
         try{
@@ -342,7 +367,7 @@ public class Options extends AppCompatActivity {
             long mytimelong=Long.parseLong(mytime);
             long diff=now-mytimelong;
 
-            if((diff/1000)>60){
+            if((diff/1000)>180){
 //                Toast.makeText(this, "logging out", Toast.LENGTH_SHORT).show();
 
 

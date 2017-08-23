@@ -132,7 +132,7 @@ public class FragmentEidInvali extends Fragment {
 //    public void refreshSmsInbox() {
 //        try {
 //            ContentResolver contentResolver = getActivity().getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40149'", null, null);
 //            int indexBody = smsInboxCursor.getColumnIndex("body");
 //            int indexAddress = smsInboxCursor.getColumnIndex("address");
 //
@@ -168,7 +168,7 @@ public class FragmentEidInvali extends Fragment {
     public void refreshSmsInbox() {
         try {
 //            ContentResolver contentResolver = getActivity().getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40149'", null, null);
 //            int indexBody = smsInboxCursor.getColumnIndex("body");
 //            int indexAddress = smsInboxCursor.getColumnIndex("address");
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Invalid%'", null);

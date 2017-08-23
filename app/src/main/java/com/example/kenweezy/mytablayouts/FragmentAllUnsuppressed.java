@@ -31,6 +31,7 @@ public class FragmentAllUnsuppressed extends Fragment {
     ArrayAdapter arrayAdapter;
     int counter=0;
     String smsMessage = "";
+    Myshortcodes msc=new Myshortcodes();
     public static FragmentAllUnsuppressed instance() {
         return (new FragmentAllUnsuppressed());
     }
@@ -109,7 +110,7 @@ public class FragmentAllUnsuppressed extends Fragment {
     public void refreshSmsInbox() {
         try {
             ContentResolver contentResolver = getActivity().getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
 

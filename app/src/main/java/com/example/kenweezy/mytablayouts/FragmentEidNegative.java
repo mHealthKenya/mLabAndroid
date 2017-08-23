@@ -44,6 +44,7 @@ public class FragmentEidNegative extends Fragment {
     TextView tvRead;
     int counter=0;
     String smsMessage = "";
+    Myshortcodes msc=new Myshortcodes();
 
     public static final String READ_SETTINGS = "READ_SETTINGS";
     public static FragmentEidNegative instance() {
@@ -307,7 +308,7 @@ public class FragmentEidNegative extends Fragment {
 
                             String sendMessage=msgbdy+"*"+mytime;
                             SmsManager sm = SmsManager.getDefault();
-                            sm.sendTextMessage("40148", null,sendMessage, null, null);
+                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
 
                 }
 

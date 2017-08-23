@@ -213,7 +213,7 @@ public class MyRegister extends AppCompatActivity {
                     cr.save();
                     pr.DissmissProgress();
 
-                    RegistrationConf("Choose Your Action ?","REGISTRATION SUCCESS");
+                    RegistrationConf("Choose Your Action ?","REGISTRATION SUCCESSFUL");
 
 
 

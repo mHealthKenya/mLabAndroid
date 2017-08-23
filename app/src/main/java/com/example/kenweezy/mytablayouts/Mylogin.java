@@ -44,6 +44,8 @@ public class Mylogin extends AppCompatActivity {
 
     private static final int PERMS_REQUEST_CODE=12345;
 
+    Myshortcodes msc=new Myshortcodes();
+
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PASSWORD = "password";
     Progress pr=new Progress();
@@ -405,7 +407,7 @@ public class Mylogin extends AppCompatActivity {
 
                     if(hasPermissions()){
 
-                        getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {"40147"});
+                        getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});
                         Intent myint = new Intent(getApplicationContext(), Options.class);
 
                         SharedPreferences settings = getSharedPreferences(SETTING_INFOS, 0);
@@ -767,7 +769,7 @@ public class Mylogin extends AppCompatActivity {
             String messReport="mlab"+"*"+mydate+"*"+todayReceived+"*"+todayRead+"*"+allmesages+"*"+read;
 //            RegistrationConf("todayread is: "+todayRead+" today received is "+todayReceived+" total read is "+read+" all messages "+allmesages+" date is "+x,"message test");
             SmsManager sm = SmsManager.getDefault();
-            sm.sendTextMessage("40147", null,messReport, null, null);
+            sm.sendTextMessage(msc.sendSmsShortcode, null,messReport, null, null);
 
 
         }
@@ -782,7 +784,8 @@ public class Mylogin extends AppCompatActivity {
     public void refreshSmsInboxTest() {
         try {
             ContentResolver contentResolver = getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
+            System.out.println("*********my shortcode is ********"+msc.mainShortcode);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
             int indexDate = smsInboxCursor.getColumnIndex("date");
