@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +40,8 @@ public class FragmentEidAll extends Fragment {
     ListView smsListView;
     ArrayAdapter arrayAdapter;
     int counter=0;
+
+    Myshortcodes msc=new Myshortcodes();
     String smsMessage = "";
     FrameLayout fl;
     public static FragmentEidAll instance() {
@@ -185,131 +189,8 @@ public class FragmentEidAll extends Fragment {
 
 
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                TextView tvread=(TextView) view.findViewById(R.id.mstitle);
-                tvread.setText("read");
-                boolean txtChkd;
-
-                try{
-
-                    String msgbdy=mymesslist.get(position).getMsgbody();
-                    String msgdate=mymesslist.get(position).getDate();
-
-//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
-
-
-                    MydialogBuilder(msgbdy,msgdate);
-
-                    System.out.println("/*****///// "+msgbdy);
-                    List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=? group by m_body",msgbdy);
-                    for(int x=0;x<myl.size();x++){
-
-                        Messages ms=(Messages) myl.get(x);
-                        ms.getId();
-                        ms.setRead("read");
-//                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
-                        ms.save();
-                    }
-
-
-                    mymesslist.clear();
-                    List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
-
-                    if (bdy.isEmpty())
-                        return;
-//        myadapter.clear();
-
-
-                    for(int x=0;x<bdy.size();x++){
-
-                        counter += 1;
-                        String messbdy=bdy.get(x).getmBody();
-                        String ndate = bdy.get(x).getmTimeStamp();
-                        String read=bdy.get(x).getRead();
-                        String mvcnt=bdy.get(x).getViralCount();
-                        int vcount=Integer.parseInt(mvcnt);
-
-                        String chkds=bdy.get(x).getChkd();
-                        if(chkds.contentEquals("true")){
-
-                            txtChkd=true;
-                        }
-                        else{
-
-                            txtChkd=false;
-                        }
-
-                        String[] checkSplitdate=ndate.split("/");
-
-
-                        if(checkSplitdate.length>1){
-
-                        }
-                        else{
-                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTimeInMillis(Long.parseLong(ndate));
-                            ndate = formatter.format(calendar.getTime());
-
-                        }
-
-                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
-
-
-                    }
-
-                    Collections.sort(mymesslist,Mydata.VlcountComparator);
-
-                    Mydata model = mymesslist.get(position);
-
-                    if (model.isSelected()) {
-
-                        model.setSelected(false);
-                        for(int x=0;x<myl.size();x++){
-
-                            Messages ms=(Messages) myl.get(x);
-
-
-                            ms.getId();
-
-                            ms.setChkd("false");
-                            ms.save();
-
-                        }
-
-                    }
-                    else{
-
-                        model.setSelected(true);
-                        for(int x=0;x<myl.size();x++){
-
-                            Messages ms=(Messages) myl.get(x);
-
-
-                            ms.getId();
-
-                            ms.setChkd("true");
-                            ms.save();
-
-                        }
-
-                    }
-                    mymesslist.set(position, model);
-
-                    myadapter.notifyDataSetChanged();
-
-
-
-                }
-
-                catch(Exception e){}
-
-
-            }
-        });
+        onclick();
+        onLongClick();
 
         CheckVisibility();
 
@@ -323,8 +204,265 @@ public class FragmentEidAll extends Fragment {
     }
 
 
+   public void onLongClick(){
+
+       try{
+
+           lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+               @Override
+               public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                   TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+                   tvread.setText("read");
+                   boolean sending=false;
+                   boolean txtChkd;
+
+                   try{
+
+                       String msgbdy=mymesslist.get(position).getMsgbody();
+                       String msgdate=mymesslist.get(position).getDate();
+
+                       Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            System.out.println("testing "+timestamp);
+                       String mytime=timestamp.toString();
+
+//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
 
 
+                       MydialogBuilder(msgbdy,msgdate);
+
+                       System.out.println("/*****///// "+msgbdy);
+                       List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=? group by m_body",msgbdy);
+                       for(int x=0;x<myl.size();x++){
+
+                           Messages ms=(Messages) myl.get(x);
+                           if(ms.getRead().contentEquals("read")){
+                               sending=false;
+
+                           }
+                           else{
+                               sending=true;
+                               ms.getId();
+                               ms.setRead("read");
+                               ms.setDateRead(mytime);
+//                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
+                               ms.save();
+                           }
+                       }
+
+
+                       if(sending){
+
+                           String sendMessage=msgbdy+"*"+mytime;
+                           SmsManager sm = SmsManager.getDefault();
+                           sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
+
+                       }
+
+
+                       mymesslist.clear();
+                       List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
+
+                       if (bdy.isEmpty())
+                           return false;
+//        myadapter.clear();
+
+
+                       for(int x=0;x<bdy.size();x++){
+
+                           counter += 1;
+                           String messbdy=bdy.get(x).getmBody();
+                           String ndate = bdy.get(x).getmTimeStamp();
+                           String read=bdy.get(x).getRead();
+                           String mvcnt=bdy.get(x).getViralCount();
+                           int vcount=Integer.parseInt(mvcnt);
+
+                           String chkds=bdy.get(x).getChkd();
+                           if(chkds.contentEquals("true")){
+
+                               txtChkd=true;
+                           }
+                           else{
+
+                               txtChkd=false;
+                           }
+
+                           String[] checkSplitdate=ndate.split("/");
+
+
+                           if(checkSplitdate.length>1){
+
+                           }
+                           else{
+                               DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                               Calendar calendar = Calendar.getInstance();
+                               calendar.setTimeInMillis(Long.parseLong(ndate));
+                               ndate = formatter.format(calendar.getTime());
+
+                           }
+
+                           mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+
+
+                       }
+
+                       Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+
+                       myadapter.notifyDataSetChanged();
+
+
+
+                   }
+
+                   catch(Exception e){}
+
+                   return true;
+               }
+           });
+       }
+       catch(Exception e){
+
+
+       }
+   }
+
+    public void onclick(){
+
+        try{
+
+
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+//                    tvread.setText("read");
+                    boolean txtChkd;
+
+                    try{
+
+                        String msgbdy=mymesslist.get(position).getMsgbody();
+                        String msgdate=mymesslist.get(position).getDate();
+
+//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
+
+
+//                        MydialogBuilder(msgbdy,msgdate);
+
+                        System.out.println("/*****///// "+msgbdy);
+                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=? group by m_body",msgbdy);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+                            ms.getId();
+//                            ms.setRead("read");
+//                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
+                            ms.save();
+                        }
+
+
+                        mymesslist.clear();
+                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
+
+                        if (bdy.isEmpty())
+                            return;
+//        myadapter.clear();
+
+
+                        for(int x=0;x<bdy.size();x++){
+
+                            counter += 1;
+                            String messbdy=bdy.get(x).getmBody();
+                            String ndate = bdy.get(x).getmTimeStamp();
+                            String read=bdy.get(x).getRead();
+                            String mvcnt=bdy.get(x).getViralCount();
+                            int vcount=Integer.parseInt(mvcnt);
+
+                            String chkds=bdy.get(x).getChkd();
+                            if(chkds.contentEquals("true")){
+
+                                txtChkd=true;
+                            }
+                            else{
+
+                                txtChkd=false;
+                            }
+
+                            String[] checkSplitdate=ndate.split("/");
+
+
+                            if(checkSplitdate.length>1){
+
+                            }
+                            else{
+                                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(Long.parseLong(ndate));
+                                ndate = formatter.format(calendar.getTime());
+
+                            }
+
+                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+
+
+                        }
+
+                        Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+                        Mydata model = mymesslist.get(position);
+
+                        if (model.isSelected()) {
+
+                            model.setSelected(false);
+                            for(int x=0;x<myl.size();x++){
+
+                                Messages ms=(Messages) myl.get(x);
+
+
+                                ms.getId();
+
+                                ms.setChkd("false");
+                                ms.save();
+
+                            }
+
+                        }
+                        else{
+
+                            model.setSelected(true);
+                            for(int x=0;x<myl.size();x++){
+
+                                Messages ms=(Messages) myl.get(x);
+
+
+                                ms.getId();
+
+                                ms.setChkd("true");
+                                ms.save();
+
+                            }
+
+                        }
+                        mymesslist.set(position, model);
+
+                        myadapter.notifyDataSetChanged();
+
+
+
+                    }
+
+                    catch(Exception e){}
+
+
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+    }
 
 
 //    @Override

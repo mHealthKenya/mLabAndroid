@@ -258,63 +258,83 @@ public class FragmentVlSuppressed extends Fragment {
 
 
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                TextView tvread=(TextView) view.findViewById(R.id.mstitle);
-                tvread.setText("read");
-                boolean sending=false;
-                boolean txtChkd;
+        onclickListener();
+        onLongClick();
 
-                try{
 
-                    String msgbdy=mymesslist.get(position).getMsgbody();
-                    String msgdate=mymesslist.get(position).getDate();
+//        refreshSmsInbox();
 
-                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+
+
+        return v;
+    }
+
+
+    public void onLongClick(){
+
+        try{
+
+
+            lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+                    tvread.setText("read");
+                    boolean sending=false;
+                    boolean txtChkd;
+
+                    try{
+
+                        String msgbdy=mymesslist.get(position).getMsgbody();
+                        String msgdate=mymesslist.get(position).getDate();
+
+                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //            System.out.println("testing "+timestamp);
-                    String mytime=timestamp.toString();
+                        String mytime=timestamp.toString();
 
 //                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
 
 
-                    MydialogBuilder(msgbdy,msgdate);
+                        MydialogBuilder(msgbdy,msgdate);
 
-                    System.out.println("/*****///// "+msgbdy);
-                    List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
-                    for(int x=0;x<myl.size();x++){
+                        System.out.println("/*****///// "+msgbdy);
+                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
+                        for(int x=0;x<myl.size();x++){
 
 
-                        Messages ms=(Messages) myl.get(x);
-                        if(ms.getRead().contentEquals("read")){
-                            sending=false;
+                            Messages ms=(Messages) myl.get(x);
+                            if(ms.getRead().contentEquals("read")){
+                                sending=false;
 
-                        }
-                        else{
-                            sending=true;
-                            ms.getId();
-                            ms.setRead("read");
-                            ms.setDateRead(mytime);
+                            }
+                            else{
+                                sending=true;
+                                ms.getId();
+                                ms.setRead("read");
+                                ms.setDateRead(mytime);
 //                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
-                            ms.save();
+                                ms.save();
+                            }
+
                         }
 
-                    }
+                        if(sending){
 
-                    if(sending){
+                            String sendMessage=msgbdy+"*"+mytime;
+                            SmsManager sm = SmsManager.getDefault();
+                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
 
-                        String sendMessage=msgbdy+"*"+mytime;
-                        SmsManager sm = SmsManager.getDefault();
-                        sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
-
-                    }
+                        }
 
 
-                    mymesslist.clear();
-                    List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
-                    if (bdy.isEmpty())
-                        return;
+                        mymesslist.clear();
+                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
+                        if (bdy.isEmpty())
+                            return false;
 //        myadapter.clear();
 
 
@@ -331,89 +351,89 @@ public class FragmentVlSuppressed extends Fragment {
 //                    }
 
 
-                    for(int x=0;x<bdy.size();x++){
+                        for(int x=0;x<bdy.size();x++){
 
 
-                        String messbdy=bdy.get(x).getmBody();
-                        String ndate = bdy.get(x).getmTimeStamp();
-                        String read=bdy.get(x).getRead();
+                            String messbdy=bdy.get(x).getmBody();
+                            String ndate = bdy.get(x).getmTimeStamp();
+                            String read=bdy.get(x).getRead();
 
-                        String mvcnt=bdy.get(x).getViralCount();
-                        int vcount=Integer.parseInt(mvcnt);
-
-
-                        String chkds=bdy.get(x).getChkd();
-                        if(chkds.contentEquals("true")){
-
-                            txtChkd=true;
-                        }
-                        else{
-
-                            txtChkd=false;
-                        }
+                            String mvcnt=bdy.get(x).getViralCount();
+                            int vcount=Integer.parseInt(mvcnt);
 
 
-                        String[] checkSplitdate=ndate.split("/");
+                            String chkds=bdy.get(x).getChkd();
+                            if(chkds.contentEquals("true")){
 
-                        if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
-
-                            try {
-
-
-
-                                String[] mymessarray=messbdy.split(":");
-
-
-                                String splitVal="";
-
-                                if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                                    splitVal=mymessarray[6];
-
-                                }
-                                else{
-
-                                    splitVal=mymessarray[3];
-                                }
-
-
-                                String[] splitvalarray=splitVal.split("\\s+");
-                                int myval=0;
-
-                                if(checkSplitdate.length>1){
-
-                                }
-                                else{
-                                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                                    Calendar calendar = Calendar.getInstance();
-                                    calendar.setTimeInMillis(Long.parseLong(ndate));
-                                    ndate = formatter.format(calendar.getTime());
-
-                                }
-
-
-                            if(!splitvalarray[0].contains("<")){
-                                myval = Integer.parseInt(splitvalarray[0]);
+                                txtChkd=true;
                             }
-                            if (splitvalarray[0].contains("<") || myval < 1000) {
+                            else{
 
-                                System.out.println("i am suppressed " + splitvalarray[0]);
-                                counter += 1;
-                                mymesslist.add(new Mydata(txtChkd,messbdy, ndate, read,vcount));
+                                txtChkd=false;
+                            }
 
-                                Collections.sort(mymesslist,Mydata.VlcountComparator);
 
-                                myadapter.notifyDataSetChanged();
+                            String[] checkSplitdate=ndate.split("/");
+
+                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
+
+                                try {
+
+
+
+                                    String[] mymessarray=messbdy.split(":");
+
+
+                                    String splitVal="";
+
+                                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
+                                        splitVal=mymessarray[6];
+
+                                    }
+                                    else{
+
+                                        splitVal=mymessarray[3];
+                                    }
+
+
+                                    String[] splitvalarray=splitVal.split("\\s+");
+                                    int myval=0;
+
+                                    if(checkSplitdate.length>1){
+
+                                    }
+                                    else{
+                                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTimeInMillis(Long.parseLong(ndate));
+                                        ndate = formatter.format(calendar.getTime());
+
+                                    }
+
+
+                                    if(!splitvalarray[0].contains("<")){
+                                        myval = Integer.parseInt(splitvalarray[0]);
+                                    }
+                                    if (splitvalarray[0].contains("<") || myval < 1000) {
+
+                                        System.out.println("i am suppressed " + splitvalarray[0]);
+                                        counter += 1;
+                                        mymesslist.add(new Mydata(txtChkd,messbdy, ndate, read,vcount));
+
+                                        Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+                                        myadapter.notifyDataSetChanged();
+
+
+                                    }
+                                }
+                                catch(Exception e){
+
+                                    Toast.makeText(getActivity(), "these is exception "+e, Toast.LENGTH_SHORT).show();
+                                }
 
 
                             }
-                        }
-                        catch(Exception e){
-
-                            Toast.makeText(getActivity(), "these is exception "+e, Toast.LENGTH_SHORT).show();
-                        }
-
-
-                        }
 
 
 //                        else{
@@ -439,67 +459,250 @@ public class FragmentVlSuppressed extends Fragment {
 
 
 
+                        }
+
+
+                        myadapter.notifyDataSetChanged();
+
+
+
                     }
 
+                    catch(Exception e){}
+                    return true;
+                }
+            });
+        }
+        catch(Exception e){
 
 
+        }
+    }
 
-                    Mydata model = mymesslist.get(position);
+    public void onclickListener(){
 
-                    if (model.isSelected()) {
+        try{
 
-                        model.setSelected(false);
+
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+                    tvread.setText("read");
+                    boolean sending=false;
+                    boolean txtChkd;
+
+                    try{
+
+                        String msgbdy=mymesslist.get(position).getMsgbody();
+                        String msgdate=mymesslist.get(position).getDate();
+
+                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            System.out.println("testing "+timestamp);
+                        String mytime=timestamp.toString();
+
+//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
+
+
+//                        MydialogBuilder(msgbdy,msgdate);
+
+                        System.out.println("/*****///// "+msgbdy);
+                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
                         for(int x=0;x<myl.size();x++){
 
-                            Messages ms=(Messages) myl.get(x);
 
 
-                            ms.getId();
 
-                            ms.setChkd("false");
-                            ms.save();
 
                         }
 
-                    }
-                    else{
 
-                        model.setSelected(true);
-                        for(int x=0;x<myl.size();x++){
+                        mymesslist.clear();
+                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
+                        if (bdy.isEmpty())
+                            return;
+//        myadapter.clear();
 
-                            Messages ms=(Messages) myl.get(x);
+
+//                    for(int x=0;x<bdy.size();x++){
+//
+//                        counter += 1;
+//                        String messbdy=bdy.get(x).getmBody();
+//                        String ndate = bdy.get(x).getmTimeStamp();
+//                        String read=bdy.get(x).getRead();
+//
+//                        mymesslist.add(new Mydata(messbdy,ndate,read));
+//
+//
+//                    }
 
 
-                            ms.getId();
+                        for(int x=0;x<bdy.size();x++){
 
-                            ms.setChkd("true");
-                            ms.save();
+
+                            String messbdy=bdy.get(x).getmBody();
+                            String ndate = bdy.get(x).getmTimeStamp();
+                            String read=bdy.get(x).getRead();
+
+                            String mvcnt=bdy.get(x).getViralCount();
+                            int vcount=Integer.parseInt(mvcnt);
+
+
+                            String chkds=bdy.get(x).getChkd();
+                            if(chkds.contentEquals("true")){
+
+                                txtChkd=true;
+                            }
+                            else{
+
+                                txtChkd=false;
+                            }
+
+
+                            String[] checkSplitdate=ndate.split("/");
+
+                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
+
+                                try {
+
+
+
+                                    String[] mymessarray=messbdy.split(":");
+
+
+                                    String splitVal="";
+
+                                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
+                                        splitVal=mymessarray[6];
+
+                                    }
+                                    else{
+
+                                        splitVal=mymessarray[3];
+                                    }
+
+
+                                    String[] splitvalarray=splitVal.split("\\s+");
+                                    int myval=0;
+
+                                    if(checkSplitdate.length>1){
+
+                                    }
+                                    else{
+                                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTimeInMillis(Long.parseLong(ndate));
+                                        ndate = formatter.format(calendar.getTime());
+
+                                    }
+
+
+                                    if(!splitvalarray[0].contains("<")){
+                                        myval = Integer.parseInt(splitvalarray[0]);
+                                    }
+                                    if (splitvalarray[0].contains("<") || myval < 1000) {
+
+                                        System.out.println("i am suppressed " + splitvalarray[0]);
+                                        counter += 1;
+                                        mymesslist.add(new Mydata(txtChkd,messbdy, ndate, read,vcount));
+
+                                        Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+                                        myadapter.notifyDataSetChanged();
+
+
+                                    }
+                                }
+                                catch(Exception e){
+
+                                    Toast.makeText(getActivity(), "these is exception "+e, Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+
+
+//                        else{
+//                            int myval2=Integer.parseInt(splitvalarray[0]);
+//                            if(myval>1000){
+//                                System.out.println("i am unsuppressed with a value "+myval);
+//
+//                            }
+//                            else{
+//                                System.out.println("i am suppressed with a value "+myval);
+//                                counter += 1;
+//
+//
+//                                mymesslist.add(new Mydata(messbdy,ndate,read));
+//
+//
+//                            }
+//
+//
+//
+//
+//                        }
+
+
 
                         }
 
+
+
+
+                        Mydata model = mymesslist.get(position);
+
+                        if (model.isSelected()) {
+
+                            model.setSelected(false);
+                            for(int x=0;x<myl.size();x++){
+
+                                Messages ms=(Messages) myl.get(x);
+
+
+                                ms.getId();
+
+                                ms.setChkd("false");
+                                ms.save();
+
+                            }
+
+                        }
+                        else{
+
+                            model.setSelected(true);
+                            for(int x=0;x<myl.size();x++){
+
+                                Messages ms=(Messages) myl.get(x);
+
+
+                                ms.getId();
+
+                                ms.setChkd("true");
+                                ms.save();
+
+                            }
+
+                        }
+                        mymesslist.set(position, model);
+
+                        myadapter.notifyDataSetChanged();
+
+
+
                     }
-                    mymesslist.set(position, model);
 
-                    myadapter.notifyDataSetChanged();
-
+                    catch(Exception e){}
 
 
                 }
-
-                catch(Exception e){}
-
-
-            }
-        });
+            });
+        }
+        catch(Exception e){
 
 
-
-//        refreshSmsInbox();
-
-
-
-
-        return v;
+        }
     }
 
 
