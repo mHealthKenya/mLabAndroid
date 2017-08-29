@@ -39,18 +39,19 @@ import java.util.List;
 
 public class FragmentAll extends Fragment  implements AdapterView.OnItemSelectedListener{
 
-//    EditText date,frmweek,toweek;
-//    LinearLayout weekl,dayl;
+    EditText frmweek,toweek;
+
     View v;
     Myshortcodes msc=new Myshortcodes();
-//    boolean dateVisible,weekVisible;
+    boolean dateVisible,weekVisible;
+    Button allr;
 
-//    DatePickerDialog datePickerDialog;
+    DatePickerDialog datePickerDialog;
 
-//    String[] otpions = {"please select an Option","filter by date","Filter by week"};
-//    SpinnerAdapter optionsAdapter;
-//    String optionsSelected;
-//    Spinner filterspinner;
+    String[] otpions = {"please select an Option","filter by date","Filter by week"};
+    SpinnerAdapter optionsAdapter;
+    String optionsSelected;
+    Spinner filterspinner;
 
     public FragmentAll(){
 
@@ -92,7 +93,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
         v=inflater.inflate(R.layout.fragmentallall, container, false);
         lv=(ListView) v.findViewById(R.id.lvallall);
 
-//        initialise();
+        initialise();
 //        dateListener();
 //        populateFilterSpinner();
 //        setSpinnerListeners();
@@ -148,8 +149,9 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
         setClickListener();
         setLongClickListener();
 
-
-
+        setDatePickerFrm();
+        checkFrmDateListener();
+        getAllMessages();
 
 
 
@@ -159,6 +161,183 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
         return v;
+    }
+
+    public void initialise(){
+
+        try{
+
+            frmweek=(EditText) v.findViewById(R.id.filter_frmweek);
+            toweek=(EditText) v.findViewById(R.id.filter_toweek);
+            allr=(Button) v.findViewById(R.id.allres);
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    public void setDatePickerFrm(){
+
+        try{
+
+            frmweek.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // calender class's instance and get current date , month and year from calender
+                    final Calendar c = Calendar.getInstance();
+                    int mYear = c.get(Calendar.YEAR); // current year
+                    int mMonth = c.get(Calendar.MONTH); // current month
+                    int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                    // date picker dialog
+                    datePickerDialog = new DatePickerDialog(getActivity(),
+                            new DatePickerDialog.OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    // set day of month , month and year value in the edit text
+                                    frmweek.setText(dayOfMonth + "/"
+                                            + (monthOfYear + 1) + "/" + year);
+
+                                }
+                            }, mYear, mMonth, mDay);
+                    datePickerDialog.show();
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+
+
+    }
+
+    public void ValidateToDate(){
+
+        try{
+
+            String frmweeks=frmweek.getText().toString().trim();
+            if(!frmweeks.isEmpty()){
+
+                toweek.setEnabled(true);
+                setDatePickerTo();
+                checkToDateListener();
+            }
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+    public void checkFrmDateListener(){
+
+        try{
+
+            frmweek.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    Toast.makeText(getActivity(), "before change", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    Toast.makeText(getActivity(), "on change", Toast.LENGTH_SHORT).show();
+
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                   ValidateToDate();
+
+
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+    public void checkToDateListener(){
+
+        try{
+
+            toweek.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                    Toast.makeText(getActivity(), "before change", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                    Toast.makeText(getActivity(), "on change", Toast.LENGTH_SHORT).show();
+
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+//                    Toast.makeText(getActivity(), "after change", Toast.LENGTH_SHORT).show();
+                    filterMessagesByDate();
+
+
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    public void setDatePickerTo(){
+
+        try{
+
+            toweek.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // calender class's instance and get current date , month and year from calender
+                    final Calendar c = Calendar.getInstance();
+                    int mYear = c.get(Calendar.YEAR); // current year
+                    int mMonth = c.get(Calendar.MONTH); // current month
+                    int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                    // date picker dialog
+                    datePickerDialog = new DatePickerDialog(getActivity(),
+                            new DatePickerDialog.OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    // set day of month , month and year value in the edit text
+                                    toweek.setText(dayOfMonth + "/"
+                                            + (monthOfYear + 1) + "/" + year);
+
+                                }
+                            }, mYear, mMonth, mDay);
+                    datePickerDialog.show();
+                }
+            });
+
+        }
+        catch(Exception e){
+
+
+        }
+
+
     }
 
 
@@ -643,6 +822,213 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+
+
+
+
+    public void filterMessagesByDate(){
+
+        try{
+
+
+
+            String frmweekdate=frmweek.getText().toString();
+            String toweekdate=toweek.getText().toString();
+            mymesslist.clear();
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+
+//        if (bdy.isEmpty())
+//            return 0;
+//        myadapter.clear();
+
+
+            for(int x=0;x<bdy.size();x++){
+
+                counter += 1;
+                String messbdy=bdy.get(x).getmBody();
+                String ndate = bdy.get(x).getmTimeStamp();
+                String read=bdy.get(x).getRead();
+                String mychk=bdy.get(x).getChkd();
+                String mvcnt=bdy.get(x).getViralCount();
+                int vcount=Integer.parseInt(mvcnt);
+                boolean mychkB;
+                if(mychk.contentEquals("true")){
+                    mychkB=true;
+                }
+                else{
+                    mychkB=false;
+                }
+
+                String[] checkSplitdate=ndate.split("/");
+
+
+                if(checkSplitdate.length>1){
+
+                }
+                else{
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(Long.parseLong(ndate));
+                    ndate = formatter.format(calendar.getTime());
+
+                }
+
+                System.out.println("*******the ndate is "+ndate+"my to date is "+toweekdate);
+
+                String mynewndate[]=ndate.split("\\s+");
+                String thendate=mynewndate[0];
+                String thendatesplit[]=thendate.split("/");
+
+                String theday=thendatesplit[0];
+                String themnth=thendatesplit[1];
+                String theyear=thendatesplit[2];
+
+                String fromthedate[]=frmweekdate.split("/");
+                String tothedate[]=toweekdate.split("/");
+
+                String frmday=fromthedate[0];
+                String frmmnth=fromthedate[1];
+                String frmyear=fromthedate[2];
+
+                String today=tothedate[0];
+                String tomnth=tothedate[1];
+                String toyear=tothedate[2];
+
+                int thedayi=Integer.parseInt(theday);
+                int themnthi=Integer.parseInt(themnth);
+                int theyeari=Integer.parseInt(theyear);
+
+                int frmdayi=Integer.parseInt(frmday);
+                int frmmnthi=Integer.parseInt(frmmnth);
+                int frmyeari=Integer.parseInt(frmyear);
+
+                int todayi=Integer.parseInt(today);
+                int tomnthi=Integer.parseInt(tomnth);
+                int toyeari=Integer.parseInt(toyear);
+
+//                if(theyeari<=toyeari && theyeari>=frmyeari){
+//
+//                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+//
+//                }
+//                else if(theyeari==toyeari && theyeari==frmyeari && themnthi<=tomnthi && themnthi>=frmmnthi){
+//
+//                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+//
+//                }
+                if(theyeari==toyeari && theyeari==frmyeari && themnthi==tomnthi && themnthi==frmmnthi && thedayi<=todayi && thedayi>=frmdayi){
+
+                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+
+                }
+                else if(theyeari==toyeari && theyeari==frmyeari && themnthi<=tomnthi && themnthi>=frmmnthi && thedayi<=todayi && thedayi>=frmdayi){
+
+                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+
+                }
+
+                else if(theyeari<=toyeari && theyeari>=frmyeari && themnthi<=tomnthi && themnthi>=frmmnthi && thedayi<=todayi && thedayi>=frmdayi){
+
+                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+
+                }
+
+
+            }
+            Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+
+
+            myadapter=new MessagesAdapter(getActivity(),mymesslist);
+            lv.setAdapter(myadapter);
+
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+
+
+    public void getAllMessages(){
+
+        try{
+
+            allr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+
+
+
+                    String frmweekdate=frmweek.getText().toString();
+                    String toweekdate=toweek.getText().toString();
+                    mymesslist.clear();
+                    List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+
+
+                    for(int x=0;x<bdy.size();x++){
+
+                        counter += 1;
+                        String messbdy=bdy.get(x).getmBody();
+                        String ndate = bdy.get(x).getmTimeStamp();
+                        String read=bdy.get(x).getRead();
+                        String mychk=bdy.get(x).getChkd();
+                        String mvcnt=bdy.get(x).getViralCount();
+                        int vcount=Integer.parseInt(mvcnt);
+                        boolean mychkB;
+                        if(mychk.contentEquals("true")){
+                            mychkB=true;
+                        }
+                        else{
+                            mychkB=false;
+                        }
+
+                        String[] checkSplitdate=ndate.split("/");
+
+
+                        if(checkSplitdate.length>1){
+
+                        }
+                        else{
+                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(Long.parseLong(ndate));
+                            ndate = formatter.format(calendar.getTime());
+
+                        }
+
+                        mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+
+
+                    }
+                    Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+
+
+                    myadapter=new MessagesAdapter(getActivity(),mymesslist);
+                    lv.setAdapter(myadapter);
+
+                }
+            });
+
+
+
+
+
+        }
+        catch(Exception e){
+
+
+        }
     }
 
 
