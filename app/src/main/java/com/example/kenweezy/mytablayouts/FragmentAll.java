@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -94,6 +95,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
         lv=(ListView) v.findViewById(R.id.lvallall);
 
         initialise();
+        allr.setEnabled(false);
 //        dateListener();
 //        populateFilterSpinner();
 //        setSpinnerListeners();
@@ -224,8 +226,16 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
             if(!frmweeks.isEmpty()){
 
                 toweek.setEnabled(true);
+                allr.setEnabled(false);
                 setDatePickerTo();
                 checkToDateListener();
+
+            }
+            else{
+                toweek.setText("");
+                toweek.setEnabled(false);
+                RetrieveAllResults();
+                allr.setEnabled(false);
             }
         }
         catch(Exception e){
@@ -242,12 +252,12 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
             frmweek.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    Toast.makeText(getActivity(), "before change", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "before change", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    Toast.makeText(getActivity(), "on change", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "on change", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -255,7 +265,81 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                 @Override
                 public void afterTextChanged(Editable s) {
 
-                   ValidateToDate();
+//                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//                    Calendar cal = Calendar.getInstance();
+//                    System.out.println("**current date is**"+dateFormat.format(cal)); //2016/11/16 12:08:43
+
+
+                    try{
+
+
+                        String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
+                        String currentArray[]=timeStamp.split("\\.");
+                        String currentDate=currentArray[2];
+                        String currentMonth=currentArray[1];
+                        String currentYear=currentArray[0];
+                        System.out.println("**** the current date is *****"+timeStamp);
+
+                        String frmweeks=frmweek.getText().toString().trim();
+
+                        System.out.println("***from weeks is**"+frmweeks);
+                        String[] weekarray=frmweeks.split("/");
+                        String edate=weekarray[0];
+                        String emnth=weekarray[1];
+                        String eyear=weekarray[2];
+
+                        int edateI=Integer.parseInt(edate);
+                        int emnthI=Integer.parseInt(emnth);
+                        int eyearI=Integer.parseInt(eyear);
+
+                        int cdateI=Integer.parseInt(currentDate);
+                        int cmnthI=Integer.parseInt(currentMonth);
+                        int cyearI=Integer.parseInt(currentYear);
+
+                        if(eyearI==cyearI && emnthI==cmnthI && edateI>cdateI){
+
+                            frmweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+                            ValidateToDate();
+
+
+                        }
+
+                        else if(eyearI==cyearI && emnthI>cmnthI){
+
+                            frmweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+                            ValidateToDate();
+
+
+                        }
+
+                        else if(eyearI>cyearI){
+
+                            frmweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+                            ValidateToDate();
+
+
+                        }
+                        else{
+
+                            ValidateToDate();
+
+                        }
+
+
+                    }
+                    catch(Exception e){
+
+
+                    }
+
+
+
+
+
+
 
 
                 }
@@ -290,7 +374,66 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                 public void afterTextChanged(Editable s) {
 
 //                    Toast.makeText(getActivity(), "after change", Toast.LENGTH_SHORT).show();
-                    filterMessagesByDate();
+
+                    try{
+
+
+
+
+                        String frmweeks=frmweek.getText().toString().trim();
+
+                        System.out.println("***from weeks is**"+frmweeks);
+                        String[] weekarray=frmweeks.split("/");
+                        String edate=weekarray[0];
+                        String emnth=weekarray[1];
+                        String eyear=weekarray[2];
+
+                        int edateI=Integer.parseInt(edate);
+                        int emnthI=Integer.parseInt(emnth);
+                        int eyearI=Integer.parseInt(eyear);
+
+
+                        String toweeks=toweek.getText().toString().trim();
+
+                        System.out.println("***to weeks is**"+toweeks);
+                        String[] toweekarray=toweeks.split("/");
+                        String toedate=toweekarray[0];
+                        String toemnth=toweekarray[1];
+                        String toeyear=toweekarray[2];
+
+                        int toedateI=Integer.parseInt(toedate);
+                        int toemnthI=Integer.parseInt(toemnth);
+                        int toeyearI=Integer.parseInt(toeyear);
+
+                        if(toeyearI==eyearI && toemnthI==emnthI && toedateI<edateI){
+                            toweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date greater than from week", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else if(toeyearI==eyearI && toemnthI<emnthI){
+                            toweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date greater than from week", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(toeyearI<eyearI){
+
+                            toweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date greater than from week", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+
+                            filterMessagesByDate();
+                            allr.setEnabled(true);
+
+
+                        }
+
+
+
+                    }
+                    catch(Exception e){
+
+
+                    }
 
 
                 }
@@ -965,57 +1108,9 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                 @Override
                 public void onClick(View v) {
 
+                    RetrieveAllResults();
+                    allr.setEnabled(false);
 
-
-
-
-                    String frmweekdate=frmweek.getText().toString();
-                    String toweekdate=toweek.getText().toString();
-                    mymesslist.clear();
-                    List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
-
-
-                    for(int x=0;x<bdy.size();x++){
-
-                        counter += 1;
-                        String messbdy=bdy.get(x).getmBody();
-                        String ndate = bdy.get(x).getmTimeStamp();
-                        String read=bdy.get(x).getRead();
-                        String mychk=bdy.get(x).getChkd();
-                        String mvcnt=bdy.get(x).getViralCount();
-                        int vcount=Integer.parseInt(mvcnt);
-                        boolean mychkB;
-                        if(mychk.contentEquals("true")){
-                            mychkB=true;
-                        }
-                        else{
-                            mychkB=false;
-                        }
-
-                        String[] checkSplitdate=ndate.split("/");
-
-
-                        if(checkSplitdate.length>1){
-
-                        }
-                        else{
-                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTimeInMillis(Long.parseLong(ndate));
-                            ndate = formatter.format(calendar.getTime());
-
-                        }
-
-                        mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
-
-
-                    }
-                    Collections.sort(mymesslist,Mydata.VlcountComparator);
-
-
-
-                    myadapter=new MessagesAdapter(getActivity(),mymesslist);
-                    lv.setAdapter(myadapter);
 
                 }
             });
@@ -1024,6 +1119,70 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+    public void RetrieveAllResults(){
+
+        try{
+
+
+            String frmweekdate=frmweek.getText().toString();
+            String toweekdate=toweek.getText().toString();
+            mymesslist.clear();
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+
+
+            for(int x=0;x<bdy.size();x++){
+
+                counter += 1;
+                String messbdy=bdy.get(x).getmBody();
+                String ndate = bdy.get(x).getmTimeStamp();
+                String read=bdy.get(x).getRead();
+                String mychk=bdy.get(x).getChkd();
+                String mvcnt=bdy.get(x).getViralCount();
+                int vcount=Integer.parseInt(mvcnt);
+                boolean mychkB;
+                if(mychk.contentEquals("true")){
+                    mychkB=true;
+                }
+                else{
+                    mychkB=false;
+                }
+
+                String[] checkSplitdate=ndate.split("/");
+
+
+                if(checkSplitdate.length>1){
+
+                }
+                else{
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(Long.parseLong(ndate));
+                    ndate = formatter.format(calendar.getTime());
+
+                }
+
+                mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+
+
+            }
+            Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+
+
+            myadapter=new MessagesAdapter(getActivity(),mymesslist);
+            lv.setAdapter(myadapter);
+
+            frmweek.setText("");
+            toweek.setText("");
+            toweek.setEnabled(false);
         }
         catch(Exception e){
 

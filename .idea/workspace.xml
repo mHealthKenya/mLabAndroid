@@ -11,17 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f01e212-8aba-492e-b8dd-a7b7bbcbb409" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-22-13-05-56-853.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-22-13-06-07-148.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-22-13-08-30-726.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-23-10-12-54-032.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-23-10-19-03-699.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-23-11-01-20-101.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-23-11-18-10-377.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-25-07-57-28-667.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-25-10-03-01-833.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-08-26-15-51-24-107.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
@@ -29,7 +18,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" afterPath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragmentallall.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragmentallall.xml" />
@@ -67,16 +55,44 @@
       <file leaf-file-name="FragmentAll.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="940" column="0" selection-start-line="940" selection-start-column="0" selection-end-line="940" selection-end-column="0" />
+            <state relative-caret-position="60">
+              <caret line="568" column="0" selection-start-line="568" selection-start-column="0" selection-end-line="568" selection-end-column="0" />
               <folding>
-                <element signature="e#4585#5878#0" expanded="true" />
-                <element signature="e#5877#5878#0" expanded="true" />
-                <element signature="e#8080#9372#0" expanded="true" />
-                <element signature="e#9371#9372#0" expanded="true" />
-                <element signature="e#27013#29022#0" expanded="true" />
-                <element signature="e#29021#29022#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1737#1745#0" expanded="true" />
+                <element signature="e#4640#5933#0" expanded="true" />
+                <element signature="e#5269#5833#0" expanded="true" />
+                <element signature="e#5832#5833#0" expanded="true" />
+                <element signature="e#5932#5933#0" expanded="true" />
+                <element signature="e#13103#14395#0" expanded="true" />
+                <element signature="e#13732#14295#0" expanded="true" />
+                <element signature="e#14294#14295#0" expanded="true" />
+                <element signature="e#14394#14395#0" expanded="true" />
+                <element signature="e#14556#18792#0" expanded="true" />
+                <element signature="e#18791#18792#0" expanded="true" />
+                <element signature="e#18944#22330#0" expanded="true" />
+                <element signature="e#22329#22330#0" expanded="true" />
+                <element signature="e#22653#22818#0" expanded="true" />
+                <element signature="e#22817#22818#0" expanded="true" />
+                <element signature="e#22858#23414#0" expanded="true" />
+                <element signature="e#23348#23386#0" expanded="true" />
+                <element signature="e#23413#23414#0" expanded="true" />
+                <element signature="e#32036#32257#0" expanded="true" />
+                <element signature="e#32256#32257#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fragmentallall.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragmentallall.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1952,8 +1968,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidPositive.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlSuppressed.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlUnsuppressed.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragmentallall.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragmentallall.xml" />
       </list>
     </option>
   </component>
@@ -1988,7 +2004,28 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="ProjectPane" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="app">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2113,28 +2150,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="app">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3007,17 +3023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragmentallall.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8258">
@@ -3034,17 +3039,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragmentallall.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="940" column="0" selection-start-line="940" selection-start-column="0" selection-end-line="940" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="568" column="0" selection-start-line="568" selection-start-column="0" selection-end-line="568" selection-end-column="0" />
           <folding>
-            <element signature="e#4585#5878#0" expanded="true" />
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#8080#9372#0" expanded="true" />
-            <element signature="e#9371#9372#0" expanded="true" />
-            <element signature="e#27013#29022#0" expanded="true" />
-            <element signature="e#29021#29022#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1737#1745#0" expanded="true" />
+            <element signature="e#4640#5933#0" expanded="true" />
+            <element signature="e#5269#5833#0" expanded="true" />
+            <element signature="e#5832#5833#0" expanded="true" />
+            <element signature="e#5932#5933#0" expanded="true" />
+            <element signature="e#13103#14395#0" expanded="true" />
+            <element signature="e#13732#14295#0" expanded="true" />
+            <element signature="e#14294#14295#0" expanded="true" />
+            <element signature="e#14394#14395#0" expanded="true" />
+            <element signature="e#14556#18792#0" expanded="true" />
+            <element signature="e#18791#18792#0" expanded="true" />
+            <element signature="e#18944#22330#0" expanded="true" />
+            <element signature="e#22329#22330#0" expanded="true" />
+            <element signature="e#22653#22818#0" expanded="true" />
+            <element signature="e#22817#22818#0" expanded="true" />
+            <element signature="e#22858#23414#0" expanded="true" />
+            <element signature="e#23348#23386#0" expanded="true" />
+            <element signature="e#23413#23414#0" expanded="true" />
+            <element signature="e#32036#32257#0" expanded="true" />
+            <element signature="e#32256#32257#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -39,7 +39,7 @@
                     android:layout_weight="0.5"
                     android:id="@+id/filter_frmweek"
                     android:focusable="false"
-                    android:hint="select from week"
+                    android:hint="Select Date From"
                     android:layout_height="wrap_content" />
 
 
@@ -47,7 +47,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_weight="0.5"
-                    android:hint="select to week"
+                    android:hint="Select Date To"
                     android:id="@+id/filter_toweek"
                     android:enabled="false"
                     android:focusable="false"
