@@ -290,115 +290,6 @@ public class FragmentVlAll extends Fragment {
 //                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
 
 
-                        MydialogBuilder(msgbdy,msgdate);
-
-                        System.out.println("/*****///// "+msgbdy);
-                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=? group by m_body",msgbdy);
-                        for(int x=0;x<myl.size();x++){
-
-                            Messages ms=(Messages) myl.get(x);
-                            ms.getId();
-                            ms.setRead("read");
-                            ms.setDateRead(mytime);
-//                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
-                            ms.save();
-                        }
-
-
-                        mymesslist.clear();
-                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
-
-                        if (bdy.isEmpty())
-                            return false;
-//        myadapter.clear();
-
-
-                        for(int x=0;x<bdy.size();x++){
-
-                            counter += 1;
-                            String messbdy=bdy.get(x).getmBody();
-                            String ndate = bdy.get(x).getmTimeStamp();
-                            String read=bdy.get(x).getRead();
-                            String mvcnt=bdy.get(x).getViralCount();
-                            int vcount=Integer.parseInt(mvcnt);
-
-                            String chkds=bdy.get(x).getChkd();
-                            if(chkds.contentEquals("true")){
-
-                                txtChkd=true;
-                            }
-                            else{
-
-                                txtChkd=false;
-                            }
-
-                            String[] checkSplitdate=ndate.split("/");
-
-
-                            if(checkSplitdate.length>1){
-
-                            }
-                            else{
-                                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.setTimeInMillis(Long.parseLong(ndate));
-                                ndate = formatter.format(calendar.getTime());
-
-                            }
-
-                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
-
-
-                        }
-
-                        Collections.sort(mymesslist,Mydata.VlcountComparator);
-
-
-                        myadapter.notifyDataSetChanged();
-
-
-
-                    }
-
-                    catch(Exception e){}
-                    return true;
-                }
-            });
-
-
-        }
-        catch(Exception e){
-
-
-        }
-    }
-
-    public void onmyClick(){
-
-        try{
-
-
-
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
-//                    tvread.setText("read");
-                    boolean txtChkd;
-
-                    try{
-
-                        String msgbdy=mymesslist.get(position).getMsgbody();
-                        String msgdate=mymesslist.get(position).getDate();
-
-                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//            System.out.println("testing "+timestamp);
-                        String mytime=timestamp.toString();
-
-//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
-
-
 //                        MydialogBuilder(msgbdy,msgdate);
 
                         System.out.println("/*****///// "+msgbdy);
@@ -413,7 +304,7 @@ public class FragmentVlAll extends Fragment {
                         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
                         if (bdy.isEmpty())
-                            return;
+                            return false;
 //        myadapter.clear();
 
 
@@ -502,6 +393,122 @@ public class FragmentVlAll extends Fragment {
 
                     catch(Exception e){}
 
+                    return true;
+
+
+
+
+
+                }
+            });
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    public void onmyClick(){
+
+        try{
+
+
+
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+//                    tvread.setText("read");
+                    boolean txtChkd;
+
+                    try{
+
+                        String msgbdy=mymesslist.get(position).getMsgbody();
+                        String msgdate=mymesslist.get(position).getDate();
+
+                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            System.out.println("testing "+timestamp);
+                        String mytime=timestamp.toString();
+
+//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
+
+
+                        MydialogBuilder(msgbdy,msgdate);
+
+                        System.out.println("/*****///// "+msgbdy);
+                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=? group by m_body",msgbdy);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+                            ms.getId();
+                            ms.setRead("read");
+                            ms.setDateRead(mytime);
+//                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
+                            ms.save();
+                        }
+
+
+                        mymesslist.clear();
+                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
+
+                        if (bdy.isEmpty())
+                            return;
+//        myadapter.clear();
+
+
+                        for(int x=0;x<bdy.size();x++){
+
+                            counter += 1;
+                            String messbdy=bdy.get(x).getmBody();
+                            String ndate = bdy.get(x).getmTimeStamp();
+                            String read=bdy.get(x).getRead();
+                            String mvcnt=bdy.get(x).getViralCount();
+                            int vcount=Integer.parseInt(mvcnt);
+
+                            String chkds=bdy.get(x).getChkd();
+                            if(chkds.contentEquals("true")){
+
+                                txtChkd=true;
+                            }
+                            else{
+
+                                txtChkd=false;
+                            }
+
+                            String[] checkSplitdate=ndate.split("/");
+
+
+                            if(checkSplitdate.length>1){
+
+                            }
+                            else{
+                                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(Long.parseLong(ndate));
+                                ndate = formatter.format(calendar.getTime());
+
+                            }
+
+                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+
+
+                        }
+
+                        Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+
+                        myadapter.notifyDataSetChanged();
+
+
+
+                    }
+
+                    catch(Exception e){}
 
                 }
             });

@@ -379,6 +379,20 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
+                        String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
+                        String currentArray[]=timeStamp.split("\\.");
+                        String currentDate=currentArray[2];
+                        String currentMonth=currentArray[1];
+                        String currentYear=currentArray[0];
+
+                        int cdateI=Integer.parseInt(currentDate);
+                        int cmnthI=Integer.parseInt(currentMonth);
+                        int cyearI=Integer.parseInt(currentYear);
+
+
+
+
+
 
                         String frmweeks=frmweek.getText().toString().trim();
 
@@ -404,6 +418,36 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                         int toedateI=Integer.parseInt(toedate);
                         int toemnthI=Integer.parseInt(toemnth);
                         int toeyearI=Integer.parseInt(toeyear);
+
+
+
+
+
+
+//                        if(toeyearI==cyearI && toemnthI==cmnthI && toedateI>cdateI){
+//
+//                            toweek.setText("");
+//                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+//
+//
+//                        }
+//
+//                        else if(toeyearI==cyearI && toemnthI>cmnthI){
+//
+//                            toweek.setText("");
+//                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+//
+//
+//
+//                        }
+//
+//                        else if(toeyearI>cyearI){
+//
+//                            toweek.setText("");
+//                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+//
+//                        }
+
 
                         if(toeyearI==eyearI && toemnthI==emnthI && toedateI<edateI){
                             toweek.setText("");
@@ -496,152 +540,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
-                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
-                    tvread.setText("read");
-                    boolean sending=false;
-                    boolean txtChkd;
-
-                    try{
-
-                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//            System.out.println("testing "+timestamp);
-                        String mytime=timestamp.toString();
-
-                        String msgbdy=mymesslist.get(position).getMsgbody();
-                        String msgdate=mymesslist.get(position).getDate();
-
-//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
-
-
-                        MydialogBuilder(msgbdy,msgdate);
-
-//                    System.out.println("/*****///// "+msgbdy);
-                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
-                        for(int x=0;x<myl.size();x++){
-
-                            Messages ms=(Messages) myl.get(x);
-                            if(ms.getRead().contentEquals("read")){
-                                sending=false;
-
-                            }
-                            else{
-
-                                sending=true;
-                                ms.getId();
-                                ms.setRead("read");
-                                ms.setDateRead(mytime);
-//                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
-                                ms.save();
-                            }
-                        }
-
-
-                        if(sending){
-
-                            String sendMessage=msgbdy+"*"+mytime;
-                            SmsManager sm = SmsManager.getDefault();
-                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
-
-                        }
-
-
-
-
-
-                        mymesslist.clear();
-                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
-
-                        if (bdy.isEmpty())
-                            return false;
-//        myadapter.clear();
-
-
-                        for(int x=0;x<bdy.size();x++){
-
-                            counter += 1;
-                            String messbdy=bdy.get(x).getmBody();
-                            String ndate = bdy.get(x).getmTimeStamp();
-                            String read=bdy.get(x).getRead();
-                            String chkds=bdy.get(x).getChkd();
-                            String mvcnt=bdy.get(x).getViralCount();
-                            int vcount=Integer.parseInt(mvcnt);
-                            if(chkds.contentEquals("true")){
-
-                                txtChkd=true;
-                            }
-                            else{
-
-                                txtChkd=false;
-                            }
-
-
-                            String[] checkSplitdate=ndate.split("/");
-
-
-                            if(checkSplitdate.length>1){
-
-                            }
-                            else{
-                                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.setTimeInMillis(Long.parseLong(ndate));
-                                ndate = formatter.format(calendar.getTime());
-
-                            }
-
-
-
-
-                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
-
-
-
-
-
-                        }
-
-                        Collections.sort(mymesslist,Mydata.VlcountComparator);
-
-                        Mydata model = mymesslist.get(position);
-
-                        mymesslist.set(position, model);
-
-                        myadapter.notifyDataSetChanged();
-
-
-
-                    }
-
-                    catch(Exception e){}
-
-
-
-
-
-                    return true;
-                }
-            });
-        }
-        catch(Exception e){
-
-
-        }
-    }
-
-
-    public void setClickListener(){
-
-        try{
-
-
-
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-                    try{
+                                        try{
 
                         boolean txtChkd;
 
@@ -656,7 +555,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
 
                         if (bdy.isEmpty())
-                            return;
+                            return false;
 //        myadapter.clear();
 
 
@@ -748,6 +647,151 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
                     }
+
+                    return true;
+
+
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+    public void setClickListener(){
+
+        try{
+
+
+
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+                    tvread.setText("read");
+                    boolean sending=false;
+                    boolean txtChkd;
+
+                    try{
+
+                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            System.out.println("testing "+timestamp);
+                        String mytime=timestamp.toString();
+
+                        String msgbdy=mymesslist.get(position).getMsgbody();
+                        String msgdate=mymesslist.get(position).getDate();
+
+//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
+
+
+                        MydialogBuilder(msgbdy,msgdate);
+
+//                    System.out.println("/*****///// "+msgbdy);
+                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+                            if(ms.getRead().contentEquals("read")){
+                                sending=false;
+
+                            }
+                            else{
+
+                                sending=true;
+                                ms.getId();
+                                ms.setRead("read");
+                                ms.setDateRead(mytime);
+//                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
+                                ms.save();
+                            }
+                        }
+
+
+                        if(sending){
+
+                            String sendMessage=msgbdy+"*"+mytime;
+                            SmsManager sm = SmsManager.getDefault();
+                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
+
+                        }
+
+
+
+
+
+                        mymesslist.clear();
+                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+
+                        if (bdy.isEmpty())
+                            return;
+//        myadapter.clear();
+
+
+                        for(int x=0;x<bdy.size();x++){
+
+                            counter += 1;
+                            String messbdy=bdy.get(x).getmBody();
+                            String ndate = bdy.get(x).getmTimeStamp();
+                            String read=bdy.get(x).getRead();
+                            String chkds=bdy.get(x).getChkd();
+                            String mvcnt=bdy.get(x).getViralCount();
+                            int vcount=Integer.parseInt(mvcnt);
+                            if(chkds.contentEquals("true")){
+
+                                txtChkd=true;
+                            }
+                            else{
+
+                                txtChkd=false;
+                            }
+
+
+                            String[] checkSplitdate=ndate.split("/");
+
+
+                            if(checkSplitdate.length>1){
+
+                            }
+                            else{
+                                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(Long.parseLong(ndate));
+                                ndate = formatter.format(calendar.getTime());
+
+                            }
+
+
+
+
+                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+
+
+
+
+
+                        }
+
+                        Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+                        Mydata model = mymesslist.get(position);
+
+                        mymesslist.set(position, model);
+
+                        myadapter.notifyDataSetChanged();
+
+
+
+                    }
+
+                    catch(Exception e){}
+
+
+
 
                 }
             });
@@ -1065,14 +1109,15 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                     mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
 
+
                 }
-                else if(theyeari==toyeari && theyeari==frmyeari && themnthi<=tomnthi && themnthi>=frmmnthi && thedayi<=todayi && thedayi>=frmdayi){
+                else if(theyeari==toyeari && theyeari==frmyeari && themnthi<=tomnthi && themnthi>=frmmnthi){
 
                     mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
 
                 }
 
-                else if(theyeari<=toyeari && theyeari>=frmyeari && themnthi<=tomnthi && themnthi>=frmmnthi && thedayi<=todayi && thedayi>=frmdayi){
+                else if(theyeari<toyeari && theyeari>frmyeari){
 
                     mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
 

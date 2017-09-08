@@ -140,154 +140,8 @@ public class FragmentVlInvalid extends Fragment {
               @Override
               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                  TextView tvread=(TextView) view.findViewById(R.id.mstitle);
-//                  tvread.setText("read");
-                  boolean sending=false;
-                  boolean txtChkd;
 
-                  try{
-
-                      String msgbdy=mymesslist.get(position).getMsgbody();
-                      String msgdate=mymesslist.get(position).getDate();
-
-                      Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//            System.out.println("testing "+timestamp);
-                      String mytime=timestamp.toString();
-
-//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
-
-
-//                      MydialogBuilder(msgbdy,msgdate);
-
-                      System.out.println("/*****///// "+msgbdy);
-                      List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
-
-
-
-
-                      mymesslist.clear();
-                      List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
-
-                      if (bdy.isEmpty())
-                          return;
-//        myadapter.clear();
-
-
-                      for(int x=0;x<bdy.size();x++){
-
-                          counter += 1;
-                          String messbdy=bdy.get(x).getmBody();
-                          String ndate = bdy.get(x).getmTimeStamp();
-                          String read=bdy.get(x).getRead();
-
-                          String mvcnt=bdy.get(x).getViralCount();
-                          int vcount=Integer.parseInt(mvcnt);
-
-                          String chkds=bdy.get(x).getChkd();
-                          if(chkds.contentEquals("true")){
-
-                              txtChkd=true;
-                          }
-                          else{
-
-                              txtChkd=false;
-                          }
-
-                          if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
-
-
-                              String[] checkSplitdate=ndate.split("/");
-
-
-                              if(checkSplitdate.length>1){
-
-                              }
-                              else{
-                                  DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                                  Calendar calendar = Calendar.getInstance();
-                                  calendar.setTimeInMillis(Long.parseLong(ndate));
-                                  ndate = formatter.format(calendar.getTime());
-
-                              }
-
-                              mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
-
-
-
-                          }
-
-
-
-                      }
-
-                      Mydata model = mymesslist.get(position);
-
-                      if (model.isSelected()) {
-
-                          model.setSelected(false);
-                          for(int x=0;x<myl.size();x++){
-
-                              Messages ms=(Messages) myl.get(x);
-
-
-                              ms.getId();
-
-                              ms.setChkd("false");
-                              ms.save();
-
-                          }
-
-                      }
-                      else{
-
-                          model.setSelected(true);
-                          for(int x=0;x<myl.size();x++){
-
-                              Messages ms=(Messages) myl.get(x);
-
-
-                              ms.getId();
-
-                              ms.setChkd("true");
-                              ms.save();
-
-                          }
-
-                      }
-                      mymesslist.set(position, model);
-
-                      myadapter.notifyDataSetChanged();
-
-
-
-                  }
-
-                  catch(Exception e){}
-
-
-              }
-          });
-
-
-      }
-      catch(Exception e){
-
-
-      }
-  }
-
-    public void onLongclickListener(){
-
-        try{
-
-            lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-
-                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+                                      TextView tvread=(TextView) view.findViewById(R.id.mstitle);
                     tvread.setText("read");
                     boolean sending=false;
                     boolean txtChkd;
@@ -338,7 +192,7 @@ public class FragmentVlInvalid extends Fragment {
                         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
                         if (bdy.isEmpty())
-                            return false;
+                            return;
 //        myadapter.clear();
 
 
@@ -401,6 +255,158 @@ public class FragmentVlInvalid extends Fragment {
                     catch(Exception e){}
 
 
+
+
+
+
+
+
+              }
+          });
+
+
+      }
+      catch(Exception e){
+
+
+      }
+  }
+
+    public void onLongclickListener(){
+
+        try{
+
+            lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+
+
+                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+//                  tvread.setText("read");
+                    boolean sending=false;
+                    boolean txtChkd;
+
+                    try{
+
+                        String msgbdy=mymesslist.get(position).getMsgbody();
+                        String msgdate=mymesslist.get(position).getDate();
+
+                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            System.out.println("testing "+timestamp);
+                        String mytime=timestamp.toString();
+
+//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
+
+
+//                      MydialogBuilder(msgbdy,msgdate);
+
+                        System.out.println("/*****///// "+msgbdy);
+                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
+
+
+
+
+                        mymesslist.clear();
+                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
+
+                        if (bdy.isEmpty())
+                            return false;
+//        myadapter.clear();
+
+
+                        for(int x=0;x<bdy.size();x++){
+
+                            counter += 1;
+                            String messbdy=bdy.get(x).getmBody();
+                            String ndate = bdy.get(x).getmTimeStamp();
+                            String read=bdy.get(x).getRead();
+
+                            String mvcnt=bdy.get(x).getViralCount();
+                            int vcount=Integer.parseInt(mvcnt);
+
+                            String chkds=bdy.get(x).getChkd();
+                            if(chkds.contentEquals("true")){
+
+                                txtChkd=true;
+                            }
+                            else{
+
+                                txtChkd=false;
+                            }
+
+                            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+
+
+                                String[] checkSplitdate=ndate.split("/");
+
+
+                                if(checkSplitdate.length>1){
+
+                                }
+                                else{
+                                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTimeInMillis(Long.parseLong(ndate));
+                                    ndate = formatter.format(calendar.getTime());
+
+                                }
+
+                                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+
+
+
+                            }
+
+
+
+                        }
+
+                        Mydata model = mymesslist.get(position);
+
+                        if (model.isSelected()) {
+
+                            model.setSelected(false);
+                            for(int x=0;x<myl.size();x++){
+
+                                Messages ms=(Messages) myl.get(x);
+
+
+                                ms.getId();
+
+                                ms.setChkd("false");
+                                ms.save();
+
+                            }
+
+                        }
+                        else{
+
+                            model.setSelected(true);
+                            for(int x=0;x<myl.size();x++){
+
+                                Messages ms=(Messages) myl.get(x);
+
+
+                                ms.getId();
+
+                                ms.setChkd("true");
+                                ms.save();
+
+                            }
+
+                        }
+                        mymesslist.set(position, model);
+
+                        myadapter.notifyDataSetChanged();
+
+
+
+                    }
+
+                    catch(Exception e){}
 
 
                     return true;
