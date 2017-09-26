@@ -6,7 +6,7 @@ package com.example.kenweezy.mytablayouts;
 
 public class Myshortcodes {
 
-    public String mainShortcode="40149";
+    public String mainShortcode="40147";
     public String sendSmsShortcode="40147";
     public String registerShortcode="40147";
 

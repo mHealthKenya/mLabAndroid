@@ -160,6 +160,8 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
                 cview.setCardBackgroundColor(Color.parseColor("#A9A9A9"));
                 tvbdy.setTextColor(Color.parseColor("#000000"));
                 tvbdy.setTypeface(tvbdy.getTypeface(), Typeface.BOLD);
+//                imgv.setVisibility(View.VISIBLE);
+//                imgv.setBackgroundResource(R.mipmap.highviral);
 
 
 

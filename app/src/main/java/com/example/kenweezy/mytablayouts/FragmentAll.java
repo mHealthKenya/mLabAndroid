@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -45,8 +46,11 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     View v;
     Myshortcodes msc=new Myshortcodes();
     boolean dateVisible,weekVisible;
-    Button allr;
+    Button allr,printResBut;
 
+    boolean allSelected;
+
+    ImageView imvall;
     DatePickerDialog datePickerDialog;
 
     String[] otpions = {"please select an Option","filter by date","Filter by week"};
@@ -68,6 +72,11 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     ArrayAdapter arrayAdapter;
     int counter=0;
     String smsMessage = "";
+
+    Progress pr=new Progress();
+
+
+
     public static FragmentAll instance() {
         return inst;
     }
@@ -95,11 +104,15 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
         lv=(ListView) v.findViewById(R.id.lvallall);
 
         initialise();
+        printResultsListener();
+        checkAllListener();
         allr.setEnabled(false);
 //        dateListener();
 //        populateFilterSpinner();
 //        setSpinnerListeners();
 
+
+        pr.progressing(getActivity(),"Loading","Loading");
         mymesslist=new ArrayList<>();
         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
 
@@ -161,17 +174,322 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
+        pr.DissmissProgress();
 
         return v;
+    }
+
+
+
+
+    public void UncheckAllMessages(){
+
+
+        try{
+
+            Toast.makeText(getActivity(), "all messages checked", Toast.LENGTH_SHORT).show();
+
+
+
+            //new code here
+
+
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+
+            for(int x2=0;x2<bdy.size();x2++){
+
+
+
+                Mydata model = mymesslist.get(x2);
+
+                if (model.isSelected()) {
+
+                    model.setSelected(false);
+//                   for(int x2=0;x2<myl.size();x2++){
+
+                    Messages ms=(Messages) bdy.get(x2);
+
+
+                    ms.getId();
+
+                    ms.setChkd("false");
+                    ms.save();
+
+//                   }
+
+                }
+                else{
+
+                    model.setSelected(false);
+//                   for(int x=0;x<myl.size();x++){
+
+                    Messages ms=(Messages) bdy.get(x2);
+
+
+                    ms.getId();
+
+                    ms.setChkd("false");
+                    ms.save();
+
+//                   }
+
+                }
+                mymesslist.set(x2, model);
+
+
+            }
+
+            myadapter.notifyDataSetChanged();
+
+            //new code here
+
+
+
+
+
+
+
+
+
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+
+    public void checkAllMessages(){
+
+
+       try{
+
+           Toast.makeText(getActivity(), "all messages checked", Toast.LENGTH_SHORT).show();
+
+
+
+           //new code here
+
+
+           List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+
+           for(int x2=0;x2<bdy.size();x2++){
+
+
+
+               Mydata model = mymesslist.get(x2);
+
+               if (model.isSelected()) {
+
+                   model.setSelected(true);
+//                   for(int x2=0;x2<myl.size();x2++){
+
+                   Messages ms=(Messages) bdy.get(x2);
+
+
+                   ms.getId();
+
+                   ms.setChkd("true");
+                   ms.save();
+
+//                   }
+
+               }
+               else{
+
+                   model.setSelected(true);
+//                   for(int x=0;x<myl.size();x++){
+
+                   Messages ms=(Messages) bdy.get(x2);
+
+
+                   ms.getId();
+
+                   ms.setChkd("true");
+                   ms.save();
+
+//                   }
+
+               }
+               mymesslist.set(x2, model);
+
+
+           }
+
+           myadapter.notifyDataSetChanged();
+
+           //new code here
+
+
+
+
+
+
+
+
+
+
+
+       }
+       catch(Exception e){
+
+
+       }
+    }
+
+
+    public void setSelectAll(){
+
+        try{
+
+            List myl=AllMessagesChecked.findWithQuery(AllMessagesChecked.class,"Select * from All_messages_checked",null);
+
+
+            if(myl.size()==0){
+
+
+
+                imvall.setBackgroundResource(R.drawable.check);
+            }
+
+            else{
+
+                imvall.setBackgroundResource(R.drawable.checked);
+
+
+            }
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    public void checkAllListener(){
+
+        try{
+
+            imvall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    List myl=AllMessagesChecked.findWithQuery(AllMessagesChecked.class,"Select * from All_messages_checked",null);
+
+
+                    if(myl.size()==0){
+
+
+
+                        imvall.setBackgroundResource(R.drawable.checked);
+
+                        checkAllMessages();
+
+                        AllMessagesChecked alc=new AllMessagesChecked("checked");
+                        alc.save();
+
+
+
+                    }
+
+                    else{
+
+
+                        imvall.setBackgroundResource(R.drawable.check);
+                        UncheckAllMessages();
+                        AllMessagesChecked.deleteAll(AllMessagesChecked.class);
+
+
+                    }
+
+//
+////                    if(allSelected){
+//
+////                        allSelected=false;
+//
+//                        if((Integer)imvall.getTag()==R.drawable.check){
+//
+////                            Toast.makeText(getActivity(), "am not checked tag"+imvall.getTag().toString(), Toast.LENGTH_SHORT).show();
+//
+//                            imvall.setTag(R.drawable.checked);
+//                            imvall.setBackgroundResource(R.drawable.checked);
+//
+//                            checkAllMessages();
+//
+//
+//
+//
+//                        }
+//                        else{
+//
+//                            imvall.setTag(R.drawable.check);
+//                            imvall.setBackgroundResource(R.drawable.check);
+//                            UncheckAllMessages();
+//
+////                            Toast.makeText(getActivity(), "am checked tag"+imvall.getTag().toString(), Toast.LENGTH_SHORT).show();
+//
+//                        }
+
+//                        imvall.setBackgroundResource(R.drawable.check);
+//
+//
+//                        checkAllMessages();
+
+//                    }
+//                    else{
+//
+//                        allSelected=true;
+//                        imvall.setBackgroundResource(R.drawable.checked);
+//                        checkAllMessages();
+//                    }
+
+
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+    public void printResultsListener(){
+
+        try{
+
+            printResBut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "coming soonest", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
     }
 
     public void initialise(){
 
         try{
 
+
             frmweek=(EditText) v.findViewById(R.id.filter_frmweek);
             toweek=(EditText) v.findViewById(R.id.filter_toweek);
             allr=(Button) v.findViewById(R.id.allres);
+            printResBut=(Button) v.findViewById(R.id.printres);
+            imvall=(ImageView) v.findViewById(R.id.iv_check_all);
+//            imvall.setTag(R.drawable.check);
+            allSelected=false;
+
+            setSelectAll();
 
 
         }
@@ -424,32 +742,32 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
-//                        if(toeyearI==cyearI && toemnthI==cmnthI && toedateI>cdateI){
-//
-//                            toweek.setText("");
-//                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
-//
-//
-//                        }
-//
-//                        else if(toeyearI==cyearI && toemnthI>cmnthI){
-//
-//                            toweek.setText("");
-//                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
-//
-//
-//
-//                        }
-//
-//                        else if(toeyearI>cyearI){
-//
-//                            toweek.setText("");
-//                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
-//
-//                        }
+                        if(toeyearI==cyearI && toemnthI==cmnthI && toedateI>cdateI){
+
+                            toweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
 
 
-                        if(toeyearI==eyearI && toemnthI==emnthI && toedateI<edateI){
+                        }
+
+                        else if(toeyearI==cyearI && toemnthI>cmnthI){
+
+                            toweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+
+
+
+                        }
+
+                        else if(toeyearI>cyearI){
+
+                            toweek.setText("");
+                            Toast.makeText(getActivity(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                        else if(toeyearI==eyearI && toemnthI==emnthI && toedateI<edateI){
                             toweek.setText("");
                             Toast.makeText(getActivity(), "choose a date greater than from week", Toast.LENGTH_SHORT).show();
                         }
@@ -575,6 +893,12 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                             else{
 
                                 txtChkd=false;
+
+
+//                                AllMessagesChecked.deleteAll(AllMessagesChecked.class);
+//                                setSelectAll();
+//                                imvall.setBackgroundResource(R.drawable.check);
+
                             }
 
 

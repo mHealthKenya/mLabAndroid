@@ -172,6 +172,21 @@ public class Options extends AppCompatActivity {
         }
     }
 
+    public void historicalResults(View v){
+
+        try{
+
+            Intent myint=new Intent(getApplicationContext(),HistoricalResults.class);
+            startActivity(myint);
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
     public void setToolBar(){
 
         try{

@@ -58,14 +58,51 @@
 
 
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Show All Results"
-            android:id="@+id/allres"
-            android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Show All Results"
+                android:id="@+id/allres"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:text="Print"
+                android:id="@+id/printres"
+                android:layout_marginRight="5sp"
+                android:layout_toLeftOf="@+id/selectallT"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Select All"
+                android:id="@+id/selectallT"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/iv_check_all"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/check"/>
+
+
+
+
+        </RelativeLayout>
+
+
 
 
 
