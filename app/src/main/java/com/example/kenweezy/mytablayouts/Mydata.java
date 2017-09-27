@@ -14,6 +14,10 @@ public class Mydata {
     private boolean isSelected;
     private int vcount;
 
+    public Mydata(){
+
+    }
+
     public Mydata(boolean isSelected,String mbdy,String date,String read,int vcount){
 
         this.msgbody=mbdy;

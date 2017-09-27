@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.telephony.SmsManager;
 import android.text.Editable;
@@ -42,6 +43,8 @@ import java.util.List;
 public class FragmentAll extends Fragment  implements AdapterView.OnItemSelectedListener{
 
     EditText frmweek,toweek;
+
+    List myprintlist;
 
     View v;
     Myshortcodes msc=new Myshortcodes();
@@ -104,6 +107,9 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
         lv=(ListView) v.findViewById(R.id.lvallall);
 
         initialise();
+
+        checkIfMessagesChecked();
+
         printResultsListener();
         checkAllListener();
         allr.setEnabled(false);
@@ -152,6 +158,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
             }
 
+
+
             mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
 
 
@@ -182,12 +190,63 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
+    public void checkIfMessagesChecked(){
+
+        try{
+
+            myprintlist=new ArrayList();
+
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+            for(int d=0;d<bdy.size();d++){
+
+
+//                System.out.println("********list*****"+bdy.get(d).getChkd());
+                myprintlist.add(bdy.get(d).getChkd());
+
+
+            }
+            if(myprintlist.contains("true")){
+//                Toast.makeText(getActivity(), "has a checked item", Toast.LENGTH_SHORT).show();
+
+                printResBut.setVisibility(View.VISIBLE);
+
+
+            }
+            else{
+
+                printResBut.setVisibility(View.GONE);
+
+//                Toast.makeText(getActivity(), "has no checked item", Toast.LENGTH_SHORT).show();
+
+
+            }
+
+
+//            if(bdy.contains("true")){
+//                Toast.makeText(getActivity(), "messages checked", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            else{
+//
+//                Toast.makeText(getActivity(), "not checked", Toast.LENGTH_SHORT).show();
+//            }
+        }
+        catch(Exception e){
+            Toast.makeText(getActivity(), "exception occured "+e, Toast.LENGTH_SHORT).show();
+            System.out.println("*****error occured***"+e);
+
+
+        }
+
+    }
+
     public void UncheckAllMessages(){
 
 
         try{
 
-            Toast.makeText(getActivity(), "all messages checked", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "all messages checked", Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -248,6 +307,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
+            checkIfMessagesChecked();
 
 
 
@@ -268,7 +328,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
        try{
 
-           Toast.makeText(getActivity(), "all messages checked", Toast.LENGTH_SHORT).show();
+//           Toast.makeText(getActivity(), "all messages checked", Toast.LENGTH_SHORT).show();
 
 
 
@@ -330,6 +390,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
+           checkIfMessagesChecked();
 
 
 
@@ -459,6 +520,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     }
 
 
+    List<Messages> mymess;
     public void printResultsListener(){
 
         try{
@@ -466,7 +528,28 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
             printResBut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), "coming soonest", Toast.LENGTH_SHORT).show();
+
+
+//                    Toast.makeText(getActivity(), "coming soonest", Toast.LENGTH_SHORT).show();
+                    mymess=Messages.findWithQuery(Messages.class,"select * from Messages where chkd=? group by m_body","true");
+                    System.out.println("*****checked**"+mymess.size());
+
+                    for(int mess=0;mess<mymess.size();mess++){
+
+                        System.out.println("***queued message body****"+mymess.get(mess).getmBody());
+                    }
+//                    System.out.println("****print queue size is****"+myprintlist.size());
+//                    for(int my=0;my<myprintlist.size();my++){
+//
+//                        System.out.println("***print queues***"+myprintlist.get(my));
+//                    }
+
+                    imvall.setBackgroundResource(R.drawable.check);
+                    UncheckAllMessages();
+                    AllMessagesChecked.deleteAll(AllMessagesChecked.class);
+                    mymess.clear();
+
+
                 }
             });
         }
@@ -872,6 +955,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                         mymesslist.clear();
                         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
 
+
+
                         if (bdy.isEmpty())
                             return false;
 //        myadapter.clear();
@@ -966,6 +1051,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                         mymesslist.set(position, model);
 
                         myadapter.notifyDataSetChanged();
+
+                        checkIfMessagesChecked();
                     }
                     catch(Exception e){
 

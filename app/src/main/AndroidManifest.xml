@@ -42,7 +42,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
-            android:parentActivityName=".options2"
+            android:parentActivityName=".Options"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyRegister"
@@ -53,7 +53,7 @@
             android:name=".Register"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
-            android:parentActivityName=".options2"
+            android:parentActivityName=".Options"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
@@ -74,21 +74,10 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".OptionsOld"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/app_name"
-            android:parentActivityName=".Mylogin"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Options"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
             android:parentActivityName=".Mylogin"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".options2"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Mylogin"
