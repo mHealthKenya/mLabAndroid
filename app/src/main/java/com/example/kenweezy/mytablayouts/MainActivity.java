@@ -1,6 +1,7 @@
 package com.example.kenweezy.mytablayouts;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,8 +11,10 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -54,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
+    ProgressDialog progressDialog;
+
+    ProgressDialog pd;
 
     Myshortcodes msc=new Myshortcodes();
 
@@ -94,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
     boolean feids, falls, fvls, freports;
     ViewPagerAdapter adapter;
     AHBottomNavigation bottomNavigation;
+    boolean oncreate=false;
+
+    Progress pr=new Progress();
 
 
     @Override
@@ -105,9 +114,109 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-       System.out.println("*********the shortcode is********"+msc.mainShortcode);
+//        LoadHeavyStuff();
 
-        //  Toast.makeText(this, "oncreate method called", Toast.LENGTH_SHORT).show();
+
+
+
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        new AsyncTaskRunner().execute();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        new AsyncTaskRunner().execute();
+    }
+
+
+
+    public void method(){
+
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                try {
+                    LoadHeavyStuff();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+//                LoadHeavyStuff();
+
+            }
+        });
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            method();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+
+//            Toast.makeText(MainActivity.this, "getting messages", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+//            Toast.makeText(MainActivity.this, "done getting messages", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+    private class BottomNavRunner extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            MyHeavyJunk();
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+
+            Toast.makeText(MainActivity.this, "getting messages", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Toast.makeText(MainActivity.this, "done getting messages", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+    public void MyHeavyJunk(){
+
+
+
+
+
+
 
         feidnegselected = false;
         feidpositiveselected = false;
@@ -187,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                int index = position;
+                final int index = position;
                 bottomNavigation.setNotificationBackgroundColorResource(R.color.colorPrimaryDark);
 //                bottomNavigation.setBackgroundColor(Color.WHITE);
                 bottomNavigation.setNotificationTextColorResource(R.color.textColorPrimary);
@@ -259,45 +368,67 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 2:
-                        vlSelected = true;
-                        eidSelected = false;
-                        allSelected = false;
-                        reportseidselected = false;
-                        reportsvlselected = false;
-                        MyBottomNav();
-                        if (getvlSuppressedCount() > 0) {
-                            bottomNavigation.setNotification(Integer.toString(getvlSuppressedCount()), 0);
-
-                        } else {
-                            bottomNavigation.setNotification("", 0);
-
-                        }
-
-                        if (getvlUnsuppressedCount() > 0) {
-                            bottomNavigation.setNotification(Integer.toString(getvlUnsuppressedCount()), 1);
-
-                        } else {
-                            bottomNavigation.setNotification("", 1);
-                        }
-
-                        if (getvlInvalidCount() > 0) {
-                            bottomNavigation.setNotification(Integer.toString(getvlInvalidCount()), 2);
-
-                        } else {
-
-                            bottomNavigation.setNotification("", 2);
-                        }
 
 
-                        falls = false;
-                        feids = false;
-                        fvls = true;
-                        myfvl = (FragmentVlAll) newadapt.getFragment(index);
+                        pr.progressing(MainActivity.this,"loading..","Getting VL Results");
+                        Handler mHand  = new Handler();
+                        mHand.postDelayed(new Runnable() {
 
-                        if (!mSearchAction.isVisible()) {
-                            mSearchAction.setVisible(true);
-                        }
-                        closeSearch(false);
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+
+
+                                vlSelected = true;
+                                eidSelected = false;
+                                allSelected = false;
+                                reportseidselected = false;
+                                reportsvlselected = false;
+                                MyBottomNav();
+                                if (getvlSuppressedCount() > 0) {
+                                    bottomNavigation.setNotification(Integer.toString(getvlSuppressedCount()), 0);
+
+                                } else {
+                                    bottomNavigation.setNotification("", 0);
+
+                                }
+
+                                if (getvlUnsuppressedCount() > 0) {
+                                    bottomNavigation.setNotification(Integer.toString(getvlUnsuppressedCount()), 1);
+
+                                } else {
+                                    bottomNavigation.setNotification("", 1);
+                                }
+
+                                if (getvlInvalidCount() > 0) {
+                                    bottomNavigation.setNotification(Integer.toString(getvlInvalidCount()), 2);
+
+                                } else {
+
+                                    bottomNavigation.setNotification("", 2);
+                                }
+
+
+                                falls = false;
+                                feids = false;
+                                fvls = true;
+                                myfvl = (FragmentVlAll) newadapt.getFragment(index);
+
+                                if (!mSearchAction.isVisible()) {
+                                    mSearchAction.setVisible(true);
+                                }
+                                closeSearch(false);
+                                pr.DissmissProgress();
+
+
+
+
+                                //Dismiss progressBar here
+
+                            }
+                        }, 1500);
+
+
 //                        Toast.makeText(getApplicationContext(), "fragment"+myfvl, Toast.LENGTH_SHORT).show();
                         break;
 
@@ -377,28 +508,60 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+    public void LoadHeavyStuff(){
+
+
+        try{
+            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.setTitle("Getting Results...");
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMax(100);
+            progressDialog.setProgress(0);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+
+
+
+            Handler mHand  = new Handler();
+            mHand.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+
+
+                    MyHeavyJunk();
+                    progressDialog.dismiss();
+
+
+
+
+                    //Dismiss progressBar here
+
+                }
+            }, 5000);
+
+
+
+
+
+
 //
-//    public void listAllMessages(List<Messages> myl){
-//        Toast.makeText(this, "total messages "+myl.size(), Toast.LENGTH_SHORT).show();
-//
-//        for(int x=0;x<myl.size();x++){
-//
-//            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-//            DateFormat secformat=new SimpleDateFormat("mm");
-//
-//            Calendar calendar = Calendar.getInstance();
-//
-//            String ndate =  myl.get(x).getmTimeStamp();
-//            Long timestamp = Long.parseLong(ndate);
-//
-//
-//            long now = timestamp;
-//            calendar.setTimeInMillis(now);
-//
-//            String mysec=formatter.format(calendar.getTime());
-//            Toast.makeText(this, "Address: "+myl.get(x).getmAddress()+"Body: "+myl.get(x).getmBody()+" Time:"+mysec, Toast.LENGTH_SHORT).show();
-//        }
-//    }
+
+//            pr.DissmissProgress();
+        }
+        catch(Exception e){
+
+
+
+
+        }
+    }
+
 
     private void doSearch(CharSequence s) {
 
@@ -1644,12 +1807,23 @@ return value;
     @Override
     protected void onStop() {
         super.onStop();
+        if (pd != null) {
+            pd.dismiss();
+            pd = null;
+        }
+
+
 //        Toast.makeText(this, "onstop called", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if (pd != null) {
+            pd.dismiss();
+            pd = null;
+        }
 //        Toast.makeText(this, "ondestroy called", Toast.LENGTH_SHORT).show();
     }
 

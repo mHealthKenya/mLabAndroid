@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -45,6 +46,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     EditText frmweek,toweek;
 
     List myprintlist;
+
 
     View v;
     Myshortcodes msc=new Myshortcodes();
@@ -108,7 +110,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
         initialise();
 
-        checkIfMessagesChecked();
+//        checkIfMessagesChecked();
 
         printResultsListener();
         checkAllListener();
@@ -118,7 +120,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 //        setSpinnerListeners();
 
 
-        pr.progressing(getActivity(),"Loading","Loading");
+
         mymesslist=new ArrayList<>();
         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
 
@@ -176,13 +178,15 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
         checkFrmDateListener();
         getAllMessages();
 
+        //until here
+
 
 
 //        refreshSmsInbox();
 
 
 
-        pr.DissmissProgress();
+
 
         return v;
     }
@@ -440,33 +444,57 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                 public void onClick(View v) {
 
 
-                    List myl=AllMessagesChecked.findWithQuery(AllMessagesChecked.class,"Select * from All_messages_checked",null);
 
+                    pr.progressing(getActivity(),"loading..","selecting all results");
 
-                    if(myl.size()==0){
+                    Handler mHand  = new Handler();
+                    mHand.postDelayed(new Runnable() {
 
-
-
-                        imvall.setBackgroundResource(R.drawable.checked);
-
-                        checkAllMessages();
-
-                        AllMessagesChecked alc=new AllMessagesChecked("checked");
-                        alc.save();
+                        @Override
+                        public void run() {
+                            // TODO Auto-generated method stub
 
 
 
-                    }
 
-                    else{
-
-
-                        imvall.setBackgroundResource(R.drawable.check);
-                        UncheckAllMessages();
-                        AllMessagesChecked.deleteAll(AllMessagesChecked.class);
+                            List myl=AllMessagesChecked.findWithQuery(AllMessagesChecked.class,"Select * from All_messages_checked",null);
 
 
-                    }
+                            if(myl.size()==0){
+
+
+
+                                imvall.setBackgroundResource(R.drawable.checked);
+
+                                checkAllMessages();
+
+                                AllMessagesChecked alc=new AllMessagesChecked("checked");
+                                alc.save();
+
+
+
+                            }
+
+                            else{
+
+
+                                imvall.setBackgroundResource(R.drawable.check);
+                                UncheckAllMessages();
+                                AllMessagesChecked.deleteAll(AllMessagesChecked.class);
+
+
+                            }
+                            pr.DissmissProgress();
+
+
+
+
+                            //Dismiss progressBar here
+
+                        }
+                    }, 2000);
+
+
 
 //
 ////                    if(allSelected){

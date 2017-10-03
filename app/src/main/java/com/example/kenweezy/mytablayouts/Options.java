@@ -2,14 +2,17 @@ package com.example.kenweezy.mytablayouts;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsClient;
@@ -31,6 +34,10 @@ import java.util.List;
  */
 
 public class Options extends AppCompatActivity {
+
+    ProgressDialog progressDialog;
+
+
 
     final String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
     //final String test = "http://fcas.mhealthkenya.org/index.php/878278?lang=en";
@@ -104,6 +111,15 @@ public class Options extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.unbindService( mCustomTabsServiceConnection);
+        mCustomTabsServiceConnection = null;
     }
 
     public void setVersion(){
@@ -341,10 +357,46 @@ public class Options extends AppCompatActivity {
 
     public void goToResults(View v){
 
-        Intent inty=new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(inty);
+
+                new LongOperation().execute();
+
+    }
 
 
+
+    private class LongOperation extends AsyncTask<String, Void, String>
+    {
+        protected void onPreExecute()
+        {
+            progressDialog = new ProgressDialog(Options.this);
+            progressDialog.setTitle("Getting Results...");
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMax(100);
+            progressDialog.setProgress(0);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+        }
+
+        protected String doInBackground(String... params)
+        {
+            try
+            {
+                Intent inty=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(inty);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        protected void onPostExecute(String result)
+        {
+
+            progressDialog.dismiss();
+
+        }
     }
 
 //    public void goToDb(View v){

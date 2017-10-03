@@ -21,6 +21,22 @@ public class Progress{
         pd.setTitle(title);
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pd.setMax(100);
+        pd.setCancelable(false);
+        pd.setProgress(0);
+        pd.show();
+
+
+
+    }
+
+    public void progressing2(Context ctx, String message, String title){
+
+        pd=new ProgressDialog(ctx);
+
+        pd.setMessage(message);
+        pd.setTitle(title);
+        pd.setMax(100);
+        pd.setCancelable(false);
         pd.setProgress(0);
         pd.show();
 
