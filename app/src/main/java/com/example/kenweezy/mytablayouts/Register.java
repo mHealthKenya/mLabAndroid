@@ -18,6 +18,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +34,7 @@ public class Register extends AppCompatActivity {
     private Toolbar toolbar;
 
     Myshortcodes msc=new Myshortcodes();
+    MCrypt mcrypt=new MCrypt();
 
 
     public static final String KEY_CCNO = "cc no";
@@ -182,7 +186,12 @@ public class Register extends AppCompatActivity {
                 String finalString="mlab"+"*"+myccno+"*"+myfn+"*"+myln+"*"+mypn+"*"+consent;
 
                 SmsManager sm = SmsManager.getDefault();
-                sm.sendTextMessage(msc.registerShortcode, null,finalString, null, null);
+
+                String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(finalString));
+
+                ArrayList<String> parts = sm.divideMessage(encrypted);
+                sm.sendMultipartTextMessage(msc.registerShortcode, null, parts, null, null);
+
                 pr.DissmissProgress();
                 Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
                 cc.setText("");

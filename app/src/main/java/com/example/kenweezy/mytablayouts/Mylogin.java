@@ -32,6 +32,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,6 +43,8 @@ import java.util.List;
 
 
 public class Mylogin extends AppCompatActivity {
+
+    MCrypt mcrypt=new MCrypt();
 
     private static final int PERMS_REQUEST_CODE=12345;
 
@@ -808,7 +812,9 @@ public class Mylogin extends AppCompatActivity {
                 GetViralCounts gvc=new GetViralCounts();
                 String vcounts=Integer.toString(gvc.getViralCount(str));
 
-                Messages ms=new Messages("false",addr,str,mytimestamp,"unread","null",vcounts);
+                String decryptedmessage = new String( mcrypt.decrypt( str ) );
+
+                Messages ms=new Messages("false",addr,decryptedmessage,mytimestamp,"unread","null",vcounts);
                 ms.save();
 
             } while (smsInboxCursor.moveToNext());

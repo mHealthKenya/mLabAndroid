@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,6 +39,8 @@ public class FragmentVlInvalid extends Fragment {
     ListView smsListView;
     ArrayAdapter arrayAdapter;
     Myshortcodes msc=new Myshortcodes();
+
+    MCrypt mcrypt=new MCrypt();
     int counter=0;
     String smsMessage = "";
     public static FragmentVlInvalid instance() {
@@ -183,7 +187,10 @@ public class FragmentVlInvalid extends Fragment {
 
                             String sendMessage=msgbdy+"*"+mytime;
                             SmsManager sm = SmsManager.getDefault();
-                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
+                            String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
+
+                            ArrayList<String> parts = sm.divideMessage(encrypted);
+                            sm.sendMultipartTextMessage(msc.sendSmsShortcode, null, parts, null, null);
 
                         }
 

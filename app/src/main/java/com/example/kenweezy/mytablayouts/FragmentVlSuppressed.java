@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,6 +43,8 @@ public class FragmentVlSuppressed extends Fragment {
     String smsMessage = "";
 
     Myshortcodes msc=new Myshortcodes();
+
+    MCrypt mcrypt=new MCrypt();
 
     public static FragmentVlSuppressed instance() {
         return (new FragmentVlSuppressed());
@@ -561,7 +565,10 @@ public class FragmentVlSuppressed extends Fragment {
 
                             String sendMessage=msgbdy+"*"+mytime;
                             SmsManager sm = SmsManager.getDefault();
-                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
+                            String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
+
+                            ArrayList<String> parts = sm.divideMessage(encrypted);
+                            sm.sendMultipartTextMessage(msc.sendSmsShortcode, null, parts, null, null);
 
                         }
 

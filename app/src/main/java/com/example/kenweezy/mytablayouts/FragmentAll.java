@@ -28,6 +28,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,6 +48,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     EditText frmweek,toweek;
 
     List myprintlist;
+
+    MCrypt mcrypt=new MCrypt();
 
 
     View v;
@@ -186,6 +190,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
+        printVirals();
 
 
         return v;
@@ -206,6 +211,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 //                System.out.println("********list*****"+bdy.get(d).getChkd());
                 myprintlist.add(bdy.get(d).getChkd());
+
 
 
             }
@@ -1155,7 +1161,12 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                             String sendMessage=msgbdy+"*"+mytime;
                             SmsManager sm = SmsManager.getDefault();
-                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
+//                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
+
+                            String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
+
+                            ArrayList<String> parts = sm.divideMessage(encrypted);
+                            sm.sendMultipartTextMessage(msc.sendSmsShortcode, null, parts, null, null);
 
                         }
 
@@ -1667,6 +1678,26 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
             frmweek.setText("");
             toweek.setText("");
             toweek.setEnabled(false);
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+    public void printVirals(){
+
+        try{
+
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+
+            for(int d=0;d<bdy.size();d++){
+
+                System.out.println("****body:**"+bdy.get(d).getmBody()+"****count****"+bdy.get(d).getViralCount());
+            }
+
+
         }
         catch(Exception e){
 

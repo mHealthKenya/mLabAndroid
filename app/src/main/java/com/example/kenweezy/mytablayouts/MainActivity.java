@@ -43,6 +43,7 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     boolean oncreate=false;
 
     Progress pr=new Progress();
+    MCrypt mcrypt=new MCrypt();
 
 
     @Override
@@ -118,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     }
+
 
     @Override
     public void onAttachedToWindow() {
@@ -306,65 +308,114 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
 
                     case 0:
-                        vlSelected = false;
-                        eidSelected = false;
-                        allSelected = true;
-                        reportseidselected = false;
-                        reportsvlselected = false;
-//                        myfvl.replaceContent(new FragmentVlSuppressed());
-                        MyBottomNav();
 
-                        falls = true;
-                        feids = false;
-                        fvls = false;
-                        myfall = (FragmentAll) newadapt.getFragment(index);
-                        if (!mSearchAction.isVisible()) {
-                            mSearchAction.setVisible(true);
-                        }
-                        closeSearch(false);
+
+
+                        pr.progressing(MainActivity.this,"loading..","Getting All Results");
+                        Handler mHand0  = new Handler();
+                        mHand0.postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+
+                                vlSelected = false;
+                                eidSelected = false;
+                                allSelected = true;
+                                reportseidselected = false;
+                                reportsvlselected = false;
+//                        myfvl.replaceContent(new FragmentVlSuppressed());
+                                MyBottomNav();
+
+                                falls = true;
+                                feids = false;
+                                fvls = false;
+                                myfall = (FragmentAll) newadapt.getFragment(index);
+                                if (!mSearchAction.isVisible()) {
+                                    mSearchAction.setVisible(true);
+                                }
+                                closeSearch(false);
+
+                                pr.DissmissProgress();
+
+
+
+
+                                //Dismiss progressBar here
+
+                            }
+                        }, 1500);
+
 //                        myfall.test();
 //                        Toast.makeText(getApplicationContext(), "fragment"+myfall, Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        vlSelected = false;
-                        eidSelected = true;
-                        allSelected = false;
-                        reportseidselected = false;
-                        reportsvlselected = false;
-                        MyBottomNav();
-                        if (geteidNegativeCount() > 0) {
-
-                            bottomNavigation.setNotification(Integer.toString(geteidNegativeCount()), 0);
-
-                        } else {
-                            bottomNavigation.setNotification("", 0);
-
-                        }
-                        if (geteidPositiveCount() > 0) {
-                            bottomNavigation.setNotification(Integer.toString(geteidPositiveCount()), 1);
-                        } else {
-                            bottomNavigation.setNotification("", 1);
-
-                        }
-
-                        if (geteidInvalidCount() > 0) {
-                            bottomNavigation.setNotification(Integer.toString(geteidInvalidCount()), 2);
-                        } else {
-                            bottomNavigation.setNotification("", 2);
-
-                        }
 
 
-                        falls = false;
-                        feids = true;
-                        fvls = false;
-                        myfeid = (FragmentEidAll) newadapt.getFragment(index);
 
-                        if (!mSearchAction.isVisible()) {
-                            mSearchAction.setVisible(true);
-                        }
+                        pr.progressing(MainActivity.this,"loading..","Getting EID Results");
+                        Handler mHand1  = new Handler();
+                        mHand1.postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+
+
+
+
+
+
+                                vlSelected = false;
+                                eidSelected = true;
+                                allSelected = false;
+                                reportseidselected = false;
+                                reportsvlselected = false;
+                                MyBottomNav();
+                                if (geteidNegativeCount() > 0) {
+
+                                    bottomNavigation.setNotification(Integer.toString(geteidNegativeCount()), 0);
+
+                                } else {
+                                    bottomNavigation.setNotification("", 0);
+
+                                }
+                                if (geteidPositiveCount() > 0) {
+                                    bottomNavigation.setNotification(Integer.toString(geteidPositiveCount()), 1);
+                                } else {
+                                    bottomNavigation.setNotification("", 1);
+
+                                }
+
+                                if (geteidInvalidCount() > 0) {
+                                    bottomNavigation.setNotification(Integer.toString(geteidInvalidCount()), 2);
+                                } else {
+                                    bottomNavigation.setNotification("", 2);
+
+                                }
+
+
+                                falls = false;
+                                feids = true;
+                                fvls = false;
+                                myfeid = (FragmentEidAll) newadapt.getFragment(index);
+
+                                if (!mSearchAction.isVisible()) {
+                                    mSearchAction.setVisible(true);
+                                }
 //                        Toast.makeText(getApplicationContext(), "fragment"+myfeid, Toast.LENGTH_SHORT).show();
-                        closeSearch(false);
+                                closeSearch(false);
+
+                                pr.DissmissProgress();
+
+
+
+
+                                //Dismiss progressBar here
+
+                            }
+                        }, 1500);
+
                         break;
 
                     case 2:
@@ -433,48 +484,100 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 3:
-                        vlSelected = false;
-                        eidSelected = false;
-                        allSelected = false;
-                        reportseidselected = true;
-                        reportsvlselected = false;
-                        MyBottomNav();
 
-                        freport = (ReportsFragment) newadapt.getFragment(index);
-                        bottomNavigation.setNotification("", 0);
-                        bottomNavigation.setNotification("", 1);
+
+
+
+                        pr.progressing(MainActivity.this,"loading..","Getting EID Reports");
+                        Handler mHand3  = new Handler();
+                        mHand3.postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+
+
+
+
+                                vlSelected = false;
+                                eidSelected = false;
+                                allSelected = false;
+                                reportseidselected = true;
+                                reportsvlselected = false;
+                                MyBottomNav();
+
+                                freport = (ReportsFragment) newadapt.getFragment(index);
+                                bottomNavigation.setNotification("", 0);
+                                bottomNavigation.setNotification("", 1);
 //                        bottomNavigation.setNotification("", 2);
-                        falls = false;
-                        feids = false;
-                        fvls = false;
+                                falls = false;
+                                feids = false;
+                                fvls = false;
 
-                        if (mSearchAction.isVisible()) {
-                            mSearchAction.setVisible(false);
-                        }
-                        closeSearch(true);
+                                if (mSearchAction.isVisible()) {
+                                    mSearchAction.setVisible(false);
+                                }
+                                closeSearch(true);
+
+                                pr.DissmissProgress();
+
+
+
+
+                                //Dismiss progressBar here
+
+                            }
+                        }, 2000);
+
+
 //                        Toast.makeText(getApplicationContext(), "fragment"+myfvl, Toast.LENGTH_SHORT).show();
                         break;
 
                     case 4:
-                        vlSelected = false;
-                        eidSelected = false;
-                        allSelected = false;
-                        reportseidselected = false;
-                        reportsvlselected = true;
-                        MyBottomNav();
 
-                        freportvl = (ReportsFragmentVL) newadapt.getFragment(index);
-                        bottomNavigation.setNotification("", 0);
-                        bottomNavigation.setNotification("", 1);
+
+                        pr.progressing(MainActivity.this,"loading..","Getting VL Reports");
+                        Handler mHand4  = new Handler();
+                        mHand4.postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+
+
+
+                                vlSelected = false;
+                                eidSelected = false;
+                                allSelected = false;
+                                reportseidselected = false;
+                                reportsvlselected = true;
+                                MyBottomNav();
+
+                                freportvl = (ReportsFragmentVL) newadapt.getFragment(index);
+                                bottomNavigation.setNotification("", 0);
+                                bottomNavigation.setNotification("", 1);
 //                        bottomNavigation.setNotification("", 2);
-                        falls = false;
-                        feids = false;
-                        fvls = false;
+                                falls = false;
+                                feids = false;
+                                fvls = false;
 
-                        if (mSearchAction.isVisible()) {
-                            mSearchAction.setVisible(false);
-                        }
-                        closeSearch(true);
+                                if (mSearchAction.isVisible()) {
+                                    mSearchAction.setVisible(false);
+                                }
+                                closeSearch(true);
+
+                                pr.DissmissProgress();
+
+
+
+
+                                //Dismiss progressBar here
+
+                            }
+                        }, 2000);
+
+
+
 //                        Toast.makeText(getApplicationContext(), "fragment"+myfvl, Toast.LENGTH_SHORT).show();
                         break;
 
@@ -715,31 +818,91 @@ public class MainActivity extends AppCompatActivity {
                         if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Suppressed") {
 
 
+
+                            pr.progressing(MainActivity.this,"loading..","Getting Suppressed VL Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    myfvl.replaceContent(new FragmentVlSuppressed());
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
 //
-                            myfvl.replaceContent(new FragmentVlSuppressed());
+
 //
                         }
 
                         else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Monthly") {
 
 
+                            pr.progressing(MainActivity.this,"loading..","Getting EID monthly Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    freport.replaceContent(new FragmentReportsEidMonthly());
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
 //
-                            freport.replaceContent(new FragmentReportsEidMonthly());
+
 //
                         } else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Monthly VL") {
 
 
+
 //
-                            freportvl.replaceContent(new FragmentReportsMonthly());
+                            pr.progressing(MainActivity.this,"loading..","Getting VL monthly Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    freportvl.replaceContent(new FragmentReportsMonthly());
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
+
 //
                         }
 
                         else {
 
-                            myfeid.replaceContent(new FragmentEidNegative());
 
-                            feidnegselected = true;
-                            feidpositiveselected = false;
+                            pr.progressing(MainActivity.this,"loading..","Getting EID Negative Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    myfeid.replaceContent(new FragmentEidNegative());
+
+                                    feidnegselected = true;
+                                    feidpositiveselected = false;
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
+
+
                         }
 
                         break;
@@ -748,7 +911,22 @@ public class MainActivity extends AppCompatActivity {
                         if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "UnSuppressed") {
 
 
-                            myfvl.replaceContent(new FragmentVlUnsuppressed());
+                            pr.progressing(MainActivity.this,"loading..","Getting VL Unsuppressed Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    myfvl.replaceContent(new FragmentVlUnsuppressed());
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
+
+
 //
                         }
 
@@ -756,22 +934,71 @@ public class MainActivity extends AppCompatActivity {
                         else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Yearly") {
 
 
+                            pr.progressing(MainActivity.this,"loading..","Getting EID Yearly Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    freport.replaceContent(new FragmentReportsEidYearly());
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
 //
-                            freport.replaceContent(new FragmentReportsEidYearly());
+
 //
                         } else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Yearly VL") {
 
 
+
+                            pr.progressing(MainActivity.this,"loading..","Getting VL yearly Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    freportvl.replaceContent(new FragmentReportsYearly());
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
 //
-                            freportvl.replaceContent(new FragmentReportsYearly());
+
 //
                         }
 
                         else {
-                            myfeid.replaceContent(new FragmentEidPositive());
-                            feidpositiveselected = true;
-                            feidnegselected = false;
-                            feidInvalidSelected = false;
+
+
+
+
+                            pr.progressing(MainActivity.this,"loading..","Getting EID Positive Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+
+                                    myfeid.replaceContent(new FragmentEidPositive());
+                                    feidpositiveselected = true;
+                                    feidnegselected = false;
+                                    feidInvalidSelected = false;
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
+
+
 
 
                         }
@@ -781,14 +1008,47 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
 
                         if (bottomNavigation.getItem(2).getTitle(getApplicationContext()).toString() == "Invalid") {
-                            myfvl.replaceContent(new FragmentVlInvalid());
+
+                            pr.progressing(MainActivity.this,"loading..","Getting VL invalid Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    myfvl.replaceContent(new FragmentVlInvalid());
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
+
+
 //
                         }  else {
 
-                            myfeid.replaceContent(new FragmentEidInvalid());
-                            feidnegselected = false;
-                            feidpositiveselected = false;
-                            feidInvalidSelected = true;
+
+                            pr.progressing(MainActivity.this,"loading..","Getting EID Invalid Results");
+                            Handler mHand  = new Handler();
+                            mHand.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+
+                                    myfeid.replaceContent(new FragmentEidInvalid());
+                                    feidnegselected = false;
+                                    feidpositiveselected = false;
+                                    feidInvalidSelected = true;
+
+                                    pr.DissmissProgress();
+                                    //Dismiss progressBar here
+
+                                }
+                            }, 1500);
+
+
 
                         }
 //                      Toast.makeText(MainActivity.this, ""+bottomNavigation.getItem(1).getTitle(getApplicationContext()), Toast.LENGTH_SHORT).show();
@@ -1561,9 +1821,13 @@ return value;
                 String mytimestamp=formatter.format(calendar.getTime());
 
                 GetViralCounts gvc=new GetViralCounts();
-                String vcounts=Integer.toString(gvc.getViralCount(str));
 
-                Messages ms=new Messages("false",addr,str,mytimestamp,"unread","null",vcounts);
+
+                String decryptedmess = new String( mcrypt.decrypt( str ) );
+
+                String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+
+                Messages ms=new Messages("false",addr,decryptedmess,mytimestamp,"unread","null",vcounts);
                 ms.save();
 
             } while (smsInboxCursor.moveToNext());

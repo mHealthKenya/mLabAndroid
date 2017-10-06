@@ -13,8 +13,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +31,7 @@ public class HistoricalResults extends AppCompatActivity {
     EditText frmw,tow,mflcode;
     DatePickerDialog datePickerDialog;
     Myshortcodes msc=new Myshortcodes();
+    MCrypt mcrypt=new MCrypt();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -331,7 +335,13 @@ public class HistoricalResults extends AppCompatActivity {
                                 String mymflcode=mflcode.getText().toString().trim();
                                 String sendMessage="histr*"+mymflcode+"*"+myfrm+"*"+mytow;
                                 SmsManager sm = SmsManager.getDefault();
-                                sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
+
+                                String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
+
+                                ArrayList<String> parts = sm.divideMessage(encrypted);
+                                sm.sendMultipartTextMessage(msc.sendSmsShortcode, null, parts, null, null);
+
+
 
                                 Toast.makeText(HistoricalResults.this, "Request for historical results was successful", Toast.LENGTH_SHORT).show();
                                 tow.setText("");

@@ -14,6 +14,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,6 +23,8 @@ import java.util.Calendar;
 public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     Myshortcodes msc=new Myshortcodes();
+    MCrypt mcrypt=new MCrypt();
+
 
 
 
@@ -81,9 +85,11 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
                     GetViralCounts gvc=new GetViralCounts();
-                    String vcounts=Integer.toString(gvc.getViralCount(smsMessageStr));
 
-                    Messages ms = new Messages("false",getAdd,smsMessageStr,mytimestamp,"unread","null",vcounts);
+                    String decryptedmess = new String( mcrypt.decrypt( smsMessageStr ) );
+                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+
+                    Messages ms = new Messages("false",getAdd,decryptedmess,mytimestamp,"unread","null",vcounts);
                     ms.save();
 
                     context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});
