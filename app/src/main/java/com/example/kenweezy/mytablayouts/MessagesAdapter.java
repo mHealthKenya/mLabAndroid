@@ -146,13 +146,37 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
             v.setTag(mylist);
 
-            if (tvtitle.getText().toString().contentEquals("read")) {
+            if(thecount>1000){
 
-                tvbdy.setTextColor(Color.parseColor("#696969"));
+                if (!tvtitle.getText().toString().contentEquals("read")) {
+
+//                    tvbdy.setTextColor(Color.parseColor("#696969"));
 //            tvbdy.setText(Html.fromHtml("<h1><b>"+mylist.get(position).getMsgbody()+"</b></h1>"));
-                imgv.setVisibility(View.GONE);
+                    tvbdy.setTextColor(Color.parseColor("#696969"));
+                    imgv.setImageResource(R.mipmap.hvlimage);
+
+
+                }
+                else{
+
+                    imgv.setVisibility(View.GONE);
+                }
 
             }
+            else{
+
+                if (tvtitle.getText().toString().contentEquals("read")) {
+
+                    tvbdy.setTextColor(Color.parseColor("#696969"));
+//            tvbdy.setText(Html.fromHtml("<h1><b>"+mylist.get(position).getMsgbody()+"</b></h1>"));
+                    imgv.setVisibility(View.GONE);
+
+                }
+
+
+            }
+
+
 
             if(thecount>1000){
 
