@@ -7,6 +7,7 @@ package com.example.kenweezy.mytablayouts;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,13 @@ public class SpinnerAdapter extends BaseAdapter {
             names.setTextSize(19);
 
 //            names.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
+        else if(mys.contentEquals("Please select Security Question")){
+            names.setBackgroundResource(R.color.orangered);
+            names.setTextSize(19);
+            names.setTextColor(Color.WHITE);
+
+
         }
 
 

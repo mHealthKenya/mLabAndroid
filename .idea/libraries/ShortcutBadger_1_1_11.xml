@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="ShortcutBadger-1.1.11">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/5606dec7782b37047b457cac4860fccb8e69cab3/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/5606dec7782b37047b457cac4860fccb8e69cab3/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/2a33e4adc695b4a769ec85659f15b03517d2edda/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/2a33e4adc695b4a769ec85659f15b03517d2edda/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

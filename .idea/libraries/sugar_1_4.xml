@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="sugar-1.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/489455a8f980d0146418b79c9c851cef6d33ff87/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/489455a8f980d0146418b79c9c851cef6d33ff87/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/a26bb9101b60de9a3490f476152d47430f68e7d3/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/a26bb9101b60de9a3490f476152d47430f68e7d3/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

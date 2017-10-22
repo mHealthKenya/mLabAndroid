@@ -89,6 +89,52 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     String decryptedmess = new String( mcrypt.decrypt( smsMessageStr ) );
                     String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
 
+                    //new code here
+
+                    String[] originalArray=decryptedmess.split("\\s+");
+                    if(originalArray[0].contentEquals("EID")){
+                        originalArray[0].replace("EID","FFEID Results");
+                        decryptedmess=decryptedmess.replace("EID","FFEID Results");
+
+                    }
+                    else if(originalArray[0].contentEquals("VL")){
+                        originalArray[0].replace("VL","FFViral Load Results");
+                        decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
+
+
+                    }
+                    String pidArray[]=originalArray[1].split(":");
+                    if(pidArray[0].contentEquals("PID")){
+                        pidArray[0].replace("PID","Patient ID");
+                        decryptedmess=decryptedmess.replace("PID","Patient ID");
+                    }
+                    String ageArray[]=originalArray[2].split(":");
+                    if(ageArray[0].contentEquals("A")){
+                        ageArray[0].replace("A","Age");
+                        decryptedmess=decryptedmess.replace("A","Age");
+
+                    }
+                    String sexArray[]=originalArray[3].split(":");
+                    if(sexArray[0].contentEquals("S")){
+
+                        sexArray[0].replace("S","Sex");
+                        decryptedmess=decryptedmess.replaceFirst("S","Sex");
+                    }
+                    String dateArray[]=originalArray[4].split(":");
+
+                    if(dateArray[0].contentEquals("DC")){
+                        dateArray[0].replace("DC","Date Collected");
+                        decryptedmess=decryptedmess.replaceFirst("DC","Date Collected");
+                    }
+                    String resultsArray[]=originalArray[5].split(":");
+
+                    if(resultsArray[0].contentEquals("R")){
+                        resultsArray[0].replace("R","Result");
+                        decryptedmess=decryptedmess.replace("R:","Result:");
+                    }
+
+                    //new code here
+
                     Messages ms = new Messages("false",getAdd,decryptedmess,mytimestamp,"unread","null",vcounts);
                     ms.save();
 

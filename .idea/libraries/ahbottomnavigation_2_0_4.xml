@@ -1,11 +1,8 @@
 <component name="libraryTable">
   <library name="ahbottomnavigation-2.0.4">
-    <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.aurelhubert/ahbottomnavigation/2.0.4/annotations.zip!/" />
-    </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/bd3fa3d05a16809568892da68bf23b5f111ad64b/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/bd3fa3d05a16809568892da68bf23b5f111ad64b/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/cafedc3a7b3f518ca3d54c39b434f0c1b6ab87b9/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/cafedc3a7b3f518ca3d54c39b434f0c1b6ab87b9/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

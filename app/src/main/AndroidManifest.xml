@@ -29,7 +29,7 @@
             android:value="messages.db" />
         <meta-data
             android:name="VERSION"
-            android:value="8" />
+            android:value="10" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -62,6 +62,14 @@
             android:label="@string/app_name"
             android:parentActivityName=".Options"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Forgotpassword"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name"
+            android:parentActivityName=".Options"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Settings"
             android:configChanges="orientation|screenSize|keyboardHidden"

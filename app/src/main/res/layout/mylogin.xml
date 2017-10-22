@@ -91,10 +91,18 @@
                     android:layout_margin="22dp"
                     android:background="#d67601"
                     android:text="Login"
+
                     android:onClick="LoginUser"
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Forgot Password?"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/forgotpass"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -108,5 +116,7 @@
             android:background="@drawable/user_profile_image_background"
             android:elevation="4dp"
             android:src="@mipmap/user" />
+
+
     </RelativeLayout>
 </ScrollView>

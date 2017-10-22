@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
@@ -45,6 +46,8 @@ import java.util.List;
 public class Mylogin extends AppCompatActivity {
 
     MCrypt mcrypt=new MCrypt();
+
+    TextView fp;
 
     private static final int PERMS_REQUEST_CODE=12345;
 
@@ -154,6 +157,9 @@ public class Mylogin extends AppCompatActivity {
 
                 un=(EditText) findViewById(R.id.uname);
                 pw=(EditText) findViewById(R.id.pass);
+                fp=(TextView) findViewById(R.id.forgotpass);
+
+                forgotPassListener();
 
 
                 SharedPreferences settings = getSharedPreferences(SETTING_INFOS, 0);
@@ -194,6 +200,28 @@ public class Mylogin extends AppCompatActivity {
 //        sendReadReport();
 
 
+    }
+
+
+
+    public void forgotPassListener(){
+
+        try{
+
+            fp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent myint=new Intent(Mylogin.this,Forgotpassword.class);
+                    startActivity(myint);
+
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
     }
 
 

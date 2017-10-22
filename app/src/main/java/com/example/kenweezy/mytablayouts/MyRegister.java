@@ -15,20 +15,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
 
 
-public class MyRegister extends AppCompatActivity {
+public class MyRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Progress pr=new Progress();
-    EditText un,pw,cpw;
+    EditText un,pw,cpw,secqnans;
     CheckBox mychkbx;
+    Spinner secqnsp;
+    String selectedQuestion="";
+    String selectedQuestionId="";
+
+    String[] options = {"Please select Security Question","what is your favourite pet?","what is your favourite food?","what is your mothers first name?"};
 
 
     @Override
@@ -49,6 +56,11 @@ public class MyRegister extends AppCompatActivity {
                 un=(EditText) findViewById(R.id.reguname);
                 pw=(EditText) findViewById(R.id.regpass);
                 cpw=(EditText) findViewById(R.id.cregpass);
+                secqnsp=(Spinner) findViewById(R.id.securityQnSpinner);
+                secqnans=(EditText) findViewById(R.id.securityans);
+
+            populateQuestions();
+            setSpinnerListeners();
 
 
                 mychkbx=(CheckBox) findViewById(R.id.regcbShowPwd);
@@ -84,6 +96,36 @@ public class MyRegister extends AppCompatActivity {
         }
 
 
+    }
+
+    public void populateQuestions(){
+
+        try{
+
+            SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),options);
+
+            secqnsp.setAdapter(customAdapter);
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+    public void setSpinnerListeners(){
+
+        try{
+
+            secqnsp.setOnItemSelectedListener(this);
+
+
+        }
+        catch(Exception e){
+
+        }
     }
 
 
@@ -179,10 +221,12 @@ public class MyRegister extends AppCompatActivity {
     public void RegisterCheck(){
         pr.progressing(this,"Validating Registeration Details","Register Validation");
 
+
         try {
             String myun = un.getText().toString();
             String mypass = pw.getText().toString();
             String cmypass = cpw.getText().toString();
+            String ans=secqnans.getText().toString();
 
             if (myun.isEmpty()) {
                 pr.DissmissProgress();
@@ -204,10 +248,19 @@ public class MyRegister extends AppCompatActivity {
                 cpw.setError("passwords do not match");
 
             }
+            else if(selectedQuestionId.contentEquals("0")){
+                Toast.makeText(this, "please select a security question", Toast.LENGTH_SHORT).show();
+
+
+            }
+            else if(ans.trim().isEmpty()){
+
+                Toast.makeText(this, "please specify your security question answer", Toast.LENGTH_SHORT).show();
+            }
 
             else {
 
-                    UsersTable ut=new UsersTable(myun,mypass);
+                    UsersTable ut=new UsersTable(myun,mypass,selectedQuestion,ans);
                     ut.save();
                     CheckRun cr=new CheckRun("runned");
                     cr.save();
@@ -308,5 +361,34 @@ public class MyRegister extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        try{
+
+
+            Spinner spin=(Spinner) parent;
+
+            if(spin.getId()==R.id.securityQnSpinner){
+
+
+                selectedQuestion=parent.getSelectedItem().toString();
+                selectedQuestionId=Integer.toString(position);
+//                Toast.makeText(this, "selected "+selectedQuestion, Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+
+        catch(Exception e){
+
+
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
 
