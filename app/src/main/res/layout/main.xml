@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:id="@+id/mytb"
+            android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <Button
+                android:id="@+id/btnScan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:background="@drawable/shape_bg"
+                android:text="@string/btnScan"
+                android:textColor="#ffffff" >
+            </Button>
+
+            <EditText
+                android:id="@+id/txtContent"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                    android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical|top"
+                android:hint="@string/input_content"
+                android:text="@string/txtContent"
+                android:textSize="16sp" >
+
+            </EditText>
+
+            <LinearLayout
+                android:id="@+id/llay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/btnSendTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_bg"
+                    android:text="PRINT"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/btnPrintTestPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape_bg"
+                    android:text="@string/btnPrintTestPage"
+                    android:textColor="#ffffff" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:visibility="gone"
+                    android:gravity="left"
+                    android:orientation="horizontal" >
+                    <Button
+                        android:id="@+id/browseImg"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="5dp"
+
+                        android:text="@string/btnBrowseImg" />
+
+                    <Button
+                        android:id="@+id/prtImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+
+                        android:text="@string/btnPrtImg" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:visibility="gone"
+                    android:gravity="left"
+                    android:orientation="horizontal" >
+
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        android:layout_width="150dp"
+                        android:layout_marginTop="2dp"
+
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/print_1D"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+
+
+                        android:text="@string/print_1D" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:visibility="gone"
+                    android:gravity="left"
+                    android:orientation="horizontal" >
+
+                    <Spinner
+                        android:id="@+id/spinner2"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="2dp" />
+
+                    <Button
+                        android:id="@+id/print_2D"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+
+
+                        android:text="@string/print_2D" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnDisconnect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/shape_bg"
+                    android:text="@string/btnDisconnect"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/remark"
+        android:textColor="#ffffff" />
+
+</LinearLayout>

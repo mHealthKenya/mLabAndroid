@@ -6,4 +6,35 @@
     <string name="share">Choose an action</string>
     <string name="title_activity_composing">Composing</string>
     <string name="title_activity_clickedmessage2">Clickedmessage2</string>
+
+
+
+    <!--printing content-->
+
+    <string name="none_paired">No paired devices</string>
+    <string name="scanning">Scanning...</string>
+    <string name="select_device">Please select a device</string>
+    <string name="none_found">No devices found</string>
+    <string name="btnScan">Connect printer</string>
+    <string name="btnSendTxt">Send</string>
+    <string name="btnPrintTestPage">Print test page</string>
+    <string name="btnDisconnect">Disconnect printer</string>
+    <string name="txtContent">&quot;&quot;</string>
+    <string name="menu_settings">set</string>
+    <string name="osLang">en</string>
+    <string name="button_scan">Scan</string>
+    <string name="success_connect">Successfully connected</string>
+    <string name="connect_lost">Connection was lost</string>
+    <string name="unable_connect">Unable to connect device</string>
+    <string name="paper_stat">Paper is inavailable</string>
+    <string name="bt_stat">Bluetooth is on</string>
+    <string name="input_content">Please input content,then press Send button to print.</string>
+    <string name="remark">Remark:Please connect printer first before other operation.</string>
+    <string name="content_null">Please input content first.</string>
+    <string name="paired_devices">Paired Devices</string>
+    <string name="avail_devices">Available Devices</string>
+    <string name="btnBrowseImg">Browse Image…</string>
+    <string name="btnPrtImg">Print Image</string>
+    <string name="print_1D">Print Barcode</string>
+    <string name="print_2D">Print 2D</string>
 </resources>

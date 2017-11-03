@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+import com.example.kenweezy.mytablayouts.printing.BluetoothDemo;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -563,6 +564,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                 @Override
                 public void onClick(View v) {
 
+                    ArrayList<String> myarr=new ArrayList<String>();
 
 //                    Toast.makeText(getActivity(), "coming soonest", Toast.LENGTH_SHORT).show();
                     mymess=Messages.findWithQuery(Messages.class,"select * from Messages where chkd=? group by m_body","true");
@@ -571,6 +573,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                     for(int mess=0;mess<mymess.size();mess++){
 
                         System.out.println("***queued message body****"+mymess.get(mess).getmBody());
+                        myarr.add(mymess.get(mess).getmBody());
                     }
 //                    System.out.println("****print queue size is****"+myprintlist.size());
 //                    for(int my=0;my<myprintlist.size();my++){
@@ -582,6 +585,10 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                     UncheckAllMessages();
                     AllMessagesChecked.deleteAll(AllMessagesChecked.class);
                     mymess.clear();
+
+                    Intent myint=new Intent(getActivity(), BluetoothDemo.class);
+                    myint.putStringArrayListExtra("printmess",myarr);
+                    startActivity(myint);
 
 
                 }
