@@ -320,6 +320,7 @@ public class FragmentReportsEidMonthly extends Fragment {
 
             }
             else{
+
                 for(int x=0;x<bdy.size();x++){
 
                     String ndate = bdy.get(x).getmTimeStamp();
@@ -447,7 +448,7 @@ public class FragmentReportsEidMonthly extends Fragment {
                     String[] day=ndate.split("/");
                     String month=day[1];
                     Log.i(TAG,month);
-                    if(month.contentEquals(mnth) && (thebdy.contains("Collect new sample")|| thebdy.contains("Invalid"))){
+                    if(month.contentEquals(mnth) && (thebdy.contains("Collect new sample")|| thebdy.contains("Invalid")|| thebdy.contains("Failed"))){
 
                         value+=1;
                     }

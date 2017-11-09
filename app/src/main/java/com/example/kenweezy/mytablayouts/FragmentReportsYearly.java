@@ -253,7 +253,7 @@ public class FragmentReportsYearly extends Fragment {
 
 
 
-                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 
@@ -476,7 +476,7 @@ public class FragmentReportsYearly extends Fragment {
 
 
 
-                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 
@@ -582,7 +582,7 @@ public class FragmentReportsYearly extends Fragment {
 
 
 
-                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 

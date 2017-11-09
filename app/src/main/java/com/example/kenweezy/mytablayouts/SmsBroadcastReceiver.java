@@ -87,7 +87,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     GetViralCounts gvc=new GetViralCounts();
 
                     String decryptedmess = new String( mcrypt.decrypt( smsMessageStr ) );
-                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+
 
                     //new code here
 
@@ -134,6 +134,9 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     //new code here
+
+
+                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
 
                     Messages ms = new Messages("false",getAdd,decryptedmess,mytimestamp,"unread","null",vcounts);
                     ms.save();

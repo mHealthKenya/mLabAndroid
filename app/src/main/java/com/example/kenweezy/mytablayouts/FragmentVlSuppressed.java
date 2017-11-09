@@ -162,7 +162,7 @@ public class FragmentVlSuppressed extends Fragment {
 
                 String mytimestamp=null;
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
                     String[] checkSplitdate = ndate.split("/");
 
@@ -360,7 +360,7 @@ public class FragmentVlSuppressed extends Fragment {
 
                             String[] checkSplitdate=ndate.split("/");
 
-                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
+                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
                                 try {
 
@@ -617,7 +617,7 @@ public class FragmentVlSuppressed extends Fragment {
 
                             String[] checkSplitdate=ndate.split("/");
 
-                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))) {
+                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
                                 try {
 
@@ -856,7 +856,7 @@ public class FragmentVlSuppressed extends Fragment {
 
 
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
                     String[] mymessarray=messbdy.split(":");

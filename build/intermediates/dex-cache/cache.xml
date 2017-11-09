@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/kennedy/Desktop/ANDROID PROJECTS/MytabLayouts/app/libs/android-viewbadger.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f1303b50d535716ca7601c5014357b8435658313">
+        <dex dex="/home/kennedy/Desktop/ANDROID PROJECTS/MytabLayouts/app/build/intermediates/pre-dexed/debug/android-viewbadger_21130c6529fa9e2dbf99bd64995e48d852e07819.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/kennedy/Desktop/ANDROID PROJECTS/MytabLayouts/app/libs/erbtsdk.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="517dc113733d677c4ce48554640b1e838de2ab5f">
+        <dex dex="/home/kennedy/Desktop/ANDROID PROJECTS/MytabLayouts/app/build/intermediates/pre-dexed/debug/erbtsdk_83958f44c5c6bbe9351703c8929f5381295dfe57.jar" />
+    </item>
+
+</items>

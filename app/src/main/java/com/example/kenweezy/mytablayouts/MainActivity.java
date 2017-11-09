@@ -1529,7 +1529,7 @@ return value;
 
                     String messbdy=bdy.get(x).getmBody();
 
-                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
                         value+=1;
                     }
                 }
@@ -1565,7 +1565,7 @@ return value;
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 
@@ -1657,7 +1657,7 @@ return value;
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
                     String[] mymessarray=messbdy.split(":");
 
@@ -1775,7 +1775,7 @@ return value;
                 for(int x=0;x<bdy.size();x++){
 
                     String messbdy=bdy.get(x).getmBody();
-                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
                         value+=1;
                     }
                 }
@@ -1825,7 +1825,7 @@ return value;
 
                 String decryptedmess = new String( mcrypt.decrypt( str ) );
 
-                String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+
 
 
                 //new code here
@@ -1876,7 +1876,7 @@ return value;
 
 
 
-
+                String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
 
 
 

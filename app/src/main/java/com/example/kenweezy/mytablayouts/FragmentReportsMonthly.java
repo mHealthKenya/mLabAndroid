@@ -360,7 +360,7 @@ public class FragmentReportsMonthly extends Fragment {
                     String ndate = bdy.get(x).getmTimeStamp();
                     String messbdy=bdy.get(x).getmBody();
 
-                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 
@@ -420,7 +420,7 @@ public class FragmentReportsMonthly extends Fragment {
                     String messbdy=bdy.get(x).getmBody();
 
 
-                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 
@@ -528,7 +528,7 @@ public class FragmentReportsMonthly extends Fragment {
 
 
 
-                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 

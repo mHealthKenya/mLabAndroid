@@ -87,7 +87,7 @@ public class FragmentVlInvalid extends Fragment {
                 mychkB=false;
             }
 
-            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 
@@ -223,7 +223,7 @@ public class FragmentVlInvalid extends Fragment {
                                 txtChkd=false;
                             }
 
-                            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
                                 String[] checkSplitdate=ndate.split("/");
@@ -344,7 +344,7 @@ public class FragmentVlInvalid extends Fragment {
                                 txtChkd=false;
                             }
 
-                            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
                                 String[] checkSplitdate=ndate.split("/");
@@ -547,7 +547,7 @@ public class FragmentVlInvalid extends Fragment {
 
 
 
-                if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 
