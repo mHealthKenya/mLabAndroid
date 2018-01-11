@@ -357,8 +357,18 @@ public class Options extends AppCompatActivity {
 
     public void goToResults(View v){
 
+        try{
+            new LongOperation().execute();
 
-                new LongOperation().execute();
+        }
+        catch(Exception e){
+            Toast.makeText(this, "error loading results, try again", Toast.LENGTH_SHORT).show();
+
+
+        }
+
+
+
 
     }
 
@@ -368,14 +378,25 @@ public class Options extends AppCompatActivity {
     {
         protected void onPreExecute()
         {
-            progressDialog = new ProgressDialog(Options.this);
-            progressDialog.setTitle("Getting Results...");
-            progressDialog.setMessage("Please wait...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMax(100);
-            progressDialog.setProgress(0);
-            progressDialog.setCancelable(false);
-            progressDialog.show();
+            try{
+
+                progressDialog = new ProgressDialog(Options.this);
+                progressDialog.setTitle("Getting Results...");
+                progressDialog.setMessage("Please wait...");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setMax(100);
+                progressDialog.setProgress(0);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
+
+            }
+            catch(Exception e){
+
+                Toast.makeText(Options.this, "error loading progress dialog, try again", Toast.LENGTH_SHORT).show();
+
+            }
+
 
         }
 
@@ -387,7 +408,8 @@ public class Options extends AppCompatActivity {
                 startActivity(inty);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Toast.makeText(Options.this, "error getting results, try again", Toast.LENGTH_SHORT).show();
+//                System.out.print(""+e.printStackTrace());
             }
             return null;
         }

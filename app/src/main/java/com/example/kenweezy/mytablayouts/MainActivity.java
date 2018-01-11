@@ -1266,7 +1266,6 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor myedit = settings.edit();
                 myedit.putString(LOGGED_IN, "false");
                 myedit.commit();
-
                 startActivity(i);
                 finish();
 
@@ -1798,6 +1797,7 @@ return value;
 
     public void refreshSmsInboxTest() {
         try {
+            int count=0;
             ContentResolver contentResolver = getContentResolver();
             Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
@@ -1824,11 +1824,15 @@ return value;
 
 
                 String decryptedmess = new String( mcrypt.decrypt( str ) );
+                count++;
+                System.out.println("***message****::"+decryptedmess);
+                System.out.println("***message count***::"+count);
 
 
 
 
-                //new code here
+
+//                new code here
 
                 String[] originalArray=decryptedmess.split("\\s+");
                 if(originalArray[0].contentEquals("EID")){
@@ -1872,11 +1876,12 @@ return value;
                     decryptedmess=decryptedmess.replace("R:","Result:");
                 }
 
-                //new code here
+//                new code here
 
 
 
                 String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+//                String vcounts="12";
 
 
 

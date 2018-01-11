@@ -33,6 +33,7 @@ import java.util.List;
 public class FragmentReportsYearly extends Fragment {
     HorizontalBarChart bct;
     View v;
+    int Graphyear = Calendar.getInstance().get(Calendar.YEAR);
 
     public static FragmentReportsYearly instance(){return (new FragmentReportsYearly());}
 
@@ -51,13 +52,11 @@ public class FragmentReportsYearly extends Fragment {
     public ArrayList<String> getLabels(){
 
         ArrayList<String> labels = new ArrayList<String>();
-        labels.add("2017");
-        labels.add("2016");
-        labels.add("2015");
-        labels.add("2014");
-        labels.add("2013");
-        labels.add("2012");
-        labels.add("2011");
+        for(int myx=0;myx<=3;myx++){
+
+            labels.add(Integer.toString(Graphyear-myx));
+
+        }
 
         return labels;
 
@@ -67,13 +66,11 @@ public class FragmentReportsYearly extends Fragment {
     public ArrayList<BarEntry> getGroup1(){
 
         ArrayList<BarEntry> bargroup1 = new ArrayList<>();
-        bargroup1.add(new BarEntry(getVLSuppressed("2017"), 0));
-        bargroup1.add(new BarEntry(getVLSuppressed("2016"), 1));
-        bargroup1.add(new BarEntry(getVLSuppressed("2015"), 2));
-        bargroup1.add(new BarEntry(getVLSuppressed("2014"), 3));
-        bargroup1.add(new BarEntry(getVLSuppressed("2013"), 4));
-        bargroup1.add(new BarEntry(getVLSuppressed("2012"), 5));
-        bargroup1.add(new BarEntry(getVLSuppressed("2011"), 6));
+
+        for(int myx=0;myx<=3;myx++){
+
+            bargroup1.add(new BarEntry(getVLSuppressed(Integer.toString(Graphyear-myx)), myx));
+        }
 
         return bargroup1;
 
@@ -83,13 +80,11 @@ public class FragmentReportsYearly extends Fragment {
     public ArrayList<BarEntry> getGroup2(){
 
         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-        bargroup2.add(new BarEntry(getVLUnsuppressed("2017"), 0));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("2016"), 1));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("2015"), 2));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("2014"), 3));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("2013"), 4));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("2012"), 5));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("2011"), 6));
+
+        for(int myx=0;myx<=3;myx++){
+
+            bargroup2.add(new BarEntry(getVLUnsuppressed(Integer.toString(Graphyear-myx)), myx));
+        }
 
         return bargroup2;
     }
@@ -97,13 +92,13 @@ public class FragmentReportsYearly extends Fragment {
     public ArrayList<BarEntry> getGroup4(){
 
         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-        bargroup2.add(new BarEntry(getSmsCountVL("2017"), 0));
-        bargroup2.add(new BarEntry(getSmsCountVL("2016"), 1));
-        bargroup2.add(new BarEntry(getSmsCountVL("2015"), 2));
-        bargroup2.add(new BarEntry(getSmsCountVL("2014"), 3));
-        bargroup2.add(new BarEntry(getSmsCountVL("2013"), 4));
-        bargroup2.add(new BarEntry(getSmsCountVL("2012"), 5));
-        bargroup2.add(new BarEntry(getSmsCountVL("2011"), 6));
+
+        for(int myx=0;myx<=3;myx++){
+
+            bargroup2.add(new BarEntry(getSmsCountVL(Integer.toString(Graphyear-myx)), myx));
+
+
+        }
 
         return bargroup2;
     }
@@ -111,13 +106,12 @@ public class FragmentReportsYearly extends Fragment {
     public ArrayList<BarEntry> getGroup3(){
 
         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-        bargroup2.add(new BarEntry(getVLInvalid("2017"), 0));
-        bargroup2.add(new BarEntry(getVLInvalid("2016"), 1));
-        bargroup2.add(new BarEntry(getVLInvalid("2015"), 2));
-        bargroup2.add(new BarEntry(getVLInvalid("2014"), 3));
-        bargroup2.add(new BarEntry(getVLInvalid("2013"), 4));
-        bargroup2.add(new BarEntry(getVLInvalid("2012"), 5));
-        bargroup2.add(new BarEntry(getVLInvalid("2011"), 6));
+
+        for(int myx=0;myx<=3;myx++){
+
+            bargroup2.add(new BarEntry(getVLInvalid(Integer.toString(Graphyear-myx)), myx));
+
+        }
 
         return bargroup2;
     }
@@ -151,10 +145,10 @@ public class FragmentReportsYearly extends Fragment {
         // initialize the Bardata with argument labels and dataSet
         BarData data = new BarData(getLabels(), dataSets);
         bct.setData(data);
-        bct.setDescription("Yearly");
+        bct.setDescription("");
         bct.setDescriptionPosition(90,15);
         bct.setDescriptionTextSize(30);
-//        bct.setDescriptionColor(R.color.colorPrimary);
+        bct.setDescriptionColor(R.color.colorPrimary);
 
         data.setValueFormatter(new Myformater());
 

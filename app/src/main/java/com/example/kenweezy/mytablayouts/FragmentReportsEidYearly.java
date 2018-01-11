@@ -33,6 +33,7 @@ import java.util.List;
 public class FragmentReportsEidYearly extends Fragment {
     HorizontalBarChart bct;
     View v;
+    int Graphyear = Calendar.getInstance().get(Calendar.YEAR);
 
     public static FragmentReportsEidYearly instance(){return (new FragmentReportsEidYearly());}
 
@@ -51,13 +52,11 @@ public class FragmentReportsEidYearly extends Fragment {
     public ArrayList<String> getLabels(){
 
         ArrayList<String> labels = new ArrayList<String>();
-        labels.add("2017");
-        labels.add("2016");
-        labels.add("2015");
-        labels.add("2014");
-        labels.add("2013");
-        labels.add("2012");
-        labels.add("2011");
+        for(int myx=0;myx<=3;myx++){
+
+            labels.add(Integer.toString(Graphyear-myx));
+
+        }
 
         return labels;
 
@@ -67,13 +66,12 @@ public class FragmentReportsEidYearly extends Fragment {
     public ArrayList<BarEntry> getGroup1(){
 
         ArrayList<BarEntry> bargroup1 = new ArrayList<>();
-        bargroup1.add(new BarEntry(getEIDNegative("2017"), 0));
-        bargroup1.add(new BarEntry(getEIDNegative("2016"), 1));
-        bargroup1.add(new BarEntry(getEIDNegative("2015"), 2));
-        bargroup1.add(new BarEntry(getEIDNegative("2014"), 3));
-        bargroup1.add(new BarEntry(getEIDNegative("2013"), 4));
-        bargroup1.add(new BarEntry(getEIDNegative("2012"), 5));
-        bargroup1.add(new BarEntry(getEIDNegative("2011"), 6));
+
+        for(int myx=0;myx<=3;myx++){
+
+            bargroup1.add(new BarEntry(getEIDNegative(Integer.toString(Graphyear-myx)), myx));
+        }
+
 
         return bargroup1;
 
@@ -83,13 +81,12 @@ public class FragmentReportsEidYearly extends Fragment {
     public ArrayList<BarEntry> getGroup4(){
 
         ArrayList<BarEntry> bargroup1 = new ArrayList<>();
-        bargroup1.add(new BarEntry(getSmsCountEID("2017"), 0));
-        bargroup1.add(new BarEntry(getSmsCountEID("2016"), 1));
-        bargroup1.add(new BarEntry(getSmsCountEID("2015"), 2));
-        bargroup1.add(new BarEntry(getSmsCountEID("2014"), 3));
-        bargroup1.add(new BarEntry(getSmsCountEID("2013"), 4));
-        bargroup1.add(new BarEntry(getSmsCountEID("2012"), 5));
-        bargroup1.add(new BarEntry(getSmsCountEID("2011"), 6));
+
+        for(int myx=0;myx<=3;myx++){
+
+            bargroup1.add(new BarEntry(getSmsCountEID(Integer.toString(Graphyear-myx)), myx));
+
+        }
 
         return bargroup1;
 
@@ -99,13 +96,11 @@ public class FragmentReportsEidYearly extends Fragment {
     public ArrayList<BarEntry> getGroup2(){
 
         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-        bargroup2.add(new BarEntry(getEIDPositive("2017"), 0));
-        bargroup2.add(new BarEntry(getEIDPositive("2016"), 1));
-        bargroup2.add(new BarEntry(getEIDPositive("2015"), 2));
-        bargroup2.add(new BarEntry(getEIDPositive("2014"), 3));
-        bargroup2.add(new BarEntry(getEIDPositive("2013"), 4));
-        bargroup2.add(new BarEntry(getEIDPositive("2012"), 5));
-        bargroup2.add(new BarEntry(getEIDPositive("2011"), 6));
+        for(int myx=0;myx<=3;myx++){
+            bargroup2.add(new BarEntry(getEIDPositive(Integer.toString(Graphyear-myx)), myx));
+
+
+        }
 
         return bargroup2;
     }
@@ -113,13 +108,12 @@ public class FragmentReportsEidYearly extends Fragment {
     public ArrayList<BarEntry> getGroup3(){
 
         ArrayList<BarEntry> bargroup3 = new ArrayList<>();
-        bargroup3.add(new BarEntry(getEIDInvalid("2017"), 0));
-        bargroup3.add(new BarEntry(getEIDInvalid("2016"), 1));
-        bargroup3.add(new BarEntry(getEIDInvalid("2015"), 2));
-        bargroup3.add(new BarEntry(getEIDInvalid("2014"), 3));
-        bargroup3.add(new BarEntry(getEIDInvalid("2013"), 4));
-        bargroup3.add(new BarEntry(getEIDInvalid("2012"), 5));
-        bargroup3.add(new BarEntry(getEIDInvalid("2011"), 6));
+
+        for(int myx=0;myx<=3;myx++){
+
+            bargroup3.add(new BarEntry(getEIDInvalid(Integer.toString(Graphyear-myx)), myx));
+
+        }
 
         return bargroup3;
     }
@@ -152,7 +146,7 @@ public class FragmentReportsEidYearly extends Fragment {
         // initialize the Bardata with argument labels and dataSet
         BarData data = new BarData(getLabels(), dataSets);
         bct.setData(data);
-        bct.setDescription("Yearly");
+        bct.setDescription("");
         bct.setDescriptionPosition(90,15);
         bct.setDescriptionTextSize(30);
         data.setValueFormatter(new Myformater());

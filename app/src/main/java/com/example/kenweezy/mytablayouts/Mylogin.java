@@ -72,7 +72,10 @@ public class Mylogin extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mylogin);
+
         myPackageName=getApplicationContext().getPackageName();
+
+//        checkMessageCount();
 
 //        checkDefaultApp();
 
@@ -224,6 +227,22 @@ public class Mylogin extends AppCompatActivity {
         }
     }
 
+    public void checkMessageCount(){
+
+        try{
+
+            List<Messages> myl=Messages.findWithQuery(Messages.class,"select * from messages",null);
+            List<Messages> myl1=Messages.findWithQuery(Messages.class,"select * from messages group by m_body",null);
+
+            Toast.makeText(this, "all messages "+myl.size(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "grouped messages "+myl1.size(), Toast.LENGTH_SHORT).show();
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
 
 
     public void checkDefaultApp(){
@@ -813,11 +832,13 @@ public class Mylogin extends AppCompatActivity {
 
 
 
+
+
     public void refreshSmsInboxTest() {
         try {
+            int count=0;
             ContentResolver contentResolver = getContentResolver();
             Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
-            System.out.println("*********my shortcode is ********"+msc.mainShortcode);
             int indexBody = smsInboxCursor.getColumnIndex("body");
             int indexAddress = smsInboxCursor.getColumnIndex("address");
             int indexDate = smsInboxCursor.getColumnIndex("date");
@@ -837,12 +858,73 @@ public class Mylogin extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(mydate);
                 String mytimestamp=formatter.format(calendar.getTime());
+
                 GetViralCounts gvc=new GetViralCounts();
-                String vcounts=Integer.toString(gvc.getViralCount(str));
 
-                String decryptedmessage = new String( mcrypt.decrypt( str ) );
 
-                Messages ms=new Messages("false",addr,decryptedmessage,mytimestamp,"unread","null",vcounts);
+                String decryptedmess = new String( mcrypt.decrypt( str ) );
+                count++;
+                System.out.println("***message****::"+decryptedmess);
+                System.out.println("***message count***::"+count);
+
+
+
+
+
+//                new code here
+
+                String[] originalArray=decryptedmess.split("\\s+");
+                if(originalArray[0].contentEquals("EID")){
+                    originalArray[0].replace("EID","FFEID Results");
+                    decryptedmess=decryptedmess.replace("EID","FFEID Results");
+
+                }
+                else if(originalArray[0].contentEquals("VL")){
+                    originalArray[0].replace("VL","FFViral Load Results");
+                    decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
+
+
+                }
+                String pidArray[]=originalArray[1].split(":");
+                if(pidArray[0].contentEquals("PID")){
+                    pidArray[0].replace("PID","Patient ID");
+                    decryptedmess=decryptedmess.replace("PID","Patient ID");
+                }
+                String ageArray[]=originalArray[2].split(":");
+                if(ageArray[0].contentEquals("A")){
+                    ageArray[0].replace("A","Age");
+                    decryptedmess=decryptedmess.replace("A","Age");
+
+                }
+                String sexArray[]=originalArray[3].split(":");
+                if(sexArray[0].contentEquals("S")){
+
+                    sexArray[0].replace("S","Sex");
+                    decryptedmess=decryptedmess.replaceFirst("S","Sex");
+                }
+                String dateArray[]=originalArray[4].split(":");
+
+                if(dateArray[0].contentEquals("DC")){
+                    dateArray[0].replace("DC","Date Collected");
+                    decryptedmess=decryptedmess.replaceFirst("DC","Date Collected");
+                }
+                String resultsArray[]=originalArray[5].split(":");
+
+                if(resultsArray[0].contentEquals("R")){
+                    resultsArray[0].replace("R","Result");
+                    decryptedmess=decryptedmess.replace("R:","Result:");
+                }
+
+//                new code here
+
+
+
+                String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+//                String vcounts="12";
+
+
+
+                Messages ms=new Messages("false",addr,decryptedmess,mytimestamp,"unread","null",vcounts);
                 ms.save();
 
             } while (smsInboxCursor.moveToNext());
@@ -854,6 +936,54 @@ public class Mylogin extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
+//    public void refreshSmsInboxTest() {
+//        try {
+//            ContentResolver contentResolver = getContentResolver();
+//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
+//            System.out.println("*********my shortcode is ********"+msc.mainShortcode);
+//            int indexBody = smsInboxCursor.getColumnIndex("body");
+//            int indexAddress = smsInboxCursor.getColumnIndex("address");
+//            int indexDate = smsInboxCursor.getColumnIndex("date");
+//
+//
+//
+//            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
+//                return;
+//
+//            do {
+//                String str = smsInboxCursor.getString(indexBody);
+//                String addr = smsInboxCursor.getString(indexAddress);
+//                String datee = smsInboxCursor.getString(indexDate);
+//                Long mydate=Long.parseLong(datee);
+//
+//                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.setTimeInMillis(mydate);
+//                String mytimestamp=formatter.format(calendar.getTime());
+//                GetViralCounts gvc=new GetViralCounts();
+//                String vcounts=Integer.toString(gvc.getViralCount(str));
+//
+//                String decryptedmessage = new String( mcrypt.decrypt( str ) );
+//
+//                Messages ms=new Messages("false",addr,decryptedmessage,mytimestamp,"unread","null",vcounts);
+//                ms.save();
+//
+//            } while (smsInboxCursor.moveToNext());
+////            Toast.makeText(getActivity(), "length "+counter, Toast.LENGTH_SHORT).show();
+//        }
+//        catch(Exception e){
+//
+//        }
+//
+//
+//    }
 
 
 

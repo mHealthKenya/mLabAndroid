@@ -64,7 +64,7 @@ public class ReportsFragmentVL extends Fragment {
         // initialize the Bardata with argument labels and dataSet
         BarData data = new BarData(getXAxisValues(), getDataSet());
         bct.setData(data);
-        bct.setDescription("Monthly");
+        bct.setDescription("");
         bct.setDescriptionPosition(90,15);
         bct.setDescriptionTextSize(30);
         bct.getXAxis().setLabelRotationAngle(45);

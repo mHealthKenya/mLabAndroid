@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="erbtsdk">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/erbtsdk.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
