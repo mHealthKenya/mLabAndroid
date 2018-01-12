@@ -35,6 +35,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
 
+//        Toast.makeText(context, "received", Toast.LENGTH_SHORT).show();
+
 
        Bundle intentExtras = intent.getExtras();
       
@@ -64,12 +66,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     mytimestamp = formatter.format(calendar.getTime());
 
 
-//                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.setTimeInMillis(mydate);
-//                String mytimestamp=formatter.format(calendar.getTime());
-
                     smsMessageStr += smsBody;
+//                    Toast.makeText(context, ""+smsMessageStr, Toast.LENGTH_SHORT).show();
                 }
                 catch(Exception e){
 
@@ -87,52 +85,79 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     GetViralCounts gvc=new GetViralCounts();
 
                     String decryptedmess = new String( mcrypt.decrypt( smsMessageStr ) );
+//                    Toast.makeText(context, ""+decryptedmess, Toast.LENGTH_SHORT).show();
 
 
                     //new code here
 
-                    String[] originalArray=decryptedmess.split("\\s+");
-                    if(originalArray[0].contentEquals("EID")){
-                        originalArray[0].replace("EID","FFEID Results");
+                    String[] originalArray=decryptedmess.split(":");
+
+                    String[] firstpart=originalArray[0].split("\\s+");
+
+                    if(firstpart[0].contentEquals("EID")){
+                        firstpart[0].replace("EID","FFEID Results");
                         decryptedmess=decryptedmess.replace("EID","FFEID Results");
 
                     }
-                    else if(originalArray[0].contentEquals("VL")){
-                        originalArray[0].replace("VL","FFViral Load Results");
+                    else if(firstpart[0].contentEquals("VL")){
+                        firstpart[0].replace("VL","FFViral Load Results");
                         decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
 
 
                     }
-                    String pidArray[]=originalArray[1].split(":");
-                    if(pidArray[0].contentEquals("PID")){
-                        pidArray[0].replace("PID","Patient ID");
+
+                    if(firstpart[1].contentEquals("PID")){
+                        firstpart[1].replace("PID","Patient ID");
                         decryptedmess=decryptedmess.replace("PID","Patient ID");
                     }
-                    String ageArray[]=originalArray[2].split(":");
-                    if(ageArray[0].contentEquals("A")){
-                        ageArray[0].replace("A","Age");
-                        decryptedmess=decryptedmess.replace("A","Age");
+
+                    String[] secondpart=originalArray[1].split("\\s+");
+
+                    for(int x=0;x<secondpart.length;x++){
+
+                        if(secondpart[x].contentEquals("A")){
+                            secondpart[x].replace("A","Age");
+                            decryptedmess=decryptedmess.replace("A","Age");
+
+                        }
 
                     }
-                    String sexArray[]=originalArray[3].split(":");
-                    if(sexArray[0].contentEquals("S")){
 
-                        sexArray[0].replace("S","Sex");
-                        decryptedmess=decryptedmess.replaceFirst("S","Sex");
-                    }
-                    String dateArray[]=originalArray[4].split(":");
+                    String[] thirdpart=originalArray[2].split("\\s+");
 
-                    if(dateArray[0].contentEquals("DC")){
-                        dateArray[0].replace("DC","Date Collected");
-                        decryptedmess=decryptedmess.replaceFirst("DC","Date Collected");
-                    }
-                    String resultsArray[]=originalArray[5].split(":");
+                    for(int x=0;x<thirdpart.length;x++){
 
-                    if(resultsArray[0].contentEquals("R")){
-                        resultsArray[0].replace("R","Result");
-                        decryptedmess=decryptedmess.replace("R:","Result:");
+                        if(thirdpart[x].contentEquals("S")){
+                            thirdpart[x].replace("S","Sex");
+                            decryptedmess=decryptedmess.replace("S","Sex");
+
+                        }
+
                     }
 
+                    String[] fourthpart=originalArray[3].split("\\s+");
+
+                    for(int x=0;x<fourthpart.length;x++){
+
+                        if(fourthpart[x].contentEquals("DC")){
+                            fourthpart[x].replace("DC","Date Collected");
+                            decryptedmess=decryptedmess.replace("DC","Date Collected");
+
+                        }
+
+                    }
+
+                    String[] fifthpart=originalArray[4].split("\\s+");
+
+                    for(int x=0;x<fifthpart.length;x++){
+
+                        if(fifthpart[x].contentEquals("R")){
+                            fifthpart[x].replace("R","Result");
+                            decryptedmess=decryptedmess.replace("R:","Result:");
+
+                        }
+
+                    }
                     //new code here
 
 
@@ -141,7 +166,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     Messages ms = new Messages("false",getAdd,decryptedmess,mytimestamp,"unread","null",vcounts);
                     ms.save();
 
-                    context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});
+
+//                    context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});
 
 
                     FragmentAll installall = FragmentAll.newInstance();

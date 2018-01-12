@@ -43,6 +43,7 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.kenweezy.mytablayouts.GetMessageCount.GetCounts;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 
 import java.sql.Timestamp;
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     Progress pr=new Progress();
     MCrypt mcrypt=new MCrypt();
+    GetCounts gc=new GetCounts();
 
 
     @Override
@@ -436,23 +438,23 @@ public class MainActivity extends AppCompatActivity {
                                 reportseidselected = false;
                                 reportsvlselected = false;
                                 MyBottomNav();
-                                if (getvlSuppressedCount() > 0) {
-                                    bottomNavigation.setNotification(Integer.toString(getvlSuppressedCount()), 0);
+                                if (gc.getVlSuppressed() > 0) {
+                                    bottomNavigation.setNotification(Integer.toString(gc.getVlSuppressed()), 0);
 
                                 } else {
                                     bottomNavigation.setNotification("", 0);
 
                                 }
 
-                                if (getvlUnsuppressedCount() > 0) {
-                                    bottomNavigation.setNotification(Integer.toString(getvlUnsuppressedCount()), 1);
+                                if (gc.getVlUnsuppressed() > 0) {
+                                    bottomNavigation.setNotification(Integer.toString(gc.getVlUnsuppressed()), 1);
 
                                 } else {
                                     bottomNavigation.setNotification("", 1);
                                 }
 
-                                if (getvlInvalidCount() > 0) {
-                                    bottomNavigation.setNotification(Integer.toString(getvlInvalidCount()), 2);
+                                if (gc.getInvalidCount() > 0) {
+                                    bottomNavigation.setNotification(Integer.toString(gc.getInvalidCount()), 2);
 
                                 } else {
 
@@ -1834,46 +1836,73 @@ return value;
 
 //                new code here
 
-                String[] originalArray=decryptedmess.split("\\s+");
-                if(originalArray[0].contentEquals("EID")){
-                    originalArray[0].replace("EID","FFEID Results");
+                String[] originalArray=decryptedmess.split(":");
+
+                String[] firstpart=originalArray[0].split("\\s+");
+
+                if(firstpart[0].contentEquals("EID")){
+                    firstpart[0].replace("EID","FFEID Results");
                     decryptedmess=decryptedmess.replace("EID","FFEID Results");
 
                 }
-                else if(originalArray[0].contentEquals("VL")){
-                    originalArray[0].replace("VL","FFViral Load Results");
+                else if(firstpart[0].contentEquals("VL")){
+                    firstpart[0].replace("VL","FFViral Load Results");
                     decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
 
 
                 }
-                String pidArray[]=originalArray[1].split(":");
-                if(pidArray[0].contentEquals("PID")){
-                    pidArray[0].replace("PID","Patient ID");
+
+                if(firstpart[1].contentEquals("PID")){
+                    firstpart[1].replace("PID","Patient ID");
                     decryptedmess=decryptedmess.replace("PID","Patient ID");
                 }
-                String ageArray[]=originalArray[2].split(":");
-                if(ageArray[0].contentEquals("A")){
-                    ageArray[0].replace("A","Age");
-                    decryptedmess=decryptedmess.replace("A","Age");
+
+                String[] secondpart=originalArray[1].split("\\s+");
+
+                for(int x=0;x<secondpart.length;x++){
+
+                    if(secondpart[x].contentEquals("A")){
+                        secondpart[x].replace("A","Age");
+                        decryptedmess=decryptedmess.replace("A","Age");
+
+                    }
 
                 }
-                String sexArray[]=originalArray[3].split(":");
-                if(sexArray[0].contentEquals("S")){
 
-                    sexArray[0].replace("S","Sex");
-                    decryptedmess=decryptedmess.replaceFirst("S","Sex");
+                String[] thirdpart=originalArray[2].split("\\s+");
+
+                for(int x=0;x<thirdpart.length;x++){
+
+                    if(thirdpart[x].contentEquals("S")){
+                        thirdpart[x].replace("S","Sex");
+                        decryptedmess=decryptedmess.replace("S","Sex");
+
+                    }
+
                 }
-                String dateArray[]=originalArray[4].split(":");
 
-                if(dateArray[0].contentEquals("DC")){
-                    dateArray[0].replace("DC","Date Collected");
-                    decryptedmess=decryptedmess.replaceFirst("DC","Date Collected");
+                String[] fourthpart=originalArray[3].split("\\s+");
+
+                for(int x=0;x<fourthpart.length;x++){
+
+                    if(fourthpart[x].contentEquals("DC")){
+                        fourthpart[x].replace("DC","Date Collected");
+                        decryptedmess=decryptedmess.replace("DC","Date Collected");
+
+                    }
+
                 }
-                String resultsArray[]=originalArray[5].split(":");
 
-                if(resultsArray[0].contentEquals("R")){
-                    resultsArray[0].replace("R","Result");
-                    decryptedmess=decryptedmess.replace("R:","Result:");
+                String[] fifthpart=originalArray[4].split("\\s+");
+
+                for(int x=0;x<fifthpart.length;x++){
+
+                    if(fifthpart[x].contentEquals("R")){
+                        fifthpart[x].replace("R","Result");
+                        decryptedmess=decryptedmess.replace("R:","Result:");
+
+                    }
+
                 }
 
 //                new code here

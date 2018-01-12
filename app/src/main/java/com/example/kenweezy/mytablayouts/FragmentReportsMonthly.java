@@ -133,18 +133,18 @@ public class FragmentReportsMonthly extends Fragment {
     private ArrayList<BarEntry> bgrp2(){
 
         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-        bargroup2.add(new BarEntry(getVLUnsuppressed("01"), 0));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("02"), 1));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("03"), 2));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("04"), 3));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("05"), 4));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("06"), 5));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("07"), 6));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("08"), 7));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("09"), 8));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("10"), 9));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("11"), 10));
-        bargroup2.add(new BarEntry(getVLUnsuppressed("12"), 11));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("01"), 0));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("02"), 1));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("03"), 2));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("04"), 3));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("05"), 4));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("06"), 5));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("07"), 6));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("08"), 7));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("09"), 8));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("10"), 9));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("11"), 10));
+        bargroup2.add(new BarEntry(getVlUnsuppressed("12"), 11));
         return bargroup2;
     }
 
@@ -297,53 +297,6 @@ public class FragmentReportsMonthly extends Fragment {
     }
 
 
-//
-//    public int getVLInvalid(String mnth){
-//        int counter=0;
-//
-//        try {
-//            ContentResolver contentResolver = getActivity().getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
-//            int indexBody = smsInboxCursor.getColumnIndex("body");
-//            int indexAddress = smsInboxCursor.getColumnIndex("address");
-//
-//            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
-//                return 0;
-//
-//            do {
-//                String str = smsInboxCursor.getString(indexBody);
-//                String mystrbdy = smsInboxCursor.getString(indexBody);
-//                String stw = new String(mystrbdy);
-//
-//                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-//                DateFormat secformat=new SimpleDateFormat("ss");
-//                DateFormat mnthformat=new SimpleDateFormat("MM");
-//                Calendar calendar = Calendar.getInstance();
-//
-//                String ndate =  smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
-//                Long timestamp = Long.parseLong(ndate);
-//                long now = timestamp;
-//                calendar.setTimeInMillis(now);
-//
-//                String mymnth=mnthformat.format(calendar.getTime());
-//
-//                if (stw.contains("FFViral") && stw.contains("Invalid") && mnth.contentEquals(mymnth)) {
-//                    counter += 1;
-//
-//                }
-//
-//
-//            } while (smsInboxCursor.moveToNext());
-//        }
-//
-//        catch(Exception e){
-//
-//        }
-//
-//        return counter;
-//    }
-
-
     public int getVLInvalid(String mnth) {
         int value=0;
         try {
@@ -403,89 +356,202 @@ public class FragmentReportsMonthly extends Fragment {
         return value;
     }
 
-    public int getVLSuppressed(String mnth) {
-        int value=0;
-        try {
-
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
-
-            if (bdy.isEmpty()) {
-                value=0;
-
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
-
-                    String ndate = bdy.get(x).getmTimeStamp();
-                    String messbdy=bdy.get(x).getmBody();
 
 
-                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
+    public int getVlUnsuppressed(String mnth){
+        int counter=0;
+
+
+        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
+
+
+        for(int x=0;x<bdy.size();x++){
+
+            try{
+
+
+                String messbdy=bdy.get(x).getmBody();
+                String ndate = bdy.get(x).getmTimeStamp();
+
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+
+
+                    String[] mymessarray=messbdy.split(":");
+
+
+                    String splitVal="";
+
+                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
+                        splitVal=mymessarray[6];
+
+                    }
+                    else{
+
+                        splitVal=mymessarray[3];
+                    }
 
 
 
 
-                        String[] mymessarray=messbdy.split(":");
-
-                        String splitVal="";
-
-                        if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                            splitVal=mymessarray[6];
-
-                        }
-                        else{
-
-                            splitVal=mymessarray[3];
-                        }
+                    String[] splitvalarray=splitVal.split("\\s+");
 
 
 
-                        String[] splitvalarray=splitVal.split("\\s+");
-
-                        String[] checkSplitdate=ndate.split("/");
+                    String[] checkSplitdate=ndate.split("/");
 
 
-                        if(checkSplitdate.length>1){
+                    if(checkSplitdate.length>1){
 
-                        }
-                        else{
-                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTimeInMillis(Long.parseLong(ndate));
-                            ndate = formatter.format(calendar.getTime());
+                    }
+                    else{
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(Long.parseLong(ndate));
+                        ndate = formatter.format(calendar.getTime());
 
-                        }
+                    }
 
-                        String[] day=ndate.split("/");
-                        String month=day[1];
-                        int myval=0;
+                    String[] day=ndate.split("/");
+                    String month=day[1];
 
-                        if(splitvalarray[0].contains("<")){
 
+
+                    if(splitvalarray[0].contains("<")){
+                        System.out.println("i am suppressed "+splitvalarray[0]);
+
+
+
+                    }
+
+                    else{
+
+
+
+                        int myval=Integer.parseInt(splitvalarray[0]);
+                        if(myval>1000){
+                            System.out.println("i am unsuppressed with a value "+myval);
                             if(month.contentEquals(mnth)){
 
-                                value+=1;
+                                counter += 1;
                             }
 
 
 
                         }
-
-
                         else{
+                            System.out.println("i am suppressed with a value "+myval);
 
 
-                            myval=Integer.parseInt(splitvalarray[0]);
-                            if(myval>=1000){
-
-                            }
-                            else{
-                                if(month.contentEquals(mnth)){
-
-                                    value+=1;
-                                }
+                        }
 
 
+                    }
+
+
+                }
+
+
+            }
+            catch(Exception e){
+
+                System.out.println("exception occured "+e);
+
+            }
+
+
+        }
+        return counter;
+    }
+
+
+
+
+    public int getVLSuppressed(String mnth){
+        int counter=0;
+
+
+        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
+
+
+        for(int x=0;x<bdy.size();x++){
+
+            try{
+
+
+                String messbdy=bdy.get(x).getmBody();
+                String ndate = bdy.get(x).getmTimeStamp();
+
+                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+
+
+                    String[] mymessarray=messbdy.split(":");
+
+
+                    String splitVal="";
+
+                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
+                        splitVal=mymessarray[6];
+
+                    }
+                    else{
+
+                        splitVal=mymessarray[3];
+                    }
+
+
+
+
+                    String[] splitvalarray=splitVal.split("\\s+");
+
+
+
+                    String[] checkSplitdate=ndate.split("/");
+
+
+                    if(checkSplitdate.length>1){
+
+                    }
+                    else{
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(Long.parseLong(ndate));
+                        ndate = formatter.format(calendar.getTime());
+
+                    }
+
+                    String[] day=ndate.split("/");
+                    String month=day[1];
+
+
+
+                    if(splitvalarray[0].contains("<")){
+                        System.out.println("i am suppressed "+splitvalarray[0]);
+                        if(month.contentEquals(mnth)){
+
+                            counter += 1;
+                        }
+
+
+
+                    }
+
+                    else{
+
+
+
+                        int myval=Integer.parseInt(splitvalarray[0]);
+                        if(myval>1000){
+                            System.out.println("i am unsuppressed with a value "+myval);
+
+
+
+
+                        }
+                        else{
+                            System.out.println("i am suppressed with a value "+myval);
+                            if(month.contentEquals(mnth)){
+
+                                counter += 1;
                             }
 
 
@@ -495,171 +561,20 @@ public class FragmentReportsMonthly extends Fragment {
                     }
 
 
-
                 }
 
 
             }
-        }
-        catch(Exception e){
+            catch(Exception e){
 
-        }
-
-        return value;
-    }
-
-
-
-    public int getVLUnsuppressed(String mnth) {
-        int value=0;
-        try {
-
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
-
-            if (bdy.isEmpty()) {
-                value=0;
+                System.out.println("exception occured "+e);
 
             }
-            else{
-                for(int x=0;x<bdy.size();x++){
 
-                    String ndate = bdy.get(x).getmTimeStamp();
-                    String messbdy=bdy.get(x).getmBody();
-
-
-
-                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
-
-
-
-                        String[] mymessarray=messbdy.split(":");
-
-
-                        String splitVal="";
-
-                        if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                            splitVal=mymessarray[6];
-
-                        }
-                        else{
-
-                            splitVal=mymessarray[3];
-                        }
-
-
-
-                        String[] splitvalarray=splitVal.split("\\s+");
-
-                        String[] checkSplitdate=ndate.split("/");
-
-
-                        if(checkSplitdate.length>1){
-
-                        }
-                        else{
-                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTimeInMillis(Long.parseLong(ndate));
-                            ndate = formatter.format(calendar.getTime());
-
-                        }
-
-                        String[] day=ndate.split("/");
-                        String month=day[1];
-                        int myval=0;
-
-                        if(splitvalarray[0].contains("<")){
-                            System.out.println("i am suppressed "+splitvalarray[0]);
-
-
-
-                        }
-
-                        else{
-
-
-
-
-                            myval=Integer.parseInt(splitvalarray[0]);
-                            if(myval>=1000){
-                                if(month.contentEquals(mnth)){
-
-                                    value+=1;
-                                }
-                            }
-                            else{
-                                System.out.println("i am suppressed with a value "+myval);
-
-
-                            }
-
-
-                        }
-
-
-
-                    }
-
-
-
-                }
-
-
-            }
-        }
-        catch(Exception e){
 
         }
-
-        return value;
+        return counter;
     }
-
-
-//    public int getVLSuppressed(String mnth){
-//        int counter=0;
-//
-//        try {
-//            ContentResolver contentResolver = getActivity().getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
-//            int indexBody = smsInboxCursor.getColumnIndex("body");
-//            int indexAddress = smsInboxCursor.getColumnIndex("address");
-//
-//            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
-//                return 0;
-//
-//            do {
-//                String str = smsInboxCursor.getString(indexBody);
-//                String mystrbdy = smsInboxCursor.getString(indexBody);
-//                String stw = new String(mystrbdy);
-//
-//                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-//                DateFormat secformat=new SimpleDateFormat("ss");
-//                DateFormat mnthformat=new SimpleDateFormat("MM");
-//                Calendar calendar = Calendar.getInstance();
-//
-//                String ndate =  smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
-//                Long timestamp = Long.parseLong(ndate);
-//                long now = timestamp;
-//                calendar.setTimeInMillis(now);
-//
-//                String mymnth=mnthformat.format(calendar.getTime());
-//
-//                if (stw.contains("FFViral") && stw.contains("LDL") && mnth.contentEquals(mymnth)) {
-//                    counter += 1;
-//
-//                }
-//
-//
-//            } while (smsInboxCursor.moveToNext());
-//        }
-//
-//        catch(Exception e){
-//
-//        }
-//
-//        return counter;
-//    }
-
 
 
 
@@ -717,49 +632,4 @@ public class FragmentReportsMonthly extends Fragment {
 
 
 
-//    public int getVLUnsuppressed(String mnth){
-//        int counter=0;
-//
-//        try {
-//            ContentResolver contentResolver = getActivity().getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
-//            int indexBody = smsInboxCursor.getColumnIndex("body");
-//            int indexAddress = smsInboxCursor.getColumnIndex("address");
-//
-//            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
-//                return 0;
-//
-//            do {
-//                String str = smsInboxCursor.getString(indexBody);
-//                String mystrbdy = smsInboxCursor.getString(indexBody);
-//                String stw = new String(mystrbdy);
-//
-//                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-//                DateFormat secformat=new SimpleDateFormat("ss");
-//                DateFormat mnthformat=new SimpleDateFormat("MM");
-//                Calendar calendar = Calendar.getInstance();
-//
-//                String ndate =  smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
-//                Long timestamp = Long.parseLong(ndate);
-//                long now = timestamp;
-//                calendar.setTimeInMillis(now);
-//
-//                String mymnth=mnthformat.format(calendar.getTime());
-//
-//                if (stw.contains("FFViral")&& (!stw.contains("LDL"))&&!stw.contains("Invalid") && mnth.contentEquals(mymnth)) {
-//                    counter += 1;
-//
-//                }
-//
-//
-//            } while (smsInboxCursor.moveToNext());
-//        }
-//
-//        catch(Exception e){
-//
-//        }
-//
-//        return counter;
-//    }
-//
 }
