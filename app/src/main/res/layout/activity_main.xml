@@ -35,13 +35,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="25sp"-->
-        <!--android:src="@android:drawable/ic_dialog_email" />-->
+
 
 
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -49,4 +43,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom" />
+
 </android.support.design.widget.CoordinatorLayout>

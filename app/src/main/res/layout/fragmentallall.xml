@@ -61,6 +61,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+
             android:layout_height="wrap_content">
 
             <Button
@@ -70,6 +71,16 @@
                 android:text="Show All Results"
                 android:id="@+id/allres"
                 android:layout_height="wrap_content" />
+
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_toRightOf="@id/allres"-->
+                <!--android:layout_toLeftOf="@id/printres"-->
+                <!--android:text="Refresh"-->
+                <!--android:id="@+id/allrefresh"-->
+                <!--android:layout_height="wrap_content" />-->
 
             <Button
                 android:layout_width="wrap_content"

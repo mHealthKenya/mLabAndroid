@@ -610,7 +610,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
             allr=(Button) v.findViewById(R.id.allres);
             printResBut=(Button) v.findViewById(R.id.printres);
             imvall=(ImageView) v.findViewById(R.id.iv_check_all);
-//            imvall.setTag(R.drawable.check);
+
             allSelected=false;
 
             setSelectAll();
