@@ -110,7 +110,9 @@ public class Mydata {
                 }
 
                 else if (date1.before(date2)) {
+
                     return 1;
+
                 }
 
                 return 0;

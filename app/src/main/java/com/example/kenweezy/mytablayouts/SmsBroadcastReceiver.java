@@ -39,6 +39,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
        Bundle intentExtras = intent.getExtras();
+
       
 
 
@@ -81,6 +82,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
             try {
                 if(getAdd.contentEquals(msc.mainShortcode)){
 
+                    context.sendBroadcast(new Intent("MESSAGE RECEIVED"));
 
                     GetViralCounts gvc=new GetViralCounts();
 
@@ -168,40 +170,6 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
 //                    context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});
-
-
-                    FragmentAll installall = FragmentAll.newInstance();
-                    FragmentAllSuppresed installsuppressed = FragmentAllSuppresed.instance();
-                    FragmentAllUnsuppressed installunsuppressed = FragmentAllUnsuppressed.instance();
-                    FragmentAllVl installinvalid = FragmentAllVl.instance();
-
-                    FragmentEidAll insteidall = FragmentEidAll.instance();
-                    FragmentEidInvalid insteidinvalid = FragmentEidInvalid.instance();
-                    FragmentEidNegative insteidsuppressed = FragmentEidNegative.instance();
-                    FragmentEidPositive insteidunsuppressed = FragmentEidPositive.instance();
-
-                    FragmentVlAll instvlall = FragmentVlAll.instance();
-                    FragmentVlSuppressed instvlsuppressed = FragmentVlSuppressed.instance();
-                    FragmentVlUnsuppressed instvlunsuppressed = FragmentVlUnsuppressed.instance();
-                    FragmentVlInvalid instvlinvalid = FragmentVlInvalid.instance();
-
-
-
-
-                    installall.updateList(smsMessageStr);
-                    installsuppressed.updateList(smsMessageStr);
-                    installunsuppressed.updateList(smsMessageStr);
-                    installinvalid.updateList(smsMessageStr);
-
-                    insteidall.updateList(smsMessageStr);
-                    insteidsuppressed.updateList(smsMessageStr);
-                    insteidunsuppressed.updateList(smsMessageStr);
-                    insteidinvalid.updateList(smsMessageStr);
-
-                    instvlall.updateList(smsMessageStr);
-                    instvlsuppressed.updateList(smsMessageStr);
-                    instvlunsuppressed.updateList(smsMessageStr);
-                    instvlinvalid.updateList(smsMessageStr);
 
 
                 }

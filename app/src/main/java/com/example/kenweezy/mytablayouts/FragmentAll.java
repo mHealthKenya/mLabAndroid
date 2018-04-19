@@ -1,8 +1,11 @@
 package com.example.kenweezy.mytablayouts;
 
 import android.app.DatePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +54,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     List myprintlist;
 
     MCrypt mcrypt=new MCrypt();
+    BroadcastReceiver broadcastReceiver;
 
 
     View v;
@@ -105,6 +109,16 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        inst = this;
+
+    }
+
+
+
+
     private MessagesAdapter myadapter;
     ListView lv;
     @Nullable
@@ -114,6 +128,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
         lv=(ListView) v.findViewById(R.id.lvallall);
 
         initialise();
+        inst=this;
+
 
 //        checkIfMessagesChecked();
 
@@ -1398,18 +1414,6 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
     }
 
-    public void updateList(final String smsMessage) {
-        try {
-//            myadapter.insert(smsMessage, 0);
-            refreshSmsInbox();
-            Collections.sort(mymesslist,Mydata.VlcountComparator);
-            myadapter=new MessagesAdapter(getActivity(),mymesslist);
-            myadapter.notifyDataSetChanged();
-        }
-        catch(Exception e){
-
-        }
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

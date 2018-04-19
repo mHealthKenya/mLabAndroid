@@ -2,10 +2,12 @@ package com.example.kenweezy.mytablayouts;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -27,8 +29,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
+import android.telephony.SmsMessage;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +49,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.kenweezy.mytablayouts.GetMessageCount.GetCounts;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+import com.example.kenweezy.mytablayouts.fragmentTagTable.fragmenttags;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -62,12 +67,16 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     ProgressDialog pd;
+    BroadcastReceiver broadcastReceiver;
 
     Myshortcodes msc=new Myshortcodes();
+    public static final String SMS_BUNDLE = "pdus";
 
     private MenuItem mSearchAction;
     private boolean isSearchOpened = false;
     private EditText edtSeach;
+
+    boolean incomingMessage=false;//flag to check if a new message has arrived
 
     String statusBarColour;
     String toolBarColour;
@@ -121,9 +130,53 @@ public class MainActivity extends AppCompatActivity {
 //        LoadHeavyStuff();
 
 
+//        defineSmsReceiver();
+//        registerSmsReceiver();
+        getFragTags();
 
     }
 
+//broadcast receiver listeners on sms received
+
+    public void defineSmsReceiver(){
+        try{
+
+            broadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+
+
+                    incomingMessage=true;
+                    method();
+
+                    
+
+                }
+            };
+
+        }
+        catch(Exception e){
+
+            Toast.makeText(this, "error defining receiver "+e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    public void registerSmsReceiver(){
+        try{
+
+            registerReceiver(broadcastReceiver, new IntentFilter("MESSAGE RECEIVED"));
+
+
+        }
+        catch(Exception e){
+
+            Toast.makeText(this, "error registering receiver "+e, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+//broadcast receiver listeners on sms received
 
     @Override
     public void onAttachedToWindow() {
@@ -163,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
+            incomingMessage=false;
             method();
             return null;
         }
@@ -182,44 +236,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-    private class BottomNavRunner extends AsyncTask<String, String, String> {
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-
-            MyHeavyJunk();
-
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
-
-            Toast.makeText(MainActivity.this, "getting messages", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Toast.makeText(MainActivity.this, "done getting messages", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-
     public void MyHeavyJunk(){
-
-
-
-
-
 
 
         feidnegselected = false;
@@ -719,66 +736,80 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigationItem rvlyearly = new AHBottomNavigationItem("Yearly VL", R.mipmap.reorder, R.color.colorPrimary);
 
 // Add items
-
-        if (eidSelected) {
-
-
-            bottomNavigation.removeAllItems();
-            bottomNavigation.addItem(eidNegative);
-
-            bottomNavigation.addItem(eidPos);
-            bottomNavigation.addItem(eidInv);
+        if(incomingMessage){
 
 
-            // Set background color
-
-            if (bottomNavigation.isHidden()) {
-                bottomNavigation.restoreBottomNavigation(true);
-            }
-            bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
-        } else if (vlSelected) {
-            bottomNavigation.removeAllItems();
-            bottomNavigation.addItem(vlSuppressed);
-            bottomNavigation.addItem(vlUnsuppressed);
-            bottomNavigation.addItem(vlInvalid);
-
-            // Set background color
-            if (bottomNavigation.isHidden()) {
-                bottomNavigation.restoreBottomNavigation();
-            }
-            bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
-        } else if (reportseidselected) {
-
-            bottomNavigation.removeAllItems();
-//            bottomNavigation.addItem(rweekly);
-            bottomNavigation.addItem(rmonthly);
-            bottomNavigation.addItem(ryearly);
-
-            // Set background color
-            if (bottomNavigation.isHidden()) {
-                bottomNavigation.restoreBottomNavigation();
-            }
-            bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
-
-
-        } else if (reportsvlselected) {
-
-            bottomNavigation.removeAllItems();
-//            bottomNavigation.addItem(rvlweekly);
-            bottomNavigation.addItem(rvlmonthly);
-            bottomNavigation.addItem(rvlyearly);
-
-            // Set background color
-            if (bottomNavigation.isHidden()) {
-                bottomNavigation.restoreBottomNavigation();
-            }
-            bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
-
-
-        } else {
             bottomNavigation.removeAllItems();
             bottomNavigation.hideBottomNavigation();
+            incomingMessage=false;
+
+
         }
+        else{
+
+            if (eidSelected) {
+
+
+                bottomNavigation.removeAllItems();
+                bottomNavigation.addItem(eidNegative);
+
+                bottomNavigation.addItem(eidPos);
+                bottomNavigation.addItem(eidInv);
+
+
+                // Set background color
+
+                if (bottomNavigation.isHidden()) {
+                    bottomNavigation.restoreBottomNavigation(true);
+                }
+                bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
+            } else if (vlSelected) {
+                bottomNavigation.removeAllItems();
+                bottomNavigation.addItem(vlSuppressed);
+                bottomNavigation.addItem(vlUnsuppressed);
+                bottomNavigation.addItem(vlInvalid);
+
+                // Set background color
+                if (bottomNavigation.isHidden()) {
+                    bottomNavigation.restoreBottomNavigation();
+                }
+                bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
+            } else if (reportseidselected) {
+
+                bottomNavigation.removeAllItems();
+//            bottomNavigation.addItem(rweekly);
+                bottomNavigation.addItem(rmonthly);
+                bottomNavigation.addItem(ryearly);
+
+                // Set background color
+                if (bottomNavigation.isHidden()) {
+                    bottomNavigation.restoreBottomNavigation();
+                }
+                bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
+
+
+            } else if (reportsvlselected) {
+
+                bottomNavigation.removeAllItems();
+//            bottomNavigation.addItem(rvlweekly);
+                bottomNavigation.addItem(rvlmonthly);
+                bottomNavigation.addItem(rvlyearly);
+
+                // Set background color
+                if (bottomNavigation.isHidden()) {
+                    bottomNavigation.restoreBottomNavigation();
+                }
+                bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
+
+
+            } else {
+                bottomNavigation.removeAllItems();
+                bottomNavigation.hideBottomNavigation();
+            }
+
+        }
+
+
 
 
 // Disable the translation inside the CoordinatorLayout
@@ -1130,11 +1161,80 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void getFragId() {
+    public void getFragTags() {
+//        fragmenttags.deleteAll(fragmenttags.class);
 
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment_byID = fm.findFragmentById(R.id.viewpager);
-        Toast.makeText(this, "" + fragment_byID, Toast.LENGTH_SHORT).show();
+       List<fragmenttags> myl=fragmenttags.findWithQuery(fragmenttags.class,"select * from fragmenttags");
+       System.out.println("*************frag tags*************************************");
+       for(int x=0;x<myl.size();x++){
+
+           System.out.println(myl.get(x).getFragname()+" : "+myl.get(x).getTagname());
+
+       }
+    }
+
+    public void setAllFragTag(){
+
+        String allFragmentTag = makeFragmentName(viewPager.getId(), 1);
+        List<fragmenttags> mylf=fragmenttags.findWithQuery(fragmenttags.class,"select * from fragmenttags where fragname=?","all");
+        if(mylf.size()>0){
+
+
+
+        }
+        else{
+            fragmenttags ft=new fragmenttags();
+            ft.setFragname("all");
+            ft.setTagname(allFragmentTag);
+            ft.save();
+
+        }
+
+
+    }
+
+    public void setVlFragTag(){
+
+        String allFragmentTag = makeFragmentName(viewPager.getId(), 3);
+        List<fragmenttags> mylf=fragmenttags.findWithQuery(fragmenttags.class,"select * from fragmenttags where fragname=?","vl");
+        if(mylf.size()>0){
+
+
+
+        }
+        else{
+            fragmenttags ft=new fragmenttags();
+            ft.setFragname("vl");
+            ft.setTagname(allFragmentTag);
+            ft.save();
+
+        }
+
+
+    }
+
+    public void setEidFragTag(){
+
+        String allFragmentTag = makeFragmentName(viewPager.getId(), 2);
+        List<fragmenttags> mylf=fragmenttags.findWithQuery(fragmenttags.class,"select * from fragmenttags where fragname=?","eid");
+        if(mylf.size()>0){
+
+
+
+        }
+        else{
+            fragmenttags ft=new fragmenttags();
+            ft.setFragname("eid");
+            ft.setTagname(allFragmentTag);
+            ft.save();
+
+        }
+
+
+    }
+
+    private static String makeFragmentName(int viewId, long id) {
+        return "android:switcher:" + viewId + ":" + id;
     }
 
     //add icons to tabs menu
@@ -1166,7 +1266,13 @@ public class MainActivity extends AppCompatActivity {
 
 //        adapter.addFragment(new FragmentInvalid(), "INVALID");
         viewPager.setAdapter(adapter);
+
+        setAllFragTag();
+        setEidFragTag();
+        setVlFragTag();
     }
+
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -1283,22 +1389,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void call() {
-//        String phone="0713559850";
-//        Intent callIntent = new Intent(Intent.ACTION_CALL);
-//        callIntent.setData(Uri.parse("tel:" + phone));
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        startActivity(callIntent);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -2033,6 +2123,8 @@ return value;
         }
     }
 
+
+
     protected void handleMenuSearch2(){
         ActionBar action = getSupportActionBar(); //get the actionbar
 
@@ -2153,6 +2245,8 @@ return value;
     protected void onPostResume() {
         super.onPostResume();
 //        Toast.makeText(this, "onresume called", Toast.LENGTH_SHORT).show();
+        defineSmsReceiver();
+        registerSmsReceiver();
     }
 
     @Override
