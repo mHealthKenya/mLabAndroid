@@ -184,9 +184,34 @@ public class MainActivity extends AppCompatActivity {
         new AsyncTaskRunner().execute();
     }
 
+
+    public void activateSearchOnFirstFragment(){
+        try{
+
+            vlSelected = false;
+            eidSelected = false;
+            allSelected = true;
+            reportseidselected = false;
+            reportsvlselected = false;
+            falls = true;
+            feids = false;
+            fvls = false;
+            myfall = (FragmentAll) newadapt.getFragment(0);
+            if (!mSearchAction.isVisible()) {
+                mSearchAction.setVisible(true);
+            }
+            closeSearch(false);
+        }
+        catch(Exception e){
+
+            Toast.makeText(this, "unable to activate search "+e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+//        activateSearchOnFirstFragment();
 //        new AsyncTaskRunner().execute();
     }
 
@@ -308,8 +333,10 @@ public class MainActivity extends AppCompatActivity {
 
         newadapt = ((ViewPagerAdapter) viewPager.getAdapter());
 
+        activateSearchOnFirstFragment();
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
