@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.kimkevin:cachepot-1.1.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cachepot-1.1.0.aar/4ca9a201b0f2f17a30d9707f6b17254e/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cachepot-1.1.0.aar/4ca9a201b0f2f17a30d9707f6b17254e/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.kimkevin/cachepot/1.1.0/7aa9f3603c9b95ee25c0f1b7dbd9ca3059f493f6/cachepot-1.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

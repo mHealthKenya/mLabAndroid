@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
 import com.example.kenweezy.mytablayouts.printing.BluetoothDemo;
 
 import java.sql.Timestamp;
@@ -55,6 +56,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
     MCrypt mcrypt=new MCrypt();
     BroadcastReceiver broadcastReceiver;
+    MessageDialog mdialog;
 
 
     View v;
@@ -620,7 +622,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
         try{
 
-
+            mdialog=new MessageDialog(getActivity());
             frmweek=(EditText) v.findViewById(R.id.filter_frmweek);
             toweek=(EditText) v.findViewById(R.id.filter_toweek);
             allr=(Button) v.findViewById(R.id.allres);
@@ -1157,7 +1159,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 //                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
 
 
-                        MydialogBuilder(msgbdy,msgdate);
+//                        MydialogBuilder(msgbdy,msgdate);
+                        mdialog.displayMessage(msgbdy,msgdate);
 
 //                    System.out.println("/*****///// "+msgbdy);
                         List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);

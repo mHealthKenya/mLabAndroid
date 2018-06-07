@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: me.leolin:ShortcutBadger-1.1.11">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ShortcutBadger-1.1.11.aar/856b5f45247d6371cbc99d078c1dd251/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ShortcutBadger-1.1.11.aar/856b5f45247d6371cbc99d078c1dd251/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.leolin/ShortcutBadger/1.1.11/46503d1474a256d2a2893b7eaaa631e4a91914ea/ShortcutBadger-1.1.11-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

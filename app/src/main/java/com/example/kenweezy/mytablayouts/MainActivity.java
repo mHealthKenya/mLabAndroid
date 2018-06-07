@@ -50,6 +50,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.kenweezy.mytablayouts.GetMessageCount.GetCounts;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.fragmentTagTable.fragmenttags;
+import com.facebook.stetho.Stetho;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -126,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Stetho.initializeWithDefaults(this);
+
 
 //        LoadHeavyStuff();
 
@@ -135,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
         getFragTags();
 
     }
+
+
 
 //broadcast receiver listeners on sms received
 
@@ -878,6 +883,7 @@ public class MainActivity extends AppCompatActivity {
                         if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Suppressed") {
 
 
+                            pr.DissmissProgress();
 
                             pr.progressing(MainActivity.this,"loading..","Getting Suppressed VL Results");
                             Handler mHand  = new Handler();
@@ -900,7 +906,7 @@ public class MainActivity extends AppCompatActivity {
 
                         else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Monthly") {
 
-
+                            pr.DissmissProgress();
                             pr.progressing(MainActivity.this,"loading..","Getting EID monthly Results");
                             Handler mHand  = new Handler();
                             mHand.postDelayed(new Runnable() {
@@ -922,7 +928,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//
+                            pr.DissmissProgress();
                             pr.progressing(MainActivity.this,"loading..","Getting VL monthly Results");
                             Handler mHand  = new Handler();
                             mHand.postDelayed(new Runnable() {
@@ -943,7 +949,7 @@ public class MainActivity extends AppCompatActivity {
 
                         else {
 
-
+                            pr.DissmissProgress();
                             pr.progressing(MainActivity.this,"loading..","Getting EID Negative Results");
                             Handler mHand  = new Handler();
                             mHand.postDelayed(new Runnable() {
@@ -970,7 +976,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "UnSuppressed") {
 
-
+                            pr.DissmissProgress();
                             pr.progressing(MainActivity.this,"loading..","Getting VL Unsuppressed Results");
                             Handler mHand  = new Handler();
                             mHand.postDelayed(new Runnable() {
@@ -993,6 +999,7 @@ public class MainActivity extends AppCompatActivity {
 
                         else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Yearly") {
 
+                            pr.DissmissProgress();
 
                             pr.progressing(MainActivity.this,"loading..","Getting EID Yearly Results");
                             Handler mHand  = new Handler();
@@ -1014,7 +1021,7 @@ public class MainActivity extends AppCompatActivity {
                         } else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Yearly VL") {
 
 
-
+                            pr.DissmissProgress();
                             pr.progressing(MainActivity.this,"loading..","Getting VL yearly Results");
                             Handler mHand  = new Handler();
                             mHand.postDelayed(new Runnable() {
@@ -1038,7 +1045,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+                            pr.DissmissProgress();
                             pr.progressing(MainActivity.this,"loading..","Getting EID Positive Results");
                             Handler mHand  = new Handler();
                             mHand.postDelayed(new Runnable() {
@@ -1069,6 +1076,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if (bottomNavigation.getItem(2).getTitle(getApplicationContext()).toString() == "Invalid") {
 
+                            pr.DissmissProgress();
                             pr.progressing(MainActivity.this,"loading..","Getting VL invalid Results");
                             Handler mHand  = new Handler();
                             mHand.postDelayed(new Runnable() {
@@ -1088,7 +1096,7 @@ public class MainActivity extends AppCompatActivity {
 //
                         }  else {
 
-
+                            pr.DissmissProgress();
                             pr.progressing(MainActivity.this,"loading..","Getting EID Invalid Results");
                             Handler mHand  = new Handler();
                             mHand.postDelayed(new Runnable() {
@@ -1914,13 +1922,14 @@ return value;
 
 
 
+
     public void refreshSmsInboxTest() {
         try {
             int count=0;
             ContentResolver contentResolver = getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"),null, null, null,null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
-            int indexAddress = smsInboxCursor.getColumnIndex("address");
+
             int indexDate = smsInboxCursor.getColumnIndex("date");
 
 
@@ -1930,22 +1939,25 @@ return value;
 
             do {
                 String str = smsInboxCursor.getString(indexBody);
-                String addr = smsInboxCursor.getString(indexAddress);
+                String addr = smsInboxCursor.getString(2);
                 String datee = smsInboxCursor.getString(indexDate);
                 Long mydate=Long.parseLong(datee);
 
-                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(mydate);
-                String mytimestamp=formatter.format(calendar.getTime());
-
-                GetViralCounts gvc=new GetViralCounts();
+                if(addr.contentEquals(msc.mainShortcode)){
 
 
-                String decryptedmess = new String( mcrypt.decrypt( str ) );
-                count++;
-                System.out.println("***message****::"+decryptedmess);
-                System.out.println("***message count***::"+count);
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(mydate);
+                    String mytimestamp=formatter.format(calendar.getTime());
+
+                    GetViralCounts gvc=new GetViralCounts();
+
+
+                    String decryptedmess = new String( mcrypt.decrypt( str ) );
+                    count++;
+                    System.out.println("***message****::"+decryptedmess);
+                    System.out.println("***message count***::"+count);
 
 
 
@@ -1953,86 +1965,90 @@ return value;
 
 //                new code here
 
-                String[] originalArray=decryptedmess.split(":");
+                    String[] originalArray=decryptedmess.split(":");
 
-                String[] firstpart=originalArray[0].split("\\s+");
+                    String[] firstpart=originalArray[0].split("\\s+");
 
-                if(firstpart[0].contentEquals("EID")){
-                    firstpart[0].replace("EID","FFEID Results");
-                    decryptedmess=decryptedmess.replace("EID","FFEID Results");
+                    if(firstpart[0].contentEquals("EID")){
+                        firstpart[0].replace("EID","FFEID Results");
+                        decryptedmess=decryptedmess.replace("EID","FFEID Results");
 
-                }
-                else if(firstpart[0].contentEquals("VL")){
-                    firstpart[0].replace("VL","FFViral Load Results");
-                    decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
+                    }
+                    else if(firstpart[0].contentEquals("VL")){
+                        firstpart[0].replace("VL","FFViral Load Results");
+                        decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
 
-
-                }
-
-                if(firstpart[1].contentEquals("PID")){
-                    firstpart[1].replace("PID","Patient ID");
-                    decryptedmess=decryptedmess.replace("PID","Patient ID");
-                }
-
-                String[] secondpart=originalArray[1].split("\\s+");
-
-                for(int x=0;x<secondpart.length;x++){
-
-                    if(secondpart[x].contentEquals("A")){
-                        secondpart[x].replace("A","Age");
-                        decryptedmess=decryptedmess.replace("A","Age");
 
                     }
 
-                }
+                    if(firstpart[1].contentEquals("PID")){
+                        firstpart[1].replace("PID","Patient ID");
+                        decryptedmess=decryptedmess.replace("PID","Patient ID");
+                    }
 
-                String[] thirdpart=originalArray[2].split("\\s+");
+                    String[] secondpart=originalArray[1].split("\\s+");
 
-                for(int x=0;x<thirdpart.length;x++){
+                    for(int x=0;x<secondpart.length;x++){
 
-                    if(thirdpart[x].contentEquals("S")){
-                        thirdpart[x].replace("S","Sex");
-                        decryptedmess=decryptedmess.replace("S","Sex");
+                        if(secondpart[x].contentEquals("A")){
+                            secondpart[x].replace("A","Age");
+                            decryptedmess=decryptedmess.replace("A","Age");
+
+                        }
 
                     }
 
-                }
+                    String[] thirdpart=originalArray[2].split("\\s+");
 
-                String[] fourthpart=originalArray[3].split("\\s+");
+                    for(int x=0;x<thirdpart.length;x++){
 
-                for(int x=0;x<fourthpart.length;x++){
+                        if(thirdpart[x].contentEquals("S")){
+                            thirdpart[x].replace("S","Sex");
+                            decryptedmess=decryptedmess.replace("S","Sex");
 
-                    if(fourthpart[x].contentEquals("DC")){
-                        fourthpart[x].replace("DC","Date Collected");
-                        decryptedmess=decryptedmess.replace("DC","Date Collected");
-
-                    }
-
-                }
-
-                String[] fifthpart=originalArray[4].split("\\s+");
-
-                for(int x=0;x<fifthpart.length;x++){
-
-                    if(fifthpart[x].contentEquals("R")){
-                        fifthpart[x].replace("R","Result");
-                        decryptedmess=decryptedmess.replace("R:","Result:");
+                        }
 
                     }
 
-                }
+                    String[] fourthpart=originalArray[3].split("\\s+");
+
+                    for(int x=0;x<fourthpart.length;x++){
+
+                        if(fourthpart[x].contentEquals("DC")){
+                            fourthpart[x].replace("DC","Date Collected");
+                            decryptedmess=decryptedmess.replace("DC","Date Collected");
+
+                        }
+
+                    }
+
+                    String[] fifthpart=originalArray[4].split("\\s+");
+
+                    for(int x=0;x<fifthpart.length;x++){
+
+                        if(fifthpart[x].contentEquals("R")){
+                            fifthpart[x].replace("R","Result");
+                            decryptedmess=decryptedmess.replace("R:","Result:");
+
+                        }
+
+                    }
 
 //                new code here
 
 
 
-                String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
 //                String vcounts="12";
 
 
 
-                Messages ms=new Messages("false",addr,decryptedmess,mytimestamp,"unread","null",vcounts);
-                ms.save();
+                    Messages ms=new Messages("false",addr,decryptedmess,mytimestamp,"unread","null",vcounts);
+                    ms.save();
+
+                }
+
+
 
             } while (smsInboxCursor.moveToNext());
 //            Toast.makeText(getActivity(), "length "+counter, Toast.LENGTH_SHORT).show();
