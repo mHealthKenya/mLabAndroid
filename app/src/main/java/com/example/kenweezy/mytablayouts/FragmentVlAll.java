@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,6 +45,8 @@ public class FragmentVlAll extends Fragment {
         return (new FragmentVlAll());
     }
     FrameLayout fl;
+
+    MessageDialog mdialog;
 
 
 
@@ -129,6 +133,7 @@ public class FragmentVlAll extends Fragment {
         fl=(FrameLayout) v.findViewById(R.id.supresedall);
 
         mymesslist=new ArrayList<>();
+        mdialog=new MessageDialog(getActivity());
         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
 //        if (bdy.isEmpty())
@@ -438,7 +443,8 @@ public class FragmentVlAll extends Fragment {
 //                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
 
 
-                        MydialogBuilder(msgbdy,msgdate);
+//                        MydialogBuilder(msgbdy,msgdate);
+                        mdialog.displayMessage(msgbdy,msgdate);
 
                         System.out.println("/*****///// "+msgbdy);
                         List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=? group by m_body",msgbdy);

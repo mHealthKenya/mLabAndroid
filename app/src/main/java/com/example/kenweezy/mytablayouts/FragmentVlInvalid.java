@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -39,6 +40,7 @@ public class FragmentVlInvalid extends Fragment {
     ListView smsListView;
     ArrayAdapter arrayAdapter;
     Myshortcodes msc=new Myshortcodes();
+    MessageDialog mdialog;
 
     MCrypt mcrypt=new MCrypt();
     int counter=0;
@@ -64,6 +66,9 @@ public class FragmentVlInvalid extends Fragment {
 //        fl=(FrameLayout) v.findViewById(R.id.eid);
 
         mymesslist=new ArrayList<>();
+
+        mdialog=new MessageDialog(getActivity());
+
         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
 
@@ -162,7 +167,8 @@ public class FragmentVlInvalid extends Fragment {
 //                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
 
 
-                        MydialogBuilder(msgbdy,msgdate);
+//                        MydialogBuilder(msgbdy,msgdate);
+                        mdialog.displayMessage(msgbdy,msgdate);
 
                         System.out.println("/*****///// "+msgbdy);
                         List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);

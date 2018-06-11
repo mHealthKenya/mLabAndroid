@@ -39,12 +39,14 @@ public class MessageDialog {
 
 
             alertDialogBuilder.setCancelable(false);
-            alertDialogBuilder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+            alertDialogBuilder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
                 }
             });
+
+
 
             // set prompts.xml to alertdialog builder
             alertDialogBuilder.setView(promptsView);
@@ -76,10 +78,19 @@ public class MessageDialog {
             dcF.setText(getDateCollected(MessageBdy));
             resF.setText(getResult(MessageBdy));
             drF.setText(getDateReceived(mdate));
-
-
-
             alertDialog.show();
+
+            //set button color of the text
+            Button b_pos;
+            b_pos=alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+            if(b_pos!=null){
+//                b_pos.setTextColor(ctx.getResources().getColor(R.color.colorPrimaryDark));
+                b_pos.setBackgroundDrawable(ctx.getResources().getDrawable(R.drawable.dialog_close_button));
+            }
+            //set button color of the text
+
+
+
         }
         catch(Exception e){
 
@@ -90,6 +101,8 @@ public class MessageDialog {
     public String getPatientId(String message){
 
         String[] messageArray=message.split(":");
+        System.out.println("**********************************message length********************");
+        System.out.println(messageArray.length);
 
         String[] patientIdArr=messageArray[1].split("\\s+");
 
@@ -127,8 +140,22 @@ public class MessageDialog {
     public String getResult(String message){
 
         String[] messageArray=message.split(":");
+        String myresult="";
+        if(messageArray.length==9){
 
-        return messageArray[6];
+            myresult=messageArray[8];
+
+        }
+        else if(messageArray.length==7){
+
+            myresult=messageArray[6];
+
+
+        }
+
+        return myresult;
+
+
     }
 
     public String getDateReceived(String dreceived){

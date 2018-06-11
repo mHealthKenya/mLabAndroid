@@ -6,36 +6,31 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="address" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="messa" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f01e212-8aba-492e-b8dd-a7b7bbcbb409" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/built.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Mylogin.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Mylogin.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-04-24-14-19-03-084.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-04-24-14-19-03-084.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidAll.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidAll.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidInvalid.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidInvalid.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidNegative.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidNegative.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidPositive.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidPositive.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlAll.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlAll.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlInvalid.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlInvalid.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlSuppressed.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlSuppressed.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlUnsuppressed.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlUnsuppressed.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/messagedialog/MessageDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/messagedialog/MessageDialog.java" />
     </list>
     <ignored path="MytabLayouts.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,8 +64,8 @@
       <file leaf-file-name="MessageDialog.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/messagedialog/MessageDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="130" column="31" lean-forward="false" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
+            <state relative-caret-position="270">
+              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#517#518#0" expanded="true" />
@@ -80,72 +75,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="message_format.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/message_format.xml">
-          <provider selected="true" editor-type-id="android-designer2">
+      <file leaf-file-name="dialog_close_button.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/dialog_close_button.xml">
+          <provider editor-type-id="android-designer2">
             <state />
           </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="27" column="40" lean-forward="false" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragmentAll.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="1162" column="38" lean-forward="false" selection-start-line="1162" selection-start-column="38" selection-end-line="1162" selection-end-column="38" />
-              <folding>
-                <element signature="e#2339#2347#0" expanded="true" />
-                <element signature="e#9645#12402#0" expanded="true" />
-                <element signature="e#9927#11033#0" expanded="true" />
-                <element signature="e#11032#11033#0" expanded="true" />
-                <element signature="e#12401#12402#0" expanded="true" />
-                <element signature="e#12588#14032#0" expanded="true" />
-                <element signature="e#12747#12755#0" expanded="true" />
-                <element signature="e#14031#14032#0" expanded="true" />
-                <element signature="e#14720#16013#0" expanded="true" />
-                <element signature="e#15349#15913#0" expanded="true" />
-                <element signature="e#15912#15913#0" expanded="true" />
-                <element signature="e#16012#16013#0" expanded="true" />
-                <element signature="e#24544#25836#0" expanded="true" />
-                <element signature="e#25173#25736#0" expanded="true" />
-                <element signature="e#25735#25736#0" expanded="true" />
-                <element signature="e#25835#25836#0" expanded="true" />
-                <element signature="e#25997#29735#0" expanded="true" />
-                <element signature="e#29734#29735#0" expanded="true" />
-                <element signature="e#29887#34422#0" expanded="true" />
-                <element signature="e#34421#34422#0" expanded="true" />
-                <element signature="e#34745#34910#0" expanded="true" />
-                <element signature="e#34909#34910#0" expanded="true" />
-                <element signature="e#34950#35506#0" expanded="true" />
-                <element signature="e#35440#35478#0" expanded="true" />
-                <element signature="e#35505#35506#0" expanded="true" />
-                <element signature="e#43623#43844#0" expanded="true" />
-                <element signature="e#43843#43844#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SmsBroadcastReceiver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/SmsBroadcastReceiver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="95" column="0" lean-forward="false" selection-start-line="94" selection-start-column="20" selection-end-line="96" selection-end-column="70" />
+            <state relative-caret-position="54">
+              <caret line="21" column="11" lean-forward="true" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -158,9 +95,9 @@
       <list>
         <option value="ASClass" />
         <option value="layoutResourceFile_vertical" />
-        <option value="resourceFile" />
         <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -2018,11 +1955,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/MyRegister.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/forgotpassword.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Forgotpassword.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/device_name.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/shape_bg.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/shape_bg2.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/main.xml" />
@@ -2030,8 +1962,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/printing/DeviceListActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/printing/BluetoothDemo.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/GetViralCounts.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidInvalid.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlInvalid.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Options.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/MessagesAdapter.java" />
@@ -2052,12 +1982,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragmenteidinvalid.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragmenteidunsuppressed.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragmenteidsuppressed.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlUnsuppressed.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragmentvlunsuppressed.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragmentallall.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Mydata.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/options.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlSuppressed.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/fragmentTagTable/fragmenttags.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/SmsBroadcastReceiver.java" />
@@ -2068,7 +1996,16 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/message_format.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlAll.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlSuppressed.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlInvalid.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlUnsuppressed.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidAll.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidInvalid.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidNegative.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidPositive.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/messagedialog/MessageDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/dialog_close_button.xml" />
       </list>
     </option>
   </component>
@@ -2096,18 +2033,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
               <item name="MytabLayouts" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="MytabLayouts" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
             </path>
             <path>
               <item name="MytabLayouts" type="1abcf292:AndroidViewProjectNode" />
@@ -2129,7 +2061,7 @@
               <item name="MytabLayouts" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="MytabLayouts" type="1abcf292:AndroidViewProjectNode" />
@@ -2139,9 +2071,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
       <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2156,7 +2088,8 @@
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="ScreenshotViewer.SavePath" value="$PROJECT_DIR$/../../MLAB SCREENSHOTS" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1528387815882" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1528716398585" />
+    <property name="android.profiler.active" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -2577,10 +2510,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="-4" width="1317" height="772" extended-state="6" />
+    <frame x="81" y="77" width="1319" height="780" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.49724627" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2591,7 +2524,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.49409914" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.49724627" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4158576" sideWeight="0.4878049" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4158576" sideWeight="0.4878049" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2661,6 +2594,30 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20916">
+          <caret line="1162" column="38" lean-forward="false" selection-start-line="1162" selection-start-column="38" selection-end-line="1162" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/SmsBroadcastReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1476">
+          <caret line="95" column="0" lean-forward="false" selection-start-line="94" selection-start-column="20" selection-end-line="96" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2711,45 +2668,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/SmsBroadcastReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
+        <state relative-caret-position="1476">
           <caret line="95" column="0" lean-forward="false" selection-start-line="94" selection-start-column="20" selection-end-line="96" selection-end-column="70" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="1162" column="38" lean-forward="false" selection-start-line="1162" selection-start-column="38" selection-end-line="1162" selection-end-column="38" />
-          <folding>
-            <element signature="e#2339#2347#0" expanded="true" />
-            <element signature="e#9645#12402#0" expanded="true" />
-            <element signature="e#9927#11033#0" expanded="true" />
-            <element signature="e#11032#11033#0" expanded="true" />
-            <element signature="e#12401#12402#0" expanded="true" />
-            <element signature="e#12588#14032#0" expanded="true" />
-            <element signature="e#12747#12755#0" expanded="true" />
-            <element signature="e#14031#14032#0" expanded="true" />
-            <element signature="e#14720#16013#0" expanded="true" />
-            <element signature="e#15349#15913#0" expanded="true" />
-            <element signature="e#15912#15913#0" expanded="true" />
-            <element signature="e#16012#16013#0" expanded="true" />
-            <element signature="e#24544#25836#0" expanded="true" />
-            <element signature="e#25173#25736#0" expanded="true" />
-            <element signature="e#25735#25736#0" expanded="true" />
-            <element signature="e#25835#25836#0" expanded="true" />
-            <element signature="e#25997#29735#0" expanded="true" />
-            <element signature="e#29734#29735#0" expanded="true" />
-            <element signature="e#29887#34422#0" expanded="true" />
-            <element signature="e#34421#34422#0" expanded="true" />
-            <element signature="e#34745#34910#0" expanded="true" />
-            <element signature="e#34909#34910#0" expanded="true" />
-            <element signature="e#34950#35506#0" expanded="true" />
-            <element signature="e#35440#35478#0" expanded="true" />
-            <element signature="e#35505#35506#0" expanded="true" />
-            <element signature="e#43623#43844#0" expanded="true" />
-            <element signature="e#43843#43844#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2766,16 +2687,99 @@
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="347">
+        <state relative-caret-position="486">
           <caret line="27" column="40" lean-forward="false" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentAll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="58" column="9" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidInvalid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2743">
+          <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidNegative.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="457" column="59" lean-forward="false" selection-start-line="457" selection-start-column="59" selection-end-line="457" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidPositive.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="566" column="35" lean-forward="false" selection-start-line="566" selection-start-column="35" selection-end-line="566" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentEidAll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="383" column="27" lean-forward="false" selection-start-line="383" selection-start-column="27" selection-end-line="383" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlUnsuppressed.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="587" column="34" lean-forward="false" selection-start-line="587" selection-start-column="34" selection-end-line="587" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlSuppressed.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="624" column="28" lean-forward="false" selection-start-line="624" selection-start-column="28" selection-end-line="624" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlInvalid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="170" column="32" lean-forward="false" selection-start-line="170" selection-start-column="32" selection-end-line="170" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentVlAll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="445" column="58" lean-forward="false" selection-start-line="445" selection-start-column="58" selection-end-line="445" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/dialog_close_button.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="21" column="11" lean-forward="true" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/messagedialog/MessageDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="130" column="31" lean-forward="false" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
+        <state relative-caret-position="270">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#517#518#0" expanded="true" />
