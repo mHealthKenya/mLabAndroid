@@ -76,6 +76,7 @@ public class MessageDialog {
             ageF.setText(getAge(MessageBdy));
             sexF.setText(getSex(MessageBdy));
             dcF.setText(getDateCollected(MessageBdy));
+
             resF.setText(getResult(MessageBdy));
             drF.setText(getDateReceived(mdate));
             alertDialog.show();

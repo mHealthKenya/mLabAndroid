@@ -1655,7 +1655,7 @@ return value;
 
                     String messbdy=bdy.get(x).getmBody();
 
-                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
+                    if((messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
                         value+=1;
                     }
                 }
@@ -1691,7 +1691,7 @@ return value;
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
+                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 
@@ -1783,7 +1783,7 @@ return value;
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
+                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
                     String[] mymessarray=messbdy.split(":");
 
@@ -1901,7 +1901,7 @@ return value;
                 for(int x=0;x<bdy.size();x++){
 
                     String messbdy=bdy.get(x).getmBody();
-                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
+                    if((messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
                         value+=1;
                     }
                 }
@@ -1923,7 +1923,7 @@ return value;
 
 
 
-    public void refreshSmsInboxTest() {
+    public void refreshSmsInboxTestOld() {
         try {
             int count=0;
             ContentResolver contentResolver = getContentResolver();
@@ -1971,19 +1971,19 @@ return value;
 
                     if(firstpart[0].contentEquals("EID")){
                         firstpart[0].replace("EID","FFEID Results");
-                        decryptedmess=decryptedmess.replace("EID","FFEID Results");
+                        decryptedmess=decryptedmess.replaceFirst("EID","FFEID Results");
 
                     }
                     else if(firstpart[0].contentEquals("VL")){
                         firstpart[0].replace("VL","FFViral Load Results");
-                        decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
+                        decryptedmess=decryptedmess.replaceFirst("VL","FFViral Load Results");
 
 
                     }
 
                     if(firstpart[1].contentEquals("PID")){
                         firstpart[1].replace("PID","Patient ID");
-                        decryptedmess=decryptedmess.replace("PID","Patient ID");
+                        decryptedmess=decryptedmess.replaceFirst("PID","Patient ID");
                     }
 
                     String[] secondpart=originalArray[1].split("\\s+");
@@ -1992,7 +1992,7 @@ return value;
 
                         if(secondpart[x].contentEquals("A")){
                             secondpart[x].replace("A","Age");
-                            decryptedmess=decryptedmess.replace("A","Age");
+                            decryptedmess=decryptedmess.replaceFirst("A","Age");
 
                         }
 
@@ -2002,9 +2002,13 @@ return value;
 
                     for(int x=0;x<thirdpart.length;x++){
 
-                        if(thirdpart[x].contentEquals("S")){
-                            thirdpart[x].replace("S","Sex");
-                            decryptedmess=decryptedmess.replace("S","Sex");
+                        if(thirdpart[1].contentEquals("S")&&thirdpart[1].length()==1){
+
+
+                            thirdpart[1].replace("S","Sex");
+//                            decryptedmess=decryptedmess.replace("S","Sex");
+                            decryptedmess=decryptedmess.replaceFirst("S","Sex");
+
 
                         }
 
@@ -2016,7 +2020,8 @@ return value;
 
                         if(fourthpart[x].contentEquals("DC")){
                             fourthpart[x].replace("DC","Date Collected");
-                            decryptedmess=decryptedmess.replace("DC","Date Collected");
+                            decryptedmess=decryptedmess.replaceFirst("DC","Date Collected");
+
 
                         }
 
@@ -2024,11 +2029,12 @@ return value;
 
                     String[] fifthpart=originalArray[4].split("\\s+");
 
+
                     for(int x=0;x<fifthpart.length;x++){
 
                         if(fifthpart[x].contentEquals("R")){
                             fifthpart[x].replace("R","Result");
-                            decryptedmess=decryptedmess.replace("R:","Result:");
+                            decryptedmess=decryptedmess.replaceFirst("R:","Result:");
 
                         }
 
@@ -2052,6 +2058,162 @@ return value;
 
             } while (smsInboxCursor.moveToNext());
 //            Toast.makeText(getActivity(), "length "+counter, Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception e){
+
+        }
+
+
+    }
+
+
+
+
+
+
+    public void refreshSmsInboxTest() {
+        try {
+
+            int count=0;
+            ContentResolver contentResolver = getContentResolver();
+            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"),null, null, null,null);
+            int indexBody = smsInboxCursor.getColumnIndex("body");
+
+            int indexDate = smsInboxCursor.getColumnIndex("date");
+            StringBuilder newMessage=new StringBuilder();
+
+
+
+            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
+                return;
+
+            do {
+                String str = smsInboxCursor.getString(indexBody);
+                String addr = smsInboxCursor.getString(2);
+                String datee = smsInboxCursor.getString(indexDate);
+                Long mydate=Long.parseLong(datee);
+
+                if(addr.contentEquals(msc.mainShortcode)){
+
+
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(mydate);
+                    String mytimestamp=formatter.format(calendar.getTime());
+
+                    GetViralCounts gvc=new GetViralCounts();
+
+
+                    String decryptedmess = new String( mcrypt.decrypt( str ) );
+                    count++;
+                    System.out.println("***message****::"+decryptedmess);
+                    System.out.println("***message count***::"+count);
+
+
+
+
+
+//                new code here
+
+                    String[] originalArray=decryptedmess.split(":");
+
+                    String[] firstpart=originalArray[0].split("\\s+");
+
+                    if(firstpart[0].contentEquals("EID")){
+
+                        newMessage.append("FFEID Results");
+
+                    }
+
+                    else if(firstpart[0].contentEquals("VL")){
+
+                        newMessage.append("FFViral Load Results");
+
+
+                    }
+
+                    if(firstpart[1].contentEquals("PID")){
+
+                        newMessage.append(" Patient ID");
+                    }
+
+                    String[] secondpart=originalArray[1].split("\\s+");
+
+//                    for(int x=0;x<secondpart.length;x++){
+                    newMessage.append(":"+secondpart[0]);
+
+                    if(secondpart[1].contentEquals("A")){
+
+                        newMessage.append(" Age:");
+
+                    }
+
+//                    }
+
+                    String[] thirdpart=originalArray[2].split("\\s+");
+
+//                    for(int x=0;x<thirdpart.length;x++){
+                    newMessage.append(thirdpart[0]);
+
+                    if(thirdpart[1].contentEquals("S")){
+
+                        newMessage.append(" Sex:");
+
+                    }
+
+//                    }
+
+                    String[] fourthpart=originalArray[3].split("\\s+");
+
+//                    for(int x=0;x<fourthpart.length;x++){
+                    newMessage.append(fourthpart[0]);
+
+                    if(fourthpart[1].contentEquals("DC")){
+
+                        newMessage.append(" Date Collected:");
+
+                    }
+
+//                    }
+                    if(originalArray.length==9){
+
+                        newMessage.append(originalArray[4]+":");
+                        newMessage.append(originalArray[5]+":");
+                        String[] sixthpart=originalArray[6].split("\\s+");
+                        newMessage.append(sixthpart[0]+" Result::");
+                        newMessage.append(originalArray[8]);
+
+
+                    }
+                    else{
+
+                        String[] seventhpart=originalArray[4].split("\\s+");
+                        newMessage.append(seventhpart[0]+" Result::");
+                        newMessage.append(originalArray[6]);
+
+                    }
+
+                    System.out.println("****************************RECEIVED MESSAGE************************");
+                    System.out.println(newMessage);
+
+//                new code here
+
+
+
+                    String vcounts=Integer.toString(gvc.getViralCount(newMessage.toString()));
+//                String vcounts="12";
+
+
+
+                    Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts);
+                    ms.save();
+
+                }
+
+
+
+            } while (smsInboxCursor.moveToNext());
+
         }
         catch(Exception e){
 
@@ -2334,7 +2496,7 @@ return value;
             public void onClick(DialogInterface dialog, int which) {
 
 
-                String PhoneNo = "+254791184100";
+                String PhoneNo = "+254786725994";
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + PhoneNo));
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling

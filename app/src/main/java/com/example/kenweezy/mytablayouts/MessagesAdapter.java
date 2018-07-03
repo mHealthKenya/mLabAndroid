@@ -146,6 +146,34 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
             v.setTag(mylist);
 
+            if(mybdyString.contains("Positive")){
+
+                 if (!tvtitle.getText().toString().contentEquals("read")) {
+
+//                    tvbdy.setTextColor(Color.parseColor("#696969"));
+//            tvbdy.setText(Html.fromHtml("<h1><b>"+mylist.get(position).getMsgbody()+"</b></h1>"));
+                    tvbdy.setTextColor(Color.parseColor("#696969"));
+                    imgv.setImageResource(R.mipmap.hvlimage);
+
+
+                }
+                else{
+
+                    imgv.setVisibility(View.GONE);
+                }
+
+            }
+            else{
+                if (tvtitle.getText().toString().contentEquals("read")) {
+
+                    tvbdy.setTextColor(Color.parseColor("#696969"));
+//            tvbdy.setText(Html.fromHtml("<h1><b>"+mylist.get(position).getMsgbody()+"</b></h1>"));
+                    imgv.setVisibility(View.GONE);
+
+                }
+
+            }
+
             if(thecount>1000){
 
                 if (!tvtitle.getText().toString().contentEquals("read")) {
@@ -179,6 +207,19 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
 
             if(thecount>1000){
+
+//                tvbdy.setTextColor(Color.parseColor("#ff0000"));
+                cview.setCardBackgroundColor(Color.parseColor("#A9A9A9"));
+                tvbdy.setTextColor(Color.parseColor("#000000"));
+                tvbdy.setTypeface(tvbdy.getTypeface(), Typeface.BOLD);
+//                imgv.setVisibility(View.VISIBLE);
+//                imgv.setBackgroundResource(R.mipmap.highviral);
+
+
+
+            }
+
+             if(mybdyString.contains("Positive")){
 
 //                tvbdy.setTextColor(Color.parseColor("#ff0000"));
                 cview.setCardBackgroundColor(Color.parseColor("#A9A9A9"));

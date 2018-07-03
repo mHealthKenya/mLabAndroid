@@ -423,7 +423,7 @@ public class FragmentReportsWeekly extends Fragment {
 
 
 
-                if(!(mystrbdy.contains("Collect new sample")||mystrbdy.contains("Invalid"))){
+                if(!(mystrbdy.contains("Collect New Sample")||mystrbdy.contains("Invalid"))){
 
 
 
@@ -663,7 +663,7 @@ public class FragmentReportsWeekly extends Fragment {
                 String stw = new String(mystrbdy);
                 String mydate=ms.getmTimeStamp();
 
-                if((mystrbdy.contains("Collect new sample")||mystrbdy.contains("Invalid"))){
+                if((mystrbdy.contains("Collect New Sample")||mystrbdy.contains("Invalid"))){
 
                     String[] checkSplitdate=mydate.split("/");
 
@@ -709,7 +709,7 @@ public class FragmentReportsWeekly extends Fragment {
                     int testyear=Integer.parseInt(myyear);
 
 
-                    if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val && mystrbdy.contains("Collect new sample")){
+                    if(((testdate<=mys1val && testdate<=mys2val && testmnth>mnth1val && testmnth==mnth2val) || (testdate>=mys1val && testdate<=mys2val && testmnth==mnth1val && testmnth==mnth2val)) && testyear==year1val && mystrbdy.contains("Collect New Sample")){
 
 //                if((((testdate<=mys1val && mnth1val<mnth2val && mnth2val<testmnth )|| (testdate>=mys1val && mnth1val==testmnth && mnth2val>mnth1val ))) && testyear==year1val && stw.contains("FFEID") && stw.contains("Negative")){
                         counter += 1;
@@ -850,7 +850,7 @@ public class FragmentReportsWeekly extends Fragment {
                 String stw = new String(mystrbdy);
                 String mydate=ms.getmTimeStamp();
 
-                if(!(mystrbdy.contains("Collect new sample")||mystrbdy.contains("Invalid"))){
+                if(!(mystrbdy.contains("Collect New Sample")||mystrbdy.contains("Invalid"))){
 
 
 

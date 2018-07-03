@@ -580,7 +580,7 @@ public class FragmentReportsEidYearly extends Fragment {
 //                    Log.i(TAG,month);
                     String[] newyear=month.split("\\s+");
                     String myyear=newyear[0];
-                    if(myyear.contentEquals(mnth) && (thebdy.contains("Collect new sample")|| thebdy.contains("Invalid") ||thebdy.contains("Failed"))){
+                    if(myyear.contentEquals(mnth) && (thebdy.contains("Collect New Sample")||thebdy.contains("Collect new sexample")|| thebdy.contains("Invalid") ||thebdy.contains("Failed"))){
 
                         value+=1;
                     }

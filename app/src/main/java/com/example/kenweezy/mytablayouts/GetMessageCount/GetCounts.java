@@ -48,7 +48,7 @@ public class GetCounts {
                     mychkB=false;
                 }
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
 
                     String[] mymessarray=messbdy.split(":");
@@ -150,7 +150,7 @@ public class GetCounts {
 
                 String mytimestamp=null;
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
                     String[] checkSplitdate = ndate.split("/");
 
@@ -252,7 +252,7 @@ public class GetCounts {
                 mychkB=false;
             }
 
-            if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
+            if((messbdy.contains("Collect New Sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
 

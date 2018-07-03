@@ -39,6 +39,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
        Bundle intentExtras = intent.getExtras();
+       StringBuilder newMessage=new StringBuilder();
 
       
 
@@ -99,11 +100,13 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     if(firstpart[0].contentEquals("EID")){
                         firstpart[0].replace("EID","FFEID Results");
                         decryptedmess=decryptedmess.replace("EID","FFEID Results");
+                        newMessage.append("FFEID Results");
 
                     }
                     else if(firstpart[0].contentEquals("VL")){
                         firstpart[0].replace("VL","FFViral Load Results");
                         decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
+                        newMessage.append("FFViral Load Results");
 
 
                     }
@@ -111,62 +114,89 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     if(firstpart[1].contentEquals("PID")){
                         firstpart[1].replace("PID","Patient ID");
                         decryptedmess=decryptedmess.replace("PID","Patient ID");
+                        newMessage.append(" Patient ID");
                     }
 
                     String[] secondpart=originalArray[1].split("\\s+");
 
-                    for(int x=0;x<secondpart.length;x++){
+//                    for(int x=0;x<secondpart.length;x++){
+                    newMessage.append(":"+secondpart[0]);
 
-                        if(secondpart[x].contentEquals("A")){
-                            secondpart[x].replace("A","Age");
+                        if(secondpart[1].contentEquals("A")){
+                            secondpart[1].replace("A","Age");
                             decryptedmess=decryptedmess.replace("A","Age");
+
+                            newMessage.append(" Age:");
 
                         }
 
-                    }
+//                    }
 
                     String[] thirdpart=originalArray[2].split("\\s+");
 
-                    for(int x=0;x<thirdpart.length;x++){
+//                    for(int x=0;x<thirdpart.length;x++){
+                    newMessage.append(thirdpart[0]);
 
-                        if(thirdpart[x].contentEquals("S")){
-                            thirdpart[x].replace("S","Sex");
-                            decryptedmess=decryptedmess.replace("S","Sex");
+                        if(thirdpart[1].contentEquals("S")){
+                            thirdpart[1].replace("S","Sex");
+                            decryptedmess=decryptedmess.replaceFirst("S","Sex");
+                            newMessage.append(" Sex:");
 
                         }
 
-                    }
+//                    }
 
                     String[] fourthpart=originalArray[3].split("\\s+");
 
-                    for(int x=0;x<fourthpart.length;x++){
+//                    for(int x=0;x<fourthpart.length;x++){
+                    newMessage.append(fourthpart[0]);
 
-                        if(fourthpart[x].contentEquals("DC")){
-                            fourthpart[x].replace("DC","Date Collected");
+                        if(fourthpart[1].contentEquals("DC")){
+                            fourthpart[1].replace("DC","Date Collected");
                             decryptedmess=decryptedmess.replace("DC","Date Collected");
+                            newMessage.append(" Date Collected:");
 
                         }
 
-                    }
+//                    }
+                    if(originalArray.length==9){
 
-                    String[] fifthpart=originalArray[4].split("\\s+");
+                        newMessage.append(originalArray[4]+":");
+                        newMessage.append(originalArray[5]+":");
+                        String[] sixthpart=originalArray[6].split("\\s+");
+                        newMessage.append(sixthpart[0]+" Result::");
+                        newMessage.append(originalArray[8]);
 
-                    for(int x=0;x<fifthpart.length;x++){
-
-                        if(fifthpart[x].contentEquals("R")){
-                            fifthpart[x].replace("R","Result");
-                            decryptedmess=decryptedmess.replace("R:","Result:");
-
-                        }
 
                     }
+                    else{
+
+                        String[] seventhpart=originalArray[4].split("\\s+");
+                        newMessage.append(seventhpart[0]+" Result::");
+                        newMessage.append(originalArray[6]);
+
+                    }
+
+                    System.out.println("****************************RECEIVED MESSAGE************************");
+                    System.out.println(newMessage);
+//                    String[] fifthpart=originalArray[4].split("\\s+");
+//
+//                    for(int x=0;x<fifthpart.length;x++){
+//
+//                        if(fifthpart[x].contentEquals("R")){
+//                            fifthpart[x].replace("R","Result");
+//                            decryptedmess=decryptedmess.replace("R:","Result:");
+//
+//                        }
+//
+//                    }
                     //new code here
 
 
-                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
-
-                    Messages ms = new Messages("false",getAdd,decryptedmess,mytimestamp,"unread","null",vcounts);
-                    ms.save();
+//                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+//
+//                    Messages ms = new Messages("false",getAdd,decryptedmess,mytimestamp,"unread","null",vcounts);
+//                    ms.save();
 
 
 //                    context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});

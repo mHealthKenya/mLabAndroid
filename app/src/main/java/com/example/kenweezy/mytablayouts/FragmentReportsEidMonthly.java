@@ -448,7 +448,7 @@ public class FragmentReportsEidMonthly extends Fragment {
                     String[] day=ndate.split("/");
                     String month=day[1];
                     Log.i(TAG,month);
-                    if(month.contentEquals(mnth) && (thebdy.contains("Collect new sample")|| thebdy.contains("Invalid")|| thebdy.contains("Failed"))){
+                    if(month.contentEquals(mnth) && (thebdy.contains("Collect New Sample")||thebdy.contains("Collect new sexample")|| thebdy.contains("Invalid")|| thebdy.contains("Failed"))){
 
                         value+=1;
                     }

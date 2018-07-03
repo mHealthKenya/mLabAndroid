@@ -12,7 +12,7 @@ public class GetViralCounts {
 
         try{
 
-            if(mesbdy.contains("FFViral") && (!(mesbdy.contains("Collect new sample")||mesbdy.contains("Invalid")||mesbdy.contains("Failed")))) {
+            if(mesbdy.contains("FFViral") && (!(mesbdy.contains("Collect New Sample")||mesbdy.contains("Collect new sexample")||mesbdy.contains("Invalid")||mesbdy.contains("Failed")))) {
 
 
                 String[] mymessarray=mesbdy.split(":");

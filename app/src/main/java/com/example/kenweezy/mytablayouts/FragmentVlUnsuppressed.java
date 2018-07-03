@@ -96,7 +96,7 @@ public class FragmentVlUnsuppressed extends Fragment {
                     mychkB=false;
                 }
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
 
                     String[] mymessarray=messbdy.split(":");
@@ -236,7 +236,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 //                                txtChkd=false;
 //                            }
 //
-//                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+//                            if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 //
 //
 //                                String[] mymessarray=messbdy.split(":");
@@ -429,7 +429,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                             String[] checkSplitdate=ndate.split("/");
 
-                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                            if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
                                 try {
 
@@ -655,7 +655,7 @@ public class FragmentVlUnsuppressed extends Fragment {
                                 mychkB=false;
                             }
 
-                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                            if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
 
                                 String[] mymessarray=messbdy.split(":");
@@ -846,7 +846,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 //                                txtChkd=false;
 //                            }
 //
-//                            if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+//                            if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 //
 //
 //                                String[] mymessarray=messbdy.split(":");
@@ -1102,7 +1102,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 
 
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
+                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
 
                     String[] mymessarray=messbdy.split(":");

@@ -382,7 +382,7 @@ public class ReportsFragmentVL extends Fragment {
                     String ndate = bdy.get(x).getmTimeStamp();
                     String messbdy=bdy.get(x).getmBody();
 
-                    if((messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if((messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid"))){
 
 
 
@@ -443,7 +443,7 @@ public class ReportsFragmentVL extends Fragment {
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
 
                     String[] mymessarray=messbdy.split(":");
@@ -560,7 +560,7 @@ public class ReportsFragmentVL extends Fragment {
                     String messbdy=bdy.get(x).getmBody();
 
 
-                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid"))){
 
 
 
@@ -668,7 +668,7 @@ public class ReportsFragmentVL extends Fragment {
 
 
 
-                    if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid"))){
+                    if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid"))){
 
 
 
@@ -774,7 +774,7 @@ public class ReportsFragmentVL extends Fragment {
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
 
-                if(!(messbdy.contains("Collect new sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
 
 
                     String[] mymessarray=messbdy.split(":");
