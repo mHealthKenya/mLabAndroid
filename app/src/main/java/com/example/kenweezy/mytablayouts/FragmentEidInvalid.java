@@ -140,6 +140,7 @@ public class FragmentEidInvalid extends Fragment {
 
 
             String messbdy=bdy.get(x).getmBody();
+            String messId=bdy.get(x).getMessageId();
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
             String mvcnt=bdy.get(x).getViralCount();
@@ -170,7 +171,7 @@ public class FragmentEidInvalid extends Fragment {
 
             if(messbdy.contains("Collect New Sample") ||messbdy.contains("Collect new sexample")|| messbdy.contains("Invalid")||messbdy.contains("Failed")){
                 counter += 1;
-                mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+                mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
 
             }
 
@@ -342,6 +343,7 @@ public class FragmentEidInvalid extends Fragment {
 
                     String msgbdy=mymesslist.get(position).getMsgbody();
                     String msgdate=mymesslist.get(position).getDate();
+                    String msgId=mymesslist.get(position).getMsgId();
 
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //            System.out.println("testing "+timestamp);
@@ -374,7 +376,7 @@ public class FragmentEidInvalid extends Fragment {
 
                     if(sending){
 
-                        String sendMessage=msgbdy+"*"+mytime;
+                        String sendMessage=msgId;
                         SmsManager sm = SmsManager.getDefault();
                         String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
 
@@ -398,6 +400,7 @@ public class FragmentEidInvalid extends Fragment {
 
 
                         String messbdy=bdy.get(x).getmBody();
+                        String messId=bdy.get(x).getMessageId();
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
 
@@ -430,7 +433,7 @@ public class FragmentEidInvalid extends Fragment {
 
                         if(messbdy.contains("Collect New Sample") ||messbdy.contains("Collect new sexample")|| messbdy.contains("Invalid")||messbdy.contains("Failed")){
                             counter += 1;
-                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
 
                         }
 
@@ -592,7 +595,7 @@ public class FragmentEidInvalid extends Fragment {
 
 
                 String messbdy=bdy.get(x).getmBody();
-
+                String messId=bdy.get(x).getMessageId();
 
 
 
@@ -634,7 +637,7 @@ public class FragmentEidInvalid extends Fragment {
 
                 if(messbdy.contains("Collect New Sample") ||messbdy.contains("Collect new sexample")|| messbdy.contains("Invalid")||messbdy.contains("Failed")){
                     counter += 1;
-                    mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+                    mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
 
                 }
 

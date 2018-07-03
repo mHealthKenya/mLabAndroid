@@ -11,6 +11,7 @@ import java.util.Date;
 public class Mydata {
 
     private String msgbody;
+    private String msgId;
     private String date;
     private String read;
     private boolean isSelected;
@@ -20,13 +21,22 @@ public class Mydata {
 
     }
 
-    public Mydata(boolean isSelected,String mbdy,String date,String read,int vcount){
+    public Mydata(boolean isSelected,String mbdy,String date,String read,int vcount,String msgId){
 
         this.msgbody=mbdy;
         this.date=date;
         this.read=read;
         this.isSelected=isSelected;
         this.vcount=vcount;
+        this.msgId=msgId;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
     }
 
     public int getVcount() {

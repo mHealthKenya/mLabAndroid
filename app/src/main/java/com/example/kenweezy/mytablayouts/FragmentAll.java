@@ -156,6 +156,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
             counter += 1;
             String messbdy=bdy.get(x).getmBody();
+            String messId=bdy.get(x).getMessageId();
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
             String mychk=bdy.get(x).getChkd();
@@ -185,7 +186,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
-            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
 
 
         }
@@ -1025,6 +1026,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                             counter += 1;
                             String messbdy=bdy.get(x).getmBody();
+                            String messId=bdy.get(x).getMessageId();
                             String ndate = bdy.get(x).getmTimeStamp();
                             String read=bdy.get(x).getRead();
                             String chkds=bdy.get(x).getChkd();
@@ -1063,7 +1065,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
-                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
 
 
 
@@ -1154,6 +1156,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                         String mytime=timestamp.toString();
 
                         String msgbdy=mymesslist.get(position).getMsgbody();
+                        String msgId=mymesslist.get(position).getMsgId();
                         String msgdate=mymesslist.get(position).getDate();
 
 //                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
@@ -1185,7 +1188,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                         if(sending){
 
-                            String sendMessage=msgbdy+"*"+mytime;
+                            String sendMessage=msgId;
                             SmsManager sm = SmsManager.getDefault();
 //                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
 
@@ -1212,6 +1215,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                             counter += 1;
                             String messbdy=bdy.get(x).getmBody();
+                            String messId=bdy.get(x).getMessageId();
                             String ndate = bdy.get(x).getmTimeStamp();
                             String read=bdy.get(x).getRead();
                             String chkds=bdy.get(x).getChkd();
@@ -1244,7 +1248,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
-                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+                            mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
 
 
 
@@ -1360,7 +1364,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                 counter += 1;
                 String messbdy=bdy.get(x).getmBody();
-
+                String messId=bdy.get(x).getMessageId();
 
 
 
@@ -1401,7 +1405,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                 }
 
 
-                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
 
 //                myadapter.add(bdycont);
 
@@ -1499,6 +1503,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                 counter += 1;
                 String messbdy=bdy.get(x).getmBody();
+                String messId=bdy.get(x).getMessageId();
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
                 String mychk=bdy.get(x).getChkd();
@@ -1571,19 +1576,19 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 //                }
                 if(theyeari==toyeari && theyeari==frmyeari && themnthi==tomnthi && themnthi==frmmnthi && thedayi<=todayi && thedayi>=frmdayi){
 
-                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
 
 
                 }
                 else if(theyeari==toyeari && theyeari==frmyeari && themnthi<=tomnthi && themnthi>=frmmnthi){
 
-                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
 
                 }
 
                 else if(theyeari<toyeari && theyeari>frmyeari){
 
-                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
 
                 }
 
@@ -1653,6 +1658,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
+                String messId=bdy.get(x).getMessageId();
                 String mychk=bdy.get(x).getChkd();
                 String mvcnt=bdy.get(x).getViralCount();
                 int vcount=Integer.parseInt(mvcnt);
@@ -1678,7 +1684,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                 }
 
-                mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+                mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
 
 
             }

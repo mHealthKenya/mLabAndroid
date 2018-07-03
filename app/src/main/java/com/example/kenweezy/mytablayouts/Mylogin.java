@@ -916,150 +916,150 @@ public class Mylogin extends AppCompatActivity {
 
 
 
-    public void refreshSmsInboxTestOld() {
-        try {
-            int count=0;
-            ContentResolver contentResolver = getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"),null, null, null,null);
-
-            int indexBody = smsInboxCursor.getColumnIndex("body");
-
-            int indexDate = smsInboxCursor.getColumnIndex("date");
-
-
-
-            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
-
-                return;
-
-            do {
-                String str = smsInboxCursor.getString(indexBody);
-                String addr = smsInboxCursor.getString(2);
-                String datee = smsInboxCursor.getString(indexDate);
-                Long mydate=Long.parseLong(datee);
-
-                if(addr.contentEquals(msc.mainShortcode)){
-
-
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(mydate);
-                    String mytimestamp=formatter.format(calendar.getTime());
-
-                    GetViralCounts gvc=new GetViralCounts();
-
-
-                    String decryptedmess = new String( mcrypt.decrypt( str ) );
-                    count++;
-                    System.out.println("***message****::"+decryptedmess);
-                    System.out.println("***message count***::"+count);
-
-
-
-
-
-//                new code here
-
-                    String[] originalArray=decryptedmess.split(":");
-
-                    String[] firstpart=originalArray[0].split("\\s+");
-
-                    if(firstpart[0].contentEquals("EID")){
-                        firstpart[0].replace("EID","FFEID Results");
-                        decryptedmess=decryptedmess.replace("EID","FFEID Results");
-
-                    }
-                    else if(firstpart[0].contentEquals("VL")){
-                        firstpart[0].replace("VL","FFViral Load Results");
-                        decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
-
-
-                    }
-
-                    if(firstpart[1].contentEquals("PID")){
-                        firstpart[1].replace("PID","Patient ID");
-                        decryptedmess=decryptedmess.replace("PID","Patient ID");
-                    }
-
-                    String[] secondpart=originalArray[1].split("\\s+");
-
-                    for(int x=0;x<secondpart.length;x++){
-
-                        if(secondpart[x].contentEquals("A")){
-                            secondpart[x].replace("A","Age");
-                            decryptedmess=decryptedmess.replace("A","Age");
-
-                        }
-
-                    }
-
-                    String[] thirdpart=originalArray[2].split("\\s+");
-
-                    for(int x=0;x<thirdpart.length;x++){
-
-                        if(thirdpart[x].contentEquals("S")){
-                            thirdpart[x].replace("S","Sex");
-                            decryptedmess=decryptedmess.replace("S","Sex");
-
-                        }
-
-                    }
-
-                    String[] fourthpart=originalArray[3].split("\\s+");
-
-                    for(int x=0;x<fourthpart.length;x++){
-
-                        if(fourthpart[x].contentEquals("DC")){
-                            fourthpart[x].replace("DC","Date Collected");
-                            decryptedmess=decryptedmess.replace("DC","Date Collected");
-
-                        }
-
-                    }
-
-                    String[] fifthpart=originalArray[4].split("\\s+");
-
-                    for(int x=0;x<fifthpart.length;x++){
-
-                        if(fifthpart[x].contentEquals("R")){
-                            fifthpart[x].replace("R","Result");
-                            decryptedmess=decryptedmess.replace("R:","Result:");
-
-                        }
-
-                    }
-
-
-
-//                new code here
-
-
-
-                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
-//                String vcounts="12";
-
-
-
-                    Messages ms=new Messages("false",addr,decryptedmess,mytimestamp,"unread","null",vcounts);
-                    ms.save();
-
-                }
-
-
-
-            } while (smsInboxCursor.moveToNext());
-//            Toast.makeText(getActivity(), "length "+counter, Toast.LENGTH_SHORT).show();
-        }
-        catch(Exception e){
-
-        }
-
-
-    }
-
-
-
+//    public void refreshSmsInboxTestOld() {
+//        try {
+//            int count=0;
+//            ContentResolver contentResolver = getContentResolver();
+////            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address=?", new String[]{msc.mainShortcode}, null);
+//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"),null, null, null,null);
+//
+//            int indexBody = smsInboxCursor.getColumnIndex("body");
+//
+//            int indexDate = smsInboxCursor.getColumnIndex("date");
+//
+//
+//
+//            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
+//
+//                return;
+//
+//            do {
+//                String str = smsInboxCursor.getString(indexBody);
+//                String addr = smsInboxCursor.getString(2);
+//                String datee = smsInboxCursor.getString(indexDate);
+//                Long mydate=Long.parseLong(datee);
+//
+//                if(addr.contentEquals(msc.mainShortcode)){
+//
+//
+//                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+//                    Calendar calendar = Calendar.getInstance();
+//                    calendar.setTimeInMillis(mydate);
+//                    String mytimestamp=formatter.format(calendar.getTime());
+//
+//                    GetViralCounts gvc=new GetViralCounts();
+//
+//
+//                    String decryptedmess = new String( mcrypt.decrypt( str ) );
+//                    count++;
+//                    System.out.println("***message****::"+decryptedmess);
+//                    System.out.println("***message count***::"+count);
+//
+//
+//
+//
+//
+////                new code here
+//
+//                    String[] originalArray=decryptedmess.split(":");
+//
+//                    String[] firstpart=originalArray[0].split("\\s+");
+//
+//                    if(firstpart[0].contentEquals("EID")){
+//                        firstpart[0].replace("EID","FFEID Results");
+//                        decryptedmess=decryptedmess.replace("EID","FFEID Results");
+//
+//                    }
+//                    else if(firstpart[0].contentEquals("VL")){
+//                        firstpart[0].replace("VL","FFViral Load Results");
+//                        decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
+//
+//
+//                    }
+//
+//                    if(firstpart[1].contentEquals("PID")){
+//                        firstpart[1].replace("PID","Patient ID");
+//                        decryptedmess=decryptedmess.replace("PID","Patient ID");
+//                    }
+//
+//                    String[] secondpart=originalArray[1].split("\\s+");
+//
+//                    for(int x=0;x<secondpart.length;x++){
+//
+//                        if(secondpart[x].contentEquals("A")){
+//                            secondpart[x].replace("A","Age");
+//                            decryptedmess=decryptedmess.replace("A","Age");
+//
+//                        }
+//
+//                    }
+//
+//                    String[] thirdpart=originalArray[2].split("\\s+");
+//
+//                    for(int x=0;x<thirdpart.length;x++){
+//
+//                        if(thirdpart[x].contentEquals("S")){
+//                            thirdpart[x].replace("S","Sex");
+//                            decryptedmess=decryptedmess.replace("S","Sex");
+//
+//                        }
+//
+//                    }
+//
+//                    String[] fourthpart=originalArray[3].split("\\s+");
+//
+//                    for(int x=0;x<fourthpart.length;x++){
+//
+//                        if(fourthpart[x].contentEquals("DC")){
+//                            fourthpart[x].replace("DC","Date Collected");
+//                            decryptedmess=decryptedmess.replace("DC","Date Collected");
+//
+//                        }
+//
+//                    }
+//
+//                    String[] fifthpart=originalArray[4].split("\\s+");
+//
+//                    for(int x=0;x<fifthpart.length;x++){
+//
+//                        if(fifthpart[x].contentEquals("R")){
+//                            fifthpart[x].replace("R","Result");
+//                            decryptedmess=decryptedmess.replace("R:","Result:");
+//
+//                        }
+//
+//                    }
+//
+//
+//
+////                new code here
+//
+//
+//
+//                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+////                String vcounts="12";
+//
+//
+//
+//                    Messages ms=new Messages("false",addr,decryptedmess,mytimestamp,"unread","null",vcounts);
+//                    ms.save();
+//
+//                }
+//
+//
+//
+//            } while (smsInboxCursor.moveToNext());
+////            Toast.makeText(getActivity(), "length "+counter, Toast.LENGTH_SHORT).show();
+//        }
+//        catch(Exception e){
+//
+//        }
+//
+//
+//    }
+//
+//
+//
 
 
 
@@ -1070,6 +1070,7 @@ public class Mylogin extends AppCompatActivity {
             ContentResolver contentResolver = getContentResolver();
             Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"),null, null, null,null);
             int indexBody = smsInboxCursor.getColumnIndex("body");
+            String mId="";
 
             int indexDate = smsInboxCursor.getColumnIndex("date");
             StringBuilder newMessage=new StringBuilder();
@@ -1167,13 +1168,14 @@ public class Mylogin extends AppCompatActivity {
                     }
 
 //                    }
-                    if(originalArray.length==9){
+                    if(originalArray.length==10){
 
                         newMessage.append(originalArray[4]+":");
                         newMessage.append(originalArray[5]+":");
                         String[] sixthpart=originalArray[6].split("\\s+");
                         newMessage.append(sixthpart[0]+" Result::");
-                        newMessage.append(originalArray[8]);
+                        newMessage.append(originalArray[9]);
+                        mId=originalArray[9];
 
 
                     }
@@ -1182,6 +1184,7 @@ public class Mylogin extends AppCompatActivity {
                         String[] seventhpart=originalArray[4].split("\\s+");
                         newMessage.append(seventhpart[0]+" Result::");
                         newMessage.append(originalArray[6]);
+                        mId=originalArray[7];
 
                     }
 
@@ -1197,7 +1200,7 @@ public class Mylogin extends AppCompatActivity {
 
 
 
-                    Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts);
+                    Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId);
                     ms.save();
 
                 }

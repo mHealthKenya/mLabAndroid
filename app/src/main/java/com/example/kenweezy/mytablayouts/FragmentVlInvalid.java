@@ -79,7 +79,7 @@ public class FragmentVlInvalid extends Fragment {
             String messbdy=bdy.get(x).getmBody();
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
-
+            String messId=bdy.get(x).getMessageId();
             String mvcnt=bdy.get(x).getViralCount();
             int vcount=Integer.parseInt(mvcnt);
 
@@ -111,7 +111,7 @@ public class FragmentVlInvalid extends Fragment {
 
                 }
 
-                mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount));
+                mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
 
 
             }
@@ -159,6 +159,7 @@ public class FragmentVlInvalid extends Fragment {
 
                         String msgbdy=mymesslist.get(position).getMsgbody();
                         String msgdate=mymesslist.get(position).getDate();
+                        String msgId=mymesslist.get(position).getMsgId();
 
                         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //            System.out.println("testing "+timestamp);
@@ -191,7 +192,7 @@ public class FragmentVlInvalid extends Fragment {
 
                         if(sending){
 
-                            String sendMessage=msgbdy+"*"+mytime;
+                            String sendMessage=msgId;
                             SmsManager sm = SmsManager.getDefault();
                             String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
 
@@ -214,6 +215,7 @@ public class FragmentVlInvalid extends Fragment {
                             counter += 1;
                             String messbdy=bdy.get(x).getmBody();
                             String ndate = bdy.get(x).getmTimeStamp();
+                            String messId=bdy.get(x).getMessageId();
                             String read=bdy.get(x).getRead();
 
                             String mvcnt=bdy.get(x).getViralCount();
@@ -246,7 +248,7 @@ public class FragmentVlInvalid extends Fragment {
 
                                 }
 
-                                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+                                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
 
 
 
@@ -336,6 +338,7 @@ public class FragmentVlInvalid extends Fragment {
                             String messbdy=bdy.get(x).getmBody();
                             String ndate = bdy.get(x).getmTimeStamp();
                             String read=bdy.get(x).getRead();
+                            String messId=bdy.get(x).getMessageId();
 
                             String mvcnt=bdy.get(x).getViralCount();
                             int vcount=Integer.parseInt(mvcnt);
@@ -367,7 +370,7 @@ public class FragmentVlInvalid extends Fragment {
 
                                 }
 
-                                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+                                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
 
 
 
@@ -534,7 +537,7 @@ public class FragmentVlInvalid extends Fragment {
 
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
-
+                String messId=bdy.get(x).getMessageId();
                 String mvcnt=bdy.get(x).getViralCount();
                 int vcount=Integer.parseInt(mvcnt);
 
@@ -574,7 +577,7 @@ public class FragmentVlInvalid extends Fragment {
                         ndate = formatter.format(calendar.getTime());
 
                     }
-                    mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
+                    mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
 
 //                myadapter.add(bdycont);
                     myadapter=new MessagesAdapter(getActivity(),mymesslist);

@@ -41,11 +41,11 @@ public class ListviewTesting extends AppCompatActivity {
             String messbdy=bdy.get(x).getmBody();
             String ndate = bdy.get(x).getmTimeStamp();
             String read=bdy.get(x).getRead();
-
+            String messId=bdy.get(x).getMessageId();
             String mvcnt=bdy.get(x).getViralCount();
             int vcount=Integer.parseInt(mvcnt);
 
-            mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount));
+            mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount,messId));
 
 
         }
@@ -94,11 +94,11 @@ public class ListviewTesting extends AppCompatActivity {
                         String messbdy=bdy.get(x).getmBody();
                         String ndate = bdy.get(x).getmTimeStamp();
                         String read=bdy.get(x).getRead();
-
+                        String messId=bdy.get(x).getMessageId();
                         String mvcnt=bdy.get(x).getViralCount();
                         int vcount=Integer.parseInt(mvcnt);
 
-                        mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount));
+                        mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount,messId));
 
 
                     }
@@ -136,11 +136,11 @@ public class ListviewTesting extends AppCompatActivity {
                 String messbdy=bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
                 String read=bdy.get(x).getRead();
-
+                String messId=bdy.get(x).getMessageId();
                 String mvcnt=bdy.get(x).getViralCount();
                 int vcount=Integer.parseInt(mvcnt);
 
-                mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount));
+                mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount,messId));
                 System.out.println(messbdy+" /***/ "+read);
 
 

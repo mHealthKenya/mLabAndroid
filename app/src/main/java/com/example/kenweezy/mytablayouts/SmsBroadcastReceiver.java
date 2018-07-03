@@ -40,6 +40,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
        Bundle intentExtras = intent.getExtras();
        StringBuilder newMessage=new StringBuilder();
+       String mId="";
 
       
 
@@ -159,13 +160,14 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                         }
 
 //                    }
-                    if(originalArray.length==9){
+                    if(originalArray.length==10){
 
                         newMessage.append(originalArray[4]+":");
                         newMessage.append(originalArray[5]+":");
                         String[] sixthpart=originalArray[6].split("\\s+");
                         newMessage.append(sixthpart[0]+" Result::");
                         newMessage.append(originalArray[8]);
+                        mId=originalArray[9];
 
 
                     }
@@ -174,6 +176,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                         String[] seventhpart=originalArray[4].split("\\s+");
                         newMessage.append(seventhpart[0]+" Result::");
                         newMessage.append(originalArray[6]);
+                        mId=originalArray[7];
 
                     }
 
@@ -193,10 +196,10 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     //new code here
 
 
-//                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
+                    String vcounts=Integer.toString(gvc.getViralCount(newMessage.toString()));
 //
-//                    Messages ms = new Messages("false",getAdd,decryptedmess,mytimestamp,"unread","null",vcounts);
-//                    ms.save();
+                    Messages ms = new Messages("false",getAdd,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId);
+                    ms.save();
 
 
 //                    context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});

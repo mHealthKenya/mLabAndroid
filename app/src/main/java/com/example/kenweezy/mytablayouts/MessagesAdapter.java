@@ -289,7 +289,7 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
                         int vcount=filterList.get(i).getVcount();
                         chkd=filterList.get(i).isSelected();
 
-                        Mydata md=new Mydata(chkd,filterList.get(i).getMsgbody(),filterList.get(i).getDate(),filterList.get(i).getRead(),vcount);
+                        Mydata md=new Mydata(chkd,filterList.get(i).getMsgbody(),filterList.get(i).getDate(),filterList.get(i).getRead(),vcount,filterList.get(i).getMsgId());
                         filters.add(md);
                     }
                 }
