@@ -192,7 +192,7 @@ public class FragmentVlInvalid extends Fragment {
 
                         if(sending){
 
-                            String sendMessage=msgId;
+                            String sendMessage="read*"+msgId;
                             SmsManager sm = SmsManager.getDefault();
                             String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
 

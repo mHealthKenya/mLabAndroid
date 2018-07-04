@@ -1188,7 +1188,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
                         if(sending){
 
-                            String sendMessage=msgId;
+                            String sendMessage="read*"+msgId;
                             SmsManager sm = SmsManager.getDefault();
 //                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
 

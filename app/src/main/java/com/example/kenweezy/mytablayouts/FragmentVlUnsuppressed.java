@@ -612,7 +612,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                     if(sending){
 
-                        String sendMessage=msgId;
+                        String sendMessage="read*"+msgId;
                         SmsManager sm = SmsManager.getDefault();
                         String encrypted = null;
                         try {
