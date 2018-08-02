@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsClient;
@@ -25,6 +24,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.kenweezy.mytablayouts.hts.HtsresultsTab;
 
 import java.util.Date;
 import java.util.List;
@@ -120,6 +121,19 @@ public class Options extends AppCompatActivity {
         super.onDestroy();
         this.unbindService( mCustomTabsServiceConnection);
         mCustomTabsServiceConnection = null;
+    }
+
+    public void HTSResults(View v){
+
+        try{
+            Intent myint=new Intent(getApplicationContext(), HtsresultsTab.class);
+            startActivity(myint);
+
+        }
+        catch(Exception e){
+
+
+        }
     }
 
     public void setVersion(){

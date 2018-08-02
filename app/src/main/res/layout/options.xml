@@ -97,6 +97,20 @@
                 android:text="Results"
                 android:id="@+id/button" />
 
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="HTSResults"
+                android:textColor="#b666d2"
+                android:textAllCaps="false"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/button"
+                android:text="HTS Results"
+                android:id="@+id/htsbutton" />
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

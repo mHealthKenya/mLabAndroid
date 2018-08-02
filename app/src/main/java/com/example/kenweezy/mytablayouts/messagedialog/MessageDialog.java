@@ -2,13 +2,10 @@ package com.example.kenweezy.mytablayouts.messagedialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.kenweezy.mytablayouts.R;
@@ -23,6 +20,76 @@ public class MessageDialog {
     }
 
 
+    public void displayHtsMessage(final String mccode,final String mgender,final String mage,final String mresult,final String msubmitted,final String mreleased){
+        try{
+
+            // get prompts.xml view
+            LayoutInflater li = LayoutInflater.from(ctx);
+            final View promptsView = li.inflate(R.layout.hts_message_format, null);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    ctx);
+
+
+
+            alertDialogBuilder.setCancelable(false);
+            alertDialogBuilder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+
+
+            // set prompts.xml to alertdialog builder
+            alertDialogBuilder.setView(promptsView);
+            // create alert dialog
+            final AlertDialog alertDialog = alertDialogBuilder.create();
+
+            final TextView ccodeT = (TextView) promptsView
+                    .findViewById(R.id.htsclientcode);
+            final TextView genderT = (TextView) promptsView
+                    .findViewById(R.id.htsgender);
+            final TextView ageT = (TextView) promptsView
+                    .findViewById(R.id.htsage);
+            final TextView resultT = (TextView) promptsView
+                    .findViewById(R.id.htsresult);
+            final TextView submittedT = (TextView) promptsView
+                    .findViewById(R.id.htssubmitted);
+            final TextView releasedT = (TextView) promptsView
+                    .findViewById(R.id.htsreleased);
+
+
+
+
+            ccodeT.setText(mccode);
+            genderT.setText(mgender);
+            ageT.setText(mage);
+            resultT.setText(mresult);
+            submittedT.setText(msubmitted);
+            releasedT.setText(mreleased);
+
+
+            alertDialog.show();
+
+            //set button color of the text
+            Button b_pos;
+            b_pos=alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+            if(b_pos!=null){
+//                b_pos.setTextColor(ctx.getResources().getColor(R.color.colorPrimaryDark));
+                b_pos.setBackgroundDrawable(ctx.getResources().getDrawable(R.drawable.dialog_close_button));
+            }
+            //set button color of the text
+
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
 
 
 

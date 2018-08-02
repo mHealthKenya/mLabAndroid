@@ -11,4 +11,5 @@
     <color name="mycolor">#b8b894</color>
     <color name="orangered">#d67601</color>
     <color name="txtcolor">#000000</color>
+    <color name="textcolorblack">#000000</color>
 </resources>
