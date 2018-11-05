@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="vertical"
+    android:scrollbarStyle="insideInset"
+    android:fillViewport="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarclientindividualresults"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+
+        </android.support.design.widget.AppBarLayout>
+
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_marginTop="?android:attr/actionBarSize"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:layout_width="match_parent"
+
+                android:id="@+id/client_mflcode"
+                android:inputType="number"
+                android:hint="Enter MFL Code"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:inputType="number"
+                android:id="@+id/client_puid"
+
+                android:hint="Enter PUID"
+                android:layout_height="wrap_content" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+
+                    android:id="@+id/client_frmweek"
+                    android:focusable="false"
+                    android:hint="Select Date From"
+                    android:layout_height="wrap_content" />
+
+
+
+                <EditText
+                    android:layout_width="match_parent"
+
+                    android:hint="Select Date To"
+                    android:id="@+id/client_toweek"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:layout_height="wrap_content" />
+
+
+
+
+
+        </LinearLayout>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Search"
+                android:onClick="SearchIndividualResults"
+                android:id="@+id/clientsearchres"
+                android:layout_height="wrap_content" />
+
+
+
+
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvclientindividualresults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:divider="@color/colorAccent"
+        android:dividerHeight="1sp"
+        android:layout_marginBottom="50sp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+
+</LinearLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -25,6 +25,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.AddClient.ClientOptions;
+import com.example.kenweezy.mytablayouts.AddClient.Register;
 import com.example.kenweezy.mytablayouts.hts.HtsresultsTab;
 
 import java.util.Date;
@@ -174,10 +176,10 @@ public class Options extends AppCompatActivity {
         mCustomTabsIntent.launchUrl(this, Uri.parse(Dashboard));
     }
 
-    public void doRegister(View v){
+    public void goToClients(View v){
 
         try{
-            Intent myint=new Intent(getApplicationContext(),Register.class);
+            Intent myint=new Intent(getApplicationContext(),ClientOptions.class);
             startActivity(myint);
 
 

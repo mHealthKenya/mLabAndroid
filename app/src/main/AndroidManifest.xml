@@ -53,14 +53,29 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Register"
+            android:name=".AddClient.Register"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name"
+            android:parentActivityName=".AddClient.ClientOptions"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".AddClient.Individualresults"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name"
+            android:parentActivityName=".AddClient.ClientOptions"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".HistoricalResults"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
             android:parentActivityName=".Options"
             android:theme="@style/AppTheme.NoActionBar" />
 
+
         <activity
-            android:name=".HistoricalResults"
+            android:name=".AddClient.ClientOptions"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
             android:parentActivityName=".Options"

@@ -1,4 +1,4 @@
-package com.example.kenweezy.mytablayouts;
+package com.example.kenweezy.mytablayouts.AddClient;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +18,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.Mylogin;
+import com.example.kenweezy.mytablayouts.Myshortcodes;
+import com.example.kenweezy.mytablayouts.Progress;
+import com.example.kenweezy.mytablayouts.R;
+import com.example.kenweezy.mytablayouts.UserTimeOut;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 
 import java.util.ArrayList;
@@ -64,6 +69,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.register);
         toolbar = (Toolbar) findViewById(R.id.toolbarreg);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Register Client");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         cc=(EditText) findViewById(R.id.ccno);
@@ -313,7 +319,7 @@ public class Register extends AppCompatActivity {
 
             /****insert the new interaction time***/
             UserTimeOut myut=UserTimeOut.findById(UserTimeOut.class,1);
-            myut.lasttime=Long.toString(now);
+            myut.setLasttime(Long.toString(now));
             myut.save();
             /****insert the new interaction time***/
 
