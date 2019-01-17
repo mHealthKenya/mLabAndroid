@@ -89,7 +89,6 @@
 
                     android:hint="Select Date To"
                     android:id="@+id/client_toweek"
-                    android:enabled="false"
                     android:focusable="false"
                     android:layout_height="wrap_content" />
 

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.Loadmessages.LoadMessages;
 import com.example.kenweezy.mytablayouts.Messages;
 import com.example.kenweezy.mytablayouts.MessagesAdapter;
@@ -36,6 +37,7 @@ public class Individualresults extends AppCompatActivity {
     ArrayList<String> smsMessagesList = new ArrayList<String>();
 
     LoadMessages lm;
+    DateTimePicker dtp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,11 +45,56 @@ public class Individualresults extends AppCompatActivity {
         setContentView(R.layout.client_individual_results);
         setToolbar();
         initialise();
+
+        setDateFromPicker();
+        setDateToPicker();
+    }
+
+    public void setDateFromPicker(){
+
+        try{
+            frmweek.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    dtp.setDatePicker(frmweek);
+
+                }
+            });
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    public void setDateToPicker(){
+
+        try{
+
+            toweek.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    dtp.setDatePicker(toweek);
+
+                }
+            });
+
+
+        }
+        catch(Exception e){
+
+
+        }
     }
 
     public void initialise(){
 
         try{
+            dtp=new DateTimePicker(Individualresults.this);
             lm=new LoadMessages(Individualresults.this);
             mflcode=(EditText) findViewById(R.id.client_mflcode);
             puid=(EditText) findViewById(R.id.client_puid);
@@ -100,12 +147,12 @@ public class Individualresults extends AppCompatActivity {
             else if(puidS.trim().isEmpty()){
                 Toast.makeText(this, "puid is required", Toast.LENGTH_SHORT).show();
             }
-//            else if(frmweekS.trim().isEmpty()){
-//                Toast.makeText(this, "from date is required", Toast.LENGTH_SHORT).show();
-//            }
-//            else if(toweekS.trim().isEmpty()){
-//                Toast.makeText(this, "to date is required", Toast.LENGTH_SHORT).show();
-//            }
+            else if(frmweekS.trim().isEmpty()){
+                Toast.makeText(this, "from date is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(toweekS.trim().isEmpty()){
+                Toast.makeText(this, "to date is required", Toast.LENGTH_SHORT).show();
+            }
             else{
 
                 Toast.makeText(this, "searching", Toast.LENGTH_SHORT).show();

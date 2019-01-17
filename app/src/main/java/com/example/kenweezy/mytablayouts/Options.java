@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AddClient.ClientOptions;
 import com.example.kenweezy.mytablayouts.AddClient.Register;
+import com.example.kenweezy.mytablayouts.hts.HtsOptions;
 import com.example.kenweezy.mytablayouts.hts.HtsresultsTab;
 
 import java.util.Date;
@@ -128,7 +129,7 @@ public class Options extends AppCompatActivity {
     public void HTSResults(View v){
 
         try{
-            Intent myint=new Intent(getApplicationContext(), HtsresultsTab.class);
+            Intent myint=new Intent(getApplicationContext(), HtsOptions.class);
             startActivity(myint);
 
         }

@@ -73,6 +73,13 @@
             android:parentActivityName=".Options"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".hts.HtsOptions"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name"
+            android:parentActivityName=".Options"
+            android:theme="@style/AppTheme.NoActionBar" />
+
 
         <activity
             android:name=".AddClient.ClientOptions"
@@ -171,7 +178,7 @@
             android:name=".hts.HtsresultsTab"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
-            android:parentActivityName=".Options"
+            android:parentActivityName=".hts.HtsOptions"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- BroadcastReceiver that listens for incoming MMS messages -->
