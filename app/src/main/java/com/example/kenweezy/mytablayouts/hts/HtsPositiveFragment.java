@@ -20,8 +20,10 @@ import com.example.kenweezy.mytablayouts.RecyclerListener.RecyclerTouchListener;
 import com.example.kenweezy.mytablayouts.adapters.HtsAdapter;
 import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
 import com.example.kenweezy.mytablayouts.models.Htsmodel;
+import com.example.kenweezy.mytablayouts.tables.Htsresults;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HtsPositiveFragment extends Fragment {
     View v;
@@ -128,9 +130,22 @@ public class HtsPositiveFragment extends Fragment {
 
         try {
 
+            List<Htsresults> myl=Htsresults.findWithQuery(Htsresults.class,"select * from Htsresults where result=?","Negative");
+            for(int x=0;x<myl.size();x++){
+                String cc=myl.get(x).getClientcode();
+                String gender=myl.get(x).getGender();
+                String age=myl.get(x).getAge();
+                String result=myl.get(x).getResult();
+                String submitted=myl.get(x).getSubmitted();
+                String released=myl.get(x).getReleased();
 
+                Htsmodel hm= new Htsmodel(cc,gender,age,result,submitted,released);
+                itemsList.add(hm);
+
+            }
 
             Htsmodel bm= new Htsmodel("client one","M","45","Negative","2018-02-08","2018-02-08");
+
             Htsmodel bm1= new Htsmodel("client two","M","45","Positive","2018-02-08","2018-02-08");
 
             itemsList.add(bm);
@@ -158,7 +173,7 @@ public class HtsPositiveFragment extends Fragment {
 
         try{
 
-            adapter = new HtsAdapter(getActivity(), itemsList,false);
+            adapter = new HtsAdapter(getActivity(), itemsList);
         }
         catch(Exception e){
 

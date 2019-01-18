@@ -20,13 +20,13 @@ public class HtsAdapter extends RecyclerView.Adapter<HtsAdapter.MyviewHolder>{
 
     public ArrayList<Htsmodel> mylist,filterList;
     Context ctx;
-    Boolean isLender;
 
 
-    public HtsAdapter(Context ctx, ArrayList<Htsmodel> mylist, Boolean islender) {
+
+    public HtsAdapter(Context ctx, ArrayList<Htsmodel> mylist) {
         this.mylist = mylist;
         this.ctx = ctx;
-        this.isLender=islender;
+
         this.filterList=mylist;
     }
 

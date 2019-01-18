@@ -191,7 +191,7 @@ public class HtsresultsTab extends AppCompatActivity {
 
 
         adapter.addFragment(new HtsPositiveFragment(), "Positive");
-        adapter.addFragment(new HtsPositiveFragment(), "Negative");
+        adapter.addFragment(new HtsNegativeFragment(), "Negative");
 
 
 
