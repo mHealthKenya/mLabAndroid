@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_alignParentBottom="true"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/eidvlremoteloginviralloadtoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentTop="true"
+        >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="CCC number"
+                android:id="@+id/vlsampleccnumber"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Patient Name"
+                android:id="@+id/vlsamplepatientname"
+                android:layout_height="wrap_content" />
+
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/vlsamplesex"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:hint="Select sex"
+        android:textColorHint="@color/textcolorblack"
+        app:met_floatingLabel="normal" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Date Of Birth"
+                android:focusable="false"
+                android:id="@+id/vlsampledob"
+                android:layout_height="wrap_content" />
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/vlsampletype"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:hint="Select Sample type"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Date Of Sample Collection"
+                android:focusable="false"
+                android:id="@+id/vlsampledatecollection"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Date started on ART"
+                android:focusable="false"
+                android:id="@+id/vlsampleartstart"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Current ART regimen"
+                android:id="@+id/vlsamplecurrentregimen"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Date of current ART regimen"
+                android:focusable="false"
+                android:id="@+id/vlsampledateartregimen"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Indicate 1st or 2nd line"
+                android:id="@+id/vlsampleartline"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Justification Code"
+                android:id="@+id/vlsamplejustcode"
+                android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:text="Cancel"
+            android:onClick="CancelVlSamples"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:text="Submit Sample"
+            android:layout_weight="1"
+            android:onClick="SubmitSample"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AddClient.ClientOptions;
 import com.example.kenweezy.mytablayouts.AddClient.Register;
+import com.example.kenweezy.mytablayouts.eidvl.eidvlOptions;
 import com.example.kenweezy.mytablayouts.hts.HtsOptions;
 import com.example.kenweezy.mytablayouts.hts.HtsresultsTab;
 
@@ -131,6 +132,19 @@ public class Options extends AppCompatActivity {
         try{
             Intent myint=new Intent(getApplicationContext(), HtsOptions.class);
             startActivity(myint);
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    public void TB(View v){
+
+        try{
+
+            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
 
         }
         catch(Exception e){
@@ -375,7 +389,10 @@ public class Options extends AppCompatActivity {
     public void goToResults(View v){
 
         try{
-            new LongOperation().execute();
+//            new LongOperation().execute();
+
+            Intent inty=new Intent(getApplicationContext(),eidvlOptions.class);
+            startActivity(inty);
 
         }
         catch(Exception e){

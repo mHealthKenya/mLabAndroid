@@ -124,9 +124,12 @@
     <orderEntry type="library" name="Gradle: com.facebook.stetho:stetho-1.5.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.satyan:sugar-1.4" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:transition-25.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.weiwangcn.betterspinner:library-material-1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:2.0.1@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: javax.inject:javax.inject:1@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.nineoldandroids:library:2.4.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-vector-drawable-25.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.rengwuxian.materialedittext:library-2.0.3" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-ui-25.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-1.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12@jar" level="project" />
