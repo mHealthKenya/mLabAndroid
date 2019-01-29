@@ -111,6 +111,7 @@
     <orderEntry type="library" name="Gradle: com.android.support:support-fragment-25.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: javax.annotation:javax.annotation-api:1.2@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-media-compat-25.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.pnikosis:materialish-progress-1.0" level="project" />
     <orderEntry type="library" name="Gradle: commons-cli:commons-cli:1.2@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7-25.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:animated-vector-drawable-25.1.0" level="project" />
@@ -118,6 +119,7 @@
     <orderEntry type="library" name="Gradle: com.android.support:support-compat-25.3.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-annotations:25.3.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup:javawriter:2.1.1@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.volley:volley-1.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:rules-0.5" level="project" />
     <orderEntry type="library" name="Gradle: com.aurelhubert:ahbottomnavigation-2.0.4" level="project" />
     <orderEntry type="library" name="Gradle: com.github.PhilJay:MPAndroidChart:v2.2.4@jar" level="project" />
@@ -145,6 +147,7 @@
     <orderEntry type="library" name="Gradle: com.android.support:design-25.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-library:1.3@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-integration:1.3@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.f0ris.sweetalert:library-1.5.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-utils-25.1.0" level="project" />
     <orderEntry type="library" name="Gradle: me.leolin:ShortcutBadger-1.1.11" level="project" />
   </component>

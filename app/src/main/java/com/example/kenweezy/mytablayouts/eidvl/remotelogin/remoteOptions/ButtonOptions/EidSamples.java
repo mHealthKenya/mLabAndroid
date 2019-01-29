@@ -8,20 +8,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.Config.Config;
+import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class EidSamples extends AppCompatActivity {
 
-    MaterialBetterSpinner SpinnerSex,Spinnertype;
-    private ArrayAdapter<String> arrayAdapterSex,arrayAdapterType;
-    String selectedSex,selectedType;
+    MaterialBetterSpinner SpinnerSex, SpinnerRegimen,Spinneralivedead;
+    EditText heinumber,patientname,dob,entrypoint,collectiondate,prophylaxiscode,infantfeeding,pcr,alivedead,motherage,haartdate;
+    private ArrayAdapter<String> arrayAdapterSex, arrayAdapterRegimen,arrayAdapterAliveDead;
+    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,entrypointS,collectiondateS,prophylaxiscodeS,infantfeedingS,pcrS,alivedeadS,motherageS,haartdateS;
 
+    DateTimePicker dtp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +38,193 @@ public class EidSamples extends AppCompatActivity {
         initialise();
         setSpinnerAdapters();
         setSpinnerSexListener();
-        setSpinnerTypeListener();
+        setSpinnerRegimenListener();
+        setSpinnerAliveDeadListener();
+
+        setHaartdate();
+        setCollectionDate();
+        setDob();
+    }
+
+
+    private void clearFields(){
+
+        try{
+
+            SpinnerSex.setText("");
+            SpinnerRegimen.setText("");
+            Spinneralivedead.setText("");
+            heinumber.setText("");
+            patientname.setText("");
+            dob.setText("");
+            entrypoint.setText("");
+            collectiondate.setText("");
+            prophylaxiscode.setText("");
+            infantfeeding.setText("");
+            pcr.setText("");
+            alivedead.setText("");
+            motherage.setText("");
+            haartdate.setText("");
+
+
+
+            heinumberS="";
+            patientnameS="";
+            dobS="";
+            entrypointS="";
+            collectiondateS="";
+            prophylaxiscodeS="";
+            infantfeedingS="";
+            pcrS="";
+            alivedeadS="";
+            motherageS="";
+            haartdateS="";
+
+
+
+            selectedSex ="";
+            selectedRegimen="";
+            selectedAlive="";
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+    private void setHaartdate(){
+        try{
+
+            haartdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dtp.setDatePicker(haartdate);
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    private void setCollectionDate(){
+
+        try{
+
+            collectiondate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dtp.setDatePicker(collectiondate);
+                }
+            });
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    private void setDob(){
+
+        try{
+
+            dob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dtp.setDatePicker(dob);
+                }
+            });
+
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    private void validate(){
+
+        try{
+
+            heinumberS=heinumber.getText().toString();
+            patientnameS=patientname.getText().toString();
+            dobS=dob.getText().toString();
+            entrypointS=entrypoint.getText().toString();
+            collectiondateS=collectiondate.getText().toString();
+            prophylaxiscodeS=prophylaxiscode.getText().toString();
+            infantfeedingS=infantfeeding.getText().toString();
+            pcrS=pcr.getText().toString();
+            alivedeadS=alivedead.getText().toString();
+            motherageS=motherage.getText().toString();
+            haartdateS=haartdate.getText().toString();
+
+
+
+            if(selectedSex.isEmpty()){
+
+                Toast.makeText(this, "sex is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(selectedRegimen.isEmpty()){
+
+                Toast.makeText(this, "Regimen is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(selectedAlive.isEmpty()){
+
+                Toast.makeText(this, "Alive or dead is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(heinumberS.isEmpty()){
+
+                Toast.makeText(this, "heinumber is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(patientnameS.isEmpty()){
+
+                Toast.makeText(this, "patientname is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(dobS.isEmpty()){
+
+                Toast.makeText(this, "dob is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(entrypointS.isEmpty()){
+
+                Toast.makeText(this, "entrypoint is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(collectiondateS.isEmpty()){
+
+                Toast.makeText(this, "collectiondate is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(prophylaxiscodeS.isEmpty()){
+
+                Toast.makeText(this, "prophylaxiscode is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(infantfeedingS.isEmpty()){
+
+                Toast.makeText(this, "infantfeeding is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(pcrS.isEmpty()){
+
+                Toast.makeText(this, "pcr is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(alivedeadS.isEmpty()){
+
+                Toast.makeText(this, "alivedead is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(motherageS.isEmpty()){
+
+                Toast.makeText(this, "motherage is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(haartdateS.isEmpty()){
+
+                Toast.makeText(this, "haartdate is required", Toast.LENGTH_SHORT).show();
+            }
+            else{
+
+                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch(Exception e){
+
+
+        }
     }
 
 
@@ -74,12 +266,12 @@ public class EidSamples extends AppCompatActivity {
     }
 
 
-    private void setSpinnerTypeListener(){
+    private void setSpinnerAliveDeadListener(){
 
         try{
 
 
-            Spinnertype.addTextChangedListener(new TextWatcher() {
+            Spinneralivedead.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -93,7 +285,7 @@ public class EidSamples extends AppCompatActivity {
                 @Override
                 public void afterTextChanged(Editable s) {
 
-                    selectedType = Spinnertype.getText().toString();
+                    selectedAlive = Spinneralivedead.getText().toString();
 
 //                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
 
@@ -109,18 +301,88 @@ public class EidSamples extends AppCompatActivity {
         }
     }
 
+    private void setSpinnerRegimenListener(){
+
+        try{
+
+
+            SpinnerRegimen.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    selectedRegimen = SpinnerRegimen.getText().toString();
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
     private void initialise(){
 
         try{
 
+            dtp=new DateTimePicker(EidSamples.this);
+            heinumber=(EditText) findViewById(R.id.eidsampleheinumber);
+            patientname=(EditText) findViewById(R.id.eidsamplepatientname);
+            dob=(EditText) findViewById(R.id.eidsampledob);
+            entrypoint=(EditText) findViewById(R.id.eidsampleentrypoint);
+            collectiondate=(EditText) findViewById(R.id.eidsamplecollectiondate);
+            prophylaxiscode=(EditText) findViewById(R.id.eidsampleprophylaxiscode);
+            infantfeeding=(EditText) findViewById(R.id.eidsampleinfantfeeding);
+            pcr=(EditText) findViewById(R.id.eidsamplepcr);
+            alivedead=(EditText) findViewById(R.id.eidsamplealivedead);
+            motherage=(EditText) findViewById(R.id.eidmotherage);
+            haartdate=(EditText) findViewById(R.id.eidsamplehaartdate);
+
+            heinumberS="";
+            patientnameS="";
+            dobS="";
+            entrypointS="";
+            collectiondateS="";
+            prophylaxiscodeS="";
+            infantfeedingS="";
+            pcrS="";
+            alivedeadS="";
+            motherageS="";
+            haartdateS="";
+
+
+
             selectedSex ="";
-            selectedType="";
-            SpinnerSex =(MaterialBetterSpinner) findViewById(R.id.vlsamplesex);
-            Spinnertype =(MaterialBetterSpinner) findViewById(R.id.vlsampletype);
+            selectedRegimen="";
+            selectedAlive="";
+
+            Spinneralivedead =(MaterialBetterSpinner) findViewById(R.id.eidsamplealivedead);
+            SpinnerSex =(MaterialBetterSpinner) findViewById(R.id.eidsamplesex);
+            SpinnerRegimen =(MaterialBetterSpinner) findViewById(R.id.eidsampepmtctregimen);
 
             arrayAdapterSex = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
-            arrayAdapterType = new ArrayAdapter<String>(this,
+            arrayAdapterRegimen = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSAMPLETYPE);
+
+            arrayAdapterAliveDead = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSAMPLETYPE);
         }
         catch(Exception e){
@@ -133,7 +395,8 @@ public class EidSamples extends AppCompatActivity {
 
         try{
             SpinnerSex.setAdapter(arrayAdapterSex);
-            Spinnertype.setAdapter(arrayAdapterType);
+            SpinnerRegimen.setAdapter(arrayAdapterRegimen);
+            Spinneralivedead.setAdapter(arrayAdapterAliveDead);
 
 
 
@@ -160,11 +423,38 @@ public class EidSamples extends AppCompatActivity {
 
         try{
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.eidvlremoteloginviralloadtoolbar);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.eidvlremotelogineidtoolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Viral Load samples");
+            getSupportActionBar().setTitle("Eid samples");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    public void CancelEidSamples(View v){
+
+        try{
+
+            clearFields();
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+    public void SubmitEidSample(View v){
+
+        try{
+
+            validate();
+
 
         }
         catch(Exception e){
