@@ -119,12 +119,15 @@ public class eidvlOptions extends AppCompatActivity {
 
             progressDialog.dismiss();
 
+
         }
     }
 
     public void GoToEidvlSampleRemoteLogin(View v){
 
         try{
+
+
 
             Intent myint=new Intent(eidvlOptions.this, VleidSampleRemoteLogin.class);
             startActivity(myint);

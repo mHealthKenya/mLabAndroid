@@ -130,6 +130,11 @@ public class Options extends AppCompatActivity {
     public void HTSResults(View v){
 
         try{
+
+//            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
+
+
+
             Intent myint=new Intent(getApplicationContext(), HtsOptions.class);
             startActivity(myint);
 
@@ -194,6 +199,9 @@ public class Options extends AppCompatActivity {
     public void goToClients(View v){
 
         try{
+
+
+//            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
             Intent myint=new Intent(getApplicationContext(),ClientOptions.class);
             startActivity(myint);
 
@@ -206,18 +214,20 @@ public class Options extends AppCompatActivity {
         }
     }
 
-    public void sampleLogin(View v){
-
-        try{
-
-
-            Intent intent = new Intent(getApplicationContext(),SampleLogin.class);
-            startActivity(intent);
-        }
-        catch(Exception e){
-
-        }
-    }
+//    public void sampleLogin(View v){
+//
+//        try{
+//
+////            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
+//
+//
+//            Intent intent = new Intent(getApplicationContext(),SampleLogin.class);
+//            startActivity(intent);
+//        }
+//        catch(Exception e){
+//
+//        }
+//    }
 
     public void historicalResults(View v){
 

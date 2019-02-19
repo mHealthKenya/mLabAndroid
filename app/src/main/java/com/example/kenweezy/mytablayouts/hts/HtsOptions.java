@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.R;
+import com.example.kenweezy.mytablayouts.hts.Htssampleremote.HtsSampleRemoteLogin;
 
 public class HtsOptions extends AppCompatActivity {
 
@@ -70,7 +71,11 @@ public class HtsOptions extends AppCompatActivity {
 
         try{
 
-            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
+            Intent myint=new Intent(getApplicationContext(), HtsSampleRemoteLogin.class);
+            startActivity(myint);
+
+
+//            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
 
         }
         catch(Exception e){

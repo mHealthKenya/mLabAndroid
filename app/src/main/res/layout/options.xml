@@ -94,7 +94,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/button"
-                android:text="EID/VL Results"
+                android:text="EID/VL"
                 android:id="@+id/button" />
 
 
@@ -108,7 +108,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/button"
-                android:text="HTS Results"
+                android:text="HTS"
                 android:id="@+id/htsbutton" />
 
 
@@ -153,17 +153,17 @@
                 android:text="Add Client"/>
 
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:onClick="sampleLogin"
-                android:textColor="#b666d2"
-                android:textAllCaps="false"
-                android:background="@drawable/button"
-                android:text="Sample Remote Login"/>
+            <!--<Button-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:onClick="sampleLogin"-->
+                <!--android:textColor="#b666d2"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:background="@drawable/button"-->
+                <!--android:text="Sample Remote Login"/>-->
 
 
             <Button

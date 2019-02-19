@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_alignParentBottom="true"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/htssampletoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentTop="true"
+        >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="HTS Number"
+                android:id="@+id/htssamplenumber"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Clients Name"
+                android:id="@+id/htssampleclientname"
+                android:layout_height="wrap_content" />
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Date Of Birth"
+                android:focusable="false"
+                android:id="@+id/htssampledob"
+                android:layout_height="wrap_content" />
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/htssamplesex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select sex"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Telephone Number"
+                android:id="@+id/htssampletelephone"
+                android:inputType="phone"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Date test done"
+                android:focusable="false"
+                android:id="@+id/htssampletestdate"
+                android:layout_height="wrap_content" />
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/htssampleservicedeliverypoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select service delivery point"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/htssampletestkit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select test kit"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/lltestkit1"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Lot number"
+                    android:inputType="number"
+                    android:id="@+id/htssamplelotnumber1"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Expiry date"
+                    android:focusable="false"
+                    android:id="@+id/htssampleexpirydate1"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/htssampletestkit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select test kit"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/lltestkit2"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Lot number"
+                    android:inputType="number"
+                    android:id="@+id/htssamplelotnumber2"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Expiry date"
+                    android:focusable="false"
+                    android:id="@+id/htssampleexpirydate2"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/htssamplefinalresult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select final result"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Testers name"
+                android:id="@+id/htssampletestersname"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Date DBS sample collected"
+                android:focusable="false"
+                android:id="@+id/htssampledbsdate"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Date DBS sample dispatched to NHRL"
+                android:focusable="false"
+                android:id="@+id/htssampledbsdispatchdate"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Name of requesting provider"
+                android:id="@+id/htssamplerequestingprovider"
+                android:layout_height="wrap_content" />
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:text="Cancel"
+            android:onClick="CancelHtsSamples"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:text="Submit Sample"
+            android:layout_weight="1"
+            android:onClick="SubmitHtsSample"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

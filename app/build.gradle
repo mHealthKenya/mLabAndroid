@@ -7,8 +7,8 @@ android {
         applicationId "com.mhealth.mLab"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 15
-        versionName "1.098"
+        versionCode 18
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
