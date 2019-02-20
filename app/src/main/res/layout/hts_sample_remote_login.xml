@@ -99,7 +99,7 @@
                 android:id="@+id/htssampletestkit1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Select test kit"
+                android:hint="Select test kit 1"
                 android:textColorHint="@color/textcolorblack"
                 app:met_floatingLabel="normal" />
 
@@ -134,7 +134,7 @@
                 android:id="@+id/htssampletestkit2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Select test kit"
+                android:hint="Select test kit 2"
                 android:textColorHint="@color/textcolorblack"
                 app:met_floatingLabel="normal" />
 

@@ -13,16 +13,24 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.Config.Config;
+import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class HtsSampleRemoteLogin extends AppCompatActivity {
 
+    DateTimePicker dtp;
+    LinearLayout testkit1ll,testkit2ll;
+    EditText samplenumber,clientname,dob,telephone,testdate,lotnumber1,expirydate1,lotnumber2,expirydate2,sampletestername,dbsdate,dbsdispatchdate,requestingprovider;
     MaterialBetterSpinner SpinnerSex,SpinnerdeliveryPoint,Spinnertestkit1,Spinnertestkit2,Spinnerfinalresult;
     String SelectedSex,SelecteddeliveryPoint,Selectedtestkit1,Selectedtestkit2,Selectedfinalresult;
+    String samplenumberS,clientnameS,dobS,telephoneS,testdateS,lotnumber1S,expirydate1S,lotnumber2S,expirydate2S,sampletesternameS,dbsdateS,dbsdispatchdateS,requestingproviderS;
+
     private ArrayAdapter<String> arrayAdapterSex,arrayAdapterDeliveryPoint,arrayAdapterTestkit1,arrayAdapterTestkit2,arrayAdapterFinalResult;
 
     @Override
@@ -35,6 +43,236 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
         initialise();
         setSpinnerAdapters();
         setSpinnerListeners();
+
+        setDbsdate();
+        setDbsdispatchdate();
+        setDob();
+        setExpirydate1();
+        setExpirydate2();
+        setTestDate();
+    }
+    //start functions to set datepickers
+    private void setDob(){
+
+        try{
+            dob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    dtp.setDatePicker(dob);
+                }
+            });
+
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    private void setTestDate(){
+
+        try{
+
+            testdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    dtp.setDatePicker(testdate);
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    private void setExpirydate1(){
+
+        try{
+
+            expirydate1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    dtp.setDatePicker(expirydate1);
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    private void setExpirydate2(){
+
+        try{
+
+            expirydate2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    dtp.setDatePicker(expirydate2);
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    private void setDbsdate(){
+
+        try{
+
+            dbsdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    dtp.setDatePicker(dbsdate);
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    private void setDbsdispatchdate(){
+
+        try{
+
+            dbsdispatchdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    dtp.setDatePicker(dbsdispatchdate);
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+        }
+    }
+    //end functions to set datepickers
+
+
+    private void validate(){
+
+        try{
+
+
+            samplenumberS=samplenumber.getText().toString();
+            clientnameS=clientname.getText().toString();
+            dobS=dob.getText().toString();
+            telephoneS=telephone.getText().toString();
+            testdateS=testdate.getText().toString();
+            lotnumber1S=lotnumber1.getText().toString();
+            expirydate1S=expirydate1.getText().toString();
+            lotnumber2S=lotnumber2.getText().toString();
+            expirydate2S=expirydate2.getText().toString();
+            sampletesternameS=sampletestername.getText().toString();
+            dbsdateS=dbsdate.getText().toString();
+            dbsdispatchdateS=dbsdispatchdate.getText().toString();
+            requestingproviderS=requestingprovider.getText().toString();
+
+            if(samplenumberS.trim().isEmpty()){
+                Toast.makeText(this, "sample number is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(clientnameS.trim().isEmpty()){
+
+                Toast.makeText(this, "client name is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(dobS.trim().isEmpty()){
+
+                Toast.makeText(this, "DOB is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(SelectedSex.trim().isEmpty()){
+
+                Toast.makeText(this, "sex is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(telephoneS.trim().isEmpty()){
+
+                Toast.makeText(this, "telephone is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(testdateS.trim().isEmpty()){
+
+                Toast.makeText(this, "Test date is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(SelecteddeliveryPoint.trim().isEmpty()){
+
+                Toast.makeText(this, "Delivery point is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(Selectedtestkit1.trim().isEmpty()){
+
+                Toast.makeText(this, "Test kit 1 is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(lotnumber1S.trim().isEmpty()){
+
+                Toast.makeText(this, "Lot number 1 is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(expirydate1S.trim().isEmpty()){
+
+                Toast.makeText(this, "expiry date 1 is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(Selectedtestkit2.trim().isEmpty()){
+
+                Toast.makeText(this, "Test kit 2 is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(lotnumber2S.trim().isEmpty()){
+
+                Toast.makeText(this, "Lot number 2 is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(expirydate2S.trim().isEmpty()){
+
+                Toast.makeText(this, "expiry date 2 is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(Selectedfinalresult.trim().isEmpty()){
+
+                Toast.makeText(this, "final result is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(sampletesternameS.trim().isEmpty()){
+
+                Toast.makeText(this, "sample tester name is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(dbsdateS.trim().isEmpty()){
+
+                Toast.makeText(this, "DBS date is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(dbsdispatchdateS.trim().isEmpty()){
+
+                Toast.makeText(this, "DBS dispatch date is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(requestingproviderS.trim().isEmpty()){
+
+                Toast.makeText(this, "requesting provider is required", Toast.LENGTH_SHORT).show();
+            }
+            else{
+
+                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+            }
+
+
+//            EditText samplenumber,clientname,dob,telephone,testdate,lotnumber1,expirydate1,lotnumber2,expirydate2,sampletestername,dbsdate,dbsdispatchdate,requestingprovider;
+//            MaterialBetterSpinner SpinnerSex,SpinnerdeliveryPoint,Spinnertestkit1,Spinnertestkit2,Spinnerfinalresult;
+//            String SelectedSex,SelecteddeliveryPoint,Selectedtestkit1,Selectedtestkit2,Selectedfinalresult;
+
+
+
+        }
+        catch(Exception e){
+
+
+        }
     }
 
     public void CancelHtsSamples(View v){
@@ -53,7 +291,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
         try{
 
-            Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+            validate();
         }
         catch(Exception e){
 
@@ -83,6 +321,24 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
         try{
 
+            dtp=new DateTimePicker(HtsSampleRemoteLogin.this);
+            testkit1ll=(LinearLayout) findViewById(R.id.lltestkit1);
+            testkit2ll=(LinearLayout) findViewById(R.id.lltestkit2);
+
+            samplenumber=(EditText) findViewById(R.id.htssamplenumber);
+            clientname=(EditText) findViewById(R.id.htssampleclientname);
+            dob=(EditText) findViewById(R.id.htssampledob);
+            telephone=(EditText) findViewById(R.id.htssampletelephone);
+            testdate=(EditText) findViewById(R.id.htssampletestdate);
+            lotnumber1=(EditText) findViewById(R.id.htssamplelotnumber1);
+            expirydate1=(EditText) findViewById(R.id.htssampleexpirydate1);
+            lotnumber2=(EditText) findViewById(R.id.htssamplelotnumber2);
+            expirydate2=(EditText) findViewById(R.id.htssampleexpirydate2);
+            sampletestername=(EditText) findViewById(R.id.htssampletestersname);
+            dbsdate=(EditText) findViewById(R.id.htssampledbsdate);
+            dbsdispatchdate=(EditText) findViewById(R.id.htssampledbsdispatchdate);
+            requestingprovider=(EditText) findViewById(R.id.htssamplerequestingprovider);
+
             SpinnerSex=(MaterialBetterSpinner) findViewById(R.id.htssamplesex);
             SpinnerdeliveryPoint=(MaterialBetterSpinner) findViewById(R.id.htssampleservicedeliverypoint);
             Spinnertestkit1=(MaterialBetterSpinner) findViewById(R.id.htssampletestkit1);
@@ -94,6 +350,21 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             Selectedtestkit1="";
             Selectedtestkit2="";
             Selectedfinalresult="";
+
+            samplenumberS="";
+            clientnameS="";
+            dobS="";
+            telephoneS="";
+            testdateS="";
+            lotnumber1S="";
+            expirydate1S="";
+            lotnumber2S="";
+            expirydate2S="";
+            sampletesternameS="";
+            dbsdateS="";
+            dbsdispatchdateS="";
+            requestingproviderS="";
+
 
             arrayAdapterSex = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
@@ -255,6 +526,8 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
 
                     Selectedtestkit1= Spinnertestkit1.getText().toString();
+                    testkit1ll.setVisibility(View.VISIBLE);
+
 
 //                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
 
@@ -291,6 +564,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
 
                     Selectedtestkit2 = Spinnertestkit2.getText().toString();
+                    testkit2ll.setVisibility(View.VISIBLE);
 
 //                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
 
