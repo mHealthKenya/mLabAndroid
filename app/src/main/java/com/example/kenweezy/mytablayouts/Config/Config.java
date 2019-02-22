@@ -5,6 +5,13 @@ public class Config {
     public static final String[] SPINNERLISTLABS = {"LAB1","LAB2"};
 
     public static final String[] SPINNERLISTSEX = {"Male", "Female"};
+    public static final String[] SPINNERLISTDELIVERYPOINT = {"OPD", "MCH","IPD","CCC","Community"};
+    public static final String[] SPINNERLISTTESTKITS = {"Screening kit-determine", "Confirmatory-first response"};
+    public static final String[] SPINNERLISTFINALRESULTS = {"Negative", "Positive","Inconclusive"};
+
+
+
+
 
     public static final String[] SPINNERLISTSAMPLETYPE = {"Type1","Type2"};
 

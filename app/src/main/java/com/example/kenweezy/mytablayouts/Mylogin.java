@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.getsimdetails.getSimDetails;
+import com.facebook.stetho.Stetho;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -213,6 +214,7 @@ public class Mylogin extends AppCompatActivity {
         }
 
 //        sendReadReport();
+        Stetho.initializeWithDefaults(this);
 
 
     }
@@ -222,21 +224,22 @@ public class Mylogin extends AppCompatActivity {
 
         try{
 
-            List<Messages> myl = Messages.listAll(Messages.class);
+            System.out.println("********load messages*****");
+//            List<Messages> myl = Messages.listAll(Messages.class);
 
-            if (myl.size() == 0) {
+//            if (myl.size() == 0) {
 
                 refreshSmsInboxTest();
-            } else {
-
-//                refreshSmsInboxTest();
-//                for(int x=0;x<myl.size();x++){
-//                    Toast.makeText(this, ""+myl.get(x).getmTimeStamp(), Toast.LENGTH_SHORT).show();
+//            } else {
 //
-//                }
-
-
-            }
+////                refreshSmsInboxTest();
+////                for(int x=0;x<myl.size();x++){
+////                    Toast.makeText(this, ""+myl.get(x).getmTimeStamp(), Toast.LENGTH_SHORT).show();
+////
+////                }
+//
+//
+//            }
         }
         catch(Exception e){
 
@@ -1100,6 +1103,8 @@ public class Mylogin extends AppCompatActivity {
                     String decryptedmess = new String( mcrypt.decrypt( str ) );
                     count++;
                     System.out.println("***message****::"+decryptedmess);
+
+//                    ***message****::VL PID:1606602672 A:36 S:Male DC:2019-02-18 R: :< LDL copies/ml
                     System.out.println("***message count***::"+count);
 
 
@@ -1109,6 +1114,8 @@ public class Mylogin extends AppCompatActivity {
 //                new code here
 
                     String[] originalArray=decryptedmess.split(":");
+
+                    System.out.println(originalArray);
 
                     String[] firstpart=originalArray[0].split("\\s+");
 

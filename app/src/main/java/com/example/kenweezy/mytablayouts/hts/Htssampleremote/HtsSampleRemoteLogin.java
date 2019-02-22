@@ -369,13 +369,13 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             arrayAdapterSex = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
             arrayAdapterDeliveryPoint = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTDELIVERYPOINT);
             arrayAdapterTestkit1 = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTTESTKITS);
             arrayAdapterTestkit2 = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTTESTKITS);
             arrayAdapterFinalResult = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTFINALRESULTS);
 
         }
         catch(Exception e){

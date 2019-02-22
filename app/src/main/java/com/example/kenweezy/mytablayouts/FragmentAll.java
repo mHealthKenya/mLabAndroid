@@ -1651,6 +1651,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
             mymesslist.clear();
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
 
+            System.out.println("******all results here******");
 
             for(int x=0;x<bdy.size();x++){
 

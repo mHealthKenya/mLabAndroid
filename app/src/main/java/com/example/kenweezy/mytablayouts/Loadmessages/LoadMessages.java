@@ -66,42 +66,42 @@ public class LoadMessages {
 
 
                     //process hts messages here
-                    if(htsmessage.length>0){
-
-                        if(htsmessage[0].contentEquals("HTS")){
-
-                            String htsdecryptedmess = Base64Encoder.decryptedString(htsmessage[1]);
-                            String[] htsMessages=htsdecryptedmess.split("//*");
-                            String clientCodeS=htsMessages[0];
-                            String genderS=htsMessages[1];
-                            String ageS=htsMessages[2];
-                            String resultS=htsMessages[3];
-                            String submittedS=htsMessages[4];
-                            String releasedS=htsMessages[5];
-                            String sampleid=htsMessages[6];
-
-
-                            List<Htsresults> myl = Htsresults.find(Htsresults.class, "sampleid=?", sampleid);
-
-                            if(myl.isEmpty())
-                            {
-
-                                Htsresults hr=new Htsresults(clientCodeS,genderS,ageS,resultS,submittedS,releasedS,sampleid);
-                                hr.save();
-                            }
-                            else
-                            {
-
-                            }
-
-
-
-                        }
-
-                    }
+//                    if(htsmessage.length>0){
+//
+//                        if(htsmessage[0].contentEquals("HTS")){
+//
+//                            String htsdecryptedmess = Base64Encoder.decryptedString(htsmessage[1]);
+//                            String[] htsMessages=htsdecryptedmess.split("//*");
+//                            String clientCodeS=htsMessages[0];
+//                            String genderS=htsMessages[1];
+//                            String ageS=htsMessages[2];
+//                            String resultS=htsMessages[3];
+//                            String submittedS=htsMessages[4];
+//                            String releasedS=htsMessages[5];
+//                            String sampleid=htsMessages[6];
+//
+//
+//                            List<Htsresults> myl = Htsresults.find(Htsresults.class, "sampleid=?", sampleid);
+//
+//                            if(myl.isEmpty())
+//                            {
+//
+//                                Htsresults hr=new Htsresults(clientCodeS,genderS,ageS,resultS,submittedS,releasedS,sampleid);
+//                                hr.save();
+//                            }
+//                            else
+//                            {
+//
+//                            }
+//
+//
+//
+//                        }
+//
+//                    }
 
                     //process normal eid vl results messages
-                    else{
+//                    else{
 
                         String decryptedmess = new String( mcrypt.decrypt( str ) );
                         count++;
@@ -174,25 +174,43 @@ public class LoadMessages {
                         }
 
 //                    }
-                        if(originalArray.length==10){
+                    if(originalArray.length==10){
 
-                            newMessage.append(originalArray[4]+":");
-                            newMessage.append(originalArray[5]+":");
-                            String[] sixthpart=originalArray[6].split("\\s+");
-                            newMessage.append(sixthpart[0]+" Result::");
-                            newMessage.append(originalArray[8]);
-                            mId=originalArray[9];
+                        newMessage.append(originalArray[4]+":");
+                        newMessage.append(originalArray[5]+":");
+                        String[] sixthpart=originalArray[6].split("\\s+");
+                        newMessage.append(sixthpart[0]+" Result::");
+                        newMessage.append(originalArray[8]);
+                        mId=originalArray[9];
 
 
-                        }
-                        else{
+                    }
+                    else if(originalArray.length==9){
 
-                            String[] seventhpart=originalArray[4].split("\\s+");
-                            newMessage.append(seventhpart[0]+" Result::");
-                            newMessage.append(originalArray[6]);
-                            mId=originalArray[7];
+                        newMessage.append(originalArray[4]+":");
+                        newMessage.append(originalArray[5]+":");
+                        String[] sixthpart=originalArray[6].split("\\s+");
+                        newMessage.append(sixthpart[0]+" Result::");
+                        newMessage.append(originalArray[8]);
+                        mId="n/a";
 
-                        }
+
+                    }
+
+                    else if(originalArray.length==8){
+
+                        String[] seventhpart=originalArray[4].split("\\s+");
+                        newMessage.append(seventhpart[0]+" Result::");
+                        newMessage.append(originalArray[6]);
+                        mId=originalArray[7];
+                    }
+                    else if(originalArray.length==7){
+
+                        String[] seventhpart=originalArray[4].split("\\s+");
+                        newMessage.append(seventhpart[0]+" Result::");
+                        newMessage.append(originalArray[6]);
+                        mId="n/a";
+                    }
 
                         System.out.println("****************************RECEIVED MESSAGE************************");
                         System.out.println(newMessage);
@@ -215,7 +233,7 @@ public class LoadMessages {
 
 
 
-                }
+//                }
 
 
 

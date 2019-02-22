@@ -2188,13 +2188,31 @@ return value;
 
 
                     }
-                    else{
+                    else if(originalArray.length==9){
+
+                        newMessage.append(originalArray[4]+":");
+                        newMessage.append(originalArray[5]+":");
+                        String[] sixthpart=originalArray[6].split("\\s+");
+                        newMessage.append(sixthpart[0]+" Result::");
+                        newMessage.append(originalArray[8]);
+                        mId="n/a";
+
+
+                    }
+
+                    else if(originalArray.length==8){
 
                         String[] seventhpart=originalArray[4].split("\\s+");
                         newMessage.append(seventhpart[0]+" Result::");
                         newMessage.append(originalArray[6]);
                         mId=originalArray[7];
+                    }
+                    else if(originalArray.length==7){
 
+                        String[] seventhpart=originalArray[4].split("\\s+");
+                        newMessage.append(seventhpart[0]+" Result::");
+                        newMessage.append(originalArray[6]);
+                        mId="n/a";
                     }
 
                     System.out.println("****************************RECEIVED MESSAGE************************");
