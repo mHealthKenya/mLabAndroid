@@ -2081,8 +2081,7 @@ return value;
             int indexBody = smsInboxCursor.getColumnIndex("body");
 
             int indexDate = smsInboxCursor.getColumnIndex("date");
-            StringBuilder newMessage=new StringBuilder();
-            String mId="";
+
 
 
 
@@ -2094,6 +2093,9 @@ return value;
                 String addr = smsInboxCursor.getString(2);
                 String datee = smsInboxCursor.getString(indexDate);
                 Long mydate=Long.parseLong(datee);
+
+                StringBuilder newMessage=new StringBuilder();
+                String mId="";
 
                 if(addr.contentEquals(msc.mainShortcode)){
 

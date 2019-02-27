@@ -36,7 +36,7 @@ public class LoadMessages {
             int indexBody = smsInboxCursor.getColumnIndex("body");
 
             int indexDate = smsInboxCursor.getColumnIndex("date");
-            StringBuilder newMessage=new StringBuilder();
+
             String mId="";
 
 
@@ -107,6 +107,9 @@ public class LoadMessages {
                         count++;
                         System.out.println("***message****::"+decryptedmess);
                         System.out.println("***message count***::"+count);
+                        StringBuilder newMessage=new StringBuilder();
+                        String mymess="";
+
 
 
 
@@ -121,12 +124,15 @@ public class LoadMessages {
                         if(firstpart[0].contentEquals("EID")){
 
                             newMessage.append("FFEID Results");
+                            mymess+="FFEID Results";
 
                         }
 
                         else if(firstpart[0].contentEquals("VL")){
 
                             newMessage.append("FFViral Load Results");
+                            mymess+="FFViral Load Results";
+
 
 
                         }
@@ -134,12 +140,14 @@ public class LoadMessages {
                         if(firstpart[1].contentEquals("PID")){
 
                             newMessage.append(" Patient ID");
+                            mymess+=" Patient ID";
                         }
 
                         String[] secondpart=originalArray[1].split("\\s+");
 
 //                    for(int x=0;x<secondpart.length;x++){
                         newMessage.append(":"+secondpart[0]);
+                        mymess+=":"+secondpart[0];
 
                         if(secondpart[1].contentEquals("A")){
 
@@ -226,6 +234,7 @@ public class LoadMessages {
 
                         Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId);
                         ms.save();
+                        newMessage.setLength(0);
 
                     }
 

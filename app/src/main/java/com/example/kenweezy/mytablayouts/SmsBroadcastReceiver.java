@@ -42,8 +42,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
        Bundle intentExtras = intent.getExtras();
-       StringBuilder newMessage=new StringBuilder();
-       String mId="";
+
 
       
 
@@ -91,6 +90,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     context.sendBroadcast(new Intent("MESSAGE RECEIVED"));
 
                     GetViralCounts gvc=new GetViralCounts();
+                    StringBuilder newMessage=new StringBuilder();
+                    String mId="";
 
                     String decryptedmess = new String( mcrypt.decrypt( smsMessageStr ) );
 //                    Toast.makeText(context, ""+decryptedmess, Toast.LENGTH_SHORT).show();

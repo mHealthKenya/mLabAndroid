@@ -5,6 +5,7 @@ package com.example.kenweezy.mytablayouts;
  */
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -207,6 +208,7 @@ public class Mylogin extends AppCompatActivity {
             }
         }
         catch(Exception e){
+
             Toast.makeText(this, "error checking run "+e, Toast.LENGTH_SHORT).show();
             System.out.println(" error occured checking run "+e);
 
@@ -507,7 +509,7 @@ public class Mylogin extends AppCompatActivity {
 
                     if(hasPermissions()){
 
-                        getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});
+//                        getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});
                         Intent myint = new Intent(getApplicationContext(), Options.class);
 
                         SharedPreferences settings = getSharedPreferences(SETTING_INFOS, 0);
@@ -704,6 +706,8 @@ public class Mylogin extends AppCompatActivity {
                 android.Manifest.permission.RECEIVE_SMS,
                 android.Manifest.permission.CALL_PHONE,
                 android.Manifest.permission.READ_CONTACTS,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
                 android.Manifest.permission.INTERNET
         };
 
