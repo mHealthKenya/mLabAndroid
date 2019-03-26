@@ -9,13 +9,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
-public class Progress{
+public class Progress {
     public ProgressDialog pd;
 
 
-    public void progressing(Context ctx, String message, String title){
+    public void progressing(Context ctx, String message, String title) {
 
-        pd=new ProgressDialog(ctx);
+        pd = new ProgressDialog(ctx);
 
         pd.setMessage(message);
         pd.setTitle(title);
@@ -26,12 +26,11 @@ public class Progress{
         pd.show();
 
 
-
     }
 
-    public void progressing2(Context ctx, String message, String title){
+    public void progressing2(Context ctx, String message, String title) {
 
-        pd=new ProgressDialog(ctx);
+        pd = new ProgressDialog(ctx);
 
         pd.setMessage(message);
         pd.setTitle(title);
@@ -41,19 +40,18 @@ public class Progress{
         pd.show();
 
 
-
     }
 
-    public void DissmissProgress(){
+    public void DissmissProgress() {
 
         pd.dismiss();
     }
 
 
-    public void HorizontalProgress(Context ctx){
+    public void HorizontalProgress(Context ctx) {
 
 
-        pd=new ProgressDialog(ctx);
+        pd = new ProgressDialog(ctx);
 
         pd.setMessage("approving......");
         pd.setTitle("Approving,please hold on");

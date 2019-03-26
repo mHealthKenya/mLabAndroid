@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +34,8 @@ import java.util.List;
 
 public class ReportsFragment extends Fragment {
     View v;
-    private float[] ydata={20,30};
-    private String[] xdata={"VLoad","Eid"};
+    private float[] ydata = {20, 30};
+    private String[] xdata = {"VLoad", "Eid"};
     PieChart pct;
     HorizontalBarChart bct;
     FrameLayout fl;
@@ -45,11 +44,11 @@ public class ReportsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
-        v=inflater.inflate(R.layout.reportsfragmenteid,container,false);
+        v = inflater.inflate(R.layout.reportsfragmenteid, container, false);
 //        pct=(PieChart) v.findViewById(R.id.pchart);
 
-        bct=(HorizontalBarChart) v.findViewById(R.id.bchart);
-        fl=(FrameLayout) v.findViewById(R.id.rcontent);
+        bct = (HorizontalBarChart) v.findViewById(R.id.bchart);
+        fl = (FrameLayout) v.findViewById(R.id.rcontent);
 
         drawGraph();
 
@@ -60,13 +59,13 @@ public class ReportsFragment extends Fragment {
     }
 
 
-    public void drawGraph(){
+    public void drawGraph() {
 
         // initialize the Bardata with argument labels and dataSet
         BarData data = new BarData(getXAxisValues(), getDataSet());
         bct.setData(data);
         bct.setDescription("");
-        bct.setDescriptionPosition(90,15);
+        bct.setDescriptionPosition(90, 15);
         bct.setDescriptionTextSize(30);
         bct.getXAxis().setLabelRotationAngle(45);
 
@@ -74,7 +73,7 @@ public class ReportsFragment extends Fragment {
 
         //set the legend
 
-        Legend l=bct.getLegend();
+        Legend l = bct.getLegend();
         l.setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);
         l.setFormSize(25f); // set the size of the legend forms/shapes
         l.setForm(Legend.LegendForm.SQUARE); // set what type of form/shape should be used
@@ -94,7 +93,7 @@ public class ReportsFragment extends Fragment {
     private ArrayList<IBarDataSet> getDataSet() {
 
         BarDataSet barDataSet0 = new BarDataSet(bgrp4(), "All");
-        barDataSet0.setColor(Color.rgb(255,255,0));
+        barDataSet0.setColor(Color.rgb(255, 255, 0));
 
         BarDataSet barDataSet1 = new BarDataSet(bgrp1(), "Negative");
         barDataSet1.setColor(Color.rgb(0, 155, 0));
@@ -102,7 +101,7 @@ public class ReportsFragment extends Fragment {
         barDataSet2.setColor(Color.rgb(20, 10, 60));
 
         BarDataSet barDataSet3 = new BarDataSet(bgrp3(), "Invalid");
-        barDataSet3.setColor(Color.rgb(255,0, 0));
+        barDataSet3.setColor(Color.rgb(255, 0, 0));
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();  // combined all dataset into an arraylist
 //        dataSets.add(barDataSet1);
@@ -151,22 +150,22 @@ public class ReportsFragment extends Fragment {
 //    }
 
 
-    public void replaceContent(Fragment newfrag){
-        getChildFragmentManager().beginTransaction().replace(R.id.rcontent,newfrag).commit();
+    public void replaceContent(Fragment newfrag) {
+        getChildFragmentManager().beginTransaction().replace(R.id.rcontent, newfrag).commit();
         bct.setVisibility(View.GONE);
         fl.setVisibility(View.VISIBLE);
 
 
     }
 
-    public Fragment getFrag(){
+    public Fragment getFrag() {
 
         return getChildFragmentManager().findFragmentById(R.id.rcontent);
     }
 
 
-    public int getSmsCountEID1(String mnth){
-        int counter=0;
+    public int getSmsCountEID1(String mnth) {
+        int counter = 0;
 
         try {
             ContentResolver contentResolver = getActivity().getContentResolver();
@@ -183,16 +182,16 @@ public class ReportsFragment extends Fragment {
                 String stw = new String(mystrbdy);
 
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                DateFormat secformat=new SimpleDateFormat("ss");
-                DateFormat mnthformat=new SimpleDateFormat("MM");
+                DateFormat secformat = new SimpleDateFormat("ss");
+                DateFormat mnthformat = new SimpleDateFormat("MM");
                 Calendar calendar = Calendar.getInstance();
 
-                String ndate =  smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
+                String ndate = smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
                 Long timestamp = Long.parseLong(ndate);
                 long now = timestamp;
                 calendar.setTimeInMillis(now);
 
-                String mymnth=mnthformat.format(calendar.getTime());
+                String mymnth = mnthformat.format(calendar.getTime());
 
                 if (stw.contains("FFEID") && mnth.contentEquals(mymnth)) {
                     counter += 1;
@@ -201,9 +200,7 @@ public class ReportsFragment extends Fragment {
 
 
             } while (smsInboxCursor.moveToNext());
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -212,27 +209,25 @@ public class ReportsFragment extends Fragment {
 
 
     public int getSmsCountEID(String mnth) {
-        int value=0;
+        int value = 0;
         try {
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
+            } else {
+                for (int x = 0; x < bdy.size(); x++) {
 
                     String ndate = bdy.get(x).getmTimeStamp();
 
-                    String[] checkSplitdate=ndate.split("/");
+                    String[] checkSplitdate = ndate.split("/");
 
 
-                    if(checkSplitdate.length>1){
+                    if (checkSplitdate.length > 1) {
 
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -241,12 +236,12 @@ public class ReportsFragment extends Fragment {
                     }
 
 
-                    String[] day=ndate.split("/");
-                    String month=day[1];
+                    String[] day = ndate.split("/");
+                    String month = day[1];
 //                    Log.i(TAG,month);
-                    if(month.contentEquals(mnth)){
+                    if (month.contentEquals(mnth)) {
 
-                        value+=1;
+                        value += 1;
                     }
 //                    String[] newyear=year.split("\\s+");
 //                    String myyear=newyear[0];
@@ -255,8 +250,7 @@ public class ReportsFragment extends Fragment {
 
 
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -264,9 +258,8 @@ public class ReportsFragment extends Fragment {
     }
 
 
-
-    public int getEIDNegative1(String mnth){
-        int counter=0;
+    public int getEIDNegative1(String mnth) {
+        int counter = 0;
 
         try {
             ContentResolver contentResolver = getActivity().getContentResolver();
@@ -283,16 +276,16 @@ public class ReportsFragment extends Fragment {
                 String stw = new String(mystrbdy);
 
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                DateFormat secformat=new SimpleDateFormat("ss");
-                DateFormat mnthformat=new SimpleDateFormat("MM");
+                DateFormat secformat = new SimpleDateFormat("ss");
+                DateFormat mnthformat = new SimpleDateFormat("MM");
                 Calendar calendar = Calendar.getInstance();
 
-                String ndate =  smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
+                String ndate = smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
                 Long timestamp = Long.parseLong(ndate);
                 long now = timestamp;
                 calendar.setTimeInMillis(now);
 
-                String mymnth=mnthformat.format(calendar.getTime());
+                String mymnth = mnthformat.format(calendar.getTime());
 
                 if (stw.contains("FFEID") && stw.contains("Negative") && mnth.contentEquals(mymnth)) {
                     counter += 1;
@@ -301,9 +294,7 @@ public class ReportsFragment extends Fragment {
 
 
             } while (smsInboxCursor.moveToNext());
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -311,27 +302,25 @@ public class ReportsFragment extends Fragment {
     }
 
     public int getEIDNegative(String mnth) {
-        int value=0;
+        int value = 0;
         try {
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Negative%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
+            } else {
+                for (int x = 0; x < bdy.size(); x++) {
 
                     String ndate = bdy.get(x).getmTimeStamp();
 
-                    String[] checkSplitdate=ndate.split("/");
+                    String[] checkSplitdate = ndate.split("/");
 
 
-                    if(checkSplitdate.length>1){
+                    if (checkSplitdate.length > 1) {
 
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -339,12 +328,12 @@ public class ReportsFragment extends Fragment {
 
                     }
 
-                    String[] day=ndate.split("/");
-                    String month=day[1];
+                    String[] day = ndate.split("/");
+                    String month = day[1];
 //                    Log.i(TAG,month);
-                    if(month.contentEquals(mnth)){
+                    if (month.contentEquals(mnth)) {
 
-                        value+=1;
+                        value += 1;
                     }
 //                    String[] newyear=year.split("\\s+");
 //                    String myyear=newyear[0];
@@ -353,8 +342,7 @@ public class ReportsFragment extends Fragment {
 
 
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -362,8 +350,8 @@ public class ReportsFragment extends Fragment {
     }
 
 
-    public int getEIDPositive1(String mnth){
-        int counter=0;
+    public int getEIDPositive1(String mnth) {
+        int counter = 0;
 
         try {
             ContentResolver contentResolver = getActivity().getContentResolver();
@@ -380,16 +368,16 @@ public class ReportsFragment extends Fragment {
                 String stw = new String(mystrbdy);
 
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                DateFormat secformat=new SimpleDateFormat("ss");
-                DateFormat mnthformat=new SimpleDateFormat("MM");
+                DateFormat secformat = new SimpleDateFormat("ss");
+                DateFormat mnthformat = new SimpleDateFormat("MM");
                 Calendar calendar = Calendar.getInstance();
 
-                String ndate =  smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
+                String ndate = smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
                 Long timestamp = Long.parseLong(ndate);
                 long now = timestamp;
                 calendar.setTimeInMillis(now);
 
-                String mymnth=mnthformat.format(calendar.getTime());
+                String mymnth = mnthformat.format(calendar.getTime());
 
                 if (stw.contains("FFEID") && stw.contains("Positive") && mnth.contentEquals(mymnth)) {
                     counter += 1;
@@ -398,9 +386,7 @@ public class ReportsFragment extends Fragment {
 
 
             } while (smsInboxCursor.moveToNext());
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -409,27 +395,25 @@ public class ReportsFragment extends Fragment {
 
 
     public int getEIDPositive(String mnth) {
-        int value=0;
+        int value = 0;
         try {
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Positive%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
+            } else {
+                for (int x = 0; x < bdy.size(); x++) {
 
                     String ndate = bdy.get(x).getmTimeStamp();
 
-                    String[] checkSplitdate=ndate.split("/");
+                    String[] checkSplitdate = ndate.split("/");
 
 
-                    if(checkSplitdate.length>1){
+                    if (checkSplitdate.length > 1) {
 
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -438,12 +422,12 @@ public class ReportsFragment extends Fragment {
                     }
 
 
-                    String[] day=ndate.split("/");
-                    String month=day[1];
+                    String[] day = ndate.split("/");
+                    String month = day[1];
 //                    Log.i(TAG,month);
-                    if(month.contentEquals(mnth)){
+                    if (month.contentEquals(mnth)) {
 
-                        value+=1;
+                        value += 1;
                     }
 //                    String[] newyear=year.split("\\s+");
 //                    String myyear=newyear[0];
@@ -452,8 +436,7 @@ public class ReportsFragment extends Fragment {
 
 
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -461,9 +444,8 @@ public class ReportsFragment extends Fragment {
     }
 
 
-
-    public int getEIDInvalid1(String mnth){
-        int counter=0;
+    public int getEIDInvalid1(String mnth) {
+        int counter = 0;
 
         try {
             ContentResolver contentResolver = getActivity().getContentResolver();
@@ -480,16 +462,16 @@ public class ReportsFragment extends Fragment {
                 String stw = new String(mystrbdy);
 
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                DateFormat secformat=new SimpleDateFormat("ss");
-                DateFormat mnthformat=new SimpleDateFormat("MM");
+                DateFormat secformat = new SimpleDateFormat("ss");
+                DateFormat mnthformat = new SimpleDateFormat("MM");
                 Calendar calendar = Calendar.getInstance();
 
-                String ndate =  smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
+                String ndate = smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
                 Long timestamp = Long.parseLong(ndate);
                 long now = timestamp;
                 calendar.setTimeInMillis(now);
 
-                String mymnth=mnthformat.format(calendar.getTime());
+                String mymnth = mnthformat.format(calendar.getTime());
 
                 if (stw.contains("FFEID") && stw.contains("Invalid") && mnth.contentEquals(mymnth)) {
                     counter += 1;
@@ -498,9 +480,7 @@ public class ReportsFragment extends Fragment {
 
 
             } while (smsInboxCursor.moveToNext());
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -508,28 +488,26 @@ public class ReportsFragment extends Fragment {
     }
 
     public int getEIDInvalid(String mnth) {
-        int value=0;
+        int value = 0;
         try {
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
+            } else {
+                for (int x = 0; x < bdy.size(); x++) {
 
                     String ndate = bdy.get(x).getmTimeStamp();
-                    String thebdy=bdy.get(x).getmBody();
+                    String thebdy = bdy.get(x).getmBody();
 
-                    String[] checkSplitdate=ndate.split("/");
+                    String[] checkSplitdate = ndate.split("/");
 
 
-                    if(checkSplitdate.length>1){
+                    if (checkSplitdate.length > 1) {
 
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -538,12 +516,12 @@ public class ReportsFragment extends Fragment {
                     }
 
 
-                    String[] day=ndate.split("/");
-                    String month=day[1];
+                    String[] day = ndate.split("/");
+                    String month = day[1];
 //                    Log.i(TAG,month);
-                    if(month.contentEquals(mnth) && (thebdy.contains("Collect New Sample")||thebdy.contains("Collect new sexample")|| thebdy.contains("Invalid"))){
+                    if (month.contentEquals(mnth) && (thebdy.contains("Collect New Sample") || thebdy.contains("Collect new sexample") || thebdy.contains("Invalid"))) {
 
-                        value+=1;
+                        value += 1;
                     }
 //                    String[] newyear=year.split("\\s+");
 //                    String myyear=newyear[0];
@@ -552,8 +530,7 @@ public class ReportsFragment extends Fragment {
 
 
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -561,8 +538,8 @@ public class ReportsFragment extends Fragment {
     }
 
 
-    public int getSmsCountVL1(String mnth){
-        int counter=0;
+    public int getSmsCountVL1(String mnth) {
+        int counter = 0;
 
         try {
             ContentResolver contentResolver = getActivity().getContentResolver();
@@ -579,16 +556,16 @@ public class ReportsFragment extends Fragment {
                 String stw = new String(mystrbdy);
 
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                DateFormat secformat=new SimpleDateFormat("ss");
-                DateFormat mnthformat=new SimpleDateFormat("MM");
+                DateFormat secformat = new SimpleDateFormat("ss");
+                DateFormat mnthformat = new SimpleDateFormat("MM");
                 Calendar calendar = Calendar.getInstance();
 
-                String ndate =  smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
+                String ndate = smsInboxCursor.getString(smsInboxCursor.getColumnIndex("date"));
                 Long timestamp = Long.parseLong(ndate);
                 long now = timestamp;
                 calendar.setTimeInMillis(now);
 
-                String mymnth=mnthformat.format(calendar.getTime());
+                String mymnth = mnthformat.format(calendar.getTime());
 
                 if (stw.contains("FFViral") && mnth.contentEquals(mymnth)) {
                     counter += 1;
@@ -597,9 +574,7 @@ public class ReportsFragment extends Fragment {
 
 
             } while (smsInboxCursor.moveToNext());
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -625,8 +600,7 @@ public class ReportsFragment extends Fragment {
 //    }
 
 
-
-    private ArrayList<BarEntry> bgrp2(){
+    private ArrayList<BarEntry> bgrp2() {
 
         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
         bargroup2.add(new BarEntry(getEIDPositive("01"), 0));
@@ -645,7 +619,7 @@ public class ReportsFragment extends Fragment {
     }
 
 
-    private ArrayList<BarEntry> bgrp1(){
+    private ArrayList<BarEntry> bgrp1() {
 
         ArrayList<BarEntry> bargroup1 = new ArrayList<>();
         bargroup1.add(new BarEntry(getEIDNegative("01"), 0));
@@ -663,7 +637,7 @@ public class ReportsFragment extends Fragment {
         return bargroup1;
     }
 
-    private ArrayList<BarEntry> bgrp4(){
+    private ArrayList<BarEntry> bgrp4() {
 
         ArrayList<BarEntry> bargroup1 = new ArrayList<>();
         bargroup1.add(new BarEntry(getSmsCountEID("01"), 0));
@@ -682,7 +656,7 @@ public class ReportsFragment extends Fragment {
     }
 
 
-    private ArrayList<BarEntry> bgrp3(){
+    private ArrayList<BarEntry> bgrp3() {
 
         ArrayList<BarEntry> bargroup3 = new ArrayList<>();
         bargroup3.add(new BarEntry(getEIDInvalid("01"), 0));

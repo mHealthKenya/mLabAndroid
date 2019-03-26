@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -13,11 +12,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,10 +28,13 @@ import java.util.List;
 
 public class HistoricalResults extends AppCompatActivity {
 
-    EditText frmw,tow,mflcode;
+    EditText frmw, tow, mflcode;
     DatePickerDialog datePickerDialog;
-    Myshortcodes msc=new Myshortcodes();
-    MCrypt mcrypt=new MCrypt();
+    Myshortcodes msc = new Myshortcodes();
+    MCrypt mcrypt = new MCrypt();
+
+    SendMessage sm;
+    Base64Encoder encoder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,26 +49,26 @@ public class HistoricalResults extends AppCompatActivity {
     }
 
 
-    public void initialise(){
+    public void initialise() {
 
-        try{
+        try {
 
-            frmw=(EditText) findViewById(R.id.histfilter_frmweek);
-            tow=(EditText) findViewById(R.id.histfilter_toweek);
-            mflcode=(EditText) findViewById(R.id.histfilter_mflcode);
+            frmw = (EditText) findViewById(R.id.histfilter_frmweek);
+            tow = (EditText) findViewById(R.id.histfilter_toweek);
+            mflcode = (EditText) findViewById(R.id.histfilter_mflcode);
+            sm = new SendMessage(HistoricalResults.this);
+            encoder = new Base64Encoder();
 
 
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    public void mflcodeInpuListener(){
+    public void mflcodeInpuListener() {
 
-        try{
+        try {
 
             mflcode.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -82,12 +85,11 @@ public class HistoricalResults extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
 
 
-                    if(mflcode.getText().toString().trim().isEmpty()){
+                    if (mflcode.getText().toString().trim().isEmpty()) {
                         frmw.setEnabled(false);
 
 
-                    }
-                    else{
+                    } else {
 
                         frmw.setEnabled(true);
 
@@ -97,8 +99,7 @@ public class HistoricalResults extends AppCompatActivity {
 
                 }
             });
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
@@ -106,9 +107,9 @@ public class HistoricalResults extends AppCompatActivity {
 
     }
 
-    public void setDatePickerFrm(){
+    public void setDatePickerFrm() {
 
-        try{
+        try {
 
             frmw.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -134,8 +135,7 @@ public class HistoricalResults extends AppCompatActivity {
                     datePickerDialog.show();
                 }
             });
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
@@ -144,9 +144,9 @@ public class HistoricalResults extends AppCompatActivity {
     }
 
 
-    public void setDatePickerTo(){
+    public void setDatePickerTo() {
 
-        try{
+        try {
 
             tow.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -172,8 +172,7 @@ public class HistoricalResults extends AppCompatActivity {
                     datePickerDialog.show();
                 }
             });
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
@@ -182,38 +181,32 @@ public class HistoricalResults extends AppCompatActivity {
     }
 
 
+    public void ValidateToDate() {
 
-    public void ValidateToDate(){
+        try {
 
-        try{
-
-            String frmweeks=frmw.getText().toString().trim();
-            if(!frmweeks.isEmpty()){
+            String frmweeks = frmw.getText().toString().trim();
+            if (!frmweeks.isEmpty()) {
 
                 tow.setEnabled(true);
                 setDatePickerTo();
                 checkToDateListener();
 
-            }
-            else{
+            } else {
                 tow.setText("");
                 frmw.setEnabled(false);
                 tow.setEnabled(false);
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
+    public void checkToDateListener() {
 
-
-
-    public void checkToDateListener(){
-
-        try{
+        try {
 
             tow.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -233,114 +226,86 @@ public class HistoricalResults extends AppCompatActivity {
 
 //                    Toast.makeText(getActivity(), "after change", Toast.LENGTH_SHORT).show();
 
-                    try{
-
+                    try {
 
 
                         String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
-                        String currentArray[]=timeStamp.split("\\.");
-                        String currentDate=currentArray[2];
-                        String currentMonth=currentArray[1];
-                        String currentYear=currentArray[0];
+                        String currentArray[] = timeStamp.split("\\.");
+                        String currentDate = currentArray[2];
+                        String currentMonth = currentArray[1];
+                        String currentYear = currentArray[0];
 
-                        int cdateI=Integer.parseInt(currentDate);
-                        int cmnthI=Integer.parseInt(currentMonth);
-                        int cyearI=Integer.parseInt(currentYear);
-
-
+                        int cdateI = Integer.parseInt(currentDate);
+                        int cmnthI = Integer.parseInt(currentMonth);
+                        int cyearI = Integer.parseInt(currentYear);
 
 
+                        String frmweeks = frmw.getText().toString().trim();
+
+                        System.out.println("***from weeks is**" + frmweeks);
+                        String[] weekarray = frmweeks.split("/");
+                        String edate = weekarray[0];
+                        String emnth = weekarray[1];
+                        String eyear = weekarray[2];
+
+                        int edateI = Integer.parseInt(edate);
+                        int emnthI = Integer.parseInt(emnth);
+                        int eyearI = Integer.parseInt(eyear);
 
 
-                        String frmweeks=frmw.getText().toString().trim();
+                        String toweeks = tow.getText().toString().trim();
 
-                        System.out.println("***from weeks is**"+frmweeks);
-                        String[] weekarray=frmweeks.split("/");
-                        String edate=weekarray[0];
-                        String emnth=weekarray[1];
-                        String eyear=weekarray[2];
+                        System.out.println("***to weeks is**" + toweeks);
+                        String[] toweekarray = toweeks.split("/");
+                        String toedate = toweekarray[0];
+                        String toemnth = toweekarray[1];
+                        String toeyear = toweekarray[2];
 
-                        int edateI=Integer.parseInt(edate);
-                        int emnthI=Integer.parseInt(emnth);
-                        int eyearI=Integer.parseInt(eyear);
-
-
-                        String toweeks=tow.getText().toString().trim();
-
-                        System.out.println("***to weeks is**"+toweeks);
-                        String[] toweekarray=toweeks.split("/");
-                        String toedate=toweekarray[0];
-                        String toemnth=toweekarray[1];
-                        String toeyear=toweekarray[2];
-
-                        int toedateI=Integer.parseInt(toedate);
-                        int toemnthI=Integer.parseInt(toemnth);
-                        int toeyearI=Integer.parseInt(toeyear);
+                        int toedateI = Integer.parseInt(toedate);
+                        int toemnthI = Integer.parseInt(toemnth);
+                        int toeyearI = Integer.parseInt(toeyear);
 
 
-
-
-
-
-                        if(toeyearI==cyearI && toemnthI==cmnthI && toedateI>cdateI){
+                        if (toeyearI == cyearI && toemnthI == cmnthI && toedateI > cdateI) {
 
                             tow.setText("");
                             Toast.makeText(getApplicationContext(), "choose a date less than today", Toast.LENGTH_SHORT).show();
 
 
-                        }
-
-                        else if(toeyearI==cyearI && toemnthI>cmnthI){
+                        } else if (toeyearI == cyearI && toemnthI > cmnthI) {
 
                             tow.setText("");
                             Toast.makeText(getApplicationContext(), "choose a date less than today", Toast.LENGTH_SHORT).show();
 
 
-
-                        }
-
-                        else if(toeyearI>cyearI){
+                        } else if (toeyearI > cyearI) {
 
                             tow.setText("");
                             Toast.makeText(getApplicationContext(), "choose a date less than today", Toast.LENGTH_SHORT).show();
 
-                        }
-
-
-                        else if(toeyearI==eyearI && toemnthI==emnthI && toedateI<edateI){
+                        } else if (toeyearI == eyearI && toemnthI == emnthI && toedateI < edateI) {
                             tow.setText("");
                             Toast.makeText(getApplicationContext(), "choose a date greater than from week", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else if(toeyearI==eyearI && toemnthI<emnthI){
+                        } else if (toeyearI == eyearI && toemnthI < emnthI) {
                             tow.setText("");
                             Toast.makeText(getApplicationContext(), "choose a date greater than from week", Toast.LENGTH_SHORT).show();
-                        }
-                        else if(toeyearI<eyearI){
+                        } else if (toeyearI < eyearI) {
 
                             tow.setText("");
                             Toast.makeText(getApplicationContext(), "choose a date greater than from week", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else{
+                        } else {
 
 //
-                            String myfrm=frmw.getText().toString();
-                            String mytow=tow.getText().toString();
+                            String myfrm = frmw.getText().toString();
+                            String mytow = tow.getText().toString();
 
-                            if(!checkResultsExistance(myfrm,mytow)){
+                            if (!checkResultsExistance(myfrm, mytow)) {
 
 
+                                String mymflcode = mflcode.getText().toString().trim();
+                                String sendMessage = "histr*" + mymflcode + "*" + myfrm + "*" + mytow;
 
-                                String mymflcode=mflcode.getText().toString().trim();
-                                String sendMessage="histr*"+mymflcode+"*"+myfrm+"*"+mytow;
-                                SmsManager sm = SmsManager.getDefault();
-
-                                String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
-
-                                ArrayList<String> parts = sm.divideMessage(encrypted);
-                                sm.sendMultipartTextMessage(msc.sendSmsShortcode, null, parts, null, null);
-
+                                sm.sendMessageApi(encoder.encryptString(sendMessage), msc.sendSmsShortcode);
 
 
                                 Toast.makeText(HistoricalResults.this, "Request for historical results was successful", Toast.LENGTH_SHORT).show();
@@ -351,10 +316,7 @@ public class HistoricalResults extends AppCompatActivity {
                                 mflcode.setText("");
 
 
-
-                            }
-
-                            else{
+                            } else {
 
                                 Toast.makeText(HistoricalResults.this, "Results already exist, check your existing results", Toast.LENGTH_SHORT).show();
                                 tow.setText("");
@@ -369,9 +331,7 @@ public class HistoricalResults extends AppCompatActivity {
                         }
 
 
-
-                    }
-                    catch(Exception e){
+                    } catch (Exception e) {
 
 
                     }
@@ -379,24 +339,22 @@ public class HistoricalResults extends AppCompatActivity {
 
                 }
             });
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
-    public boolean checkResultsExistance(String frmweek,String toweek){
-        boolean resultExists=false;
+    public boolean checkResultsExistance(String frmweek, String toweek) {
+        boolean resultExists = false;
 
-        try{
-
+        try {
 
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
 
-            for(int x=0;x<bdy.size();x++) {
+            for (int x = 0; x < bdy.size(); x++) {
 
 
                 String ndate = bdy.get(x).getmTimeStamp();
@@ -423,63 +381,56 @@ public class HistoricalResults extends AppCompatActivity {
                 String theyear = thendatesplit[2];
 
 
-                String fromthedate[]=frmweek.split("/");
-                String tothedate[]=toweek.split("/");
+                String fromthedate[] = frmweek.split("/");
+                String tothedate[] = toweek.split("/");
 
-                String frmday=fromthedate[0];
-                String frmmnth=fromthedate[1];
-                String frmyear=fromthedate[2];
+                String frmday = fromthedate[0];
+                String frmmnth = fromthedate[1];
+                String frmyear = fromthedate[2];
 
-                String today=tothedate[0];
-                String tomnth=tothedate[1];
-                String toyear=tothedate[2];
+                String today = tothedate[0];
+                String tomnth = tothedate[1];
+                String toyear = tothedate[2];
 
-                int thedayi=Integer.parseInt(theday);
-                int themnthi=Integer.parseInt(themnth);
-                int theyeari=Integer.parseInt(theyear);
+                int thedayi = Integer.parseInt(theday);
+                int themnthi = Integer.parseInt(themnth);
+                int theyeari = Integer.parseInt(theyear);
 
-                int frmdayi=Integer.parseInt(frmday);
-                int frmmnthi=Integer.parseInt(frmmnth);
-                int frmyeari=Integer.parseInt(frmyear);
+                int frmdayi = Integer.parseInt(frmday);
+                int frmmnthi = Integer.parseInt(frmmnth);
+                int frmyeari = Integer.parseInt(frmyear);
 
-                int todayi=Integer.parseInt(today);
-                int tomnthi=Integer.parseInt(tomnth);
-                int toyeari=Integer.parseInt(toyear);
-
-
-                if(theyeari==toyeari && theyeari==frmyeari && themnthi==tomnthi && themnthi==frmmnthi && thedayi<=todayi && thedayi>=frmdayi){
-
-                   resultExists=true;
+                int todayi = Integer.parseInt(today);
+                int tomnthi = Integer.parseInt(tomnth);
+                int toyeari = Integer.parseInt(toyear);
 
 
+                if (theyeari == toyeari && theyeari == frmyeari && themnthi == tomnthi && themnthi == frmmnthi && thedayi <= todayi && thedayi >= frmdayi) {
+
+                    resultExists = true;
+
+
+                } else if (theyeari == toyeari && theyeari == frmyeari && themnthi <= tomnthi && themnthi >= frmmnthi) {
+
+                    resultExists = true;
+
+                } else if (theyeari < toyeari && theyeari > frmyeari) {
+
+                    resultExists = true;
+
+
+                } else {
+
+                    resultExists = false;
                 }
-                else if(theyeari==toyeari && theyeari==frmyeari && themnthi<=tomnthi && themnthi>=frmmnthi){
-
-                   resultExists=true;
-
-                }
-
-                else if(theyeari<toyeari && theyeari>frmyeari){
-
-                    resultExists=true;
-
-
-
-                }
-                else{
-
-                    resultExists=false;
-                }
-
 
 
             }
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
-            resultExists=false;
+            resultExists = false;
 
 
         }
@@ -488,13 +439,9 @@ public class HistoricalResults extends AppCompatActivity {
     }
 
 
+    public void checkFrmDateListener() {
 
-
-
-
-    public void checkFrmDateListener(){
-
-        try{
+        try {
 
             frmw.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -517,100 +464,85 @@ public class HistoricalResults extends AppCompatActivity {
 //                    System.out.println("**current date is**"+dateFormat.format(cal)); //2016/11/16 12:08:43
 
 
-                    try{
+                    try {
 
 
                         String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
-                        String currentArray[]=timeStamp.split("\\.");
-                        String currentDate=currentArray[2];
-                        String currentMonth=currentArray[1];
-                        String currentYear=currentArray[0];
-                        System.out.println("**** the current date is *****"+timeStamp);
+                        String currentArray[] = timeStamp.split("\\.");
+                        String currentDate = currentArray[2];
+                        String currentMonth = currentArray[1];
+                        String currentYear = currentArray[0];
+                        System.out.println("**** the current date is *****" + timeStamp);
 
-                        String frmweeks=frmw.getText().toString().trim();
+                        String frmweeks = frmw.getText().toString().trim();
 
-                        System.out.println("***from weeks is**"+frmweeks);
-                        String[] weekarray=frmweeks.split("/");
-                        String edate=weekarray[0];
-                        String emnth=weekarray[1];
-                        String eyear=weekarray[2];
+                        System.out.println("***from weeks is**" + frmweeks);
+                        String[] weekarray = frmweeks.split("/");
+                        String edate = weekarray[0];
+                        String emnth = weekarray[1];
+                        String eyear = weekarray[2];
 
-                        int edateI=Integer.parseInt(edate);
-                        int emnthI=Integer.parseInt(emnth);
-                        int eyearI=Integer.parseInt(eyear);
+                        int edateI = Integer.parseInt(edate);
+                        int emnthI = Integer.parseInt(emnth);
+                        int eyearI = Integer.parseInt(eyear);
 
-                        int cdateI=Integer.parseInt(currentDate);
-                        int cmnthI=Integer.parseInt(currentMonth);
-                        int cyearI=Integer.parseInt(currentYear);
+                        int cdateI = Integer.parseInt(currentDate);
+                        int cmnthI = Integer.parseInt(currentMonth);
+                        int cyearI = Integer.parseInt(currentYear);
 
-                        if(eyearI==cyearI && emnthI==cmnthI && edateI>cdateI){
-
-                            frmw.setText("");
-                            Toast.makeText(getApplicationContext(), "choose a date less than today", Toast.LENGTH_SHORT).show();
-                            ValidateToDate();
-
-
-                        }
-
-                        else if(eyearI==cyearI && emnthI>cmnthI){
+                        if (eyearI == cyearI && emnthI == cmnthI && edateI > cdateI) {
 
                             frmw.setText("");
                             Toast.makeText(getApplicationContext(), "choose a date less than today", Toast.LENGTH_SHORT).show();
                             ValidateToDate();
 
 
-                        }
-
-                        else if(eyearI>cyearI){
+                        } else if (eyearI == cyearI && emnthI > cmnthI) {
 
                             frmw.setText("");
                             Toast.makeText(getApplicationContext(), "choose a date less than today", Toast.LENGTH_SHORT).show();
                             ValidateToDate();
 
 
-                        }
-                        else{
+                        } else if (eyearI > cyearI) {
+
+                            frmw.setText("");
+                            Toast.makeText(getApplicationContext(), "choose a date less than today", Toast.LENGTH_SHORT).show();
+                            ValidateToDate();
+
+
+                        } else {
 
                             ValidateToDate();
 
                         }
+
+
+                    } catch (Exception e) {
 
 
                     }
-                    catch(Exception e){
-
-
-                    }
-
-
-
-
-
-
 
 
                 }
             });
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
+    public void setToolBar() {
 
-    public void setToolBar(){
-
-        try{
+        try {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.histrestoolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("HISTORICAL RESULTS");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }

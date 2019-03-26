@@ -526,6 +526,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
 
                     Selectedtestkit1= Spinnertestkit1.getText().toString();
+                    Toast.makeText(HtsSampleRemoteLogin.this, ""+Selectedtestkit1, Toast.LENGTH_SHORT).show();
                     testkit1ll.setVisibility(View.VISIBLE);
 
 

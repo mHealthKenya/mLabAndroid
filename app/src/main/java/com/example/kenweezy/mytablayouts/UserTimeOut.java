@@ -10,11 +10,12 @@ public class UserTimeOut extends SugarRecord {
 
     String lasttime;
 
-    public UserTimeOut(){}
+    public UserTimeOut() {
+    }
 
-    public UserTimeOut(String lt){
+    public UserTimeOut(String lt) {
 
-        this.lasttime=lt;
+        this.lasttime = lt;
     }
 
     public String getLasttime() {

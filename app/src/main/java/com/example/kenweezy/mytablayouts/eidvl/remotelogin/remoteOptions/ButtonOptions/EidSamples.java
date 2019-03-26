@@ -15,9 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
+import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class EidSamples extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class EidSamples extends AppCompatActivity {
     String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,entrypointS,collectiondateS,prophylaxiscodeS,infantfeedingS,pcrS,alivedeadS,motherageS,haartdateS;
 
     DateTimePicker dtp;
+    AccessServer acs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +39,9 @@ public class EidSamples extends AppCompatActivity {
         setToolBar();
         changeStatusBarColor("#3F51B5");
         initialise();
+
+        SSLTrust.nuke();
+
         setSpinnerAdapters();
         setSpinnerSexListener();
         setSpinnerRegimenListener();
@@ -219,6 +225,13 @@ public class EidSamples extends AppCompatActivity {
             else{
 
                 Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+
+                String message=selectedSex+"*"+selectedRegimen+"*"+selectedAlive+"*"+heinumberS+"*"+patientnameS
+                        +"*"+dobS+"*"+entrypointS+"*"+collectiondateS+"*"+prophylaxiscodeS+"*"+infantfeedingS+"*"
+                        +pcrS+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS;
+
+                acs.submitEidVlData("EID*"+message);
+
             }
         }
         catch(Exception e){
@@ -341,6 +354,8 @@ public class EidSamples extends AppCompatActivity {
     private void initialise(){
 
         try{
+
+            acs=new AccessServer(EidSamples.this);
 
             dtp=new DateTimePicker(EidSamples.this);
             heinumber=(EditText) findViewById(R.id.eidsampleheinumber);

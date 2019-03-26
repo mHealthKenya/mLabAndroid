@@ -96,4 +96,87 @@ public class AccessServer {
 
     }
 
+    public void submitEidVlData(final String message) {
+
+        pr.showProgress("Submitting data.....");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.EIDVL_DATA_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        pr.dissmissProgress();
+
+                            sweetdialog.showSuccessDialog("Submit response "+response,"SUCCESS");
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pr.dissmissProgress();
+
+                        sweetdialog.showErrorDialog("Error occured "+error.getMessage(), "Error");
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("message", message);
+
+
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(ctx);
+        requestQueue.add(stringRequest);
+
+    }
+
+
+    public void submitHtsData(final String message) {
+
+        pr.showProgress("Submitting data.....");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.HTS_DATA_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        pr.dissmissProgress();
+
+                        sweetdialog.showSuccessDialog("Submit response "+response,"SUCCESS");
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pr.dissmissProgress();
+
+                        sweetdialog.showErrorDialog("Error occured "+error.getMessage(), "Error");
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("message", message);
+
+
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(ctx);
+        requestQueue.add(stringRequest);
+
+    }
+
 }

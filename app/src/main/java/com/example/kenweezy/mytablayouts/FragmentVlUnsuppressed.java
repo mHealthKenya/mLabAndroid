@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
+import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -40,12 +40,16 @@ public class FragmentVlUnsuppressed extends Fragment {
     ArrayList<String> smsMessagesList = new ArrayList<String>();
     ListView smsListView;
     ArrayAdapter arrayAdapter;
-    int counter=0;
+    int counter = 0;
     String smsMessage = "";
     MessageDialog mdialog;
 
-    Myshortcodes msc=new Myshortcodes();
-    MCrypt mcrypt=new MCrypt();
+    SendMessage sm;
+    Base64Encoder encoder;
+
+    Myshortcodes msc = new Myshortcodes();
+    MCrypt mcrypt = new MCrypt();
+
     public static FragmentVlUnsuppressed instance() {
         return (new FragmentVlUnsuppressed());
     }
@@ -56,18 +60,27 @@ public class FragmentVlUnsuppressed extends Fragment {
         inst = this;
     }
 
+    private void initialise() {
+
+        sm = new SendMessage(getActivity());
+        encoder = new Base64Encoder();
+    }
+
     private MessagesAdapter myadapter;
     ListView lv;
+
     @Nullable
     @Override
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragmentvlunsuppressed, container, false);
-        lv=(ListView) v.findViewById(R.id.lvvlunsuppressed);
+        View v = inflater.inflate(R.layout.fragmentvlunsuppressed, container, false);
+        lv = (ListView) v.findViewById(R.id.lvvlunsuppressed);
 //        fl=(FrameLayout) v.findViewById(R.id.eid);
 
-        mymesslist=new ArrayList<>();
-        mdialog=new MessageDialog(getActivity());
+        initialise();
+
+        mymesslist = new ArrayList<>();
+        mdialog = new MessageDialog(getActivity());
         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
 //        if (bdy.isEmpty())
@@ -75,69 +88,60 @@ public class FragmentVlUnsuppressed extends Fragment {
 //        myadapter.clear();
 
 
-        for(int x=0;x<bdy.size();x++){
+        for (int x = 0; x < bdy.size(); x++) {
 
-            try{
+            try {
 
 
-                String messbdy=bdy.get(x).getmBody();
+                String messbdy = bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
-                String read=bdy.get(x).getRead();
-                String mychk=bdy.get(x).getChkd();
-                String messId=bdy.get(x).getMessageId();
+                String read = bdy.get(x).getRead();
+                String mychk = bdy.get(x).getChkd();
+                String messId = bdy.get(x).getMessageId();
 
-                String mvcnt=bdy.get(x).getViralCount();
-                int vcount=Integer.parseInt(mvcnt);
+                String mvcnt = bdy.get(x).getViralCount();
+                int vcount = Integer.parseInt(mvcnt);
 
                 boolean mychkB;
-                if(mychk.contentEquals("true")){
-                    mychkB=true;
+                if (mychk.contentEquals("true")) {
+                    mychkB = true;
+                } else {
+                    mychkB = false;
                 }
-                else{
-                    mychkB=false;
-                }
 
-                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                if (!(messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid") || messbdy.contains("Failed"))) {
 
 
-                    String[] mymessarray=messbdy.split(":");
+                    String[] mymessarray = messbdy.split(":");
 
 
-                    String splitVal="";
+                    String splitVal = "";
 
-                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                        splitVal=mymessarray[6];
+                    if (messbdy.contains("Sex") && messbdy.contains("Age")) {
+                        splitVal = mymessarray[6];
 
-                    }
-                    else{
+                    } else {
 
-                        splitVal=mymessarray[3];
+                        splitVal = mymessarray[3];
                     }
 
 
+                    String[] splitvalarray = splitVal.split("\\s+");
+                    if (splitvalarray[0].contains("<")) {
+                        System.out.println("i am suppressed " + splitvalarray[0]);
 
 
-                    String[] splitvalarray=splitVal.split("\\s+");
-                    if(splitvalarray[0].contains("<")){
-                        System.out.println("i am suppressed "+splitvalarray[0]);
+                    } else {
 
 
-
-                    }
-
-                    else{
-
-
-
-                        int myval=Integer.parseInt(splitvalarray[0]);
-                        if(myval>1000){
-                            System.out.println("i am unsuppressed with a value "+myval);
+                        int myval = Integer.parseInt(splitvalarray[0]);
+                        if (myval > 1000) {
+                            System.out.println("i am unsuppressed with a value " + myval);
                             counter += 1;
-                            mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
+                            mymesslist.add(new Mydata(mychkB, messbdy, ndate, read, vcount, messId));
 
-                        }
-                        else{
-                            System.out.println("i am suppressed with a value "+myval);
+                        } else {
+                            System.out.println("i am suppressed with a value " + myval);
 
 
                         }
@@ -149,10 +153,9 @@ public class FragmentVlUnsuppressed extends Fragment {
                 }
 
 
-            }
-            catch(Exception e){
+            } catch (Exception e) {
 
-                System.out.println("exception occured "+e);
+                System.out.println("exception occured " + e);
 
             }
 
@@ -160,9 +163,9 @@ public class FragmentVlUnsuppressed extends Fragment {
         }
 
 
-        Collections.sort(mymesslist,Mydata.VlcountComparator);
+        Collections.sort(mymesslist, Mydata.VlcountComparator);
 
-        myadapter=new MessagesAdapter(getActivity(),mymesslist);
+        myadapter = new MessagesAdapter(getActivity(), mymesslist);
         lv.setAdapter(myadapter);
 
 
@@ -357,12 +360,9 @@ public class FragmentVlUnsuppressed extends Fragment {
 //    }
 
 
+    public void onLongClick() {
 
-
-
-    public void onLongClick(){
-
-        try{
+        try {
 
 
             lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -370,31 +370,28 @@ public class FragmentVlUnsuppressed extends Fragment {
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+                    TextView tvread = (TextView) view.findViewById(R.id.mstitle);
                     tvread.setText("read");
-                    boolean sending=false;
+                    boolean sending = false;
                     boolean txtChkd;
 
-                    try{
+                    try {
 
-                        String msgbdy=mymesslist.get(position).getMsgbody();
-                        String msgdate=mymesslist.get(position).getDate();
+                        String msgbdy = mymesslist.get(position).getMsgbody();
+                        String msgdate = mymesslist.get(position).getDate();
 
                         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //            System.out.println("testing "+timestamp);
-                        String mytime=timestamp.toString();
+                        String mytime = timestamp.toString();
 
 //                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
 
 
 //                        MydialogBuilder(msgbdy,msgdate);
 
-                        System.out.println("/*****///// "+msgbdy);
-                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
-                        for(int x=0;x<myl.size();x++){
-
-
-
+                        System.out.println("/*****///// " + msgbdy);
+                        List myl = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body=?", msgbdy);
+                        for (int x = 0; x < myl.size(); x++) {
 
 
                         }
@@ -406,58 +403,54 @@ public class FragmentVlUnsuppressed extends Fragment {
                             return false;
 
 
-                        for(int x=0;x<bdy.size();x++){
+                        for (int x = 0; x < bdy.size(); x++) {
 
 
-                            String messbdy=bdy.get(x).getmBody();
+                            String messbdy = bdy.get(x).getmBody();
                             String ndate = bdy.get(x).getmTimeStamp();
-                            String read=bdy.get(x).getRead();
-                            String messId=bdy.get(x).getMessageId();
-                            String mvcnt=bdy.get(x).getViralCount();
-                            int vcount=Integer.parseInt(mvcnt);
+                            String read = bdy.get(x).getRead();
+                            String messId = bdy.get(x).getMessageId();
+                            String mvcnt = bdy.get(x).getViralCount();
+                            int vcount = Integer.parseInt(mvcnt);
 
 
-                            String chkds=bdy.get(x).getChkd();
-                            if(chkds.contentEquals("true")){
+                            String chkds = bdy.get(x).getChkd();
+                            if (chkds.contentEquals("true")) {
 
-                                txtChkd=true;
+                                txtChkd = true;
+                            } else {
+
+                                txtChkd = false;
                             }
-                            else{
-
-                                txtChkd=false;
-                            }
 
 
-                            String[] checkSplitdate=ndate.split("/");
+                            String[] checkSplitdate = ndate.split("/");
 
-                            if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                            if (!(messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid") || messbdy.contains("Failed"))) {
 
                                 try {
 
 
+                                    String[] mymessarray = messbdy.split(":");
 
-                                    String[] mymessarray=messbdy.split(":");
 
+                                    String splitVal = "";
 
-                                    String splitVal="";
+                                    if (messbdy.contains("Sex") && messbdy.contains("Age")) {
+                                        splitVal = mymessarray[6];
 
-                                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                                        splitVal=mymessarray[6];
+                                    } else {
 
-                                    }
-                                    else{
-
-                                        splitVal=mymessarray[3];
+                                        splitVal = mymessarray[3];
                                     }
 
 
-                                    String[] splitvalarray=splitVal.split("\\s+");
-                                    int myval=0;
+                                    String[] splitvalarray = splitVal.split("\\s+");
+                                    int myval = 0;
 
-                                    if(checkSplitdate.length>1){
+                                    if (checkSplitdate.length > 1) {
 
-                                    }
-                                    else{
+                                    } else {
                                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                                         Calendar calendar = Calendar.getInstance();
                                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -466,23 +459,22 @@ public class FragmentVlUnsuppressed extends Fragment {
                                     }
 
 
-                                    if(!splitvalarray[0].contains("<")){
+                                    if (!splitvalarray[0].contains("<")) {
                                         myval = Integer.parseInt(splitvalarray[0]);
                                     }
                                     if (myval > 1000) {
 
                                         System.out.println("i am suppressed " + splitvalarray[0]);
                                         counter += 1;
-                                        mymesslist.add(new Mydata(txtChkd,messbdy, ndate, read,vcount,messId));
+                                        mymesslist.add(new Mydata(txtChkd, messbdy, ndate, read, vcount, messId));
 
-                                        Collections.sort(mymesslist,Mydata.VlcountComparator);
+                                        Collections.sort(mymesslist, Mydata.VlcountComparator);
 
                                         myadapter.notifyDataSetChanged();
 
 
                                     }
-                                }
-                                catch(Exception e){
+                                } catch (Exception e) {
 
 //                                    Toast.makeText(getActivity(), "these is exception "+e, Toast.LENGTH_SHORT).show();
                                 }
@@ -494,16 +486,14 @@ public class FragmentVlUnsuppressed extends Fragment {
                         }
 
 
-
-
                         Mydata model = mymesslist.get(position);
 
                         if (model.isSelected()) {
 
                             model.setSelected(false);
-                            for(int x=0;x<myl.size();x++){
+                            for (int x = 0; x < myl.size(); x++) {
 
-                                Messages ms=(Messages) myl.get(x);
+                                Messages ms = (Messages) myl.get(x);
 
 
                                 ms.getId();
@@ -513,13 +503,12 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                             }
 
-                        }
-                        else{
+                        } else {
 
                             model.setSelected(true);
-                            for(int x=0;x<myl.size();x++){
+                            for (int x = 0; x < myl.size(); x++) {
 
-                                Messages ms=(Messages) myl.get(x);
+                                Messages ms = (Messages) myl.get(x);
 
 
                                 ms.getId();
@@ -535,31 +524,24 @@ public class FragmentVlUnsuppressed extends Fragment {
                         myadapter.notifyDataSetChanged();
 
 
-
+                    } catch (Exception e) {
                     }
-
-                    catch(Exception e){}
 
                     return true;
 
 
-
                 }
             });
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
+    public void onclickListener() {
 
-
-    public void onclickListener(){
-
-        try{
-
+        try {
 
 
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -567,40 +549,37 @@ public class FragmentVlUnsuppressed extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-
-                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+                    TextView tvread = (TextView) view.findViewById(R.id.mstitle);
                     tvread.setText("read");
-                    boolean sending=false;
+                    boolean sending = false;
                     boolean txtChkd;
 
 
-
-                    String msgbdy=mymesslist.get(position).getMsgbody();
-                    String msgdate=mymesslist.get(position).getDate();
-                    String msgId=mymesslist.get(position).getMsgId();
+                    String msgbdy = mymesslist.get(position).getMsgbody();
+                    String msgdate = mymesslist.get(position).getDate();
+                    String msgId = mymesslist.get(position).getMsgId();
 
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //            System.out.println("testing "+timestamp);
-                    String mytime=timestamp.toString();
+                    String mytime = timestamp.toString();
 
 //                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
 
 
 //                    MydialogBuilder(msgbdy,msgdate);
-                    mdialog.displayMessage(msgbdy,msgdate);
+                    mdialog.displayMessage(msgbdy, msgdate);
 
-                    System.out.println("/*****///// "+msgbdy);
-                    List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
-                    for(int x=0;x<myl.size();x++){
+                    System.out.println("/*****///// " + msgbdy);
+                    List myl = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body=?", msgbdy);
+                    for (int x = 0; x < myl.size(); x++) {
 
-                        Messages ms=(Messages) myl.get(x);
+                        Messages ms = (Messages) myl.get(x);
 
-                        if(ms.getRead().contentEquals("read")){
-                            sending=false;
+                        if (ms.getRead().contentEquals("read")) {
+                            sending = false;
 
-                        }
-                        else{
-                            sending=true;
+                        } else {
+                            sending = true;
                             ms.getId();
                             ms.setRead("read");
                             ms.setDateRead(mytime);
@@ -610,19 +589,11 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                     }
 
-                    if(sending){
+                    if (sending) {
 
-                        String sendMessage="read*"+msgId;
-                        SmsManager sm = SmsManager.getDefault();
-                        String encrypted = null;
-                        try {
-                            encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        String sendMessage = "read*" + msgId;
 
-                        ArrayList<String> parts = sm.divideMessage(encrypted);
-                        sm.sendMultipartTextMessage(msc.sendSmsShortcode, null, parts, null, null);
+                        sm.sendMessageApi(encoder.encryptString(sendMessage), msc.sendSmsShortcode);
 
                     }
 
@@ -636,68 +607,59 @@ public class FragmentVlUnsuppressed extends Fragment {
 //        myadapter.clear();
 
 
-                    for(int x=0;x<bdy.size();x++){
+                    for (int x = 0; x < bdy.size(); x++) {
 
-                        try{
+                        try {
 
 
-                            String messbdy=bdy.get(x).getmBody();
+                            String messbdy = bdy.get(x).getmBody();
                             String ndate = bdy.get(x).getmTimeStamp();
-                            String read=bdy.get(x).getRead();
-                            String mychk=bdy.get(x).getChkd();
-                            String messId=bdy.get(x).getMessageId();
-                            String mvcnt=bdy.get(x).getViralCount();
-                            int vcount=Integer.parseInt(mvcnt);
+                            String read = bdy.get(x).getRead();
+                            String mychk = bdy.get(x).getChkd();
+                            String messId = bdy.get(x).getMessageId();
+                            String mvcnt = bdy.get(x).getViralCount();
+                            int vcount = Integer.parseInt(mvcnt);
 
                             boolean mychkB;
-                            if(mychk.contentEquals("true")){
-                                mychkB=true;
+                            if (mychk.contentEquals("true")) {
+                                mychkB = true;
+                            } else {
+                                mychkB = false;
                             }
-                            else{
-                                mychkB=false;
-                            }
 
-                            if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                            if (!(messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid") || messbdy.contains("Failed"))) {
 
 
-                                String[] mymessarray=messbdy.split(":");
+                                String[] mymessarray = messbdy.split(":");
 
 
-                                String splitVal="";
+                                String splitVal = "";
 
-                                if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                                    splitVal=mymessarray[6];
+                                if (messbdy.contains("Sex") && messbdy.contains("Age")) {
+                                    splitVal = mymessarray[6];
 
-                                }
-                                else{
+                                } else {
 
-                                    splitVal=mymessarray[3];
+                                    splitVal = mymessarray[3];
                                 }
 
 
+                                String[] splitvalarray = splitVal.split("\\s+");
+                                if (splitvalarray[0].contains("<")) {
+                                    System.out.println("i am suppressed " + splitvalarray[0]);
 
 
-                                String[] splitvalarray=splitVal.split("\\s+");
-                                if(splitvalarray[0].contains("<")){
-                                    System.out.println("i am suppressed "+splitvalarray[0]);
+                                } else {
 
 
-
-                                }
-
-                                else{
-
-
-
-                                    int myval=Integer.parseInt(splitvalarray[0]);
-                                    if(myval>1000){
-                                        System.out.println("i am unsuppressed with a value "+myval);
+                                    int myval = Integer.parseInt(splitvalarray[0]);
+                                    if (myval > 1000) {
+                                        System.out.println("i am unsuppressed with a value " + myval);
                                         counter += 1;
-                                        mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
+                                        mymesslist.add(new Mydata(mychkB, messbdy, ndate, read, vcount, messId));
 
-                                    }
-                                    else{
-                                        System.out.println("i am suppressed with a value "+myval);
+                                    } else {
+                                        System.out.println("i am suppressed with a value " + myval);
 
 
                                     }
@@ -709,10 +671,9 @@ public class FragmentVlUnsuppressed extends Fragment {
                             }
 
 
-                        }
-                        catch(Exception e){
+                        } catch (Exception e) {
 
-                            System.out.println("exception occured "+e);
+                            System.out.println("exception occured " + e);
 
                         }
 
@@ -720,9 +681,9 @@ public class FragmentVlUnsuppressed extends Fragment {
                     }
 
 
-                    Collections.sort(mymesslist,Mydata.VlcountComparator);
+                    Collections.sort(mymesslist, Mydata.VlcountComparator);
 
-                    myadapter=new MessagesAdapter(getActivity(),mymesslist);
+                    myadapter = new MessagesAdapter(getActivity(), mymesslist);
                     lv.setAdapter(myadapter);
 
 
@@ -730,214 +691,18 @@ public class FragmentVlUnsuppressed extends Fragment {
             });
 
 
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
-
-//    public void onclickListener(){
-//
-//        try{
-//
-//
-//
-//            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//
-//
-//
-//
-//
-//                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
-//                    tvread.setText("read");
-//                    boolean sending=false;
-//                    boolean txtChkd;
-//
-//                    try{
-//
-//                        String msgbdy=mymesslist.get(position).getMsgbody();
-//                        String msgdate=mymesslist.get(position).getDate();
-//
-//                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-////            System.out.println("testing "+timestamp);
-//                        String mytime=timestamp.toString();
-//
-////                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
-//
-//
-//                        MydialogBuilder(msgbdy,msgdate);
-//
-//                        System.out.println("/*****///// "+msgbdy);
-//                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
-//                        for(int x=0;x<myl.size();x++){
-//
-//                            Messages ms=(Messages) myl.get(x);
-//
-//                            if(ms.getRead().contentEquals("read")){
-//                                sending=false;
-//
-//                            }
-//                            else{
-//                                sending=true;
-//                                ms.getId();
-//                                ms.setRead("read");
-//                                ms.setDateRead(mytime);
-////                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
-//                                ms.save();
-//                            }
-//
-//                        }
-//
-//                        if(sending){
-//
-//                            String sendMessage=msgbdy+"*"+mytime;
-//                            SmsManager sm = SmsManager.getDefault();
-//                            String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
-//
-//                            ArrayList<String> parts = sm.divideMessage(encrypted);
-//                            sm.sendMultipartTextMessage(msc.sendSmsShortcode, null, parts, null, null);
-//
-//                        }
-//
-//
-//                        mymesslist.clear();
-//                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
-//
-//                        if (bdy.isEmpty())
-//                            return;
-////        myadapter.clear();
-//
-//
-////                    for(int x=0;x<bdy.size();x++){
-////
-////                        counter += 1;
-////                        String messbdy=bdy.get(x).getmBody();
-////                        String ndate = bdy.get(x).getmTimeStamp();
-////                        String read=bdy.get(x).getRead();
-////
-////                        mymesslist.add(new Mydata(messbdy,ndate,read));
-////
-////
-////                    }
-//
-//
-//                        for(int x=0;x<bdy.size();x++){
-//
-//
-//                            String messbdy=bdy.get(x).getmBody();
-//                            String ndate = bdy.get(x).getmTimeStamp();
-//                            String read=bdy.get(x).getRead();
-//
-//                            String mvcnt=bdy.get(x).getViralCount();
-//                            int vcount=Integer.parseInt(mvcnt);
-//
-//                            String chkds=bdy.get(x).getChkd();
-//                            if(chkds.contentEquals("true")){
-//
-//                                txtChkd=true;
-//                            }
-//                            else{
-//
-//                                txtChkd=false;
-//                            }
-//
-//                            if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
-//
-//
-//                                String[] mymessarray=messbdy.split(":");
-//
-//
-//                                String splitVal="";
-//
-//                                if(messbdy.contains("Sex") && messbdy.contains("Age")){
-//                                    splitVal=mymessarray[6];
-//
-//                                }
-//                                else{
-//
-//                                    splitVal=mymessarray[3];
-//                                }
-//
-//
-//
-//
-//                                String[] splitvalarray=splitVal.split("\\s+");
-//                                if(splitvalarray[0].contains("<")){
-//                                    System.out.println("i am suppressed "+splitvalarray[0]);
-//
-//
-//
-//                                }
-//
-//                                else{
-//
-//
-//
-//                                    int myval=Integer.parseInt(splitvalarray[0]);
-//                                    if(myval>1000){
-//                                        System.out.println("i am unsuppressed with a value "+myval);
-//                                        counter += 1;
-//                                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount));
-//
-//                                    }
-//                                    else{
-//                                        System.out.println("i am suppressed with a value "+myval);
-//
-//
-//                                    }
-//
-//
-//                                }
-//
-//
-//                            }
-//
-//
-//
-//
-//                        }
-//
-//
-//                        Collections.sort(mymesslist,Mydata.VlcountComparator);
-//
-//
-//                        myadapter.notifyDataSetChanged();
-//
-//
-//
-//                    }
-//
-//                    catch(Exception e){}
-//
-//
-//
-//
-//
-//
-//                }
-//            });
-//
-//        }
-//        catch(Exception e){
-//
-//
-//        }
-//    }
-
-
-
-    public void MydialogBuilder(final String message,final String date){
+    public void MydialogBuilder(final String message, final String date) {
 
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
 
-        b.setMessage(message+"\n"+date);
+        b.setMessage(message + "\n" + date);
         b.setCancelable(false);
 
         b.setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -951,7 +716,7 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, message+"\n"+date);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, message + "\n" + date);
 //                                    sendIntent.putExtra(Intent.EXTRA_TEXT, date);
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
@@ -959,7 +724,7 @@ public class FragmentVlUnsuppressed extends Fragment {
             }
         });
 
-        AlertDialog a=b.create();
+        AlertDialog a = b.create();
 
         a.show();
 
@@ -968,100 +733,6 @@ public class FragmentVlUnsuppressed extends Fragment {
         bq.setTextColor(Color.RED);
         bn.setTextColor(Color.BLUE);
     }
-
-
-
-//    public void refreshSmsInbox() {
-//        try {
-////            ContentResolver contentResolver = getActivity().getContentResolver();
-////            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
-////            int indexBody = smsInboxCursor.getColumnIndex("body");
-////            int indexAddress = smsInboxCursor.getColumnIndex("address");
-//            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%LDL%'", null);
-//
-//            if (bdy.isEmpty())
-//                return;
-//            myadapter.clear();
-//
-//
-//            for(int x=0;x<bdy.size();x++){
-//
-//                counter += 1;
-//                String messbdy=bdy.get(x).getmBody();
-//
-//                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-//                Calendar calendar = Calendar.getInstance();
-//
-//                String ndate = bdy.get(x).getmTimeStamp();
-//
-//                String bdycont=messbdy+" "+ndate;
-//
-//                myadapter.add(bdycont);
-//
-//
-//            }
-//
-//        }
-//        catch(Exception e){
-//
-//        }
-//
-//
-//    }
-//
-//    public void updateList(final String smsMessage) {
-//        try {
-//            myadapter.insert(smsMessage, 0);
-//            myadapter.notifyDataSetChanged();
-//        }
-//        catch(Exception e){
-//
-//        }
-//    }
-
-
-
-    public void refreshSmsInbox2() {
-        try {
-
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%LDL%' and m_body not like'%Invalid%' group by m_body", null);
-
-            if (bdy.isEmpty())
-                return;
-//            myadapter.clear();
-
-
-            for(int x=0;x<bdy.size();x++){
-
-                counter += 1;
-                String messbdy=bdy.get(x).getmBody();
-                String messId=bdy.get(x).getMessageId();
-
-                Calendar calendar = Calendar.getInstance();
-
-                String ndate = bdy.get(x).getmTimeStamp();
-                String read=bdy.get(x).getRead();
-
-                String mvcnt=bdy.get(x).getViralCount();
-                int vcount=Integer.parseInt(mvcnt);
-
-                String bdycont=messbdy+"@"+ndate;
-                mymesslist.add(new Mydata(false,messbdy,ndate,read,vcount,messId));
-
-//                myadapter.add(bdycont);
-                myadapter=new MessagesAdapter(getActivity(),mymesslist);
-
-
-            }
-
-        }
-        catch(Exception e){
-
-        }
-
-
-    }
-
 
 
     public void refreshSmsInbox() {
@@ -1074,49 +745,46 @@ public class FragmentVlUnsuppressed extends Fragment {
 //            myadapter.clear();
 
 
-            for(int x=0;x<bdy.size();x++){
+            for (int x = 0; x < bdy.size(); x++) {
 
 
-                String messbdy=bdy.get(x).getmBody();
+                String messbdy = bdy.get(x).getmBody();
 
                 String ndate = bdy.get(x).getmTimeStamp();
-                String read=bdy.get(x).getRead();
-                String messId=bdy.get(x).getMessageId();
-                String mvcnt=bdy.get(x).getViralCount();
-                int vcount=Integer.parseInt(mvcnt);
+                String read = bdy.get(x).getRead();
+                String messId = bdy.get(x).getMessageId();
+                String mvcnt = bdy.get(x).getViralCount();
+                int vcount = Integer.parseInt(mvcnt);
 
-                String mychkd=bdy.get(x).getChkd();
+                String mychkd = bdy.get(x).getChkd();
                 boolean txtChkd;
 
-                if(mychkd.contentEquals("true")){
+                if (mychkd.contentEquals("true")) {
 
-                    txtChkd=true;
+                    txtChkd = true;
+                } else {
+                    txtChkd = false;
+
+
                 }
-                else{
-                    txtChkd=false;
 
-
-                }
-
-                String[] checkSplitdate=ndate.split("/");
+                String[] checkSplitdate = ndate.split("/");
 
 //                String bdycont=messbdy+"@"+ndate;
 
 
+                if (!(messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid") || messbdy.contains("Failed"))) {
 
-                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
 
+                    String[] mymessarray = messbdy.split(":");
+                    System.out.println("the split array suppresed::::: is " + mymessarray[3]);
+                    String splitVal = mymessarray[3];
+                    String[] splitvalarray = splitVal.split("\\s+");
+                    int myval = Integer.parseInt(splitvalarray[0]);
 
-                    String[] mymessarray=messbdy.split(":");
-                    System.out.println("the split array suppresed::::: is "+mymessarray[3]);
-                    String splitVal=mymessarray[3];
-                    String[] splitvalarray=splitVal.split("\\s+");
-                    int myval=Integer.parseInt(splitvalarray[0]);
+                    if (checkSplitdate.length > 1) {
 
-                    if(checkSplitdate.length>1){
-
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -1125,12 +793,11 @@ public class FragmentVlUnsuppressed extends Fragment {
                     }
 
 
+                    if (myval >= 1000) {
 
-                    if(myval>=1000){
-
-                        System.out.println("i am unsuppressed "+splitvalarray[0]);
+                        System.out.println("i am unsuppressed " + splitvalarray[0]);
                         counter += 1;
-                        mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
+                        mymesslist.add(new Mydata(txtChkd, messbdy, ndate, read, vcount, messId));
 
 
                     }
@@ -1138,31 +805,17 @@ public class FragmentVlUnsuppressed extends Fragment {
 
                 }
 
-                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
+                mymesslist.add(new Mydata(txtChkd, messbdy, ndate, read, vcount, messId));
 
             }
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
 
     }
 
-    public void updateList(final String smsMessage) {
-        try {
-            refreshSmsInbox();
-
-            Collections.sort(mymesslist,Mydata.VlcountComparator);
-            myadapter=new MessagesAdapter(getActivity(),mymesslist);
-
-            myadapter.notifyDataSetChanged();
-        }
-        catch(Exception e){
-
-        }
-    }
 
     @Override
     public void onResume() {

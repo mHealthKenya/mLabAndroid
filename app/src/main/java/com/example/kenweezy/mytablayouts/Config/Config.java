@@ -2,12 +2,16 @@ package com.example.kenweezy.mytablayouts.Config;
 
 public class Config {
 
+    public static String mainShortcode="40147";
+    public static String sendSmsShortcode="40147";
+    public static String registerShortcode="40147";
+
     public static final String[] SPINNERLISTLABS = {"LAB1","LAB2"};
 
     public static final String[] SPINNERLISTSEX = {"Male", "Female"};
     public static final String[] SPINNERLISTDELIVERYPOINT = {"OPD", "MCH","IPD","CCC","Community"};
     public static final String[] SPINNERLISTTESTKITS = {"Screening kit-determine", "Confirmatory-first response"};
-    public static final String[] SPINNERLISTFINALRESULTS = {"Negative", "Positive","Inconclusive"};
+    public static final String[] SPINNERLISTFINALRESULTS = {"Negative", "Positive"};
 
 
 
@@ -16,6 +20,8 @@ public class Config {
     public static final String[] SPINNERLISTSAMPLETYPE = {"Type1","Type2"};
 
     public static final String SIGNUP_URL = "https://c4c.mhealthkenya.co.ke/Core/AppReg";
+    public static final String EIDVL_DATA_URL = "https://c4c.mhealthkenya.co.ke/Core/AppReg";
+    public static final String HTS_DATA_URL = "https://c4c.mhealthkenya.co.ke/Core/AppReg";
 
 
     public static final String KEY_SIGNUP_FNAME = "fname";

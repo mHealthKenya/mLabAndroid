@@ -26,10 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AddClient.ClientOptions;
-import com.example.kenweezy.mytablayouts.AddClient.Register;
 import com.example.kenweezy.mytablayouts.eidvl.eidvlOptions;
 import com.example.kenweezy.mytablayouts.hts.HtsOptions;
-import com.example.kenweezy.mytablayouts.hts.HtsresultsTab;
 
 import java.util.Date;
 import java.util.List;
@@ -41,7 +39,6 @@ import java.util.List;
 public class Options extends AppCompatActivity {
 
     ProgressDialog progressDialog;
-
 
 
     final String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
@@ -65,7 +62,7 @@ public class Options extends AppCompatActivity {
 
     TextView ver;
 
-    int sbColour,tbColour,tlColour,bgColour;
+    int sbColour, tbColour, tlColour, bgColour;
     Toolbar tb;
     NotificationCompat.Builder noti;
 
@@ -86,8 +83,8 @@ public class Options extends AppCompatActivity {
 //        getNotification();
 
         SharedPreferences settings = getSharedPreferences(SETTING_INFOS, 0);
-        SharedPreferences.Editor myedit=settings.edit();
-        myedit.putString(LOGGED_IN,"true");
+        SharedPreferences.Editor myedit = settings.edit();
+        myedit.putString(LOGGED_IN, "true");
         myedit.commit();
 
         setVersion();
@@ -95,14 +92,14 @@ public class Options extends AppCompatActivity {
         mCustomTabsServiceConnection = new CustomTabsServiceConnection() {
             @Override
             public void onCustomTabsServiceConnected(ComponentName componentName, CustomTabsClient customTabsClient) {
-                mCustomTabsClient= customTabsClient;
+                mCustomTabsClient = customTabsClient;
                 mCustomTabsClient.warmup(0L);
                 mCustomTabsSession = mCustomTabsClient.newSession(null);
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                mCustomTabsClient= null;
+                mCustomTabsClient = null;
             }
         };
 
@@ -115,57 +112,51 @@ public class Options extends AppCompatActivity {
 //        getNotification();
 
 
-
     }
-
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.unbindService( mCustomTabsServiceConnection);
+        this.unbindService(mCustomTabsServiceConnection);
         mCustomTabsServiceConnection = null;
     }
 
-    public void HTSResults(View v){
+    public void HTSResults(View v) {
 
-        try{
+        try {
 
 //            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
 
 
-
-            Intent myint=new Intent(getApplicationContext(), HtsOptions.class);
+            Intent myint = new Intent(getApplicationContext(), HtsOptions.class);
             startActivity(myint);
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    public void TB(View v){
+    public void TB(View v) {
 
-        try{
+        try {
 
             Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    public void setVersion(){
+    public void setVersion() {
 
-        try{
+        try {
 
-            ver=(TextView) findViewById(R.id.version);
+            ver = (TextView) findViewById(R.id.version);
             ver.setText("mLab Version 1.093");
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
@@ -184,6 +175,7 @@ public class Options extends AppCompatActivity {
     public void gocdc(View view) {
         mCustomTabsIntent.launchUrl(this, Uri.parse(gocdc));
     }
+
     public void gopepfar(View view) {
         mCustomTabsIntent.launchUrl(this, Uri.parse(gopepfar));
     }
@@ -196,18 +188,17 @@ public class Options extends AppCompatActivity {
         mCustomTabsIntent.launchUrl(this, Uri.parse(Dashboard));
     }
 
-    public void goToClients(View v){
+    public void goToClients(View v) {
 
-        try{
+        try {
 
 
 //            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
-            Intent myint=new Intent(getApplicationContext(),ClientOptions.class);
+            Intent myint = new Intent(getApplicationContext(), ClientOptions.class);
             startActivity(myint);
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "unable to load Register", Toast.LENGTH_SHORT).show();
 
 
@@ -229,59 +220,39 @@ public class Options extends AppCompatActivity {
 //        }
 //    }
 
-    public void historicalResults(View v){
+    public void historicalResults(View v) {
 
-        try{
+        try {
 
-            Intent myint=new Intent(getApplicationContext(),HistoricalResults.class);
+            Intent myint = new Intent(getApplicationContext(), HistoricalResults.class);
             startActivity(myint);
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    public void setToolBar(){
+    public void setToolBar() {
 
-        try{
-
-
-        }
-        catch(Exception e){
+        try {
 
 
-        }
-    }
-
-    public void messaging(View v){
-
-        try{
-//            Intent myintt=new Intent(Options.this,SmsActivity.class);
-//            startActivity(myintt);
-
-            Intent intent = new Intent(getApplicationContext(),Composing.class);
-            startActivity(intent);
-        }
-        catch(Exception e){
-
-            Toast.makeText(this, "error starting messagiing activity "+e, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
 
 
         }
     }
 
 
-
-    public void getNotification(){
-        int uniqueId=1234;
+    public void getNotification() {
+        int uniqueId = 1234;
         Intent myint = null;
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        noti= new NotificationCompat.Builder(this);
+        noti = new NotificationCompat.Builder(this);
         noti.setAutoCancel(true);
         noti.setSmallIcon(R.mipmap.ic_launcher);
         noti.setTicker("these is the ticker");
@@ -294,23 +265,20 @@ public class Options extends AppCompatActivity {
 
         String name = settings.getString(LOGGED_IN, "");
 
-        if(name.contentEquals("true")){
-            myint=new Intent(getApplicationContext(),MainActivity.class);
+        if (name.contentEquals("true")) {
+            myint = new Intent(getApplicationContext(), MainActivity.class);
+
+        } else {
+            myint = new Intent(getApplicationContext(), Mylogin.class);
 
         }
-        else{
-            myint=new Intent(getApplicationContext(),Mylogin.class);
-
-        }
 
 
-        PendingIntent pi=PendingIntent.getActivity(this,0,myint,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, myint, PendingIntent.FLAG_UPDATE_CURRENT);
         noti.setContentIntent(pi);
 
-        NotificationManager nm=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(uniqueId,noti.build());
-
-
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(uniqueId, noti.build());
 
 
     }
@@ -322,21 +290,20 @@ public class Options extends AppCompatActivity {
 //    }
 
 
+    private void setCustomColour() {
 
-    private void setCustomColour(){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        statusBarColour = sp.getString("status_bar_colours", "#000066");
+        toolBarColour = sp.getString("tool_bar_colours", "#3333ff");
+        tabLayoutColour = sp.getString("tablayout_colours", "#1a1aff");
+        backgroundColour = sp.getString("background_colours", "#f2f2f2");
 
-        SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        statusBarColour=sp.getString("status_bar_colours","#000066");
-        toolBarColour=sp.getString("tool_bar_colours","#3333ff");
-        tabLayoutColour=sp.getString("tablayout_colours","#1a1aff");
-        backgroundColour=sp.getString("background_colours","#f2f2f2");
+        sbColour = Color.parseColor(statusBarColour);
+        tbColour = Color.parseColor(toolBarColour);
+        tlColour = Color.parseColor(tabLayoutColour);
+        bgColour = Color.parseColor(backgroundColour);
 
-        sbColour= Color.parseColor(statusBarColour);
-        tbColour=Color.parseColor(toolBarColour);
-        tlColour=Color.parseColor(tabLayoutColour);
-        bgColour=Color.parseColor(backgroundColour);
-
-        if(Build.VERSION.SDK_INT>=21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(sbColour);
 
         }
@@ -345,24 +312,18 @@ public class Options extends AppCompatActivity {
 //        viewPager.setBackgroundColor(bgColour);
 
 
-
-
-
-
-
     }
 
-    private void getDefaultSettings(){
-        SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean ds=sp.getBoolean("default_colour",false);
-        if(ds){
+    private void getDefaultSettings() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean ds = sp.getBoolean("default_colour", false);
+        if (ds) {
             tb.setBackgroundColor(Color.parseColor("#3333ff"));
-            if(Build.VERSION.SDK_INT>=21) {
+            if (Build.VERSION.SDK_INT >= 21) {
                 getWindow().setStatusBarColor(Color.parseColor("#000066"));
             }
 
-        }
-        else{
+        } else {
             setCustomColour();
         }
 
@@ -396,33 +357,27 @@ public class Options extends AppCompatActivity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    public void goToResults(View v){
+    public void goToResults(View v) {
 
-        try{
+        try {
 //            new LongOperation().execute();
 
-            Intent inty=new Intent(getApplicationContext(),eidvlOptions.class);
+            Intent inty = new Intent(getApplicationContext(), eidvlOptions.class);
             startActivity(inty);
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "error loading results, try again", Toast.LENGTH_SHORT).show();
 
 
         }
 
 
-
-
     }
 
 
-
-    private class LongOperation extends AsyncTask<String, Void, String>
-    {
-        protected void onPreExecute()
-        {
-            try{
+    private class LongOperation extends AsyncTask<String, Void, String> {
+        protected void onPreExecute() {
+            try {
 
                 progressDialog = new ProgressDialog(Options.this);
                 progressDialog.setTitle("Getting Results...");
@@ -434,8 +389,7 @@ public class Options extends AppCompatActivity {
                 progressDialog.show();
 
 
-            }
-            catch(Exception e){
+            } catch (Exception e) {
 
                 Toast.makeText(Options.this, "error loading progress dialog, try again", Toast.LENGTH_SHORT).show();
 
@@ -444,21 +398,18 @@ public class Options extends AppCompatActivity {
 
         }
 
-        protected String doInBackground(String... params)
-        {
-            try
-            {
-                Intent inty=new Intent(getApplicationContext(),MainActivity.class);
+        protected String doInBackground(String... params) {
+            try {
+                Intent inty = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(inty);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Toast.makeText(Options.this, "error getting results, try again", Toast.LENGTH_SHORT).show();
 //                System.out.print(""+e.printStackTrace());
             }
             return null;
         }
-        protected void onPostExecute(String result)
-        {
+
+        protected void onPostExecute(String result) {
 
             progressDialog.dismiss();
 
@@ -474,33 +425,32 @@ public class Options extends AppCompatActivity {
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
-        long now=new Date().getTime();
-        List<UserTimeOut> ml=UserTimeOut.findWithQuery(UserTimeOut.class,"Select * from User_time_out");
-        if(ml.size()==0){
-            UserTimeOut ut=new UserTimeOut(Long.toString(now));
+        long now = new Date().getTime();
+        List<UserTimeOut> ml = UserTimeOut.findWithQuery(UserTimeOut.class, "Select * from User_time_out");
+        if (ml.size() == 0) {
+            UserTimeOut ut = new UserTimeOut(Long.toString(now));
             ut.save();
 
-        }
-        else{
-            String mytime="";
+        } else {
+            String mytime = "";
             /******get the current stored interaction time*/
-            for(int x=0;x<ml.size();x++){
-                mytime=ml.get(x).getLasttime();
+            for (int x = 0; x < ml.size(); x++) {
+                mytime = ml.get(x).getLasttime();
 
             }
 
             /******get the current stored interaction time*/
 
             /****insert the new interaction time***/
-            UserTimeOut myut=UserTimeOut.findById(UserTimeOut.class,1);
-            myut.lasttime=Long.toString(now);
+            UserTimeOut myut = UserTimeOut.findById(UserTimeOut.class, 1);
+            myut.lasttime = Long.toString(now);
             myut.save();
             /****insert the new interaction time***/
 
-            long mytimelong=Long.parseLong(mytime);
-            long diff=now-mytimelong;
+            long mytimelong = Long.parseLong(mytime);
+            long diff = now - mytimelong;
 
-            if((diff/1000)>180){
+            if ((diff / 1000) > 180) {
 //                Toast.makeText(this, "logging out", Toast.LENGTH_SHORT).show();
 
 
@@ -511,8 +461,8 @@ public class Options extends AppCompatActivity {
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 SharedPreferences settings = getSharedPreferences(SETTING_INFOS, 0);
-                SharedPreferences.Editor myedit=settings.edit();
-                myedit.putString(LOGGED_IN,"false");
+                SharedPreferences.Editor myedit = settings.edit();
+                myedit.putString(LOGGED_IN, "false");
                 myedit.commit();
 
                 startActivity(i);
@@ -520,12 +470,10 @@ public class Options extends AppCompatActivity {
 
 //                return true;
 
-            }
-            else{
+            } else {
 
 //                Toast.makeText(this, "interaction difference is "+diff, Toast.LENGTH_SHORT).show();
             }
-
 
 
         }

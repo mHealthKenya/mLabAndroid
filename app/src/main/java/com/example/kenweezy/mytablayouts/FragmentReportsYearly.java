@@ -1,9 +1,6 @@
 package com.example.kenweezy.mytablayouts;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,13 +32,15 @@ public class FragmentReportsYearly extends Fragment {
     View v;
     int Graphyear = Calendar.getInstance().get(Calendar.YEAR);
 
-    public static FragmentReportsYearly instance(){return (new FragmentReportsYearly());}
+    public static FragmentReportsYearly instance() {
+        return (new FragmentReportsYearly());
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v=inflater.inflate(R.layout.fragmentreportsyearly,container,false);
-        bct=(HorizontalBarChart) v.findViewById(R.id.ybchart);
+        v = inflater.inflate(R.layout.fragmentreportsyearly, container, false);
+        bct = (HorizontalBarChart) v.findViewById(R.id.ybchart);
 
         drawGraph();
 
@@ -49,12 +48,12 @@ public class FragmentReportsYearly extends Fragment {
 
     }
 
-    public ArrayList<String> getLabels(){
+    public ArrayList<String> getLabels() {
 
         ArrayList<String> labels = new ArrayList<String>();
-        for(int myx=0;myx<=3;myx++){
+        for (int myx = 0; myx <= 3; myx++) {
 
-            labels.add(Integer.toString(Graphyear-myx));
+            labels.add(Integer.toString(Graphyear - myx));
 
         }
 
@@ -63,13 +62,13 @@ public class FragmentReportsYearly extends Fragment {
 
     }
 
-    public ArrayList<BarEntry> getGroup1(){
+    public ArrayList<BarEntry> getGroup1() {
 
         ArrayList<BarEntry> bargroup1 = new ArrayList<>();
 
-        for(int myx=0;myx<=3;myx++){
+        for (int myx = 0; myx <= 3; myx++) {
 
-            bargroup1.add(new BarEntry(getVLSuppressed(Integer.toString(Graphyear-myx)), myx));
+            bargroup1.add(new BarEntry(getVLSuppressed(Integer.toString(Graphyear - myx)), myx));
         }
 
         return bargroup1;
@@ -77,51 +76,50 @@ public class FragmentReportsYearly extends Fragment {
 
     }
 
-    public ArrayList<BarEntry> getGroup2(){
+    public ArrayList<BarEntry> getGroup2() {
 
         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
 
-        for(int myx=0;myx<=3;myx++){
+        for (int myx = 0; myx <= 3; myx++) {
 
-            bargroup2.add(new BarEntry(getVLUnsuppressed(Integer.toString(Graphyear-myx)), myx));
+            bargroup2.add(new BarEntry(getVLUnsuppressed(Integer.toString(Graphyear - myx)), myx));
         }
 
         return bargroup2;
     }
 
-    public ArrayList<BarEntry> getGroup4(){
+    public ArrayList<BarEntry> getGroup4() {
 
         ArrayList<BarEntry> bargroup2 = new ArrayList<>();
 
-        for(int myx=0;myx<=3;myx++){
+        for (int myx = 0; myx <= 3; myx++) {
 
-            bargroup2.add(new BarEntry(getSmsCountVL(Integer.toString(Graphyear-myx)), myx));
+            bargroup2.add(new BarEntry(getSmsCountVL(Integer.toString(Graphyear - myx)), myx));
 
-
-        }
-
-        return bargroup2;
-    }
-
-    public ArrayList<BarEntry> getGroup3(){
-
-        ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-
-        for(int myx=0;myx<=3;myx++){
-
-            bargroup2.add(new BarEntry(getVLInvalid(Integer.toString(Graphyear-myx)), myx));
 
         }
 
         return bargroup2;
     }
 
+    public ArrayList<BarEntry> getGroup3() {
+
+        ArrayList<BarEntry> bargroup2 = new ArrayList<>();
+
+        for (int myx = 0; myx <= 3; myx++) {
+
+            bargroup2.add(new BarEntry(getVLInvalid(Integer.toString(Graphyear - myx)), myx));
+
+        }
+
+        return bargroup2;
+    }
 
 
-    public void drawGraph(){
+    public void drawGraph() {
 
         BarDataSet barDataSet0 = new BarDataSet(getGroup4(), "All");
-        barDataSet0.setColor(Color.rgb(255,255,0));
+        barDataSet0.setColor(Color.rgb(255, 255, 0));
 
         // creating dataset for Bar Group1
         BarDataSet barDataSet1 = new BarDataSet(getGroup1(), "Suppressed");
@@ -146,7 +144,7 @@ public class FragmentReportsYearly extends Fragment {
         BarData data = new BarData(getLabels(), dataSets);
         bct.setData(data);
         bct.setDescription("");
-        bct.setDescriptionPosition(90,15);
+        bct.setDescriptionPosition(90, 15);
         bct.setDescriptionTextSize(30);
         bct.setDescriptionColor(R.color.colorPrimary);
 
@@ -154,7 +152,7 @@ public class FragmentReportsYearly extends Fragment {
 
         //set the legend
 
-        Legend l=bct.getLegend();
+        Legend l = bct.getLegend();
         l.setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);
         l.setFormSize(25f); // set the size of the legend forms/shapes
         l.setForm(Legend.LegendForm.SQUARE); // set what type of form/shape should be used
@@ -171,28 +169,25 @@ public class FragmentReportsYearly extends Fragment {
     }
 
 
-
     public int getSmsCountVL(String mnth) {
-        int value=0;
+        int value = 0;
         try {
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
+            } else {
+                for (int x = 0; x < bdy.size(); x++) {
 
                     String ndate = bdy.get(x).getmTimeStamp();
 
-                    String[] checkSplitdate=ndate.split("/");
+                    String[] checkSplitdate = ndate.split("/");
 
-                    if(checkSplitdate.length>1){
+                    if (checkSplitdate.length > 1) {
 
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -200,14 +195,14 @@ public class FragmentReportsYearly extends Fragment {
 
                     }
 
-                    String[] day=ndate.split("/");
-                    String month=day[2];
+                    String[] day = ndate.split("/");
+                    String month = day[2];
 //                    Log.i(TAG,month);
-                    String[] newyear=month.split("\\s+");
-                    String myyear=newyear[0];
-                    if(myyear.contentEquals(mnth)){
+                    String[] newyear = month.split("\\s+");
+                    String myyear = newyear[0];
+                    if (myyear.contentEquals(mnth)) {
 
-                        value+=1;
+                        value += 1;
                     }
 
 
@@ -215,8 +210,7 @@ public class FragmentReportsYearly extends Fragment {
 
 
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -224,58 +218,48 @@ public class FragmentReportsYearly extends Fragment {
     }
 
 
-
-
     public int getVLInvalid(String mnth) {
-        int value=0;
+        int value = 0;
         try {
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
+            } else {
+                for (int x = 0; x < bdy.size(); x++) {
 
                     String ndate = bdy.get(x).getmTimeStamp();
 
 
-                    String messbdy=bdy.get(x).getmBody();
+                    String messbdy = bdy.get(x).getmBody();
 
 
+                    if ((messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid") || messbdy.contains("Failed"))) {
 
 
-                    if((messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
+                        String[] mymessarray = messbdy.split(":");
 
 
+                        String splitVal = "";
 
+                        if (messbdy.contains("Sex") && messbdy.contains("Age")) {
+                            splitVal = mymessarray[6];
 
-                        String[] mymessarray=messbdy.split(":");
+                        } else {
 
-
-                        String splitVal="";
-
-                        if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                            splitVal=mymessarray[6];
-
-                        }
-                        else{
-
-                            splitVal=mymessarray[3];
+                            splitVal = mymessarray[3];
                         }
 
 
+                        String[] checkSplitdate = ndate.split("/");
 
-                        String[] checkSplitdate=ndate.split("/");
+                        String[] splitvalarray = splitVal.split("\\s+");
 
-                        String[] splitvalarray=splitVal.split("\\s+");
+                        if (checkSplitdate.length > 1) {
 
-                        if(checkSplitdate.length>1){
-
-                        }
-                        else{
+                        } else {
                             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                             Calendar calendar = Calendar.getInstance();
                             calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -283,30 +267,26 @@ public class FragmentReportsYearly extends Fragment {
 
                         }
 
-                        String[] day=ndate.split("/");
-                        String month=day[2];
+                        String[] day = ndate.split("/");
+                        String month = day[2];
 //                    Log.i(TAG,month);
-                        String[] newyear=month.split("\\s+");
-                        String myyear=newyear[0];
-                        if(myyear.contentEquals(mnth)){
+                        String[] newyear = month.split("\\s+");
+                        String myyear = newyear[0];
+                        if (myyear.contentEquals(mnth)) {
 
-                            value+=1;
+                            value += 1;
 
                         }
 
 
-
-
                     }
-
 
 
                 }
 
 
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -314,62 +294,51 @@ public class FragmentReportsYearly extends Fragment {
     }
 
 
-
-
-
     public int getVLSuppressed2(String mnth) {
-        int value=0;
+        int value = 0;
         try {
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
-            }
-
-
-            else{
+            } else {
 
 
-                for(int x=0;x<bdy.size();x++){
+                for (int x = 0; x < bdy.size(); x++) {
 
                     String ndate = bdy.get(x).getmTimeStamp();
-                    String messbdy=bdy.get(x).getmBody();
+                    String messbdy = bdy.get(x).getmBody();
 
 
-                    if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid"))){
-
-
+                    if (!(messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid"))) {
 
 
                     }
 
-                    String[] mymessarray=messbdy.split(":");
+                    String[] mymessarray = messbdy.split(":");
 
 
-                    String splitVal="";
+                    String splitVal = "";
 
-                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                        splitVal=mymessarray[6];
+                    if (messbdy.contains("Sex") && messbdy.contains("Age")) {
+                        splitVal = mymessarray[6];
 
+                    } else {
+
+                        splitVal = mymessarray[3];
                     }
-                    else{
-
-                        splitVal=mymessarray[3];
-                    }
 
 
+                    String[] splitvalarray = splitVal.split("\\s+");
 
-                    String[] splitvalarray=splitVal.split("\\s+");
-
-                    String[] checkSplitdate=ndate.split("/");
+                    String[] checkSplitdate = ndate.split("/");
 
 
-                    if(checkSplitdate.length>1){
+                    if (checkSplitdate.length > 1) {
 
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -377,37 +346,32 @@ public class FragmentReportsYearly extends Fragment {
 
                     }
 
-                    String[] day=ndate.split("/");
-                    String month=day[2];
+                    String[] day = ndate.split("/");
+                    String month = day[2];
 //                    Log.i(TAG,month);
-                    String[] newyear=month.split("\\s+");
-                    String myyear=newyear[0];
+                    String[] newyear = month.split("\\s+");
+                    String myyear = newyear[0];
 
-                    int myval=0;
+                    int myval = 0;
 
-                    if(splitvalarray[0].contentEquals("<")){
+                    if (splitvalarray[0].contentEquals("<")) {
 
-                        if(myyear.contentEquals(mnth)){
+                        if (myyear.contentEquals(mnth)) {
 
-                            value+=1;
+                            value += 1;
                         }
 
 
-
-                    }
-
-                    else{
+                    } else {
 
 
+                        myval = Integer.parseInt(splitvalarray[0]);
+                        if (myval >= 1000) {
 
-                        myval=Integer.parseInt(splitvalarray[0]);
-                        if(myval>=1000){
+                        } else {
+                            if (myyear.contentEquals(mnth)) {
 
-                        }
-                        else{
-                            if(myyear.contentEquals(mnth)){
-
-                                value+=1;
+                                value += 1;
                             }
 
 
@@ -425,16 +389,7 @@ public class FragmentReportsYearly extends Fragment {
 //            hadi hapa
 
 
-
-
-
-
-
-
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -442,53 +397,47 @@ public class FragmentReportsYearly extends Fragment {
     }
 
 
-
-    public int getVLSuppressed(String mnth){
-        int counter=0;
+    public int getVLSuppressed(String mnth) {
+        int counter = 0;
 
 
         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
 
-        for(int x=0;x<bdy.size();x++){
+        for (int x = 0; x < bdy.size(); x++) {
 
-            try{
+            try {
 
 
-                String messbdy=bdy.get(x).getmBody();
+                String messbdy = bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
 
-                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                if (!(messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid") || messbdy.contains("Failed"))) {
 
 
-                    String[] mymessarray=messbdy.split(":");
+                    String[] mymessarray = messbdy.split(":");
 
 
-                    String splitVal="";
+                    String splitVal = "";
 
-                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                        splitVal=mymessarray[6];
+                    if (messbdy.contains("Sex") && messbdy.contains("Age")) {
+                        splitVal = mymessarray[6];
 
+                    } else {
+
+                        splitVal = mymessarray[3];
                     }
-                    else{
-
-                        splitVal=mymessarray[3];
-                    }
 
 
+                    String[] splitvalarray = splitVal.split("\\s+");
 
 
-                    String[] splitvalarray=splitVal.split("\\s+");
+                    String[] checkSplitdate = ndate.split("/");
 
 
+                    if (checkSplitdate.length > 1) {
 
-                    String[] checkSplitdate=ndate.split("/");
-
-
-                    if(checkSplitdate.length>1){
-
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -496,39 +445,32 @@ public class FragmentReportsYearly extends Fragment {
 
                     }
 
-                    String[] day=ndate.split("/");
-                    String month=day[2];
+                    String[] day = ndate.split("/");
+                    String month = day[2];
 
-                    String[] newyear=month.split("\\s+");
-                    String myyear=newyear[0];
+                    String[] newyear = month.split("\\s+");
+                    String myyear = newyear[0];
 
 
-                    if(splitvalarray[0].contains("<")){
-                        System.out.println("i am suppressed "+splitvalarray[0]);
-                        if(myyear.contentEquals(mnth)){
+                    if (splitvalarray[0].contains("<")) {
+                        System.out.println("i am suppressed " + splitvalarray[0]);
+                        if (myyear.contentEquals(mnth)) {
 
                             counter += 1;
                         }
 
 
-
-                    }
-
-                    else{
+                    } else {
 
 
-
-                        int myval=Integer.parseInt(splitvalarray[0]);
-                        if(myval>1000){
-                            System.out.println("i am unsuppressed with a value "+myval);
-
+                        int myval = Integer.parseInt(splitvalarray[0]);
+                        if (myval > 1000) {
+                            System.out.println("i am unsuppressed with a value " + myval);
 
 
-
-                        }
-                        else{
-                            System.out.println("i am suppressed with a value "+myval);
-                            if(myyear.contentEquals(mnth)){
+                        } else {
+                            System.out.println("i am suppressed with a value " + myval);
+                            if (myyear.contentEquals(mnth)) {
 
                                 counter += 1;
                             }
@@ -543,10 +485,9 @@ public class FragmentReportsYearly extends Fragment {
                 }
 
 
-            }
-            catch(Exception e){
+            } catch (Exception e) {
 
-                System.out.println("exception occured "+e);
+                System.out.println("exception occured " + e);
 
             }
 
@@ -556,54 +497,47 @@ public class FragmentReportsYearly extends Fragment {
     }
 
 
-
-
-    public int getVLUnsuppressed(String mnth){
-        int counter=0;
+    public int getVLUnsuppressed(String mnth) {
+        int counter = 0;
 
 
         List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
 
-        for(int x=0;x<bdy.size();x++){
+        for (int x = 0; x < bdy.size(); x++) {
 
-            try{
+            try {
 
 
-                String messbdy=bdy.get(x).getmBody();
+                String messbdy = bdy.get(x).getmBody();
                 String ndate = bdy.get(x).getmTimeStamp();
 
-                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))) {
+                if (!(messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid") || messbdy.contains("Failed"))) {
 
 
-                    String[] mymessarray=messbdy.split(":");
+                    String[] mymessarray = messbdy.split(":");
 
 
-                    String splitVal="";
+                    String splitVal = "";
 
-                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                        splitVal=mymessarray[6];
+                    if (messbdy.contains("Sex") && messbdy.contains("Age")) {
+                        splitVal = mymessarray[6];
 
+                    } else {
+
+                        splitVal = mymessarray[3];
                     }
-                    else{
-
-                        splitVal=mymessarray[3];
-                    }
 
 
+                    String[] splitvalarray = splitVal.split("\\s+");
 
 
-                    String[] splitvalarray=splitVal.split("\\s+");
+                    String[] checkSplitdate = ndate.split("/");
 
 
+                    if (checkSplitdate.length > 1) {
 
-                    String[] checkSplitdate=ndate.split("/");
-
-
-                    if(checkSplitdate.length>1){
-
-                    }
-                    else{
+                    } else {
                         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(ndate));
@@ -611,37 +545,31 @@ public class FragmentReportsYearly extends Fragment {
 
                     }
 
-                    String[] day=ndate.split("/");
-                    String month=day[2];
+                    String[] day = ndate.split("/");
+                    String month = day[2];
 
 
-                    String[] newyear=month.split("\\s+");
-                    String myyear=newyear[0];
+                    String[] newyear = month.split("\\s+");
+                    String myyear = newyear[0];
 
-                    if(splitvalarray[0].contains("<")){
-                        System.out.println("i am suppressed "+splitvalarray[0]);
-
-
-
-                    }
-
-                    else{
+                    if (splitvalarray[0].contains("<")) {
+                        System.out.println("i am suppressed " + splitvalarray[0]);
 
 
+                    } else {
 
-                        int myval=Integer.parseInt(splitvalarray[0]);
-                        if(myval>1000){
-                            System.out.println("i am unsuppressed with a value "+myval);
-                            if(myyear.contentEquals(mnth)){
+
+                        int myval = Integer.parseInt(splitvalarray[0]);
+                        if (myval > 1000) {
+                            System.out.println("i am unsuppressed with a value " + myval);
+                            if (myyear.contentEquals(mnth)) {
 
                                 counter += 1;
                             }
 
 
-
-                        }
-                        else{
-                            System.out.println("i am suppressed with a value "+myval);
+                        } else {
+                            System.out.println("i am suppressed with a value " + myval);
 
 
                         }
@@ -653,10 +581,9 @@ public class FragmentReportsYearly extends Fragment {
                 }
 
 
-            }
-            catch(Exception e){
+            } catch (Exception e) {
 
-                System.out.println("exception occured "+e);
+                System.out.println("exception occured " + e);
 
             }
 
@@ -664,12 +591,6 @@ public class FragmentReportsYearly extends Fragment {
         }
         return counter;
     }
-
-
-
-
-
-
 
 
 }

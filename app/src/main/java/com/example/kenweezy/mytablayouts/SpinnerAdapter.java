@@ -5,7 +5,6 @@ package com.example.kenweezy.mytablayouts;
  */
 
 
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -20,7 +19,7 @@ public class SpinnerAdapter extends BaseAdapter {
     String[] Options;
     LayoutInflater inflter;
 
-    public SpinnerAdapter(Context applicationContext,String[] options) {
+    public SpinnerAdapter(Context applicationContext, String[] options) {
         this.context = applicationContext;
 
         this.Options = options;
@@ -50,15 +49,14 @@ public class SpinnerAdapter extends BaseAdapter {
 
         TextView names = (TextView) view.findViewById(R.id.spinnerText);
         names.setText(Options[i]);
-        String mys=Options[i];
-        if(mys.contentEquals("please select an Option")){
+        String mys = Options[i];
+        if (mys.contentEquals("please select an Option")) {
 
             names.setBackgroundResource(R.color.mycolor);
             names.setTextSize(19);
 
 //            names.setTextColor(getResources().getColor(R.color.colorPrimary));
-        }
-        else if(mys.contentEquals("Please select Security Question")){
+        } else if (mys.contentEquals("Please select Security Question")) {
             names.setBackgroundResource(R.color.orangered);
             names.setTextSize(19);
             names.setTextColor(Color.WHITE);

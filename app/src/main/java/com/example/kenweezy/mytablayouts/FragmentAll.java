@@ -31,9 +31,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
 import com.example.kenweezy.mytablayouts.printing.BluetoothDemo;
+import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -90,6 +92,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     String smsMessage = "";
 
     Progress pr=new Progress();
+    SendMessage sm;
+    Base64Encoder encoder;
 
 
 
@@ -622,6 +626,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     public void initialise(){
 
         try{
+            sm=new SendMessage(getActivity());
+            encoder=new Base64Encoder();
 
             mdialog=new MessageDialog(getActivity());
             frmweek=(EditText) v.findViewById(R.id.filter_frmweek);
@@ -1189,13 +1195,8 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
                         if(sending){
 
                             String sendMessage="read*"+msgId;
-                            SmsManager sm = SmsManager.getDefault();
-//                            sm.sendTextMessage(msc.sendSmsShortcode, null,sendMessage, null, null);
 
-                            String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(sendMessage));
-
-                            ArrayList<String> parts = sm.divideMessage(encrypted);
-                            sm.sendMultipartTextMessage(msc.sendSmsShortcode, null, parts, null, null);
+                            sm.sendMessageApi(encoder.encryptString(sendMessage),msc.sendSmsShortcode);
 
                         }
 
@@ -1426,51 +1427,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
-//        switch(parent.getId()){
-//
-//            case R.id.filter_spinner:
-//
-//                optionsSelected=optionsAdapter.getItem(filterspinner.getSelectedItemPosition()).toString();
-//
-//                try{
-//                    if(optionsSelected.contentEquals("please select an Option")){
-//                        dayl.setVisibility(View.GONE);
-//                        weekl.setVisibility(View.GONE);
-//                        dateVisible=false;
-//                        weekVisible=false;
-//                        checkListeners();
-//
-//
-//                    }
-//                    else if(optionsSelected.contentEquals("filter by date")){
-//                        weekl.setVisibility(View.GONE);
-//                        dayl.setVisibility(View.VISIBLE);
-//                        dateVisible=true;
-//                        weekVisible=false;
-//                        checkListeners();
-//
-//
-//                    }
-//                   else{
-//
-//                        dayl.setVisibility(View.GONE);
-//                        weekl.setVisibility(View.VISIBLE);
-//                        dateVisible=false;
-//                        weekVisible=true;
-//
-//                        checkListeners();
-//
-//
-//
-//                    }
-//                }
-//                catch(Exception e){
-//
-//
-//                }
-//                break;
-//
-//        }
+
 
     }
 

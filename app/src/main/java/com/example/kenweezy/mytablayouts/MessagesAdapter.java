@@ -272,6 +272,8 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
     class CustomFilter extends Filter{
 
 
+
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 

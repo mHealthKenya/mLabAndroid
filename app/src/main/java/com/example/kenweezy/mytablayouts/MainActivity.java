@@ -1,38 +1,36 @@
 package com.example.kenweezy.mytablayouts;
 
-import android.Manifest;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.SmsManager;
-import android.telephony.SmsMessage;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,59 +45,59 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.GetMessageCount.GetCounts;
+import com.example.kenweezy.mytablayouts.MakeCalls.makeCalls;
+import com.example.kenweezy.mytablayouts.ProcessReceivedMessage.ProcessMessage;
+import com.example.kenweezy.mytablayouts.Smsretrieverapi.SmsReceiver;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.fragmentTagTable.fragmenttags;
+import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.credentials.Credential;
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private Toolbar toolbar;
-    ProgressDialog progressDialog;
+import kotlin.jvm.internal.Intrinsics;
 
+import static com.example.kenweezy.mytablayouts.StringSplitter.SplitString.splittedString;
+
+public class MainActivity extends AppCompatActivity implements SmsReceiver.MessageReceiveListener {
+    public static final String SMS_BUNDLE = "pdus";
+    public static final String LOGGED_IN = "logged_in";
+    public static final String SETTING_INFOS = "SETTING_Infos";
+    private final int RC_HINT = 2;
+    @NotNull
+    private final SmsReceiver smsBroadcast = new SmsReceiver();
+    public int mval;
+    ProgressDialog progressDialog;
     ProgressDialog pd;
     BroadcastReceiver broadcastReceiver;
-
-    Myshortcodes msc=new Myshortcodes();
-    public static final String SMS_BUNDLE = "pdus";
-
-    private MenuItem mSearchAction;
-    private boolean isSearchOpened = false;
-    private EditText edtSeach;
-
-    boolean incomingMessage=false;//flag to check if a new message has arrived
-
+    Myshortcodes msc = new Myshortcodes();
+    boolean incomingMessage = false;//flag to check if a new message has arrived
     String statusBarColour;
     String toolBarColour;
     String tabLayoutColour;
     String backgroundColour;
-    public int mval;
     boolean vlSelected;
     boolean eidSelected;
     boolean allSelected;
     boolean reportsSelected, reportseidselected, reportsvlselected;
     boolean feidnegselected, feidpositiveselected, feidInvalidSelected;
-
-
     int sbColour, tbColour, tlColour, bgColour;
-
     String[] tabTitle = {"ALL", "EID", "VL", "EID REPORTS", "VL REPORTS"};
     int[] unreadCount = {0, 0, 0, 0, 0};
-
-    public static final String LOGGED_IN = "logged_in";
-
-    public static final String SETTING_INFOS = "SETTING_Infos";
-
     FragmentAll myfall;
     FragmentVlInvalid fvlinv;
     FragmentVlSuppressed fvlsup;
@@ -112,12 +110,31 @@ public class MainActivity extends AppCompatActivity {
     boolean feids, falls, fvls, freports;
     ViewPagerAdapter adapter;
     AHBottomNavigation bottomNavigation;
-    boolean oncreate=false;
+    boolean oncreate = false;
+    Progress pr = new Progress();
+    MCrypt mcrypt = new MCrypt();
+    GetCounts gc = new GetCounts();
+    FloatingActionButton fabref;
+    ProcessMessage pm;
+    SendMessage sm;
+    makeCalls mc;
+    private TabLayout tabLayout;
 
-    Progress pr=new Progress();
-    MCrypt mcrypt=new MCrypt();
-    GetCounts gc=new GetCounts();
 
+    //    start sms retriever api
+    private ViewPager viewPager;
+    private Toolbar toolbar;
+    private MenuItem mSearchAction;
+    private boolean isSearchOpened = false;
+
+//    end sms retriever api
+    private EditText edtSeach;
+    @org.jetbrains.annotations.Nullable
+    private GoogleApiClient mCredentialsApiClient;
+
+    private static String makeFragmentName(int viewId, long id) {
+        return "android:switcher:" + viewId + ":" + id;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Stetho.initializeWithDefaults(this);
+        initialise();
 
 
 //        LoadHeavyStuff();
@@ -137,51 +155,44 @@ public class MainActivity extends AppCompatActivity {
 //        registerSmsReceiver();
         getFragTags();
 
+
+        //sms retriever api
+
+        listenForIncomingMessage();
+        refreshResultsClicked();
+
+
+//        generateAppSignature();
+
+        initiateBackgroundService();
+
+        //sms retriever api
+
     }
 
+    private void initialise() {
 
+        fabref = (FloatingActionButton) findViewById(R.id.fabmainres);
+        sm = new SendMessage(MainActivity.this);
+        pm = new ProcessMessage();
+        mc = new makeCalls(MainActivity.this);
 
-//broadcast receiver listeners on sms received
-
-    public void defineSmsReceiver(){
-        try{
-
-            broadcastReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-
-
-                    incomingMessage=true;
-                    method();
-
-                    
-
-                }
-            };
-
-        }
-        catch(Exception e){
-
-            Toast.makeText(this, "error defining receiver "+e, Toast.LENGTH_SHORT).show();
-
-        }
     }
 
-    public void registerSmsReceiver(){
-        try{
+    private void refreshResultsClicked() {
 
-            registerReceiver(broadcastReceiver, new IntentFilter("MESSAGE RECEIVED"));
+        fabref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                sm.sendMessageApi("0713559850", Config.mainShortcode);
 
-        }
-        catch(Exception e){
+                listenForIncomingMessage();
 
-            Toast.makeText(this, "error registering receiver "+e, Toast.LENGTH_SHORT).show();
-
-        }
+                Toast.makeText(MainActivity.this, "refreshing results", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
-//broadcast receiver listeners on sms received
 
     @Override
     public void onAttachedToWindow() {
@@ -189,9 +200,8 @@ public class MainActivity extends AppCompatActivity {
         new AsyncTaskRunner().execute();
     }
 
-
-    public void activateSearchOnFirstFragment(){
-        try{
+    public void activateSearchOnFirstFragment() {
+        try {
 
             vlSelected = false;
             eidSelected = false;
@@ -206,28 +216,25 @@ public class MainActivity extends AppCompatActivity {
                 mSearchAction.setVisible(true);
             }
             closeSearch(false);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
-            Toast.makeText(this, "unable to activate search "+e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "unable to activate search " + e, Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        listenForIncomingMessage();
 //        activateSearchOnFirstFragment();
 //        new AsyncTaskRunner().execute();
     }
 
+    public void method() {
 
-
-    public void method(){
-
-        runOnUiThread(new Runnable()
-        {
-            public void run()
-            {
+        runOnUiThread(new Runnable() {
+            public void run() {
                 try {
                     LoadHeavyStuff();
 
@@ -241,32 +248,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
-
-
-        @Override
-        protected String doInBackground(String... params) {
-            incomingMessage=false;
-            method();
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
-
-//            Toast.makeText(MainActivity.this, "getting messages", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-//            Toast.makeText(MainActivity.this, "done getting messages", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void MyHeavyJunk(){
+    public void MyHeavyJunk() {
 
 
         feidnegselected = false;
@@ -279,14 +261,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (myl.size() == 0) {
 
-                refreshSmsInboxTest();
-            } else {
 
-//                refreshSmsInboxTest();
-//                for(int x=0;x<myl.size();x++){
-//                    Toast.makeText(this, ""+myl.get(x).getmTimeStamp(), Toast.LENGTH_SHORT).show();
-//
-//                }
+            } else {
 
 
             }
@@ -310,20 +286,7 @@ public class MainActivity extends AppCompatActivity {
             ad.show();
         }
 
-//        sendReadReport();
 
-
-//        bottomNavigation.setNotificationBackgroundColorResource(R.color.colorPrimary);
-
-//        vlSelected=false;
-//        eidSelected=false;
-//        allSelected=true;
-//        reportsSelected=false;
-
-
-//        vlSelected=false;
-//        eidSelected=true;
-//        allSelected=false;
         MyBottomNav();
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -361,9 +324,8 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
 
 
-
-                        pr.progressing(MainActivity.this,"loading..","Getting All Results");
-                        Handler mHand0  = new Handler();
+                        pr.progressing(MainActivity.this, "loading..", "Getting All Results");
+                        Handler mHand0 = new Handler();
                         mHand0.postDelayed(new Runnable() {
 
                             @Override
@@ -390,8 +352,6 @@ public class MainActivity extends AppCompatActivity {
                                 pr.DissmissProgress();
 
 
-
-
                                 //Dismiss progressBar here
 
                             }
@@ -403,18 +363,13 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
 
 
-
-                        pr.progressing(MainActivity.this,"loading..","Getting EID Results");
-                        Handler mHand1  = new Handler();
+                        pr.progressing(MainActivity.this, "loading..", "Getting EID Results");
+                        Handler mHand1 = new Handler();
                         mHand1.postDelayed(new Runnable() {
 
                             @Override
                             public void run() {
                                 // TODO Auto-generated method stub
-
-
-
-
 
 
                                 vlSelected = false;
@@ -460,8 +415,6 @@ public class MainActivity extends AppCompatActivity {
                                 pr.DissmissProgress();
 
 
-
-
                                 //Dismiss progressBar here
 
                             }
@@ -472,8 +425,8 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
 
 
-                        pr.progressing(MainActivity.this,"loading..","Getting VL Results");
-                        Handler mHand  = new Handler();
+                        pr.progressing(MainActivity.this, "loading..", "Getting VL Results");
+                        Handler mHand = new Handler();
                         mHand.postDelayed(new Runnable() {
 
                             @Override
@@ -523,8 +476,6 @@ public class MainActivity extends AppCompatActivity {
                                 pr.DissmissProgress();
 
 
-
-
                                 //Dismiss progressBar here
 
                             }
@@ -537,17 +488,13 @@ public class MainActivity extends AppCompatActivity {
                     case 3:
 
 
-
-
-                        pr.progressing(MainActivity.this,"loading..","Getting EID Reports");
-                        Handler mHand3  = new Handler();
+                        pr.progressing(MainActivity.this, "loading..", "Getting EID Reports");
+                        Handler mHand3 = new Handler();
                         mHand3.postDelayed(new Runnable() {
 
                             @Override
                             public void run() {
                                 // TODO Auto-generated method stub
-
-
 
 
                                 vlSelected = false;
@@ -573,8 +520,6 @@ public class MainActivity extends AppCompatActivity {
                                 pr.DissmissProgress();
 
 
-
-
                                 //Dismiss progressBar here
 
                             }
@@ -587,14 +532,13 @@ public class MainActivity extends AppCompatActivity {
                     case 4:
 
 
-                        pr.progressing(MainActivity.this,"loading..","Getting VL Reports");
-                        Handler mHand4  = new Handler();
+                        pr.progressing(MainActivity.this, "loading..", "Getting VL Reports");
+                        Handler mHand4 = new Handler();
                         mHand4.postDelayed(new Runnable() {
 
                             @Override
                             public void run() {
                                 // TODO Auto-generated method stub
-
 
 
                                 vlSelected = false;
@@ -620,13 +564,10 @@ public class MainActivity extends AppCompatActivity {
                                 pr.DissmissProgress();
 
 
-
-
                                 //Dismiss progressBar here
 
                             }
                         }, 2000);
-
 
 
 //                        Toast.makeText(getApplicationContext(), "fragment"+myfvl, Toast.LENGTH_SHORT).show();
@@ -663,11 +604,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void LoadHeavyStuff() {
 
-    public void LoadHeavyStuff(){
 
-
-        try{
+        try {
             progressDialog = new ProgressDialog(MainActivity.this);
             progressDialog.setTitle("Getting Results...");
             progressDialog.setMessage("Please wait...");
@@ -678,9 +618,7 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.show();
 
 
-
-
-            Handler mHand  = new Handler();
+            Handler mHand = new Handler();
             mHand.postDelayed(new Runnable() {
 
                 @Override
@@ -692,25 +630,16 @@ public class MainActivity extends AppCompatActivity {
                     progressDialog.dismiss();
 
 
-
-
                     //Dismiss progressBar here
 
                 }
             }, 5000);
 
 
-
-
-
-
 //
 
 //            pr.DissmissProgress();
-        }
-        catch(Exception e){
-
-
+        } catch (Exception e) {
 
 
         }
@@ -768,16 +697,15 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigationItem rvlyearly = new AHBottomNavigationItem("Yearly VL", R.mipmap.reorder, R.color.colorPrimary);
 
 // Add items
-        if(incomingMessage){
+        if (incomingMessage) {
 
 
             bottomNavigation.removeAllItems();
             bottomNavigation.hideBottomNavigation();
-            incomingMessage=false;
+            incomingMessage = false;
 
 
-        }
-        else{
+        } else {
 
             if (eidSelected) {
 
@@ -842,8 +770,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
 // Disable the translation inside the CoordinatorLayout
         bottomNavigation.setBehaviorTranslationEnabled(false);
 
@@ -885,8 +811,8 @@ public class MainActivity extends AppCompatActivity {
 
                             pr.DissmissProgress();
 
-                            pr.progressing(MainActivity.this,"loading..","Getting Suppressed VL Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting Suppressed VL Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -902,13 +828,11 @@ public class MainActivity extends AppCompatActivity {
 //
 
 //
-                        }
-
-                        else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Monthly") {
+                        } else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Monthly") {
 
                             pr.DissmissProgress();
-                            pr.progressing(MainActivity.this,"loading..","Getting EID monthly Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting EID monthly Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -927,10 +851,9 @@ public class MainActivity extends AppCompatActivity {
                         } else if (bottomNavigation.getItem(0).getTitle(getApplicationContext()).toString() == "Monthly VL") {
 
 
-
                             pr.DissmissProgress();
-                            pr.progressing(MainActivity.this,"loading..","Getting VL monthly Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting VL monthly Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -945,13 +868,11 @@ public class MainActivity extends AppCompatActivity {
                             }, 1500);
 
 //
-                        }
-
-                        else {
+                        } else {
 
                             pr.DissmissProgress();
-                            pr.progressing(MainActivity.this,"loading..","Getting EID Negative Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting EID Negative Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -977,8 +898,8 @@ public class MainActivity extends AppCompatActivity {
                         if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "UnSuppressed") {
 
                             pr.DissmissProgress();
-                            pr.progressing(MainActivity.this,"loading..","Getting VL Unsuppressed Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting VL Unsuppressed Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -994,15 +915,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 //
-                        }
-
-
-                        else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Yearly") {
+                        } else if (bottomNavigation.getItem(1).getTitle(getApplicationContext()).toString() == "Yearly") {
 
                             pr.DissmissProgress();
 
-                            pr.progressing(MainActivity.this,"loading..","Getting EID Yearly Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting EID Yearly Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -1022,8 +940,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                             pr.DissmissProgress();
-                            pr.progressing(MainActivity.this,"loading..","Getting VL yearly Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting VL yearly Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -1039,15 +957,12 @@ public class MainActivity extends AppCompatActivity {
 //
 
 //
-                        }
-
-                        else {
-
+                        } else {
 
 
                             pr.DissmissProgress();
-                            pr.progressing(MainActivity.this,"loading..","Getting EID Positive Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting EID Positive Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -1066,8 +981,6 @@ public class MainActivity extends AppCompatActivity {
                             }, 1500);
 
 
-
-
                         }
 //                      Toast.makeText(MainActivity.this, ""+bottomNavigation.getItem(1).getTitle(getApplicationContext()), Toast.LENGTH_SHORT).show();
                         break;
@@ -1077,8 +990,8 @@ public class MainActivity extends AppCompatActivity {
                         if (bottomNavigation.getItem(2).getTitle(getApplicationContext()).toString() == "Invalid") {
 
                             pr.DissmissProgress();
-                            pr.progressing(MainActivity.this,"loading..","Getting VL invalid Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting VL invalid Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -1094,11 +1007,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 //
-                        }  else {
+                        } else {
 
                             pr.DissmissProgress();
-                            pr.progressing(MainActivity.this,"loading..","Getting EID Invalid Results");
-                            Handler mHand  = new Handler();
+                            pr.progressing(MainActivity.this, "loading..", "Getting EID Invalid Results");
+                            Handler mHand = new Handler();
                             mHand.postDelayed(new Runnable() {
 
                                 @Override
@@ -1115,7 +1028,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             }, 1500);
-
 
 
                         }
@@ -1199,26 +1111,24 @@ public class MainActivity extends AppCompatActivity {
     public void getFragTags() {
 //        fragmenttags.deleteAll(fragmenttags.class);
 
-       List<fragmenttags> myl=fragmenttags.findWithQuery(fragmenttags.class,"select * from fragmenttags");
-       System.out.println("*************frag tags*************************************");
-       for(int x=0;x<myl.size();x++){
+        List<fragmenttags> myl = fragmenttags.findWithQuery(fragmenttags.class, "select * from fragmenttags");
+        System.out.println("*************frag tags*************************************");
+        for (int x = 0; x < myl.size(); x++) {
 
-           System.out.println(myl.get(x).getFragname()+" : "+myl.get(x).getTagname());
-
-       }
-    }
-
-    public void setAllFragTag(){
-
-        String allFragmentTag = makeFragmentName(viewPager.getId(), 1);
-        List<fragmenttags> mylf=fragmenttags.findWithQuery(fragmenttags.class,"select * from fragmenttags where fragname=?","all");
-        if(mylf.size()>0){
-
-
+            System.out.println(myl.get(x).getFragname() + " : " + myl.get(x).getTagname());
 
         }
-        else{
-            fragmenttags ft=new fragmenttags();
+    }
+
+    public void setAllFragTag() {
+
+        String allFragmentTag = makeFragmentName(viewPager.getId(), 1);
+        List<fragmenttags> mylf = fragmenttags.findWithQuery(fragmenttags.class, "select * from fragmenttags where fragname=?", "all");
+        if (mylf.size() > 0) {
+
+
+        } else {
+            fragmenttags ft = new fragmenttags();
             ft.setFragname("all");
             ft.setTagname(allFragmentTag);
             ft.save();
@@ -1228,17 +1138,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setVlFragTag(){
+    public void setVlFragTag() {
 
         String allFragmentTag = makeFragmentName(viewPager.getId(), 3);
-        List<fragmenttags> mylf=fragmenttags.findWithQuery(fragmenttags.class,"select * from fragmenttags where fragname=?","vl");
-        if(mylf.size()>0){
+        List<fragmenttags> mylf = fragmenttags.findWithQuery(fragmenttags.class, "select * from fragmenttags where fragname=?", "vl");
+        if (mylf.size() > 0) {
 
 
-
-        }
-        else{
-            fragmenttags ft=new fragmenttags();
+        } else {
+            fragmenttags ft = new fragmenttags();
             ft.setFragname("vl");
             ft.setTagname(allFragmentTag);
             ft.save();
@@ -1248,17 +1156,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setEidFragTag(){
+    public void setEidFragTag() {
 
         String allFragmentTag = makeFragmentName(viewPager.getId(), 2);
-        List<fragmenttags> mylf=fragmenttags.findWithQuery(fragmenttags.class,"select * from fragmenttags where fragname=?","eid");
-        if(mylf.size()>0){
+        List<fragmenttags> mylf = fragmenttags.findWithQuery(fragmenttags.class, "select * from fragmenttags where fragname=?", "eid");
+        if (mylf.size() > 0) {
 
 
-
-        }
-        else{
-            fragmenttags ft=new fragmenttags();
+        } else {
+            fragmenttags ft = new fragmenttags();
             ft.setFragname("eid");
             ft.setTagname(allFragmentTag);
             ft.save();
@@ -1266,10 +1172,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
-
-    private static String makeFragmentName(int viewId, long id) {
-        return "android:switcher:" + viewId + ":" + id;
     }
 
     //add icons to tabs menu
@@ -1306,59 +1208,6 @@ public class MainActivity extends AppCompatActivity {
         setEidFragTag();
         setVlFragTag();
     }
-
-
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-        HashMap<Integer, Fragment> mPageReferenceMap = new HashMap<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            Fragment fragment = (Fragment) super.instantiateItem(container, position);
-            mPageReferenceMap.put(position, fragment);
-            return fragment;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-            mPageReferenceMap.remove(position);
-        }
-
-        public Fragment getFragment(int key) {
-            return mPageReferenceMap.get(key);
-        }
-
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);//enables displaying the title
-            //return null;//disables the displaying of title on tabs
-        }
-
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -1424,7 +1273,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -1453,7 +1301,7 @@ public class MainActivity extends AppCompatActivity {
 ////                    return ;
 //                }
 //                startActivity(intent);
-                MydialogBuilder("Choose how to communicate with our helpline","mLab HelpLine");
+                MydialogBuilder("Choose how to communicate with our helpline", "mLab HelpLine");
                 return true;
 
             case R.id.logout:
@@ -1465,8 +1313,8 @@ public class MainActivity extends AppCompatActivity {
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 SharedPreferences settings = getSharedPreferences(SETTING_INFOS, 0);
-                SharedPreferences.Editor myedit=settings.edit();
-                myedit.putString(LOGGED_IN,"false");
+                SharedPreferences.Editor myedit = settings.edit();
+                myedit.putString(LOGGED_IN, "false");
                 myedit.commit();
 
                 startActivity(i);
@@ -1482,9 +1330,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public int getVlCount() {
-        int value=0;
+        int value = 0;
         try {
 
 //            ContentResolver contentResolver = getActivity().getContentResolver();
@@ -1494,29 +1341,23 @@ public class MainActivity extends AppCompatActivity {
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
+            } else {
+
+                value = bdy.size();
             }
-            else{
-
-                value=bdy.size();
-            }
 
 
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
-return value;
+        return value;
     }
 
-
-
-   public int getAllCount() {
-        int value=0;
+    public int getAllCount() {
+        int value = 0;
         try {
 
 //            ContentResolver contentResolver = getActivity().getContentResolver();
@@ -1527,30 +1368,25 @@ return value;
 
 //            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
+
+            } else {
+
+                value = bdy.size();
+
 
             }
-            else{
-
-                value=bdy.size();
 
 
-            }
-
-
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
         return value;
     }
 
-
-   public int getFfeidCount() {
-        int value=0;
+    public int getFfeidCount() {
+        int value = 0;
         try {
 
 //            ContentResolver contentResolver = getActivity().getContentResolver();
@@ -1560,28 +1396,23 @@ return value;
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
+            } else {
+
+                value = bdy.size();
             }
-            else{
-
-                value=bdy.size();
-            }
 
 
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
         return value;
     }
 
-
     public int geteidNegativeCount() {
-        int value=0;
+        int value = 0;
         try {
 
 //            ContentResolver contentResolver = getActivity().getContentResolver();
@@ -1591,19 +1422,15 @@ return value;
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Negative%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
+            } else {
+
+                value = bdy.size();
             }
-            else{
-
-                value=bdy.size();
-            }
 
 
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -1611,642 +1438,57 @@ return value;
     }
 
     public int geteidPositiveCount() {
-        int value=0;
+        int value = 0;
         try {
 
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%Positive%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
+            } else {
+
+                value = bdy.size();
             }
-            else{
-
-                value=bdy.size();
-            }
 
 
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
         return value;
     }
 
-
-
     public int geteidInvalidCount() {
-        int value=0;
+        int value = 0;
         try {
 
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFEID%' group by m_body", null);
 
             if (bdy.isEmpty()) {
-                value=0;
+                value = 0;
 
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
+            } else {
+                for (int x = 0; x < bdy.size(); x++) {
 
-                    String messbdy=bdy.get(x).getmBody();
+                    String messbdy = bdy.get(x).getmBody();
 
-                    if((messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
-                        value+=1;
-                    }
-                }
-
-            }
-
-
-
-
-        }
-        catch(Exception e){
-
-        }
-
-        return value;
-    }
-
-
-    public int getvlSuppressedCount() {
-        int value=0;
-        try {
-
-
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
-
-//        if (bdy.isEmpty())
-//            return 0;
-//        myadapter.clear();
-
-
-            for(int x=0;x<bdy.size();x++){
-
-                String messbdy=bdy.get(x).getmBody();
-                String ndate = bdy.get(x).getmTimeStamp();
-
-                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
-
-
-
-                    String[] mymessarray=messbdy.split(":");
-
-
-                    String splitVal="";
-
-                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                        splitVal=mymessarray[6];
-
-                    }
-                    else{
-
-                        splitVal=mymessarray[3];
-                    }
-
-
-                    String[] splitvalarray=splitVal.split("\\s+");
-
-
-                    if(splitvalarray[0].contains("<")){
-
+                    if ((messbdy.contains("Collect New Sample") || messbdy.contains("Collect new sexample") || messbdy.contains("Invalid") || messbdy.contains("Failed"))) {
                         value += 1;
-
-
-
                     }
-
-                    else{
-
-
-                        int myval=Integer.parseInt(splitvalarray[0]);
-                        if(myval>1000){
-
-
-                        }
-                        else{
-
-                            value += 1;
-
-
-
-
-                        }
-
-
-                    }
-
-
-
-
                 }
-
-
-
-
 
             }
 
 
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
 
         return value;
     }
-
-
-
-
-    public int getvlUnsuppressedCount() {
-        int value=0;
-        try {
-
-
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body", null);
-
-//        if (bdy.isEmpty())
-//            return 0;
-//        myadapter.clear();
-
-
-            for(int x=0;x<bdy.size();x++){
-
-                String messbdy=bdy.get(x).getmBody();
-                String ndate = bdy.get(x).getmTimeStamp();
-
-                if(!(messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
-
-                    String[] mymessarray=messbdy.split(":");
-
-                    String splitVal="";
-
-                    if(messbdy.contains("Sex") && messbdy.contains("Age")){
-                        splitVal=mymessarray[6];
-
-                    }
-                    else{
-
-                        splitVal=mymessarray[3];
-                    }
-
-
-                    String[] splitvalarray=splitVal.split("\\s+");
-
-
-                    if(splitvalarray[0].contains("<")){
-
-
-
-
-
-                    }
-
-                    else{
-
-
-                        int myval=Integer.parseInt(splitvalarray[0]);
-                        if(myval>1000){
-
-                            value += 1;
-
-
-                        }
-                        else{
-
-
-
-                        }
-
-
-                    }
-
-
-                }
-
-
-
-
-
-            }
-
-
-
-
-        }
-        catch(Exception e){
-
-        }
-
-        return value;
-    }
-
-
-
-    public int getvlUnsuppressedCount23() {
-        int value=0;
-        try {
-
-//            ContentResolver contentResolver = getActivity().getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
-//            int indexBody = smsInboxCursor.getColumnIndex("body");
-//            int indexAddress = smsInboxCursor.getColumnIndex("address");
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%LDL%' and m_body not like'%Invalid%' and read=? group by m_body", "unread");
-
-            if (bdy.isEmpty()) {
-                value=0;
-
-            }
-            else{
-
-                value=bdy.size();
-            }
-
-
-
-
-        }
-        catch(Exception e){
-
-        }
-
-        return value;
-    }
-
-
-
-    public int getvlInvalidCount() {
-        int value=0;
-        try {
-
-//            ContentResolver contentResolver = getActivity().getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address='40147'", null, null);
-//            int indexBody = smsInboxCursor.getColumnIndex("body");
-//            int indexAddress = smsInboxCursor.getColumnIndex("address");
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where m_body like'%FFViral%' group by m_body",null);
-
-            if (bdy.isEmpty()) {
-                value=0;
-
-            }
-            else{
-                for(int x=0;x<bdy.size();x++){
-
-                    String messbdy=bdy.get(x).getmBody();
-                    if((messbdy.contains("Collect New Sample")||messbdy.contains("Collect new sexample")||messbdy.contains("Invalid")||messbdy.contains("Failed"))){
-                        value+=1;
-                    }
-                }
-
-
-            }
-
-
-
-
-        }
-        catch(Exception e){
-
-        }
-
-        return value;
-    }
-
-
-
-
-//    public void refreshSmsInboxTestOld() {
-//        try {
-//            int count=0;
-//            ContentResolver contentResolver = getContentResolver();
-//            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"),null, null, null,null);
-//            int indexBody = smsInboxCursor.getColumnIndex("body");
-//            String mId="";
-//
-//            int indexDate = smsInboxCursor.getColumnIndex("date");
-//
-//
-//
-//            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
-//                return;
-//
-//            do {
-//                String str = smsInboxCursor.getString(indexBody);
-//                String addr = smsInboxCursor.getString(2);
-//                String datee = smsInboxCursor.getString(indexDate);
-//                Long mydate=Long.parseLong(datee);
-//
-//                if(addr.contentEquals(msc.mainShortcode)){
-//
-//
-//                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-//                    Calendar calendar = Calendar.getInstance();
-//                    calendar.setTimeInMillis(mydate);
-//                    String mytimestamp=formatter.format(calendar.getTime());
-//
-//                    GetViralCounts gvc=new GetViralCounts();
-//
-//
-//                    String decryptedmess = new String( mcrypt.decrypt( str ) );
-//                    count++;
-//                    System.out.println("***message****::"+decryptedmess);
-//                    System.out.println("***message count***::"+count);
-//
-//
-//
-//
-//
-////                new code here
-//
-//                    String[] originalArray=decryptedmess.split(":");
-//
-//                    String[] firstpart=originalArray[0].split("\\s+");
-//
-//                    if(firstpart[0].contentEquals("EID")){
-//                        firstpart[0].replace("EID","FFEID Results");
-//                        decryptedmess=decryptedmess.replaceFirst("EID","FFEID Results");
-//
-//                    }
-//                    else if(firstpart[0].contentEquals("VL")){
-//                        firstpart[0].replace("VL","FFViral Load Results");
-//                        decryptedmess=decryptedmess.replaceFirst("VL","FFViral Load Results");
-//
-//
-//                    }
-//
-//                    if(firstpart[1].contentEquals("PID")){
-//                        firstpart[1].replace("PID","Patient ID");
-//                        decryptedmess=decryptedmess.replaceFirst("PID","Patient ID");
-//                    }
-//
-//                    String[] secondpart=originalArray[1].split("\\s+");
-//
-//                    for(int x=0;x<secondpart.length;x++){
-//
-//                        if(secondpart[x].contentEquals("A")){
-//                            secondpart[x].replace("A","Age");
-//                            decryptedmess=decryptedmess.replaceFirst("A","Age");
-//
-//                        }
-//
-//                    }
-//
-//                    String[] thirdpart=originalArray[2].split("\\s+");
-//
-//                    for(int x=0;x<thirdpart.length;x++){
-//
-//                        if(thirdpart[1].contentEquals("S")&&thirdpart[1].length()==1){
-//
-//
-//                            thirdpart[1].replace("S","Sex");
-////                            decryptedmess=decryptedmess.replace("S","Sex");
-//                            decryptedmess=decryptedmess.replaceFirst("S","Sex");
-//
-//
-//                        }
-//
-//                    }
-//
-//                    String[] fourthpart=originalArray[3].split("\\s+");
-//
-//                    for(int x=0;x<fourthpart.length;x++){
-//
-//                        if(fourthpart[x].contentEquals("DC")){
-//                            fourthpart[x].replace("DC","Date Collected");
-//                            decryptedmess=decryptedmess.replaceFirst("DC","Date Collected");
-//
-//
-//                        }
-//
-//                    }
-//
-//                    String[] fifthpart=originalArray[4].split("\\s+");
-//
-//
-//                    for(int x=0;x<fifthpart.length;x++){
-//
-//                        if(fifthpart[x].contentEquals("R")){
-//                            fifthpart[x].replace("R","Result");
-//                            decryptedmess=decryptedmess.replaceFirst("R:","Result:");
-//
-//                        }
-//
-//                    }
-//
-////                new code here
-//
-//
-//
-//                    String vcounts=Integer.toString(gvc.getViralCount(decryptedmess));
-////                String vcounts="12";
-//
-//
-//
-//                    Messages ms=new Messages("false",addr,decryptedmess,mytimestamp,"unread","null",vcounts);
-//                    ms.save();
-//
-//                }
-//
-//
-//
-//            } while (smsInboxCursor.moveToNext());
-////            Toast.makeText(getActivity(), "length "+counter, Toast.LENGTH_SHORT).show();
-//        }
-//        catch(Exception e){
-//
-//        }
-//
-//
-//    }
-
-
-
-
-
-
-    public void refreshSmsInboxTest() {
-        try {
-
-            int count=0;
-            ContentResolver contentResolver = getContentResolver();
-            Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"),null, null, null,null);
-            int indexBody = smsInboxCursor.getColumnIndex("body");
-
-            int indexDate = smsInboxCursor.getColumnIndex("date");
-
-
-
-
-            if (indexBody < 0 || !smsInboxCursor.moveToFirst())
-                return;
-
-            do {
-                String str = smsInboxCursor.getString(indexBody);
-                String addr = smsInboxCursor.getString(2);
-                String datee = smsInboxCursor.getString(indexDate);
-                Long mydate=Long.parseLong(datee);
-
-                StringBuilder newMessage=new StringBuilder();
-                String mId="";
-
-                if(addr.contentEquals(msc.mainShortcode)){
-
-
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(mydate);
-                    String mytimestamp=formatter.format(calendar.getTime());
-
-                    GetViralCounts gvc=new GetViralCounts();
-
-
-                    String decryptedmess = new String( mcrypt.decrypt( str ) );
-                    count++;
-                    System.out.println("***message****::"+decryptedmess);
-                    System.out.println("***message count***::"+count);
-
-
-
-
-
-//                new code here
-
-                    String[] originalArray=decryptedmess.split(":");
-
-                    String[] firstpart=originalArray[0].split("\\s+");
-
-                    if(firstpart[0].contentEquals("EID")){
-
-                        newMessage.append("FFEID Results");
-
-                    }
-
-                    else if(firstpart[0].contentEquals("VL")){
-
-                        newMessage.append("FFViral Load Results");
-
-
-                    }
-
-                    if(firstpart[1].contentEquals("PID")){
-
-                        newMessage.append(" Patient ID");
-                    }
-
-                    String[] secondpart=originalArray[1].split("\\s+");
-
-//                    for(int x=0;x<secondpart.length;x++){
-                    newMessage.append(":"+secondpart[0]);
-
-                    if(secondpart[1].contentEquals("A")){
-
-                        newMessage.append(" Age:");
-
-                    }
-
-//                    }
-
-                    String[] thirdpart=originalArray[2].split("\\s+");
-
-//                    for(int x=0;x<thirdpart.length;x++){
-                    newMessage.append(thirdpart[0]);
-
-                    if(thirdpart[1].contentEquals("S")){
-
-                        newMessage.append(" Sex:");
-
-                    }
-
-//                    }
-
-                    String[] fourthpart=originalArray[3].split("\\s+");
-
-//                    for(int x=0;x<fourthpart.length;x++){
-                    newMessage.append(fourthpart[0]);
-
-                    if(fourthpart[1].contentEquals("DC")){
-
-                        newMessage.append(" Date Collected:");
-
-                    }
-
-//                    }
-                    if(originalArray.length==10){
-
-                        newMessage.append(originalArray[4]+":");
-                        newMessage.append(originalArray[5]+":");
-                        String[] sixthpart=originalArray[6].split("\\s+");
-                        newMessage.append(sixthpart[0]+" Result::");
-                        newMessage.append(originalArray[8]);
-                        mId=originalArray[9];
-
-
-                    }
-                    else if(originalArray.length==9){
-
-                        newMessage.append(originalArray[4]+":");
-                        newMessage.append(originalArray[5]+":");
-                        String[] sixthpart=originalArray[6].split("\\s+");
-                        newMessage.append(sixthpart[0]+" Result::");
-                        newMessage.append(originalArray[8]);
-                        mId="n/a";
-
-
-                    }
-
-                    else if(originalArray.length==8){
-
-                        String[] seventhpart=originalArray[4].split("\\s+");
-                        newMessage.append(seventhpart[0]+" Result::");
-                        newMessage.append(originalArray[6]);
-                        mId=originalArray[7];
-                    }
-                    else if(originalArray.length==7){
-
-                        String[] seventhpart=originalArray[4].split("\\s+");
-                        newMessage.append(seventhpart[0]+" Result::");
-                        newMessage.append(originalArray[6]);
-                        mId="n/a";
-                    }
-
-                    System.out.println("****************************RECEIVED MESSAGE************************");
-                    System.out.println(newMessage);
-
-//                new code here
-
-
-
-                    String vcounts=Integer.toString(gvc.getViralCount(newMessage.toString()));
-//                String vcounts="12";
-
-
-
-                    Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId);
-                    ms.save();
-
-                }
-
-
-
-            } while (smsInboxCursor.moveToNext());
-
-        }
-        catch(Exception e){
-
-        }
-
-
-    }
-
-
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -2254,36 +1496,34 @@ return value;
         return super.onPrepareOptionsMenu(menu);
     }
 
-   public void closeSearch(boolean x){
-       ActionBar action = getSupportActionBar();
-       if(x){
-           action.setDisplayShowCustomEnabled(false);
-           action.setDisplayShowTitleEnabled(true);
+    public void closeSearch(boolean x) {
+        ActionBar action = getSupportActionBar();
+        if (x) {
+            action.setDisplayShowCustomEnabled(false);
+            action.setDisplayShowTitleEnabled(true);
 
-       }
-       else{
+        } else {
 
-           action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
-           action.setDisplayShowTitleEnabled(true); //show the title in the action bar
-
+            action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
+            action.setDisplayShowTitleEnabled(true); //show the title in the action bar
 
 
-           //add the search icon in the action bar
-           mSearchAction.setIcon(getResources().getDrawable(R.mipmap.search));
+            //add the search icon in the action bar
+            mSearchAction.setIcon(getResources().getDrawable(R.mipmap.search));
 
-           getWindow().setSoftInputMode(
-                   WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-           );
+            getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+            );
 
-           isSearchOpened = false;
+            isSearchOpened = false;
 
-       }
-   }
+        }
+    }
 
-    protected void handleMenuSearch(){
+    protected void handleMenuSearch() {
         ActionBar action = getSupportActionBar(); //get the actionbar
 
-        if(isSearchOpened){ //test if the search is open
+        if (isSearchOpened) { //test if the search is open
 
             action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
             action.setDisplayShowTitleEnabled(true); //show the title in the action bar
@@ -2303,7 +1543,7 @@ return value;
             action.setCustomView(R.layout.search_bar);//add the custom view
             action.setDisplayShowTitleEnabled(false); //hide the title
 
-            edtSeach = (EditText)action.getCustomView().findViewById(R.id.edtSearch); //the text editor
+            edtSeach = (EditText) action.getCustomView().findViewById(R.id.edtSearch); //the text editor
 
             //this is a listener to do a search when the user clicks on search button
 //            edtSeach.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -2352,12 +1592,10 @@ return value;
         }
     }
 
-
-
-    protected void handleMenuSearch2(){
+    protected void handleMenuSearch2() {
         ActionBar action = getSupportActionBar(); //get the actionbar
 
-        if(isSearchOpened){ //test if the search is open
+        if (isSearchOpened) { //test if the search is open
 
             action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
             action.setDisplayShowTitleEnabled(true); //show the title in the action bar
@@ -2377,7 +1615,7 @@ return value;
             action.setCustomView(R.layout.search_bar);//add the custom view
             action.setDisplayShowTitleEnabled(false); //hide the title
 
-            edtSeach = (EditText)action.getCustomView().findViewById(R.id.edtSearch); //the text editor
+            edtSeach = (EditText) action.getCustomView().findViewById(R.id.edtSearch); //the text editor
 
             //this is a listener to do a search when the user clicks on search button
 //            edtSeach.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -2435,13 +1673,13 @@ return value;
     @Override
     protected void onPause() {
         super.onPause();
-        try{
+        try {
 
-            List myl2=Messages.findWithQuery(Messages.class,"Select * from Messages limit 1");
+            List myl2 = Messages.findWithQuery(Messages.class, "Select * from Messages limit 1");
 
-            for(int x=0;x<myl2.size();x++){
+            for (int x = 0; x < myl2.size(); x++) {
 
-                Messages ms=(Messages) myl2.get(x);
+                Messages ms = (Messages) myl2.get(x);
                 ms.getId();
                 System.out.println("original string timestamp");
                 System.out.println(ms.getmTimeStamp());
@@ -2462,9 +1700,8 @@ return value;
 //                ms.save();
 ////                Toast.makeText(this, "success reading messages", Toast.LENGTH_SHORT).show();
 //            }
-        }
-        catch(Exception e){
-            Toast.makeText(this, "error reading messages "+e, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "error reading messages " + e, Toast.LENGTH_SHORT).show();
 
         }
 
@@ -2473,9 +1710,7 @@ return value;
     @Override
     protected void onPostResume() {
         super.onPostResume();
-//        Toast.makeText(this, "onresume called", Toast.LENGTH_SHORT).show();
-        defineSmsReceiver();
-        registerSmsReceiver();
+
     }
 
     @Override
@@ -2507,12 +1742,11 @@ return value;
 //        Toast.makeText(this, "onstart created", Toast.LENGTH_SHORT).show();
     }
 
-
-    public void MydialogBuilder(final String message,final String title){
+    public void MydialogBuilder(final String message, final String title) {
         final boolean[] exiting = {false};
         AlertDialog.Builder b = new AlertDialog.Builder(this);
 
-        b.setMessage(message+"\n");
+        b.setMessage(message + "\n");
         b.setTitle(title);
         b.setCancelable(false);
 
@@ -2521,19 +1755,8 @@ return value;
 
 
                 String PhoneNo = "+254786725994";
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + PhoneNo));
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-//                    return ;
-                }
-                startActivity(intent);
 
+                mc.initiateCall(PhoneNo);
 
 
                 dialog.cancel();
@@ -2543,11 +1766,8 @@ return value;
         b.setNeutralButton("MESSAGE", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                Intent smsIntent = new Intent(Intent.ACTION_VIEW);
-                smsIntent.setType("vnd.android-dir/mms-sms");
-                smsIntent.putExtra("address", msc.sendSmsShortcode);
-                smsIntent.putExtra("sms_body","your message here...");
-                startActivity(smsIntent);
+                sm.sendMessageApi("type message here", msc.sendSmsShortcode);
+
 
             }
         });
@@ -2559,7 +1779,7 @@ return value;
             }
         });
 
-        AlertDialog a=b.create();
+        AlertDialog a = b.create();
 
         a.show();
 
@@ -2572,170 +1792,109 @@ return value;
 
     }
 
+    public void sendReadReport() {
 
-    public void sendReadReport(){
+        try {
 
-        try{
-
-            int read=0;
-            int todayReceived=0;
-            int todayRead=0;
-            String unread="";
-            String tstamp="";
-            int allmesages=0;
-            String dt="";
-            String mth="";
-            String yr="";
+            int read = 0;
+            int todayReceived = 0;
+            int todayRead = 0;
+            String unread = "";
+            String tstamp = "";
+            int allmesages = 0;
+            String dt = "";
+            String mth = "";
+            String yr = "";
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //            System.out.println("testing "+timestamp);
-            String x=timestamp.toString();
-            String[] spliting=x.split("\\s+");
-            System.out.println("testing new "+spliting[0]);
-            String mydate=spliting[0];
-            String[] splitedMydate=mydate.split("-");
-            dt=splitedMydate[2];
-            mth=splitedMydate[1];
-            yr=splitedMydate[0];
+            String x = timestamp.toString();
+            String[] spliting = x.split("\\s+");
+            System.out.println("testing new " + spliting[0]);
+            String mydate = spliting[0];
+            String[] splitedMydate = mydate.split("-");
+            dt = splitedMydate[2];
+            mth = splitedMydate[1];
+            yr = splitedMydate[0];
 
 
-            List<Messages> myl2=Messages.findWithQuery(Messages.class,"Select * from Messages group by m_body",null);
-            for(int y=0;y<myl2.size();y++){
-                allmesages=myl2.size();
-               tstamp=myl2.get(y).getmTimeStamp();
+            List<Messages> myl2 = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+            for (int y = 0; y < myl2.size(); y++) {
+                allmesages = myl2.size();
+                tstamp = myl2.get(y).getmTimeStamp();
 
-                String[] splitedDate=tstamp.split("/");
-                String yeararr=splitedDate[2];//returns the string like 2017 11:10:30.366
-                String[] myyeararr=yeararr.split("\\s+");//split the white space to get only the year e.g 2017
+                String[] splitedDate = tstamp.split("/");
+                String yeararr = splitedDate[2];//returns the string like 2017 11:10:30.366
+                String[] myyeararr = yeararr.split("\\s+");//split the white space to get only the year e.g 2017
 
 
-                String mymnth=splitedDate[1];
-                String myyear=myyeararr[0];
-                String myday=splitedDate[0];
+                String mymnth = splitedDate[1];
+                String myyear = myyeararr[0];
+                String myday = splitedDate[0];
 
-                if(mymnth.contentEquals(mth)&& myyear.contentEquals(yr)&& myday.contentEquals(dt)){
+                if (mymnth.contentEquals(mth) && myyear.contentEquals(yr) && myday.contentEquals(dt)) {
 
-                    todayReceived+=1;
+                    todayReceived += 1;
                 }
-
 
 
             }
 
-            List<Messages> myl3=Messages.findWithQuery(Messages.class,"Select * from Messages where read=? group by m_body", "read");
-            for(int y=0;y<myl3.size();y++){
-                read=myl3.size();
+            List<Messages> myl3 = Messages.findWithQuery(Messages.class, "Select * from Messages where read=? group by m_body", "read");
+            for (int y = 0; y < myl3.size(); y++) {
+                read = myl3.size();
 
-                tstamp=myl3.get(y).getDateRead();
+                tstamp = myl3.get(y).getDateRead();
 
 
-                String[] spliting2=tstamp.split("\\s+");
-                System.out.println("testing new "+spliting2[0]);
-                String mydate1=spliting2[0];
+                String[] spliting2 = tstamp.split("\\s+");
+                System.out.println("testing new " + spliting2[0]);
+                String mydate1 = spliting2[0];
 
-                String[] splitedMydate1=mydate1.split("-");
-                dt=splitedMydate1[2];
-                mth=splitedMydate1[1];
-                yr=splitedMydate1[0];
-
+                String[] splitedMydate1 = mydate1.split("-");
+                dt = splitedMydate1[2];
+                mth = splitedMydate1[1];
+                yr = splitedMydate1[0];
 
 
                 Timestamp timestampnow = new Timestamp(System.currentTimeMillis());
 //            System.out.println("testing "+timestamp);
-                String xnow=timestampnow.toString();
-                String[] splitingnow=xnow.split("\\s+");
-                System.out.println("testing new "+splitingnow[0]);
-                String mydatenow=spliting[0];
-                String[] splitedMydatenow=mydatenow.split("-");
-               String dt1=splitedMydatenow[2];
-               String mth1=splitedMydatenow[1];
-               String yr1=splitedMydatenow[0];
+                String xnow = timestampnow.toString();
+                String[] splitingnow = xnow.split("\\s+");
+                System.out.println("testing new " + splitingnow[0]);
+                String mydatenow = spliting[0];
+                String[] splitedMydatenow = mydatenow.split("-");
+                String dt1 = splitedMydatenow[2];
+                String mth1 = splitedMydatenow[1];
+                String yr1 = splitedMydatenow[0];
 
 
+                if (mth1.contentEquals(mth) && yr1.contentEquals(yr) && dt1.contentEquals(dt)) {
 
-
-
-
-
-                if(mth1.contentEquals(mth)&& yr1.contentEquals(yr)&&dt1.contentEquals(dt)){
-
-                    todayRead+=1;
+                    todayRead += 1;
                 }
 
             }
-            String messReport="mlab"+"*"+mydate+"*"+todayReceived+"*"+todayRead+"*"+allmesages+"*"+read;
-//            RegistrationConf("todayread is: "+todayRead+" today received is "+todayReceived+" total read is "+read+" all messages "+allmesages+" date is "+x,"message test");
-            SmsManager sm = SmsManager.getDefault();
-            sm.sendTextMessage(msc.sendSmsShortcode, null,messReport, null, null);
+            String messReport = "mlab" + "*" + mydate + "*" + todayReceived + "*" + todayRead + "*" + allmesages + "*" + read;
 
+            sm.sendMessageApi(messReport, msc.sendSmsShortcode);
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
 
+    public void displayDbVcounts() {
 
-
-
-
-
-    public void RegistrationConf(final String message,final String title){
-
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-
-        b.setMessage(message+"\n");
-        b.setTitle(title);
-        b.setCancelable(false);
-
-        b.setNegativeButton("CONTINUE TO LOGIN", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent i = new Intent(getApplicationContext(), Mylogin.class);
-                // Closing all the Activities
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-                finish();
-                dialog.cancel();
-            }
-        });
-
-        b.setPositiveButton("EXIT APP", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.cancel();
-//                finish();
-
-            }
-        });
-
-        AlertDialog a=b.create();
-
-        a.show();
-
-        Button bq = a.getButton(DialogInterface.BUTTON_NEGATIVE);
-        Button bn = a.getButton(DialogInterface.BUTTON_NEUTRAL);
-        Button bP = a.getButton(DialogInterface.BUTTON_POSITIVE);
-        bq.setTextColor(Color.GREEN);
-        bn.setTextColor(Color.BLUE);
-        bP.setTextColor(Color.RED);
-
-    }
-
-
-    public void displayDbVcounts(){
-
-        try{
+        try {
             System.out.println("viral count***************************************************************************viral count");
 
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
-            for(int x=0;x<bdy.size();x++){
-                String messbdy=bdy.get(x).getmBody();
-                String count=bdy.get(x).getViralCount();
+            for (int x = 0; x < bdy.size(); x++) {
+                String messbdy = bdy.get(x).getmBody();
+                String count = bdy.get(x).getViralCount();
 
-                System.out.println(messbdy+"**count****"+count);
-
+                System.out.println(messbdy + "**count****" + count);
 
 
             }
@@ -2744,12 +1903,189 @@ return value;
             System.out.println("viral count***************************************************************************viral count");
 
 
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
+
+    /********************************************************************************/
+
+    //start sms retriever api functions
+
+    //function triggered when there is an incoming message from receiver
+    private void listenForIncomingMessage() {
+
+        this.mCredentialsApiClient = (new GoogleApiClient.Builder((Context) this)).addApi(Auth.CREDENTIALS_API).build();
+        this.startSMSListener();
+        this.smsBroadcast.initOTPListener((SmsReceiver.MessageReceiveListener) this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.google.android.gms.auth.api.phone.SMS_RETRIEVED");
+        this.getApplicationContext().registerReceiver((BroadcastReceiver) this.smsBroadcast, intentFilter);
+
+
+    }
+
+    //    function triggered when the application is in background or closed
+    private void initiateBackgroundService() {
+
+        //background code after every 5 seconds
+
+
+        Intent alarm = new Intent(MainActivity.this, SmsReceiver.class);
+        boolean alarmRunning = (PendingIntent.getBroadcast(MainActivity.this, 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
+        if (alarmRunning == false) {
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarm, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 5000, pendingIntent);
+        }
+
+        //background code
+
+    }
+
+    //    function triggered when the actual message is received from our receiver
+    public void onMessageReceived(@NotNull String otp) {
+        Intrinsics.checkParameterIsNotNull(otp, "otp");
+        LocalBroadcastManager.getInstance((Context) this).unregisterReceiver((BroadcastReceiver) this.smsBroadcast);
+
+        saveReceivedMessage(splittedString(otp));
+//        populateListView();
+
+        Toast.makeText(this, "message " + splittedString(otp), Toast.LENGTH_LONG).show();
+    }
+
+    private void saveReceivedMessage(String str) {
+
+        pm.processReceivedMessage(str);
+
+    }
+
+    public void onMessageTimeOut() {
+
+
+    }
+
+    private final void startSMSListener() {
+        SmsRetriever.getClient((Activity) this).startSmsRetriever().addOnSuccessListener((OnSuccessListener) (new OnSuccessListener() {
+
+            public void onSuccess(Object var1) {
+                this.onSuccess((Void) var1);
+            }
+
+            public final void onSuccess(Void it) {
+//                TextView otpTxtView = (TextView) findViewById(R.id.tv1);
+//                Intrinsics.checkExpressionValueIsNotNull(otpTxtView, "otpTxtView");
+//                otpTxtView.setText((CharSequence) "Waiting for message");
+
+//                Toast.makeText(getApplicationContext(), "SMS Retriever starts", Toast.LENGTH_SHORT).show();
+            }
+        })).addOnFailureListener((OnFailureListener) (new OnFailureListener() {
+            public final void onFailure(@NotNull Exception it) {
+                Intrinsics.checkParameterIsNotNull(it, "it");
+//                TextView otpTextView = (TextView) findViewById(R.id.tv1);
+//                Intrinsics.checkExpressionValueIsNotNull(otpTextView, "otpTxtView");
+//                otpTextView.setText((CharSequence) "Cannot Start SMS Retriever");
+
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        }));
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == this.RC_HINT && resultCode == -1) {
+
+            if (data == null) {
+                Intrinsics.throwNpe();
+            }
+
+            Parcelable credentials = data.getParcelableExtra("com.google.android.gms.credentials.Credential");
+            Intrinsics.checkExpressionValueIsNotNull(credentials, "data!!.getParcelableExtra(Credential.EXTRA_KEY)");
+            Credential credential = (Credential) credentials;
+            String credString = "credential : " + credential;
+            System.out.print(credString);
+        }
+
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            incomingMessage = false;
+            method();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+
+//            Toast.makeText(MainActivity.this, "getting messages", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+//            Toast.makeText(MainActivity.this, "done getting messages", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+        HashMap<Integer, Fragment> mPageReferenceMap = new HashMap<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            mPageReferenceMap.put(position, fragment);
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+            mPageReferenceMap.remove(position);
+        }
+
+        public Fragment getFragment(int key) {
+            return mPageReferenceMap.get(key);
+        }
+
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);//enables displaying the title
+            //return null;//disables the displaying of title on tabs
+        }
+
+    }
+
+    //end sms retriever api functions
+
+/************************************************************************************/
 
 }

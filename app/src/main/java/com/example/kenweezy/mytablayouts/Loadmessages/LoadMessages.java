@@ -15,6 +15,7 @@ import com.example.kenweezy.mytablayouts.tables.Htsresults;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class LoadMessages {
@@ -57,6 +58,8 @@ public class LoadMessages {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(mydate);
                     String mytimestamp=formatter.format(calendar.getTime());
+
+
 
                     GetViralCounts gvc=new GetViralCounts();
 

@@ -42,8 +42,8 @@ public class HtsresultsTab extends AppCompatActivity {
     private ViewPager viewPager;
     ViewPagerAdapter adapter;
 
-    String[] tabTitle = {"Positive", "Negative","Inconclusive"};
-    int[] Counts = {0,0,0};
+    String[] tabTitle = {"Positive", "Negative"};
+    int[] Counts = {0,0};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -192,7 +192,7 @@ public class HtsresultsTab extends AppCompatActivity {
 
         adapter.addFragment(new HtsPositiveFragment(), "Positive");
         adapter.addFragment(new HtsNegativeFragment(), "Negative");
-        adapter.addFragment(new HtsNegativeFragment(), "Inconclusive");
+//        adapter.addFragment(new HtsNegativeFragment(), "Inconclusive");
 
 
 

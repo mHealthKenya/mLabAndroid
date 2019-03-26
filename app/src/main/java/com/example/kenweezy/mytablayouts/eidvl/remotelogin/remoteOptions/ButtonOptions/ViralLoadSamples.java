@@ -16,9 +16,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
+import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class ViralLoadSamples extends AppCompatActivity {
@@ -31,6 +33,7 @@ public class ViralLoadSamples extends AppCompatActivity {
     String selectedSex,selectedType,ccnumberS,patientnameS,dobS,datecollectionS,artstartS,currentregimenS,dateartregimenS,artlineS,justcodeS;
 
     DateTimePicker dtp;
+    AccessServer acs;
 //    EditText
 
 
@@ -41,6 +44,9 @@ public class ViralLoadSamples extends AppCompatActivity {
         setToolBar();
         changeStatusBarColor("#3F51B5");
         initialise();
+
+        SSLTrust.nuke();
+
         setSpinnerAdapters();
         setSpinnerSexListener();
         setSpinnerTypeListener();
@@ -150,6 +156,13 @@ public class ViralLoadSamples extends AppCompatActivity {
                 Toast.makeText(this, "sex is required", Toast.LENGTH_SHORT).show();
             }
             else{
+
+                String message=ccnumberS+"*"+patientnameS+"*"+dobS+"*"+datecollectionS+"*"+artstartS+"*"
+                        +currentregimenS+"*"+dateartregimenS+"*"+artlineS+"*"+justcodeS+"*"+selectedType
+                        +"*"+selectedSex;
+
+                acs.submitEidVlData("VL*"+message);
+
                 Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
             }
 
@@ -337,6 +350,7 @@ public class ViralLoadSamples extends AppCompatActivity {
 
 //            EditText ccnumber,patientname,dob,datecollection,artstart,currentregimen,dateartregimen,artline,justcode;
 
+            acs=new AccessServer(ViralLoadSamples.this);
             ccnumberS="";
             patientnameS="";
             dobS="";

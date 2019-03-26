@@ -28,14 +28,14 @@ import java.util.List;
 
 public class MyRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    Progress pr=new Progress();
-    EditText un,pw,cpw,secqnans;
+    Progress pr = new Progress();
+    EditText un, pw, cpw, secqnans;
     CheckBox mychkbx;
     Spinner secqnsp;
-    String selectedQuestion="";
-    String selectedQuestionId="";
+    String selectedQuestion = "";
+    String selectedQuestionId = "";
 
-    String[] options = {"Please select Security Question","what is your favourite pet?","what is your favourite food?","what is your mothers first name?"};
+    String[] options = {"Please select Security Question", "what is your favourite pet?", "what is your favourite food?", "what is your mothers first name?"};
 
 
     @Override
@@ -43,54 +43,49 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myregister);
 
-        try{
+        try {
 
-            List<CheckRun> myl2=CheckRun.findWithQuery(CheckRun.class,"Select * from Check_run");
+            List<CheckRun> myl2 = CheckRun.findWithQuery(CheckRun.class, "Select * from Check_run");
 
 
-
-                for(int y=0;y<myl2.size();y++){
+            for (int y = 0; y < myl2.size(); y++) {
 //                    Toast.makeText(this, ""+myl2.get(y).getFirstRun(), Toast.LENGTH_SHORT).show();
-                }
+            }
 
-                un=(EditText) findViewById(R.id.reguname);
-                pw=(EditText) findViewById(R.id.regpass);
-                cpw=(EditText) findViewById(R.id.cregpass);
-                secqnsp=(Spinner) findViewById(R.id.securityQnSpinner);
-                secqnans=(EditText) findViewById(R.id.securityans);
+            un = (EditText) findViewById(R.id.reguname);
+            pw = (EditText) findViewById(R.id.regpass);
+            cpw = (EditText) findViewById(R.id.cregpass);
+            secqnsp = (Spinner) findViewById(R.id.securityQnSpinner);
+            secqnans = (EditText) findViewById(R.id.securityans);
 
             populateQuestions();
             setSpinnerListeners();
 
 
-                mychkbx=(CheckBox) findViewById(R.id.regcbShowPwd);
+            mychkbx = (CheckBox) findViewById(R.id.regcbShowPwd);
 
 
+            mychkbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                mychkbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (!isChecked) {
+                        // show password
+                        pw.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        cpw.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    } else {
+                        // hide password
+                        pw.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        cpw.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
 
-                        if (!isChecked) {
-                            // show password
-                            pw.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                            cpw.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        }
-                        else {
-                            // hide password
-                            pw.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                            cpw.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-
-                        }
                     }
-                });
+                }
+            });
 
 
-
-        }
-        catch(Exception e){
-            Toast.makeText(this, "error checking run "+e, Toast.LENGTH_SHORT).show();
-            System.out.println(" error occured checking run "+e);
+        } catch (Exception e) {
+            Toast.makeText(this, "error checking run " + e, Toast.LENGTH_SHORT).show();
+            System.out.println(" error occured checking run " + e);
 
 
         }
@@ -98,48 +93,42 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
-    public void populateQuestions(){
+    public void populateQuestions() {
 
-        try{
+        try {
 
-            SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),options);
+            SpinnerAdapter customAdapter = new SpinnerAdapter(getApplicationContext(), options);
 
             secqnsp.setAdapter(customAdapter);
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
+    public void setSpinnerListeners() {
 
-    public void setSpinnerListeners(){
-
-        try{
+        try {
 
             secqnsp.setOnItemSelectedListener(this);
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
 
 
-   public void RegisterUser(View v){
+    public void RegisterUser(View v) {
 
-        try{
-
-
+        try {
 
 
             RegisterCheck();
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
             LogindisplayDialog(e.getMessage());
 
@@ -147,6 +136,7 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     private Boolean exit = false;
+
     @Override
     public void onBackPressed() {
 
@@ -167,14 +157,13 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
         b.setNeutralButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-            finish();
-
+                finish();
 
 
             }
         });
 
-        AlertDialog a=b.create();
+        AlertDialog a = b.create();
 
         a.show();
 
@@ -184,17 +173,17 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
         bn.setTextColor(Color.BLUE);
     }
 
-    public boolean MydialogBuilder(final String message,final String title){
+    public boolean MydialogBuilder(final String message, final String title) {
         final boolean[] exiting = {false};
         AlertDialog.Builder b = new AlertDialog.Builder(this);
 
-        b.setMessage(message+"\n");
+        b.setMessage(message + "\n");
         b.setTitle(title);
         b.setCancelable(false);
 
         b.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                exiting[0] =false;
+                exiting[0] = false;
                 dialog.cancel();
             }
         });
@@ -202,12 +191,12 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
         b.setNeutralButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-               exiting[0]=true;
+                exiting[0] = true;
 
             }
         });
 
-        AlertDialog a=b.create();
+        AlertDialog a = b.create();
 
         a.show();
 
@@ -218,15 +207,15 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
         return exiting[0];
     }
 
-    public void RegisterCheck(){
-        pr.progressing(this,"Validating Registeration Details","Register Validation");
+    public void RegisterCheck() {
+        pr.progressing(this, "Validating Registeration Details", "Register Validation");
 
 
         try {
             String myun = un.getText().toString();
             String mypass = pw.getText().toString();
             String cmypass = cpw.getText().toString();
-            String ans=secqnans.getText().toString();
+            String ans = secqnans.getText().toString();
 
             if (myun.isEmpty()) {
                 pr.DissmissProgress();
@@ -236,44 +225,34 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
                 pr.DissmissProgress();
                 pw.setError("Password is required");
 
-            }
-
-            else if (cmypass.isEmpty()) {
+            } else if (cmypass.isEmpty()) {
                 pr.DissmissProgress();
                 pw.setError("confirm Password is required");
 
-            }
-            else if ((!cmypass.isEmpty())&& (!cmypass.contentEquals(mypass))) {
+            } else if ((!cmypass.isEmpty()) && (!cmypass.contentEquals(mypass))) {
                 pr.DissmissProgress();
                 cpw.setError("passwords do not match");
 
-            }
-            else if(selectedQuestionId.contentEquals("0")){
+            } else if (selectedQuestionId.contentEquals("0")) {
                 Toast.makeText(this, "please select a security question", Toast.LENGTH_SHORT).show();
 
 
-            }
-            else if(ans.trim().isEmpty()){
+            } else if (ans.trim().isEmpty()) {
 
                 Toast.makeText(this, "please specify your security question answer", Toast.LENGTH_SHORT).show();
-            }
+            } else {
 
-            else {
+                UsersTable ut = new UsersTable(myun, mypass, selectedQuestion, ans);
+                ut.save();
+                CheckRun cr = new CheckRun("runned");
+                cr.save();
+                pr.DissmissProgress();
 
-                    UsersTable ut=new UsersTable(myun,mypass,selectedQuestion,ans);
-                    ut.save();
-                    CheckRun cr=new CheckRun("runned");
-                    cr.save();
-                    pr.DissmissProgress();
-
-                    RegistrationConf("Choose Your Action ?","REGISTRATION SUCCESSFUL");
-
-
+                RegistrationConf("Choose Your Action ?", "REGISTRATION SUCCESSFUL");
 
 
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             pr.DissmissProgress();
             LogindisplayDialog(e.getMessage());
 
@@ -281,13 +260,11 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
     }
 
 
-
-
-    public void RegistrationConf(final String message,final String title){
+    public void RegistrationConf(final String message, final String title) {
 
         AlertDialog.Builder b = new AlertDialog.Builder(this);
 
-        b.setMessage(message+"\n");
+        b.setMessage(message + "\n");
         b.setTitle(title);
         b.setCancelable(false);
 
@@ -313,7 +290,7 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-        AlertDialog a=b.create();
+        AlertDialog a = b.create();
 
         a.show();
 
@@ -327,11 +304,11 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
     }
 
 
-    public void LogindisplayDialog(String message){
+    public void LogindisplayDialog(String message) {
 
-        try{
+        try {
 
-            AlertDialog.Builder adb=new AlertDialog.Builder(this);
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
             adb.setTitle("REGISTER ERROR");
             adb.setIcon(R.mipmap.error);
             adb.setMessage(message.toUpperCase());
@@ -347,13 +324,9 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
             });
 
 
-
-
-
-            AlertDialog mydialog=adb.create();
+            AlertDialog mydialog = adb.create();
             mydialog.show();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
@@ -363,23 +336,21 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        try{
+        try {
 
 
-            Spinner spin=(Spinner) parent;
+            Spinner spin = (Spinner) parent;
 
-            if(spin.getId()==R.id.securityQnSpinner){
+            if (spin.getId() == R.id.securityQnSpinner) {
 
 
-                selectedQuestion=parent.getSelectedItem().toString();
-                selectedQuestionId=Integer.toString(position);
+                selectedQuestion = parent.getSelectedItem().toString();
+                selectedQuestionId = Integer.toString(position);
 //                Toast.makeText(this, "selected "+selectedQuestion, Toast.LENGTH_SHORT).show();
 
             }
 
-        }
-
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
