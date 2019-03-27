@@ -29,7 +29,7 @@ import java.util.List;
 public class MyRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Progress pr = new Progress();
-    EditText un, pw, cpw, secqnans;
+    EditText un, pw, cpw, secqnans,phone;
     CheckBox mychkbx;
     Spinner secqnsp;
     String selectedQuestion = "";
@@ -53,6 +53,7 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
             }
 
             un = (EditText) findViewById(R.id.reguname);
+            phone = (EditText) findViewById(R.id.regphone);
             pw = (EditText) findViewById(R.id.regpass);
             cpw = (EditText) findViewById(R.id.cregpass);
             secqnsp = (Spinner) findViewById(R.id.securityQnSpinner);
@@ -212,12 +213,18 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
 
 
         try {
+            String myphone = phone.getText().toString();
             String myun = un.getText().toString();
             String mypass = pw.getText().toString();
             String cmypass = cpw.getText().toString();
             String ans = secqnans.getText().toString();
 
-            if (myun.isEmpty()) {
+            if (myphone.isEmpty()) {
+                pr.DissmissProgress();
+                phone.setError("Phonenumber is required");
+
+            }
+            else if (myun.isEmpty()) {
                 pr.DissmissProgress();
                 un.setError("Username is required");
 
@@ -242,7 +249,7 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText(this, "please specify your security question answer", Toast.LENGTH_SHORT).show();
             } else {
 
-                UsersTable ut = new UsersTable(myun, mypass, selectedQuestion, ans);
+                UsersTable ut = new UsersTable(myun, mypass, selectedQuestion, ans,myphone);
                 ut.save();
                 CheckRun cr = new CheckRun("runned");
                 cr.save();

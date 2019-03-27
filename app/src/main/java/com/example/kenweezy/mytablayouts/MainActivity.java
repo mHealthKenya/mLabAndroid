@@ -45,11 +45,14 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
+import com.example.kenweezy.mytablayouts.Checkinternet.CheckInternet;
 import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.GetMessageCount.GetCounts;
 import com.example.kenweezy.mytablayouts.MakeCalls.makeCalls;
 import com.example.kenweezy.mytablayouts.ProcessReceivedMessage.ProcessMessage;
 import com.example.kenweezy.mytablayouts.Smsretrieverapi.SmsReceiver;
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.fragmentTagTable.fragmenttags;
 import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
@@ -120,6 +123,10 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
     makeCalls mc;
     private TabLayout tabLayout;
 
+    CheckInternet chk;
+    Base64Encoder encoder;
+    AccessServer acs;
+
 
     //    start sms retriever api
     private ViewPager viewPager;
@@ -172,6 +179,10 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
 
     private void initialise() {
 
+        chk=new CheckInternet(MainActivity.this);
+        encoder=new Base64Encoder();
+        acs=new AccessServer(MainActivity.this);
+
         fabref = (FloatingActionButton) findViewById(R.id.fabmainres);
         sm = new SendMessage(MainActivity.this);
         pm = new ProcessMessage();
@@ -185,11 +196,30 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
             @Override
             public void onClick(View view) {
 
-                sm.sendMessageApi("0713559850", Config.mainShortcode);
+                String userPhoneNumber="";
 
-                listenForIncomingMessage();
+                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from UsersTable limit 1");
+                for(int y=0;y<myl.size();y++){
 
-                Toast.makeText(MainActivity.this, "refreshing results", Toast.LENGTH_SHORT).show();
+                    userPhoneNumber=myl.get(y).getPhonenumber();
+                }
+
+                if(chk.isInternetAvailable()){
+
+                    acs.getResultsFromDb(encoder.encryptString(userPhoneNumber));
+
+                }
+                else{
+
+                    sm.sendMessageApi(encoder.encryptString(userPhoneNumber), Config.mainShortcode);
+
+                    listenForIncomingMessage();
+
+                }
+
+
+
+//                Toast.makeText(MainActivity.this, "refreshing results", Toast.LENGTH_SHORT).show();
             }
         });
     }

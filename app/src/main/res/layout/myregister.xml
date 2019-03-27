@@ -51,6 +51,22 @@
                     <EditText
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_phone"
+                        android:drawableTint="#FF4081"
+                        android:singleLine="true"
+                        android:maxLength="10"
+                        android:hint="Phone number e.g(071234567)"
+                        android:id="@+id/regphone"
+                        android:inputType="phone" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
                         android:drawableLeft="@mipmap/user"
                         android:drawableTint="#FF4081"
                         android:singleLine="true"

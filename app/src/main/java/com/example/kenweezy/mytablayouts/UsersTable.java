@@ -12,14 +12,24 @@ public class UsersTable extends SugarRecord {
     public String password;
     public String securityqn;
     public String securityans;
+    public String phonenumber;
 
     public UsersTable(){}
 
-    public UsersTable(String uname,String pwd,String secqn,String secans){
+    public UsersTable(String uname,String pwd,String secqn,String secans,String phonenumber){
+        this.phonenumber=phonenumber;
         this.username=uname;
         this.password=pwd;
         this.securityqn=secqn;
         this.securityans=secans;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public String getSecurityqn() {

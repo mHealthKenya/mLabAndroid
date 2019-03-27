@@ -6,6 +6,9 @@ public class Config {
     public static String sendSmsShortcode="40147";
     public static String registerShortcode="40147";
 
+    public static final String JSON_ARRAYRESULTS = "result";
+    public static final String KEY_MESSAGECODE="message";
+
     public static final String[] SPINNERLISTLABS = {"LAB1","LAB2"};
 
     public static final String[] SPINNERLISTSEX = {"Male", "Female"};
@@ -22,6 +25,8 @@ public class Config {
     public static final String SIGNUP_URL = "https://c4c.mhealthkenya.co.ke/Core/AppReg";
     public static final String EIDVL_DATA_URL = "https://c4c.mhealthkenya.co.ke/Core/AppReg";
     public static final String HTS_DATA_URL = "https://c4c.mhealthkenya.co.ke/Core/AppReg";
+    public static final String RESULTS_DATA_URL = "https://mlabtest.mhealthkenya.co.ke/vl/results";
+    public static final String HISTORICALRESULTS_DATA_URL = "https://mlabtest.mhealthkenya.co.ke/historical/vl/results";
 
 
     public static final String KEY_SIGNUP_FNAME = "fname";

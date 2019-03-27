@@ -12,6 +12,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
+import com.example.kenweezy.mytablayouts.Checkinternet.CheckInternet;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
@@ -35,6 +37,8 @@ public class HistoricalResults extends AppCompatActivity {
 
     SendMessage sm;
     Base64Encoder encoder;
+    AccessServer acs;
+    CheckInternet chk;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class HistoricalResults extends AppCompatActivity {
             mflcode = (EditText) findViewById(R.id.histfilter_mflcode);
             sm = new SendMessage(HistoricalResults.this);
             encoder = new Base64Encoder();
+            chk=new CheckInternet(HistoricalResults.this);
+            acs=new AccessServer(HistoricalResults.this);
 
 
         } catch (Exception e) {
@@ -305,7 +311,25 @@ public class HistoricalResults extends AppCompatActivity {
                                 String mymflcode = mflcode.getText().toString().trim();
                                 String sendMessage = "histr*" + mymflcode + "*" + myfrm + "*" + mytow;
 
-                                sm.sendMessageApi(encoder.encryptString(sendMessage), msc.sendSmsShortcode);
+                                String userPhoneNumber="";
+
+                                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from UsersTable limit 1");
+                                for(int y=0;y<myl.size();y++){
+
+                                    userPhoneNumber=myl.get(y).getPhonenumber();
+                                }
+
+                                if(chk.isInternetAvailable()){
+
+                                    acs.getHistoricalResultsFromDb(userPhoneNumber,sendMessage);
+                                }
+                                else{
+
+                                    sm.sendMessageApi(encoder.encryptString(sendMessage), msc.sendSmsShortcode);
+
+
+                                }
+
 
 
                                 Toast.makeText(HistoricalResults.this, "Request for historical results was successful", Toast.LENGTH_SHORT).show();

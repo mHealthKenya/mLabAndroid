@@ -1,38 +1,26 @@
 package com.example.kenweezy.mytablayouts;
 
 import android.app.DatePickerDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AlertDialog;
-import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
-import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
 import com.example.kenweezy.mytablayouts.printing.BluetoothDemo;
 import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
@@ -56,25 +44,15 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
     List myprintlist;
 
-    MCrypt mcrypt=new MCrypt();
-    BroadcastReceiver broadcastReceiver;
     MessageDialog mdialog;
 
 
     View v;
     Myshortcodes msc=new Myshortcodes();
-    boolean dateVisible,weekVisible;
     Button allr,printResBut;
-
-    boolean allSelected;
 
     ImageView imvall;
     DatePickerDialog datePickerDialog;
-
-    String[] otpions = {"please select an Option","filter by date","Filter by week"};
-    SpinnerAdapter optionsAdapter;
-    String optionsSelected;
-    Spinner filterspinner;
 
     public FragmentAll(){
 
@@ -85,27 +63,12 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
     private List<Mydata> mymesslist;
     private static FragmentAll inst;
-    ArrayList<String> smsMessagesList = new ArrayList<String>();
-    ListView smsListView;
-    ArrayAdapter arrayAdapter;
     int counter=0;
-    String smsMessage = "";
 
     Progress pr=new Progress();
     SendMessage sm;
     Base64Encoder encoder;
 
-
-
-    public static FragmentAll instance() {
-        return inst;
-    }
-
-    public static FragmentAll newInstance() {
-
-        return (new FragmentAll());
-
-    }
 
     @Override
     public void onStart() {
@@ -635,8 +598,6 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
             allr=(Button) v.findViewById(R.id.allres);
             printResBut=(Button) v.findViewById(R.id.printres);
             imvall=(ImageView) v.findViewById(R.id.iv_check_all);
-
-            allSelected=false;
 
             setSelectAll();
 
@@ -1287,51 +1248,9 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     }
 
 
-
-    public void MydialogBuilder(final String message,final String date){
-
-        AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
-
-        b.setMessage(message+"\n"+date);
-        b.setCancelable(false);
-
-        b.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        b.setNeutralButton("Print", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, message+"\n"+date);
-//                                    sendIntent.putExtra(Intent.EXTRA_TEXT, date);
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
-
-            }
-        });
-
-        AlertDialog a=b.create();
-
-        a.show();
-
-        Button bq = a.getButton(DialogInterface.BUTTON_NEGATIVE);
-        Button bn = a.getButton(DialogInterface.BUTTON_NEUTRAL);
-        bq.setTextColor(Color.RED);
-        bn.setTextColor(Color.BLUE);
-    }
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    public void test(){
-//        Toast.makeText(getActivity(), "testing calls", Toast.LENGTH_SHORT).show();
     }
 
     public void doSearching(CharSequence s){
@@ -1346,78 +1265,6 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
 
-
-
-    }
-
-
-    public void refreshSmsInbox() {
-        try {
-
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
-
-            if (bdy.isEmpty())
-                return;
-//            myadapter.clear();
-
-
-            for(int x=0;x<bdy.size();x++){
-
-                counter += 1;
-                String messbdy=bdy.get(x).getmBody();
-                String messId=bdy.get(x).getMessageId();
-
-
-
-                String ndate = bdy.get(x).getmTimeStamp();
-                String read=bdy.get(x).getRead();
-                String mychkd=bdy.get(x).getChkd();
-
-                String mvcnt=bdy.get(x).getViralCount();
-                int vcount=Integer.parseInt(mvcnt);
-                boolean txtChkd;
-
-                if(mychkd.contentEquals("true")){
-
-                    txtChkd=true;
-                }
-                else{
-                    txtChkd=false;
-
-
-                }
-
-
-                String bdycont=messbdy+"@"+ndate;
-
-
-                String[] checkSplitdate=ndate.split("/");
-
-
-                if(checkSplitdate.length>1){
-
-                }
-                else{
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(Long.parseLong(ndate));
-                    ndate = formatter.format(calendar.getTime());
-
-                }
-
-
-                mymesslist.add(new Mydata(txtChkd,messbdy,ndate,read,vcount,messId));
-
-//                myadapter.add(bdycont);
-
-
-
-            }
-
-        }
-        catch(Exception e){
-
-        }
 
 
     }
