@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Checkinternet.CheckInternet;
+import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
@@ -47,6 +48,8 @@ public class HistoricalResults extends AppCompatActivity {
         setToolBar();
         initialise();
         mflcodeInpuListener();
+
+        SSLTrust.nuke();
 
         setDatePickerFrm();
         checkFrmDateListener();
@@ -313,11 +316,13 @@ public class HistoricalResults extends AppCompatActivity {
 
                                 String userPhoneNumber="";
 
-                                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from UsersTable limit 1");
+                                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
                                 for(int y=0;y<myl.size();y++){
 
                                     userPhoneNumber=myl.get(y).getPhonenumber();
                                 }
+
+                                Toast.makeText(HistoricalResults.this, ""+userPhoneNumber, Toast.LENGTH_SHORT).show();
 
                                 if(chk.isInternetAvailable()){
 

@@ -58,7 +58,7 @@ public class TestClass extends AppCompatActivity implements SmsReceiver.MessageR
 
 //        generateAppSignature();
 //       app id for debug => ukmLMZrTc2e
-//      app id for release =>
+//      app id for release => Z9j3qy+Ivki
 
         listenForIncomingMessage();
 
@@ -200,6 +200,7 @@ public class TestClass extends AppCompatActivity implements SmsReceiver.MessageR
             }
         }));
     }
+
 
 
     protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable Intent data) {

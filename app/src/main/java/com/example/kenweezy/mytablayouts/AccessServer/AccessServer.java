@@ -3,6 +3,7 @@ package com.example.kenweezy.mytablayouts.AccessServer;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -43,71 +44,6 @@ public class AccessServer {
         pm=new ProcessMessage();
     }
 
-
-
-
-
-    public void signupUser(final String firstname, final String lastname, final String username , final String phone_no, final String password,
-                           final String security, final String answer,final String selectedQn) {
-
-        pr.showProgress("Signing up user.....");
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.SIGNUP_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-//                        Toast.makeText(ctx, "message "+response, Toast.LENGTH_SHORT).show();
-                        pr.dissmissProgress();
-                        if(response.contains("Oops")){
-
-                            sweetdialog.showErrorDialog(" "+response,"Error signing up");
-
-
-
-                        }
-                        else{
-
-
-                            sweetdialog.showSuccessDialog("Success signing up "+response,"SUCCESS");
-
-
-
-
-                        }
-
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        pr.dissmissProgress();
-
-                        sweetdialog.showErrorDialog("Error occured "+error.getMessage(), "Error");
-
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put(Config.KEY_SIGNUP_FNAME, firstname);
-                params.put(Config.KEY_SIGNUP_LNAME, lastname);
-                params.put(Config.KEY_SIGNUP_UNAME, username);
-                params.put(Config.KEY_SIGNUP_PWD, password);
-                params.put(Config.KEY_SIGNUP_SECQN, security);
-                params.put(Config.KEY_SIGNUP_ANS, answer);
-                params.put(Config.KEY_SIGNUP_PHONE, phone_no);
-
-                return params;
-            }
-
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(ctx);
-        requestQueue.add(stringRequest);
-
-    }
 
     public void submitEidVlData(final String message) {
 
@@ -197,7 +133,7 @@ public class AccessServer {
 
     public void getResultsFromDb(final String phone){
 
-        Toast.makeText(ctx, ""+phone, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ctx, ""+phone, Toast.LENGTH_SHORT).show();
 
         try{
 
@@ -206,6 +142,8 @@ public class AccessServer {
 
             StringRequest stringRequest = new StringRequest(POST,Config.RESULTS_DATA_URL,
                     new Response.Listener<String>() {
+
+//
                         @Override
                         public void onResponse(String response) {
 //                            pd.dismissDialog();
@@ -215,9 +153,9 @@ public class AccessServer {
 //                            Toast.makeText(ctx, " "+response, Toast.LENGTH_SHORT).show();
 
                             pr.dissmissProgress();
-                            if(response.trim().equalsIgnoreCase("Empty")){
+                            if(response.trim().equalsIgnoreCase("Phone Number not attached to any Facility")){
 
-                                Toast.makeText(ctx, "You do not have any results", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx, ""+response, Toast.LENGTH_LONG).show();
 
                             }
                             else{
@@ -226,8 +164,19 @@ public class AccessServer {
                                 try {
                                     j = new JSONObject(response);
                                     id_result = j.getJSONArray(Config.JSON_ARRAYRESULTS);
+                                    System.out.println("****length****"+id_result.length());
+                                    if(id_result.length()==0){
 
-                                    getMyResultsFromDb(id_result);
+                                        Toast.makeText(ctx, "You do not have any results", Toast.LENGTH_LONG).show();
+
+                                    }
+                                    else{
+
+                                        getMyResultsFromDb(id_result);
+
+                                    }
+
+
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -246,9 +195,10 @@ public class AccessServer {
 
 //                            pd.dismissDialog();
                             pr.dissmissProgress();
+
                             System.out.println("******************error*************");
                             System.out.println(error);
-                            Toast.makeText(ctx, "error "+error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ctx, "error "+error, Toast.LENGTH_LONG).show();
 
 
                         }
@@ -273,6 +223,8 @@ public class AccessServer {
 //                }
 
             };
+
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
             RequestQueue requestQueue = Volley.newRequestQueue(ctx);
             requestQueue.add(stringRequest);
 
@@ -294,14 +246,16 @@ public class AccessServer {
                 JSONObject json = j.getJSONObject(i);
 
 
-                String message=json.getString(Config.KEY_MESSAGECODE);
+                String message = json.getString(Config.KEY_MESSAGECODE);
 
                 pm.processReceivedMessage(message);
 
 
             } catch (JSONException e) {
                 e.printStackTrace();
-//                Toast.makeText(CreateUser.this, "an error getting facilities "+ e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, "error occured "+ e, Toast.LENGTH_SHORT).show();
+                System.out.println("********json error*********");
+                System.out.println(e);
             }
         }
 
@@ -319,7 +273,9 @@ public class AccessServer {
 
     public void getHistoricalResultsFromDb(final String phone,final String message){
 
-        Toast.makeText(ctx, ""+phone, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, "the phone number"+phone, Toast.LENGTH_SHORT).show();
+        System.out.println("*********number***********"+phone);
+        System.out.println("*********encrypted number**********"+Base64Encoder.encryptString(phone));
 
         try{
 
@@ -332,14 +288,19 @@ public class AccessServer {
                         public void onResponse(String response) {
 //                            pd.dismissDialog();
 
-                            System.out.println("**************messages*********************");
+                            System.out.println("**************historical messages*********************");
                             System.out.println(response);
 //                            Toast.makeText(ctx, " "+response, Toast.LENGTH_SHORT).show();
 
                             pr.dissmissProgress();
-                            if(response.trim().equalsIgnoreCase("Empty")){
+                            if(response.trim().contains("No results were found for this period")){
 
-                                Toast.makeText(ctx, "You do not have any results", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx, ""+response, Toast.LENGTH_SHORT).show();
+
+                            }
+                            else if(response.trim().contains("Phone Number not Authorised to receive results")){
+
+                                Toast.makeText(ctx, ""+response, Toast.LENGTH_SHORT).show();
 
                             }
                             else{
@@ -349,11 +310,24 @@ public class AccessServer {
                                     j = new JSONObject(response);
                                     id_result = j.getJSONArray(Config.JSON_ARRAYRESULTS);
 
-                                    getMyHistoricalResultsFromDb(id_result);
+
+                                    if(id_result.length()==0){
+
+                                        Toast.makeText(ctx, "You do not have any results", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                    else{
+
+                                        getMyHistoricalResultsFromDb(id_result);
+
+                                    }
+
+
 
                                 } catch (JSONException e) {
+
                                     e.printStackTrace();
-                                    Toast.makeText(ctx, "error getting results "+e, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ctx, "error getting results "+e, Toast.LENGTH_LONG).show();
 
                                 }
 

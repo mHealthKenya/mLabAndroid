@@ -1,6 +1,8 @@
 package com.example.kenweezy.mytablayouts.SSLTrustCertificate;
 
 
+import com.example.kenweezy.mytablayouts.Config.Config;
+
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.regex.Matcher;
@@ -50,7 +52,7 @@ public class SSLTrust {
 
                     Matcher matcher = pattern.matcher(text);
 
-                    if(!hostname.equalsIgnoreCase("https://ushauritest.mhealthkenya.co.ke/chore/affiliation")||!hostname.matches("https://ushauritest.mhealthkenya.co.ke/chore/receiver/(.*)")||!hostname.equalsIgnoreCase("https://ushauritest.mhealthkenya.co.ke/chore/receiver_post")){
+                    if(!hostname.equalsIgnoreCase(Config.EIDVL_DATA_URL)||!hostname.equalsIgnoreCase(Config.HISTORICALRESULTS_DATA_URL)||!hostname.equalsIgnoreCase(Config.RESULTS_DATA_URL)){
                         return true;
 
                     }

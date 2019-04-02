@@ -51,6 +51,7 @@ import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.GetMessageCount.GetCounts;
 import com.example.kenweezy.mytablayouts.MakeCalls.makeCalls;
 import com.example.kenweezy.mytablayouts.ProcessReceivedMessage.ProcessMessage;
+import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.Smsretrieverapi.SmsReceiver;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
@@ -150,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        SSLTrust.nuke();
 
         Stetho.initializeWithDefaults(this);
         initialise();
@@ -198,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
 
                 String userPhoneNumber="";
 
-                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from UsersTable limit 1");
+                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
                 for(int y=0;y<myl.size();y++){
 
                     userPhoneNumber=myl.get(y).getPhonenumber();
@@ -206,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
 
                 if(chk.isInternetAvailable()){
 
-                    acs.getResultsFromDb(encoder.encryptString(userPhoneNumber));
+                    acs.getResultsFromDb(userPhoneNumber);
 
                 }
                 else{
@@ -1982,7 +1984,7 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
         saveReceivedMessage(splittedString(otp));
 //        populateListView();
 
-        Toast.makeText(this, "message " + splittedString(otp), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "message " + splittedString(otp), Toast.LENGTH_LONG).show();
     }
 
     private void saveReceivedMessage(String str) {
