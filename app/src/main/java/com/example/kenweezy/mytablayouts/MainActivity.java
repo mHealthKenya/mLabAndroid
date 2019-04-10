@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
 
                 if(chk.isInternetAvailable()){
 
-                    acs.getResultsFromDb(userPhoneNumber);
+                    acs.getVlEidResultsFromDb(userPhoneNumber);
 
                 }
                 else{

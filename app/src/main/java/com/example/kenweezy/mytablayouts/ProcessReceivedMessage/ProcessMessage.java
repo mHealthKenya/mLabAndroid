@@ -7,9 +7,11 @@ import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.GetViralCounts;
 import com.example.kenweezy.mytablayouts.Messages;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
+import com.example.kenweezy.mytablayouts.tables.Htsresults;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class ProcessMessage {
 
@@ -36,6 +38,8 @@ public class ProcessMessage {
 
             String mytimestamp = simpleDateFormat.format(new Date());
 
+            Htsresults htsres=new Htsresults();
+
 
             String decryptedmess = encoder.decryptedString(str);
 
@@ -44,115 +48,177 @@ public class ProcessMessage {
 
             String[] firstpart=originalArray[0].split("\\s+");
 
-            if(firstpart[0].contentEquals("EID")){
-                firstpart[0].replace("EID","FFEID Results");
-                decryptedmess=decryptedmess.replace("EID","FFEID Results");
-                newMessage.append("FFEID Results");
+            if(firstpart[0].contentEquals("HTS")){
+
+
+                //************start process hts logic here
+                String[] pidarr=firstpart[1].split(":");
+                String pid=pidarr[1];
+
+                String[] agearr=firstpart[2].split(":");
+                String age=agearr[1];
+
+                String[] sexarr=firstpart[3].split(":");
+                String sex=sexarr[1];
+
+                String[] resultarr=firstpart[6].split(":");
+                String result=resultarr[1];
+
+                String[] datesubmittedarr=firstpart[7].split(":");
+                String datesubmitted=datesubmittedarr[1];
+
+                String[] datereleasearr=firstpart[8].split(":");
+                String daterelease=datereleasearr[1];
+
+                String[] sampleidarr=firstpart[9].split(":");
+                String sampleid=sampleidarr[1];
+
+                List<Htsresults> mylh=Htsresults.findWithQuery(Htsresults.class,"select * from Htsresults where sampleid=?",sampleid);
+                if(mylh.size()>0){
+
+
+                }
+                else{
+
+                    htsres.setAge(age);
+                    htsres.setResult(result);
+                    htsres.setGender(sex);
+                    htsres.setReleased(daterelease);
+                    htsres.setSubmitted(datesubmitted);
+                    htsres.setClientcode(pid);
+                    htsres.setSampleid(sampleid);
+
+                    htsres.save();
+
+                }
+
+
+
+
+                //*************end process hts logic here
+
 
             }
-            else if(firstpart[0].contentEquals("VL")){
-                firstpart[0].replace("VL","FFViral Load Results");
-                decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
-                newMessage.append("FFViral Load Results");
+            else if(firstpart[0].contentEquals("EID") || firstpart[0].contentEquals("VL")){
 
 
-            }
+                //************start process eid vl logic here
 
-            if(firstpart[1].contentEquals("PID")){
-                firstpart[1].replace("PID","Patient ID");
-                decryptedmess=decryptedmess.replace("PID","Patient ID");
-                newMessage.append(" Patient ID");
-            }
+                if(firstpart[0].contentEquals("EID")){
+                    firstpart[0].replace("EID","FFEID Results");
+                    decryptedmess=decryptedmess.replace("EID","FFEID Results");
+                    newMessage.append("FFEID Results");
 
-            String[] secondpart=originalArray[1].split("\\s+");
+                }
+                else if(firstpart[0].contentEquals("VL")){
+                    firstpart[0].replace("VL","FFViral Load Results");
+                    decryptedmess=decryptedmess.replace("VL","FFViral Load Results");
+                    newMessage.append("FFViral Load Results");
+
+
+                }
+
+                if(firstpart[1].contentEquals("PID")){
+                    firstpart[1].replace("PID","Patient ID");
+                    decryptedmess=decryptedmess.replace("PID","Patient ID");
+                    newMessage.append(" Patient ID");
+                }
+
+                String[] secondpart=originalArray[1].split("\\s+");
 
 //                    for(int x=0;x<secondpart.length;x++){
-            newMessage.append(":"+secondpart[0]);
+                newMessage.append(":"+secondpart[0]);
 
-            if(secondpart[1].contentEquals("A")){
-                secondpart[1].replace("A","Age");
-                decryptedmess=decryptedmess.replace("A","Age");
+                if(secondpart[1].contentEquals("A")){
+                    secondpart[1].replace("A","Age");
+                    decryptedmess=decryptedmess.replace("A","Age");
 
-                newMessage.append(" Age:");
+                    newMessage.append(" Age:");
 
-            }
+                }
 
 //                    }
 
-            String[] thirdpart=originalArray[2].split("\\s+");
+                String[] thirdpart=originalArray[2].split("\\s+");
 
 //                    for(int x=0;x<thirdpart.length;x++){
-            newMessage.append(thirdpart[0]);
+                newMessage.append(thirdpart[0]);
 
-            if(thirdpart[1].contentEquals("S")){
-                thirdpart[1].replace("S","Sex");
-                decryptedmess=decryptedmess.replaceFirst("S","Sex");
-                newMessage.append(" Sex:");
+                if(thirdpart[1].contentEquals("S")){
+                    thirdpart[1].replace("S","Sex");
+                    decryptedmess=decryptedmess.replaceFirst("S","Sex");
+                    newMessage.append(" Sex:");
 
-            }
+                }
 
 //                    }
 
-            String[] fourthpart=originalArray[3].split("\\s+");
+                String[] fourthpart=originalArray[3].split("\\s+");
 
 //                    for(int x=0;x<fourthpart.length;x++){
-            newMessage.append(fourthpart[0]);
+                newMessage.append(fourthpart[0]);
 
-            if(fourthpart[1].contentEquals("DC")){
-                fourthpart[1].replace("DC","Date Collected");
-                decryptedmess=decryptedmess.replace("DC","Date Collected");
-                newMessage.append(" Date Collected:");
+                if(fourthpart[1].contentEquals("DC")){
+                    fourthpart[1].replace("DC","Date Collected");
+                    decryptedmess=decryptedmess.replace("DC","Date Collected");
+                    newMessage.append(" Date Collected:");
 
-            }
+                }
 
 //                    }
-            if(originalArray.length==10){
+                if(originalArray.length==10){
 
-                newMessage.append(originalArray[4]+":");
-                newMessage.append(originalArray[5]+":");
-                String[] sixthpart=originalArray[6].split("\\s+");
-                newMessage.append(sixthpart[0]+" Result::");
-                newMessage.append(originalArray[8]);
-                mId=originalArray[9];
-
-
-            }
-            else if(originalArray.length==9){
-
-                newMessage.append(originalArray[4]+":");
-                newMessage.append(originalArray[5]+":");
-                String[] sixthpart=originalArray[6].split("\\s+");
-                newMessage.append(sixthpart[0]+" Result::");
-                newMessage.append(originalArray[8]);
-                mId="n/a";
+                    newMessage.append(originalArray[4]+":");
+                    newMessage.append(originalArray[5]+":");
+                    String[] sixthpart=originalArray[6].split("\\s+");
+                    newMessage.append(sixthpart[0]+" Result::");
+                    newMessage.append(originalArray[8]);
+                    mId=originalArray[9];
 
 
-            }
+                }
+                else if(originalArray.length==9){
 
-            else if(originalArray.length==8){
-
-                String[] seventhpart=originalArray[4].split("\\s+");
-                newMessage.append(seventhpart[0]+" Result::");
-                newMessage.append(originalArray[6]);
-                mId=originalArray[7];
-            }
-            else if(originalArray.length==7){
-
-                String[] seventhpart=originalArray[4].split("\\s+");
-                newMessage.append(seventhpart[0]+" Result::");
-                newMessage.append(originalArray[6]);
-                mId="n/a";
-            }
-
-            System.out.println("****************************RECEIVED MESSAGE************************");
-            System.out.println(newMessage);
+                    newMessage.append(originalArray[4]+":");
+                    newMessage.append(originalArray[5]+":");
+                    String[] sixthpart=originalArray[6].split("\\s+");
+                    newMessage.append(sixthpart[0]+" Result::");
+                    newMessage.append(originalArray[8]);
+                    mId="n/a";
 
 
+                }
 
-            String vcounts=Integer.toString(gvc.getViralCount(newMessage.toString()));
+                else if(originalArray.length==8){
+
+                    String[] seventhpart=originalArray[4].split("\\s+");
+                    newMessage.append(seventhpart[0]+" Result::");
+                    newMessage.append(originalArray[6]);
+                    mId=originalArray[7];
+                }
+                else if(originalArray.length==7){
+
+                    String[] seventhpart=originalArray[4].split("\\s+");
+                    newMessage.append(seventhpart[0]+" Result::");
+                    newMessage.append(originalArray[6]);
+                    mId="n/a";
+                }
+
+                System.out.println("****************************RECEIVED MESSAGE************************");
+                System.out.println(newMessage);
+
+
+
+                String vcounts=Integer.toString(gvc.getViralCount(newMessage.toString()));
 //
-            Messages ms = new Messages("false", Config.mainShortcode,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId);
-            ms.save();
+                Messages ms = new Messages("false", Config.mainShortcode,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId);
+                ms.save();
+
+
+                //*************end process eid vl logic here
+            }
+
+
 
 
 

@@ -144,12 +144,12 @@ public class HtsPositiveFragment extends Fragment {
 
             }
 
-            Htsmodel bm= new Htsmodel("client one","M","45","Negative","2018-02-08","2018-02-08");
-
-            Htsmodel bm1= new Htsmodel("client two","M","45","Positive","2018-02-08","2018-02-08");
-
-            itemsList.add(bm);
-            itemsList.add(bm1);
+//            Htsmodel bm= new Htsmodel("client one","M","45","Negative","2018-02-08","2018-02-08");
+//
+//            Htsmodel bm1= new Htsmodel("client two","M","45","Positive","2018-02-08","2018-02-08");
+//
+//            itemsList.add(bm);
+//            itemsList.add(bm1);
 
 
 

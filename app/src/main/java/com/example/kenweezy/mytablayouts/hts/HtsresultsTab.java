@@ -1,24 +1,17 @@
 package com.example.kenweezy.mytablayouts.hts;
 
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,11 +19,12 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
+import com.example.kenweezy.mytablayouts.Checkinternet.CheckInternet;
 import com.example.kenweezy.mytablayouts.R;
-import com.example.kenweezy.mytablayouts.RecyclerListener.RecyclerTouchListener;
-import com.example.kenweezy.mytablayouts.adapters.HtsAdapter;
-import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
-import com.example.kenweezy.mytablayouts.models.Htsmodel;
+import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+import com.example.kenweezy.mytablayouts.UsersTable;
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +35,11 @@ public class HtsresultsTab extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     ViewPagerAdapter adapter;
+    FloatingActionButton fabref;
+
+    CheckInternet chk;
+    Base64Encoder encoder;
+    AccessServer acs;
 
     String[] tabTitle = {"Positive", "Negative"};
     int[] Counts = {0,0};
@@ -50,13 +49,67 @@ public class HtsresultsTab extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hts_results_tab);
 
+        SSLTrust.nuke();
 
+        initialise();
+        refreshResultsClicked();
         setToolBar();
         changeStatusBarColor("#3F51B5");
         DisplayContent();
         adapter.SetOnSelectView(tabLayout,0);
         tabLayout.addOnTabSelectedListener(OnTabSelectedListener);
     }
+
+    private void initialise(){
+
+        fabref = (FloatingActionButton) findViewById(R.id.fabhtsres);
+        chk=new CheckInternet(HtsresultsTab.this);
+        encoder=new Base64Encoder();
+        acs=new AccessServer(HtsresultsTab.this);
+    }
+
+
+
+    private void refreshResultsClicked() {
+
+        fabref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String userPhoneNumber="";
+
+                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
+                for(int y=0;y<myl.size();y++){
+
+                    userPhoneNumber=myl.get(y).getPhonenumber();
+                }
+
+                if(chk.isInternetAvailable()){
+
+                    acs.getHtsResultsFromDb(userPhoneNumber);
+
+                }
+                else{
+
+                    Toast.makeText(HtsresultsTab.this, "check your internet connection", Toast.LENGTH_SHORT).show();
+
+//                    sm.sendMessageApi(encoder.encryptString(userPhoneNumber), Config.mainShortcode);
+//
+//                    listenForIncomingMessage();
+
+                }
+
+
+
+//                Toast.makeText(MainActivity.this, "refreshing results", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
+
     private void changeStatusBarColor(String color){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();

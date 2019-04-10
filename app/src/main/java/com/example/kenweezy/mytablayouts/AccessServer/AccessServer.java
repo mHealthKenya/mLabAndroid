@@ -131,7 +131,7 @@ public class AccessServer {
 
 
 
-    public void getResultsFromDb(final String phone){
+    public void getVlEidResultsFromDb(final String phone){
 
 //        Toast.makeText(ctx, ""+phone, Toast.LENGTH_SHORT).show();
 
@@ -172,7 +172,7 @@ public class AccessServer {
                                     }
                                     else{
 
-                                        getMyResultsFromDb(id_result);
+                                        getMyVlEidResultsFromDb(id_result);
 
                                     }
 
@@ -239,7 +239,7 @@ public class AccessServer {
 
 
 
-    private void getMyResultsFromDb(JSONArray j){
+    private void getMyVlEidResultsFromDb(JSONArray j){
 
         for(int i=0;i<j.length();i++){
             try {
@@ -267,6 +267,138 @@ public class AccessServer {
 
 
 
+    public void getHtsResultsFromDb(final String phone){
+
+//        Toast.makeText(ctx, ""+phone, Toast.LENGTH_SHORT).show();
+
+        try{
+
+            pr.showProgress("getting hts results...");
+
+
+            StringRequest stringRequest = new StringRequest(POST,Config.GETHTSRESULTS_DATA_URL,
+                    new Response.Listener<String>() {
+
+                        //
+                        @Override
+                        public void onResponse(String response) {
+//                            pd.dismissDialog();
+
+                            System.out.println("**************messages*********************");
+                            System.out.println(response);
+//                            Toast.makeText(ctx, " "+response, Toast.LENGTH_SHORT).show();
+
+                            pr.dissmissProgress();
+                            if(response.trim().equalsIgnoreCase("Phone Number not attached to any Facility")){
+
+                                Toast.makeText(ctx, ""+response, Toast.LENGTH_LONG).show();
+
+                            }
+                            else{
+
+                                JSONObject j = null;
+                                try {
+                                    j = new JSONObject(response);
+                                    id_result = j.getJSONArray(Config.JSON_ARRAYRESULTS);
+                                    System.out.println("****length****"+id_result.length());
+                                    if(id_result.length()==0){
+
+                                        Toast.makeText(ctx, "You do not have any results", Toast.LENGTH_LONG).show();
+
+                                    }
+                                    else{
+
+                                        getMyHtsResultsFromDb(id_result);
+
+                                    }
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(ctx, "error getting results "+e, Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            }
+
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+//                            pd.dismissDialog();
+                            pr.dissmissProgress();
+
+                            System.out.println("******************error*************");
+                            System.out.println(error);
+                            Toast.makeText(ctx, "error "+error, Toast.LENGTH_LONG).show();
+
+
+                        }
+                    })
+
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    params.put("phone_no", Base64Encoder.encryptString(phone));
+
+                    return params;
+                }
+
+//                @Override
+//                public Map<String, String> getHeaders() throws AuthFailureError {
+//                    HashMap<String, String> headers = new HashMap<>();
+//                    headers.put("Content-Type", "application/json; charset=utf-8");
+//
+//                    return headers;
+//                }
+
+            };
+
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+            RequestQueue requestQueue = Volley.newRequestQueue(ctx);
+            requestQueue.add(stringRequest);
+
+
+        }
+        catch(Exception e){
+
+            Toast.makeText(ctx, "error getting results "+e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+    private void getMyHtsResultsFromDb(JSONArray j){
+
+        for(int i=0;i<j.length();i++){
+            try {
+                JSONObject json = j.getJSONObject(i);
+
+
+                String message = json.getString(Config.KEY_MESSAGECODE);
+
+                pm.processReceivedMessage(message);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(ctx, "error occured "+ e, Toast.LENGTH_SHORT).show();
+                System.out.println("********json error*********");
+                System.out.println(e);
+            }
+        }
+
+
+
+
+    }
 
 
 
