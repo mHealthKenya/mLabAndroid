@@ -45,7 +45,7 @@ public class AccessServer {
     }
 
 
-    public void submitEidVlData(final String message) {
+    public void submitEidVlData(final String phone,final String message) {
 
         pr.showProgress("Submitting data.....");
 
@@ -54,7 +54,9 @@ public class AccessServer {
                     @Override
                     public void onResponse(String response) {
 
-                        pr.dissmissProgress();
+                            pr.dissmissProgress();
+                            System.out.println("****response ***");
+                            System.out.println(response);
 
                             sweetdialog.showSuccessDialog("Submit response "+response,"SUCCESS");
 
@@ -64,6 +66,7 @@ public class AccessServer {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         pr.dissmissProgress();
+                        System.out.println("*** error ***"+error);
 
                         sweetdialog.showErrorDialog("Error occured "+error.getMessage(), "Error");
 
@@ -74,6 +77,7 @@ public class AccessServer {
                 Map<String, String> params = new HashMap<String, String>();
 
                 params.put("message", message);
+                params.put("phone", phone);
 
 
                 return params;
@@ -87,9 +91,9 @@ public class AccessServer {
     }
 
 
-    public void submitHtsData(final String message) {
+    public void submitHtsData(final String phone,final String message) {
 
-        pr.showProgress("Submitting data.....");
+        pr.showProgress("Submitting Hts data.....");
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.HTS_DATA_URL,
                 new Response.Listener<String>() {
@@ -116,6 +120,7 @@ public class AccessServer {
                 Map<String, String> params = new HashMap<String, String>();
 
                 params.put("message", message);
+                params.put("phone", phone);
 
 
                 return params;
@@ -269,7 +274,7 @@ public class AccessServer {
 
     public void getHtsResultsFromDb(final String phone){
 
-//        Toast.makeText(ctx, ""+phone, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, ""+phone, Toast.LENGTH_SHORT).show();
 
         try{
 

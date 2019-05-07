@@ -50,28 +50,30 @@ public class ProcessMessage {
 
             if(firstpart[0].contentEquals("HTS")){
 
+//                HTS PID:1389118447 A:36 S:F T:HTS PCR R:Negative SB:2018-08-28 REL:2018-09-11 SID:MB1873108
+
 
                 //************start process hts logic here
-                String[] pidarr=firstpart[1].split(":");
-                String pid=pidarr[1];
+                String[] pidarr=originalArray[1].split("\\s+");
+                String pid=pidarr[0];
 
-                String[] agearr=firstpart[2].split(":");
-                String age=agearr[1];
+                String[] agearr=originalArray[2].split("\\s+");
+                String age=agearr[0];
 
-                String[] sexarr=firstpart[3].split(":");
-                String sex=sexarr[1];
+                String[] sexarr=originalArray[3].split("\\s+");
+                String sex=sexarr[0];
 
-                String[] resultarr=firstpart[6].split(":");
-                String result=resultarr[1];
+                String[] resultarr=originalArray[5].split("\\s+");
+                String result=resultarr[0];
 
-                String[] datesubmittedarr=firstpart[7].split(":");
-                String datesubmitted=datesubmittedarr[1];
+                String[] datesubmittedarr=originalArray[6].split("\\s+");
+                String datesubmitted=datesubmittedarr[0];
 
-                String[] datereleasearr=firstpart[8].split(":");
-                String daterelease=datereleasearr[1];
+                String[] datereleasearr=originalArray[7].split("\\s+");
+                String daterelease=datereleasearr[0];
 
-                String[] sampleidarr=firstpart[9].split(":");
-                String sampleid=sampleidarr[1];
+
+                String sampleid=originalArray[8];
 
                 List<Htsresults> mylh=Htsresults.findWithQuery(Htsresults.class,"select * from Htsresults where sampleid=?",sampleid);
                 if(mylh.size()>0){

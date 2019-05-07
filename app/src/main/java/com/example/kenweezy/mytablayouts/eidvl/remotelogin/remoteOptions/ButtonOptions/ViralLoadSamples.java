@@ -21,7 +21,11 @@ import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
 import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+import com.example.kenweezy.mytablayouts.UsersTable;
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
+import java.util.List;
 
 public class ViralLoadSamples extends AppCompatActivity {
 
@@ -110,6 +114,26 @@ public class ViralLoadSamples extends AppCompatActivity {
             artlineS=artline.getText().toString();
             justcodeS=justcode.getText().toString();
 
+//            "VL*"+ccnumberS+"*"+patientnameS+"*"+dobS+"*"+datecollectionS+"*"+artstartS+"*"
+////                        +currentregimenS+"*"+dateartregimenS+"*"+artlineS+"*"+justcodeS+"*"+selectedType
+////                        +"*"+selectedSex;
+
+
+            System.out.println("****submitted data*********");
+            System.out.println("sex***"+selectedSex);
+            System.out.println("type****"+selectedType);
+            System.out.println("ccnumber****"+ccnumberS);
+            System.out.println("patient****"+patientnameS);
+            System.out.println("dob****"+dobS);
+            System.out.println("datecollection****"+datecollectionS);
+            System.out.println("artstart****"+artstartS);
+            System.out.println("current regimen****"+currentregimenS);
+            System.out.println("art regimen date****"+dateartregimenS);
+            System.out.println("artline****"+artlineS);
+            System.out.println("justcode****"+justcodeS);
+
+
+
 
             if(ccnumberS.isEmpty()){
 
@@ -157,11 +181,21 @@ public class ViralLoadSamples extends AppCompatActivity {
             }
             else{
 
-                String message=ccnumberS+"*"+patientnameS+"*"+dobS+"*"+datecollectionS+"*"+artstartS+"*"
+                String userPhoneNumber="";
+
+                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
+                for(int y=0;y<myl.size();y++){
+
+                    userPhoneNumber=myl.get(y).getPhonenumber();
+                }
+
+                String message="VL*"+ccnumberS+"*"+patientnameS+"*"+dobS+"*"+datecollectionS+"*"+artstartS+"*"
                         +currentregimenS+"*"+dateartregimenS+"*"+artlineS+"*"+justcodeS+"*"+selectedType
                         +"*"+selectedSex;
 
-                acs.submitEidVlData("VL*"+message);
+                System.out.println("**phone encrypted**********"+Base64Encoder.encryptString(userPhoneNumber)+"***message encrypted******"+Base64Encoder.encryptString(message));
+
+                acs.submitEidVlData(Base64Encoder.encryptString(userPhoneNumber),Base64Encoder.encryptString(message));
 
                 Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
             }

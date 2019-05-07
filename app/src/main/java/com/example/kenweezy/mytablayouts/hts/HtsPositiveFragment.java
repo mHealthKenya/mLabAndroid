@@ -130,7 +130,7 @@ public class HtsPositiveFragment extends Fragment {
 
         try {
 
-            List<Htsresults> myl=Htsresults.findWithQuery(Htsresults.class,"select * from Htsresults where result=?","Negative");
+            List<Htsresults> myl=Htsresults.findWithQuery(Htsresults.class,"select * from Htsresults where result=?","Positive");
             for(int x=0;x<myl.size();x++){
                 String cc=myl.get(x).getClientcode();
                 String gender=myl.get(x).getGender();

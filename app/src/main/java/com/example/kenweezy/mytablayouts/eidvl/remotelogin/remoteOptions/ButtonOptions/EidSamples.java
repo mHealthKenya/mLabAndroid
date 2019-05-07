@@ -20,7 +20,11 @@ import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
 import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+import com.example.kenweezy.mytablayouts.UsersTable;
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
+import java.util.List;
 
 public class EidSamples extends AppCompatActivity {
 
@@ -224,13 +228,23 @@ public class EidSamples extends AppCompatActivity {
             }
             else{
 
-                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+                String userPhoneNumber="";
 
-                String message=selectedSex+"*"+selectedRegimen+"*"+selectedAlive+"*"+heinumberS+"*"+patientnameS
+                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
+                for(int y=0;y<myl.size();y++){
+
+                    userPhoneNumber=myl.get(y).getPhonenumber();
+                }
+//                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+
+                String message="EID*"+selectedSex+"*"+selectedRegimen+"*"+selectedAlive+"*"+heinumberS+"*"+patientnameS
                         +"*"+dobS+"*"+entrypointS+"*"+collectiondateS+"*"+prophylaxiscodeS+"*"+infantfeedingS+"*"
                         +pcrS+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS;
 
-                acs.submitEidVlData("EID*"+message);
+                System.out.println("**phone encrypted**********"+Base64Encoder.encryptString(userPhoneNumber)+"***message encrypted******"+Base64Encoder.encryptString(message));
+
+
+                acs.submitEidVlData(Base64Encoder.encryptString(userPhoneNumber), Base64Encoder.encryptString(message));
 
             }
         }

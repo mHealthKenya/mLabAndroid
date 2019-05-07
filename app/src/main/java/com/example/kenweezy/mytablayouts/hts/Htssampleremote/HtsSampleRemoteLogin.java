@@ -17,10 +17,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
+import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+import com.example.kenweezy.mytablayouts.UsersTable;
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
+import java.util.List;
 
 public class HtsSampleRemoteLogin extends AppCompatActivity {
 
@@ -33,12 +39,15 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
     private ArrayAdapter<String> arrayAdapterSex,arrayAdapterDeliveryPoint,arrayAdapterTestkit1,arrayAdapterTestkit2,arrayAdapterFinalResult;
 
+    AccessServer acs;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hts_sample_remote_login);
         setToolBar();
         changeStatusBarColor("#3F51B5");
+
+        SSLTrust.nuke();
 
         initialise();
         setSpinnerAdapters();
@@ -258,7 +267,25 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             }
             else{
 
-                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+                String userPhoneNumber="";
+
+                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
+                for(int y=0;y<myl.size();y++){
+
+                    userPhoneNumber=myl.get(y).getPhonenumber();
+                }
+//                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+                String message=samplenumberS+"*"+clientnameS+"*"+dobS+"*"+SelectedSex+"*"+telephoneS+"*"+testdateS+"*"
+                        +SelecteddeliveryPoint+"*"+Selectedtestkit1+"*"+lotnumber1S+"*"+expirydate1S+"*"+Selectedtestkit2+
+                        "*"+lotnumber2S+"*"+expirydate2S+"*"+Selectedfinalresult+"*"+sampletesternameS+"*"+dbsdateS+
+                        "*"+dbsdispatchdateS+"*"+requestingproviderS;
+
+
+                acs.submitHtsData(Base64Encoder.encryptString(userPhoneNumber),Base64Encoder.encryptString(message));
+                clearfields();
+
+
+
             }
 
 
@@ -321,6 +348,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
         try{
 
+            acs=new AccessServer(HtsSampleRemoteLogin.this);
             dtp=new DateTimePicker(HtsSampleRemoteLogin.this);
             testkit1ll=(LinearLayout) findViewById(R.id.lltestkit1);
             testkit2ll=(LinearLayout) findViewById(R.id.lltestkit2);
@@ -427,6 +455,38 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
 
         }
+    }
+
+    private void clearfields(){
+
+        samplenumber.setText("");
+        clientname.setText("");
+        dob.setText("");
+        telephone.setText("");
+        testdate.setText("");
+        lotnumber1.setText("");
+        expirydate1.setText("");
+        lotnumber2.setText("");
+        expirydate2.setText("");
+        sampletestername.setText("");
+        dbsdate.setText("");
+        dbsdispatchdate.setText("");
+        requestingprovider.setText("");
+
+        SpinnerSex.setText("");
+        SpinnerdeliveryPoint.setText("");
+        Spinnertestkit1.setText("");
+        Spinnertestkit2.setText("");
+        Spinnerfinalresult.setText("");
+
+        SelectedSex="";
+        SelecteddeliveryPoint="";
+        Selectedtestkit1="";
+        Selectedtestkit2="";
+        Selectedfinalresult="";
+
+        setSpinnerAdapters();
+
     }
 
 
