@@ -28,10 +28,10 @@ import java.util.List;
 
 public class EidSamples extends AppCompatActivity {
 
-    MaterialBetterSpinner SpinnerSex, SpinnerRegimen,Spinneralivedead;
-    EditText heinumber,patientname,dob,entrypoint,collectiondate,prophylaxiscode,infantfeeding,pcr,alivedead,motherage,haartdate;
-    private ArrayAdapter<String> arrayAdapterSex, arrayAdapterRegimen,arrayAdapterAliveDead;
-    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,entrypointS,collectiondateS,prophylaxiscodeS,infantfeedingS,pcrS,alivedeadS,motherageS,haartdateS;
+    MaterialBetterSpinner SpinnerSex, SpinnerRegimen,Spinneralivedead,spinnerentrypoint,spinnerprophylaxiscode,spinnerinfantfeeding,spinnerpcr;
+    EditText heinumber,patientname,dob,collectiondate,alivedead,motherage,haartdate,mothervlresultsE,mothercccnumberE,infantcccnumberE;
+    private ArrayAdapter<String> arrayAdapterSex, arrayAdapterRegimen,arrayAdapterAliveDead,arrayAdapterEntrypoint,arrayAdapterProphylaxiscode,arrayAdapterInfantfeeding,arrayAdapterPcr;
+    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,collectiondateS,alivedeadS,motherageS,haartdateS,selectedEntrypoint,selectedProphylaxiscode,selectedInfantfeeding,selectedPcr,mothervlresultsS,mothercccnumberS,infantcccnumberS;
 
     DateTimePicker dtp;
     AccessServer acs;
@@ -51,6 +51,11 @@ public class EidSamples extends AppCompatActivity {
         setSpinnerRegimenListener();
         setSpinnerAliveDeadListener();
 
+        setSpinnerEntrypointListener();
+        setSpinnerInfantfeedingListener();
+        setSpinnerPcrListener();
+        setSpinnerProphylaxiscodeListener();
+
         setHaartdate();
         setCollectionDate();
         setDob();
@@ -64,14 +69,18 @@ public class EidSamples extends AppCompatActivity {
             SpinnerSex.setText("");
             SpinnerRegimen.setText("");
             Spinneralivedead.setText("");
+
+            spinnerpcr.setText("");
+            spinnerinfantfeeding.setText("");
+            spinnerprophylaxiscode.setText("");
+            spinnerentrypoint.setText("");
+
             heinumber.setText("");
             patientname.setText("");
             dob.setText("");
-            entrypoint.setText("");
+
             collectiondate.setText("");
-            prophylaxiscode.setText("");
-            infantfeeding.setText("");
-            pcr.setText("");
+
             alivedead.setText("");
             motherage.setText("");
             haartdate.setText("");
@@ -81,11 +90,9 @@ public class EidSamples extends AppCompatActivity {
             heinumberS="";
             patientnameS="";
             dobS="";
-            entrypointS="";
+
             collectiondateS="";
-            prophylaxiscodeS="";
-            infantfeedingS="";
-            pcrS="";
+
             alivedeadS="";
             motherageS="";
             haartdateS="";
@@ -95,6 +102,10 @@ public class EidSamples extends AppCompatActivity {
             selectedSex ="";
             selectedRegimen="";
             selectedAlive="";
+            selectedProphylaxiscode="";
+            selectedPcr="";
+            selectedInfantfeeding="";
+            selectedEntrypoint="";
 
         }
         catch(Exception e){
@@ -159,14 +170,19 @@ public class EidSamples extends AppCompatActivity {
             heinumberS=heinumber.getText().toString();
             patientnameS=patientname.getText().toString();
             dobS=dob.getText().toString();
-            entrypointS=entrypoint.getText().toString();
+
             collectiondateS=collectiondate.getText().toString();
-            prophylaxiscodeS=prophylaxiscode.getText().toString();
-            infantfeedingS=infantfeeding.getText().toString();
-            pcrS=pcr.getText().toString();
+
             alivedeadS=alivedead.getText().toString();
             motherageS=motherage.getText().toString();
             haartdateS=haartdate.getText().toString();
+            mothervlresultsS=mothervlresultsE.getText().toString();
+            mothercccnumberS=mothercccnumberE.getText().toString();
+
+            if(infantcccnumberE.isShown()){
+                infantcccnumberS=infantcccnumberE.getText().toString();
+            }
+
 
 
 
@@ -194,7 +210,7 @@ public class EidSamples extends AppCompatActivity {
 
                 Toast.makeText(this, "dob is required", Toast.LENGTH_SHORT).show();
             }
-            else if(entrypointS.isEmpty()){
+            else if(selectedEntrypoint.isEmpty()){
 
                 Toast.makeText(this, "entrypoint is required", Toast.LENGTH_SHORT).show();
             }
@@ -202,21 +218,34 @@ public class EidSamples extends AppCompatActivity {
 
                 Toast.makeText(this, "collectiondate is required", Toast.LENGTH_SHORT).show();
             }
-            else if(prophylaxiscodeS.isEmpty()){
+            else if(selectedProphylaxiscode.isEmpty()){
 
                 Toast.makeText(this, "prophylaxiscode is required", Toast.LENGTH_SHORT).show();
             }
-            else if(infantfeedingS.isEmpty()){
+            else if(selectedInfantfeeding.isEmpty()){
 
                 Toast.makeText(this, "infantfeeding is required", Toast.LENGTH_SHORT).show();
             }
-            else if(pcrS.isEmpty()){
+            else if(selectedPcr.isEmpty()){
 
                 Toast.makeText(this, "pcr is required", Toast.LENGTH_SHORT).show();
             }
             else if(alivedeadS.isEmpty()){
 
                 Toast.makeText(this, "alivedead is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(mothervlresultsS.isEmpty()){
+
+                Toast.makeText(this, "mother vl results is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(mothercccnumberS.isEmpty()){
+
+                Toast.makeText(this, "mother ccc number is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(infantcccnumberE.isShown() && infantcccnumberS.isEmpty()){
+
+                Toast.makeText(this, "infant ccc number is required", Toast.LENGTH_SHORT).show();
+
             }
             else if(motherageS.isEmpty()){
 
@@ -235,11 +264,17 @@ public class EidSamples extends AppCompatActivity {
 
                     userPhoneNumber=myl.get(y).getPhonenumber();
                 }
+
+                if(!infantcccnumberE.isShown()){
+
+                    infantcccnumberS="-1";
+
+                }
 //                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
 
                 String message="EID*"+selectedSex+"*"+selectedRegimen+"*"+selectedAlive+"*"+heinumberS+"*"+patientnameS
-                        +"*"+dobS+"*"+entrypointS+"*"+collectiondateS+"*"+prophylaxiscodeS+"*"+infantfeedingS+"*"
-                        +pcrS+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS;
+                        +"*"+dobS+"*"+selectedEntrypoint+"*"+collectiondateS+"*"+selectedProphylaxiscode+"*"+selectedInfantfeeding+"*"
+                        +selectedPcr+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS+"*"+mothercccnumberS+"*"+mothervlresultsS+"*"+infantcccnumberS;
 
                 System.out.println("**phone encrypted**********"+Base64Encoder.encryptString(userPhoneNumber)+"***message encrypted******"+Base64Encoder.encryptString(message));
 
@@ -247,6 +282,168 @@ public class EidSamples extends AppCompatActivity {
                 acs.submitEidVlData(Base64Encoder.encryptString(userPhoneNumber), Base64Encoder.encryptString(message));
 
             }
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+
+    private void setSpinnerEntrypointListener(){
+
+        try{
+
+
+            spinnerentrypoint.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    selectedEntrypoint = spinnerentrypoint.getText().toString();
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+    private void setSpinnerProphylaxiscodeListener(){
+
+        try{
+
+
+            spinnerprophylaxiscode.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    selectedProphylaxiscode = spinnerprophylaxiscode.getText().toString();
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+
+    private void setSpinnerInfantfeedingListener(){
+
+        try{
+
+
+            spinnerinfantfeeding.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    selectedInfantfeeding = spinnerinfantfeeding.getText().toString();
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+
+
+    private void setSpinnerPcrListener(){
+
+        try{
+
+
+            spinnerpcr.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    selectedPcr = spinnerpcr.getText().toString();
+
+                    if(selectedPcr.contentEquals(Config.SPINNERLISTPCR[3])){
+
+                        infantcccnumberE.setVisibility(View.VISIBLE);
+
+                    }
+                    else{
+
+                        infantcccnumberE.setVisibility(View.GONE);
+                    }
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            });
+
         }
         catch(Exception e){
 
@@ -375,44 +572,69 @@ public class EidSamples extends AppCompatActivity {
             heinumber=(EditText) findViewById(R.id.eidsampleheinumber);
             patientname=(EditText) findViewById(R.id.eidsamplepatientname);
             dob=(EditText) findViewById(R.id.eidsampledob);
-            entrypoint=(EditText) findViewById(R.id.eidsampleentrypoint);
+
             collectiondate=(EditText) findViewById(R.id.eidsamplecollectiondate);
-            prophylaxiscode=(EditText) findViewById(R.id.eidsampleprophylaxiscode);
-            infantfeeding=(EditText) findViewById(R.id.eidsampleinfantfeeding);
-            pcr=(EditText) findViewById(R.id.eidsamplepcr);
+
             alivedead=(EditText) findViewById(R.id.eidsamplealivedead);
             motherage=(EditText) findViewById(R.id.eidmotherage);
             haartdate=(EditText) findViewById(R.id.eidsamplehaartdate);
+            mothervlresultsE=(EditText) findViewById(R.id.eidsamplmothervlresults);
+            mothercccnumberE=(EditText) findViewById(R.id.eidsamplmothercccnumber);
+            infantcccnumberE=(EditText) findViewById(R.id.eidsampleinfantcccnumber);
 
             heinumberS="";
             patientnameS="";
             dobS="";
-            entrypointS="";
+
             collectiondateS="";
-            prophylaxiscodeS="";
-            infantfeedingS="";
-            pcrS="";
+
             alivedeadS="";
             motherageS="";
             haartdateS="";
+
+            mothercccnumberS="";
+            mothervlresultsS="";
+            infantcccnumberS="";
 
 
 
             selectedSex ="";
             selectedRegimen="";
             selectedAlive="";
+            selectedEntrypoint="";
+            selectedInfantfeeding="";
+            selectedPcr="";
+            selectedProphylaxiscode="";
 
             Spinneralivedead =(MaterialBetterSpinner) findViewById(R.id.eidsamplealivedead);
             SpinnerSex =(MaterialBetterSpinner) findViewById(R.id.eidsamplesex);
             SpinnerRegimen =(MaterialBetterSpinner) findViewById(R.id.eidsampepmtctregimen);
 
+            spinnerentrypoint =(MaterialBetterSpinner) findViewById(R.id.eidsampleentrypointselect);
+            spinnerinfantfeeding =(MaterialBetterSpinner) findViewById(R.id.eidsampleinfantfeedingselect);
+            spinnerpcr =(MaterialBetterSpinner) findViewById(R.id.eidsamplepcrselect);
+            spinnerprophylaxiscode =(MaterialBetterSpinner) findViewById(R.id.eidsampleprophylaxiscodeselect);
+
             arrayAdapterSex = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
+
             arrayAdapterRegimen = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSAMPLETYPE);
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTREGIMEN);
 
             arrayAdapterAliveDead = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSAMPLETYPE);
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTALIVEDEAD);
+
+            arrayAdapterEntrypoint = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTENTRYPOINT);
+
+            arrayAdapterInfantfeeding = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTINFANTFEEDING);
+
+            arrayAdapterPcr = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTPCR);
+
+            arrayAdapterProphylaxiscode = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTPROPHYLAXISCODE);
         }
         catch(Exception e){
 
@@ -426,6 +648,10 @@ public class EidSamples extends AppCompatActivity {
             SpinnerSex.setAdapter(arrayAdapterSex);
             SpinnerRegimen.setAdapter(arrayAdapterRegimen);
             Spinneralivedead.setAdapter(arrayAdapterAliveDead);
+            spinnerprophylaxiscode.setAdapter(arrayAdapterProphylaxiscode);
+            spinnerpcr.setAdapter(arrayAdapterPcr);
+            spinnerinfantfeeding.setAdapter(arrayAdapterInfantfeeding);
+            spinnerentrypoint.setAdapter(arrayAdapterEntrypoint);
 
 
 

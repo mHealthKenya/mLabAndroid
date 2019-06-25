@@ -78,11 +78,15 @@
                 android:id="@+id/eidsampledob"
                 android:layout_height="wrap_content" />
 
-            <EditText
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/eidsampleentrypointselect"
                 android:layout_width="match_parent"
-                android:hint="Entry point"
-                android:id="@+id/eidsampleentrypoint"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Select Entry point"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -91,21 +95,41 @@
                 android:id="@+id/eidsamplecollectiondate"
                 android:layout_height="wrap_content" />
 
-            <EditText
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/eidsampleprophylaxiscodeselect"
                 android:layout_width="match_parent"
-                android:hint="Infant Prophylaxis code"
-                android:id="@+id/eidsampleprophylaxiscode"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Select infant prophylaxis code"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/eidsampleinfantfeedingselect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Infant feeding code"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/eidsamplepcrselect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select PCR sample code"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
 
             <EditText
                 android:layout_width="match_parent"
-                android:hint="Infant feeding code"
-                android:id="@+id/eidsampleinfantfeeding"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:layout_width="match_parent"
-                android:hint="PCR sample code"
-                android:id="@+id/eidsamplepcr"
+                android:hint="CCC number"
+                android:visibility="gone"
+                android:id="@+id/eidsampleinfantcccnumber"
                 android:layout_height="wrap_content" />
 
 
@@ -128,6 +152,13 @@
                 android:textColorHint="@color/textcolorblack"
                 app:met_floatingLabel="normal" />
 
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="CCC number"
+                android:id="@+id/eidsamplmothercccnumber"
+                android:layout_height="wrap_content" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:hint="Age"
@@ -148,6 +179,12 @@
                 android:hint="Select PMTCT regimen"
                 android:textColorHint="@color/textcolorblack"
                 app:met_floatingLabel="normal" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="VL results within last 6 months"
+                android:id="@+id/eidsamplmothervlresults"
+                android:layout_height="wrap_content" />
 
 
 

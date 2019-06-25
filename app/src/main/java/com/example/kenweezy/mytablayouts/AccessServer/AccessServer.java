@@ -185,7 +185,7 @@ public class AccessServer {
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
-                                    Toast.makeText(ctx, "error getting results "+e, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ctx, "error getting results, try again", Toast.LENGTH_SHORT).show();
 
                                 }
 
@@ -203,7 +203,7 @@ public class AccessServer {
 
                             System.out.println("******************error*************");
                             System.out.println(error);
-                            Toast.makeText(ctx, "error "+error, Toast.LENGTH_LONG).show();
+                            Toast.makeText(ctx, "error occured, try again", Toast.LENGTH_LONG).show();
 
 
                         }
@@ -229,7 +229,10 @@ public class AccessServer {
 
             };
 
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    800000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             RequestQueue requestQueue = Volley.newRequestQueue(ctx);
             requestQueue.add(stringRequest);
 
@@ -321,7 +324,7 @@ public class AccessServer {
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
-                                    Toast.makeText(ctx, "error getting results "+e, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ctx, "error getting results, try again", Toast.LENGTH_SHORT).show();
 
                                 }
 
@@ -339,7 +342,7 @@ public class AccessServer {
 
                             System.out.println("******************error*************");
                             System.out.println(error);
-                            Toast.makeText(ctx, "error "+error, Toast.LENGTH_LONG).show();
+                            Toast.makeText(ctx, "error occured, try again", Toast.LENGTH_LONG).show();
 
 
                         }
@@ -365,7 +368,10 @@ public class AccessServer {
 
             };
 
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    800000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             RequestQueue requestQueue = Volley.newRequestQueue(ctx);
             requestQueue.add(stringRequest);
 
@@ -373,7 +379,7 @@ public class AccessServer {
         }
         catch(Exception e){
 
-            Toast.makeText(ctx, "error getting results "+e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ctx, "error getting results, try again ", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -481,7 +487,7 @@ public class AccessServer {
                             pr.dissmissProgress();
                             System.out.println("******************error*************");
                             System.out.println(error);
-                            Toast.makeText(ctx, "error "+error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ctx, "error occured, try again ", Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -507,6 +513,11 @@ public class AccessServer {
 //                }
 
             };
+
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    800000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             RequestQueue requestQueue = Volley.newRequestQueue(ctx);
             requestQueue.add(stringRequest);
 
