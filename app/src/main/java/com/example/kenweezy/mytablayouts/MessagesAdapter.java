@@ -38,12 +38,12 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
    }
     @Override
     public int getCount() {
-        return mylist.size();
+        return filterList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mylist.get(position);
+        return filterList.get(position);
     }
 
     @Override
@@ -66,8 +66,8 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
             ImageView imgchk = (ImageView) v.findViewById(R.id.iv_check_box);
             CardView cview=(CardView) v.findViewById(R.id.ly_root);
 
-            String mybdyString=mylist.get(position).getMsgbody();
-            int thecount=mylist.get(position).getVcount();
+            String mybdyString=filterList.get(position).getMsgbody();
+            int thecount=filterList.get(position).getVcount();
 //            String[] splitBdy=mybdyString.split("Result",5);
             String subBodyString="";
 
@@ -89,10 +89,10 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 //            }
 
 
-            tvtitle.setText(mylist.get(position).getRead());
+            tvtitle.setText(filterList.get(position).getRead());
 //            tvbdy.setText(mylist.get(position).getMsgbody());
             tvbdy.setText(subBodyString+" .........");
-            String mydate = mylist.get(position).getDate();
+            String mydate = filterList.get(position).getDate();
 
             System.out.println("the date is " + mydate);
             String[] splitDate = mydate.split("/");
@@ -144,7 +144,7 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
             tvdate.setText(mysplitday + " " + myNewDate);
 
-            v.setTag(mylist);
+            v.setTag(filterList);
 
             if(mybdyString.contains("Positive")){
 
@@ -232,7 +232,7 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
             }
 
-            Mydata model = mylist.get(position);
+            Mydata model = filterList.get(position);
 
 
             if (model.isSelected()){
@@ -263,7 +263,7 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
 
         if(filter==null){
 
-            filter=new CustomFilter();
+            filter=new MessagesAdapter.CustomFilter();
 
         }
         return filter;
@@ -281,7 +281,34 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
             if(constraint!=null && constraint.length()>0){
 
                 constraint=constraint.toString().toUpperCase();
-                ArrayList<Mydata> filters=new ArrayList<Mydata>();
+//                ArrayList<Mydata> filters=mylist;
+                final List<Mydata> filters=mylist;
+
+
+//                String filterString = constraint.toString().toLowerCase();
+//
+//                FilterResults results = new FilterResults();
+//
+//                final List<String> list = originalData;
+//
+//                int count = list.size();
+//                final ArrayList<String> nlist = new ArrayList<String>(count);
+//
+//                String filterableString ;
+//
+//                for (int i = 0; i < count; i++) {
+//                    filterableString = list.get(i);
+//                    if (filterableString.toLowerCase().contains(filterString)) {
+//                        nlist.add(filterableString);
+//                    }
+//                }
+//
+//                results.values = nlist;
+//                results.count = nlist.size();
+//
+//                return results;
+
+
 
                 for(int i=0;i<filterList.size();i++){
 
@@ -310,10 +337,15 @@ public class MessagesAdapter extends BaseAdapter implements Filterable{
             return results;
         }
 
+
+
+
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
             mylist= (List<Mydata>) results.values;
+//            mylist3= (List<DefaulteredCallModel>) results.values;
+
             notifyDataSetChanged();
 
         }

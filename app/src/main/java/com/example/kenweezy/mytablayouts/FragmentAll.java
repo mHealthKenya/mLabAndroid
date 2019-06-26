@@ -670,6 +670,7 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 
 
         }
+
     }
 
 
@@ -1256,7 +1257,9 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
     public void doSearching(CharSequence s){
         //refreshSmsInbox();
         try {
+
             myadapter.getFilter().filter(s.toString());
+
         }
         catch(Exception e){
 
