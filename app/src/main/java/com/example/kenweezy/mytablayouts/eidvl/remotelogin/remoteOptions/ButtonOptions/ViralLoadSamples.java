@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
@@ -29,12 +28,12 @@ import java.util.List;
 
 public class ViralLoadSamples extends AppCompatActivity {
 
-    MaterialBetterSpinner SpinnerSex,Spinnertype;
-    EditText ccnumber,patientname,dob,datecollection,artstart,currentregimen,dateartregimen,artline,justcode;
+    MaterialBetterSpinner SpinnerSex, Spinnertype, SpinnerCurrentRegimen, SpinnerArtLine, SpinnerJustcode;
+    EditText ccnumber, patientname, dob, datecollection, artstart, dateartregimen;
 
 
-    private ArrayAdapter<String> arrayAdapterSex,arrayAdapterType;
-    String selectedSex,selectedType,ccnumberS,patientnameS,dobS,datecollectionS,artstartS,currentregimenS,dateartregimenS,artlineS,justcodeS;
+    private ArrayAdapter<String> arrayAdapterSex, arrayAdapterType, arrayAdapterCurrentArtRegimen, arrayAdapterArtLine, arrayAdapterJustCode;
+    String selectedSex, selectedType, selectedCurrentRegimen, selectedArtLine, selectedJustCode, ccnumberS, patientnameS, dobS, datecollectionS, artstartS, dateartregimenS;
 
     DateTimePicker dtp;
     AccessServer acs;
@@ -54,6 +53,10 @@ public class ViralLoadSamples extends AppCompatActivity {
         setSpinnerAdapters();
         setSpinnerSexListener();
         setSpinnerTypeListener();
+        setSpinnerArtLineListener();
+        setSpinnerJustCodeListener();
+        setSpinnerCurrentRegimenListener();
+
 
         setDateArtRegimen();
         setArtStart();
@@ -61,58 +64,57 @@ public class ViralLoadSamples extends AppCompatActivity {
         setDob();
     }
 
-    private void clearfields(){
+    private void clearfields() {
 
-        try{
+        try {
 
             SpinnerSex.setText("");
             Spinnertype.setText("");
+            SpinnerCurrentRegimen.setText("");
+            SpinnerJustcode.setText("");
+            SpinnerArtLine.setText("");
+
+
             ccnumber.setText("");
             patientname.setText("");
             dob.setText("");
             datecollection.setText("");
             artstart.setText("");
-            currentregimen.setText("");
+
             dateartregimen.setText("");
-            artline.setText("");
-            justcode.setText("");
+
+            ccnumberS = "";
+            patientnameS = "";
+            dobS = "";
+            datecollectionS = "";
+            artstartS = "";
+
+            dateartregimenS = "";
+            selectedSex = "";
+            selectedType = "";
+            selectedArtLine = "";
+            selectedJustCode = "";
+            selectedCurrentRegimen = "";
 
 
-            ccnumberS="";
-            patientnameS="";
-            dobS="";
-            datecollectionS="";
-            artstartS="";
-            currentregimenS="";
-            dateartregimenS="";
-            artlineS="";
-            justcodeS="";
-
-            selectedSex="";
-            selectedType="";
-
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    private void validate(){
+    private void validate() {
 
-        try{
+        try {
 //            selectedSex,selectedType,
-            ccnumberS=ccnumber.getText().toString();
-            patientnameS=patientname.getText().toString();
-            dobS=dob.getText().toString();
-            datecollectionS=datecollection.getText().toString();
-            artstartS=artstart.getText().toString();
-            currentregimenS=currentregimen.getText().toString();
-            dateartregimenS=dateartregimen.getText().toString();
-            artlineS=artline.getText().toString();
-            justcodeS=justcode.getText().toString();
+            ccnumberS = ccnumber.getText().toString();
+            patientnameS = patientname.getText().toString();
+            dobS = dob.getText().toString();
+            datecollectionS = datecollection.getText().toString();
+            artstartS = artstart.getText().toString();
+
+            dateartregimenS = dateartregimen.getText().toString();
+
 
 //            "VL*"+ccnumberS+"*"+patientnameS+"*"+dobS+"*"+datecollectionS+"*"+artstartS+"*"
 ////                        +currentregimenS+"*"+dateartregimenS+"*"+artlineS+"*"+justcodeS+"*"+selectedType
@@ -120,98 +122,82 @@ public class ViralLoadSamples extends AppCompatActivity {
 
 
             System.out.println("****submitted data*********");
-            System.out.println("sex***"+selectedSex);
-            System.out.println("type****"+selectedType);
-            System.out.println("ccnumber****"+ccnumberS);
-            System.out.println("patient****"+patientnameS);
-            System.out.println("dob****"+dobS);
-            System.out.println("datecollection****"+datecollectionS);
-            System.out.println("artstart****"+artstartS);
-            System.out.println("current regimen****"+currentregimenS);
-            System.out.println("art regimen date****"+dateartregimenS);
-            System.out.println("artline****"+artlineS);
-            System.out.println("justcode****"+justcodeS);
+            System.out.println("sex***" + selectedSex);
+            System.out.println("type****" + selectedType);
+            System.out.println("ccnumber****" + ccnumberS);
+            System.out.println("patient****" + patientnameS);
+            System.out.println("dob****" + dobS);
+            System.out.println("datecollection****" + datecollectionS);
+            System.out.println("artstart****" + artstartS);
+
+            System.out.println("art regimen date****" + dateartregimenS);
 
 
-
-
-            if(ccnumberS.isEmpty()){
+            if (ccnumberS.isEmpty()) {
 
                 Toast.makeText(this, "ccnumber is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(patientnameS.isEmpty()){
+            } else if (patientnameS.isEmpty()) {
 
                 Toast.makeText(this, "patient name is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(dobS.isEmpty()){
+            } else if (dobS.isEmpty()) {
 
                 Toast.makeText(this, "Date of birth is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(datecollectionS.isEmpty()){
+            } else if (datecollectionS.isEmpty()) {
 
                 Toast.makeText(this, "date of collection is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(artstartS.isEmpty()){
+            } else if (artstartS.isEmpty()) {
 
                 Toast.makeText(this, "art start is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(currentregimenS.isEmpty()){
+            } else if (selectedCurrentRegimen.isEmpty()) {
 
                 Toast.makeText(this, "current regimen is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(dateartregimenS.isEmpty()){
+            } else if (dateartregimenS.isEmpty()) {
 
                 Toast.makeText(this, "date art regimen is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(artlineS.isEmpty()){
+            } else if (selectedArtLine.isEmpty()) {
 
                 Toast.makeText(this, "ART Line is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(justcodeS.isEmpty()){
+            } else if (selectedJustCode.isEmpty()) {
 
                 Toast.makeText(this, "Justification code is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(selectedType.isEmpty()){
+            } else if (selectedType.isEmpty()) {
 
                 Toast.makeText(this, "type is required", Toast.LENGTH_SHORT).show();
-            }
-            else if(selectedSex.isEmpty()){
+            } else if (selectedSex.isEmpty()) {
 
                 Toast.makeText(this, "sex is required", Toast.LENGTH_SHORT).show();
-            }
-            else{
+            } else {
 
-                String userPhoneNumber="";
+                String userPhoneNumber = "";
 
-                List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
-                for(int y=0;y<myl.size();y++){
+                List<UsersTable> myl = UsersTable.findWithQuery(UsersTable.class, "select * from Users_table limit 1");
+                for (int y = 0; y < myl.size(); y++) {
 
-                    userPhoneNumber=myl.get(y).getPhonenumber();
+                    userPhoneNumber = myl.get(y).getPhonenumber();
                 }
 
-                String message="VL*"+ccnumberS+"*"+patientnameS+"*"+dobS+"*"+datecollectionS+"*"+artstartS+"*"
-                        +currentregimenS+"*"+dateartregimenS+"*"+artlineS+"*"+justcodeS+"*"+selectedType
-                        +"*"+selectedSex;
+                String message = "VL*" + ccnumberS + "*" + patientnameS + "*" + dobS + "*" + datecollectionS + "*" + artstartS + "*"
+                        + selectedCurrentRegimen + "*" + dateartregimenS + "*" + selectedArtLine + "*" + selectedJustCode + "*" + selectedType
+                        + "*" + selectedSex;
 
-                System.out.println("**phone encrypted**********"+Base64Encoder.encryptString(userPhoneNumber)+"***message encrypted******"+Base64Encoder.encryptString(message));
+                System.out.println("**phone encrypted**********" + Base64Encoder.encryptString(userPhoneNumber) + "***message encrypted******" + Base64Encoder.encryptString(message));
 
-                acs.submitEidVlData(Base64Encoder.encryptString(userPhoneNumber),Base64Encoder.encryptString(message));
+                acs.submitEidVlData(Base64Encoder.encryptString(userPhoneNumber), Base64Encoder.encryptString(message));
 
                 Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
             }
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
-    private void setDob(){
+    private void setDob() {
 
-        try{
+        try {
             //            EditText ccnumber,patientname,dob,datecollection,artstart,currentregimen,dateartregimen,artline,justcode;
 
             dob.setOnClickListener(new View.OnClickListener() {
@@ -224,18 +210,16 @@ public class ViralLoadSamples extends AppCompatActivity {
             });
 
 
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
-    private void setArtStart(){
+    private void setArtStart() {
 
-        try{
+        try {
             //            EditText ccnumber,patientname,dob,datecollection,artstart,currentregimen,dateartregimen,artline,justcode;
 
 
@@ -249,18 +233,16 @@ public class ViralLoadSamples extends AppCompatActivity {
             });
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
+    private void setDateArtRegimen() {
 
-    private void setDateArtRegimen(){
-
-        try{
+        try {
             //            EditText ccnumber,patientname,dob,datecollection,artstart,currentregimen,dateartregimen,artline,justcode;
 
 
@@ -274,17 +256,16 @@ public class ViralLoadSamples extends AppCompatActivity {
             });
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
-    private void setDatecollection(){
+    private void setDatecollection() {
 
-        try{
+        try {
             //            EditText ccnumber,patientname,dob,datecollection,artstart,currentregimen,dateartregimen,artline,justcode;
 
             datecollection.setOnClickListener(new View.OnClickListener() {
@@ -297,19 +278,16 @@ public class ViralLoadSamples extends AppCompatActivity {
             });
 
 
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
+    private void setSpinnerSexListener() {
 
-    private void setSpinnerSexListener(){
-
-        try{
+        try {
 
 
             SpinnerSex.addTextChangedListener(new TextWatcher() {
@@ -331,21 +309,121 @@ public class ViralLoadSamples extends AppCompatActivity {
 //                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
 
 
-
                 }
             });
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
 
-    private void setSpinnerTypeListener(){
+    private void setSpinnerArtLineListener() {
 
-        try{
+        try {
+
+
+            SpinnerArtLine.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    selectedArtLine = SpinnerArtLine.getText().toString();
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
+
+        } catch (Exception e) {
+
+
+        }
+    }
+
+
+    private void setSpinnerJustCodeListener() {
+
+        try {
+
+
+            SpinnerJustcode.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    selectedJustCode = SpinnerJustcode.getText().toString();
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
+
+        } catch (Exception e) {
+
+
+        }
+    }
+
+
+    private void setSpinnerCurrentRegimenListener() {
+
+        try {
+
+
+            SpinnerCurrentRegimen.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    selectedCurrentRegimen = SpinnerCurrentRegimen.getText().toString();
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
+
+        } catch (Exception e) {
+
+
+        }
+    }
+
+
+    private void setSpinnerTypeListener() {
+
+        try {
 
 
             Spinnertype.addTextChangedListener(new TextWatcher() {
@@ -367,81 +445,86 @@ public class ViralLoadSamples extends AppCompatActivity {
 //                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
 
 
-
                 }
             });
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    private void initialise(){
+    private void initialise() {
 
-        try{
+        try {
 
 //            EditText ccnumber,patientname,dob,datecollection,artstart,currentregimen,dateartregimen,artline,justcode;
 
-            acs=new AccessServer(ViralLoadSamples.this);
-            ccnumberS="";
-            patientnameS="";
-            dobS="";
-            datecollectionS="";
-            artstartS="";
-            currentregimenS="";
-            dateartregimenS="";
-            artlineS="";
-            justcodeS="";
+            acs = new AccessServer(ViralLoadSamples.this);
+            ccnumberS = "";
+            patientnameS = "";
+            dobS = "";
+            datecollectionS = "";
+            artstartS = "";
 
-            ccnumber=(EditText) findViewById(R.id.vlsampleccnumber);
-            patientname=(EditText) findViewById(R.id.vlsamplepatientname);
-            dob=(EditText) findViewById(R.id.vlsampledob);
-            datecollection=(EditText) findViewById(R.id.vlsampledatecollection);
-            artstart=(EditText) findViewById(R.id.vlsampleartstart);
-            currentregimen=(EditText) findViewById(R.id.vlsamplecurrentregimen);
-            dateartregimen=(EditText) findViewById(R.id.vlsampledateartregimen);
-            artline=(EditText) findViewById(R.id.vlsampleartline);
-            justcode=(EditText) findViewById(R.id.vlsamplejustcode);
+            dateartregimenS = "";
 
 
-            dtp=new DateTimePicker(ViralLoadSamples.this);
-            selectedSex ="";
-            selectedType="";
-            SpinnerSex =(MaterialBetterSpinner) findViewById(R.id.vlsamplesex);
-            Spinnertype =(MaterialBetterSpinner) findViewById(R.id.vlsampletype);
+            ccnumber = (EditText) findViewById(R.id.vlsampleccnumber);
+            patientname = (EditText) findViewById(R.id.vlsamplepatientname);
+            dob = (EditText) findViewById(R.id.vlsampledob);
+            datecollection = (EditText) findViewById(R.id.vlsampledatecollection);
+            artstart = (EditText) findViewById(R.id.vlsampleartstart);
+
+            dateartregimen = (EditText) findViewById(R.id.vlsampledateartregimen);
+
+
+            dtp = new DateTimePicker(ViralLoadSamples.this);
+            selectedSex = "";
+            selectedType = "";
+            selectedCurrentRegimen = "";
+            selectedJustCode = "";
+            selectedArtLine = "";
+
+            SpinnerSex = (MaterialBetterSpinner) findViewById(R.id.vlsamplesex);
+            Spinnertype = (MaterialBetterSpinner) findViewById(R.id.vlsampletype);
+            SpinnerCurrentRegimen = (MaterialBetterSpinner) findViewById(R.id.vlsamplecurrentregimenselect);
+            SpinnerArtLine = (MaterialBetterSpinner) findViewById(R.id.vlsampleartlineselect);
+            SpinnerJustcode = (MaterialBetterSpinner) findViewById(R.id.vlsamplejustcodeselect);
 
             arrayAdapterSex = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSEX);
             arrayAdapterType = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTSAMPLETYPE);
-        }
-        catch(Exception e){
+            arrayAdapterArtLine = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.LINES);
+            arrayAdapterCurrentArtRegimen = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.CURRENTARTREGIMENCODES);
+            arrayAdapterJustCode = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.JUSTIFICATIONCODE);
+        } catch (Exception e) {
 
 
         }
     }
 
-    public void setSpinnerAdapters(){
+    public void setSpinnerAdapters() {
 
-        try{
+        try {
             SpinnerSex.setAdapter(arrayAdapterSex);
             Spinnertype.setAdapter(arrayAdapterType);
+            SpinnerArtLine.setAdapter(arrayAdapterArtLine);
+            SpinnerCurrentRegimen.setAdapter(arrayAdapterCurrentArtRegimen);
+            SpinnerJustcode.setAdapter(arrayAdapterJustCode);
 
 
-
-
-
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    private void changeStatusBarColor(String color){
+    private void changeStatusBarColor(String color) {
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -450,9 +533,9 @@ public class ViralLoadSamples extends AppCompatActivity {
         }
     }
 
-    public void setToolBar(){
+    public void setToolBar() {
 
-        try{
+        try {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.eidvlremoteloginviralloadtoolbar);
             setSupportActionBar(toolbar);
@@ -460,21 +543,19 @@ public class ViralLoadSamples extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
 
-    public void CancelVlSamples(View v){
+    public void CancelVlSamples(View v) {
 
-        try{
+        try {
 
             clearfields();
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
@@ -482,14 +563,13 @@ public class ViralLoadSamples extends AppCompatActivity {
 
     }
 
-    public void SubmitSample(View v){
+    public void SubmitSample(View v) {
 
-        try{
+        try {
 
             validate();
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }

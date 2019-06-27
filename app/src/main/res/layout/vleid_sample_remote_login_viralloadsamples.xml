@@ -94,11 +94,15 @@
                 android:id="@+id/vlsampleartstart"
                 android:layout_height="wrap_content" />
 
-            <EditText
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/vlsamplecurrentregimenselect"
                 android:layout_width="match_parent"
-                android:hint="Current ART regimen"
-                android:id="@+id/vlsamplecurrentregimen"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Select Current ART Regimen"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -107,16 +111,26 @@
                 android:id="@+id/vlsampledateartregimen"
                 android:layout_height="wrap_content" />
 
-            <EditText
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/vlsampleartlineselect"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Indicate 1st or 2nd line"
-                android:id="@+id/vlsampleartline"
-                android:layout_height="wrap_content" />
-            <EditText
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
+
+
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/vlsamplejustcodeselect"
                 android:layout_width="match_parent"
-                android:hint="Justification Code"
-                android:id="@+id/vlsamplejustcode"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Select Justification code"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
 
 
     <LinearLayout

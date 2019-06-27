@@ -54,5 +54,37 @@ public class Config {
     public static final String GETHTSRESULTS_DATA_URL = "https://mlab.mhealthkenya.co.ke/api/hts_results";
     public static final String GETTBRESULTS_DATA_URL = "https://mlab.mhealthkenya.co.ke/api/tb_results";
 
+    public static final String[] CURRENTARTREGIMENCODES = {
+            "1= TDF+ 3TC+ EFV",
+            "2=TDF+3TC+NVP",
+            "3=TDF+3TC+ DTG",
+            "4=AZT+3TC+NVP",
+            "5=AZT+3TC+EFV|",
+            "6=ABC+3TC+NVP",
+            "7=ABC+3TC+EFV",
+            "8= ABC+3TC+DTG",
+            "9=ABC+3TC+LPV/r|"
+            ,"10=AZT+3TC+LPV/r+ RTV",
+            "11=TDF+3TC +ATV/r",
+            "12=ABC+3TC+DTG",
+            "13=ABC+3TC+ATV/r",
+            "14=AZT+3TC+ATV/r",
+            "15=AZT+3TC+DRV/r",
+            "16=Other"};
+
+    public static final String[] LINES = {
+            "First Line",
+            "Second Line",
+            };
+
+
+    public static final String[] JUSTIFICATIONCODE = {
+            "1=Routine VL",
+            "2=Confirmation of treatment failure (repeat VL)",
+            "3=Clinical failure",
+            "4=Single drug substitution",
+            "5=Baseline VL (for infants diagnosed through EID)"
+    };
+
 
 }
