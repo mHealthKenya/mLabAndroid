@@ -3,7 +3,6 @@ package com.example.kenweezy.mytablayouts.hts.Htssampleremote;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,13 +30,13 @@ import java.util.List;
 public class HtsSampleRemoteLogin extends AppCompatActivity {
 
     DateTimePicker dtp;
-    LinearLayout testkit1ll,testkit2ll;
+    LinearLayout testkit1ll,testkit2ll, llsecondtestkitL;
     EditText samplenumber,clientname,dob,telephone,testdate,lotnumber1,expirydate1,lotnumber2,expirydate2,sampletestername,dbsdate,dbsdispatchdate,requestingprovider;
-    MaterialBetterSpinner SpinnerSex,SpinnerdeliveryPoint,Spinnertestkit1,Spinnertestkit2,Spinnerfinalresult;
-    String SelectedSex,SelecteddeliveryPoint,Selectedtestkit1,Selectedtestkit2,Selectedfinalresult;
+    MaterialBetterSpinner SpinnerSex,SpinnerdeliveryPoint,Spinnertestkit1,Spinnertestkit2,Spinnerfinalresult,SpinnerTest1Result;
+    String SelectedSex,SelecteddeliveryPoint,Selectedtestkit1,Selectedtestkit2,Selectedfinalresult,SelectedTest1Result;
     String samplenumberS,clientnameS,dobS,telephoneS,testdateS,lotnumber1S,expirydate1S,lotnumber2S,expirydate2S,sampletesternameS,dbsdateS,dbsdispatchdateS,requestingproviderS;
 
-    private ArrayAdapter<String> arrayAdapterSex,arrayAdapterDeliveryPoint,arrayAdapterTestkit1,arrayAdapterTestkit2,arrayAdapterFinalResult;
+    private ArrayAdapter<String> arrayAdapterSex,arrayAdapterDeliveryPoint,arrayAdapterTestkit1,arrayAdapterTestkit2,arrayAdapterFinalResult,arrayAdapterResult1;
 
     AccessServer acs;
     @Override
@@ -233,19 +232,23 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
                 Toast.makeText(this, "expiry date 1 is required", Toast.LENGTH_SHORT).show();
             }
-            else if(Selectedtestkit2.trim().isEmpty()){
+            else if(SelectedTest1Result.trim().isEmpty()){
+
+                Toast.makeText(this, "result 1 is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(llsecondtestkitL.isShown() && Selectedtestkit2.trim().isEmpty()){
 
                 Toast.makeText(this, "Test kit 2 is required", Toast.LENGTH_SHORT).show();
             }
-            else if(lotnumber2S.trim().isEmpty()){
+            else if(llsecondtestkitL.isShown() && lotnumber2S.trim().isEmpty()){
 
                 Toast.makeText(this, "Lot number 2 is required", Toast.LENGTH_SHORT).show();
             }
-            else if(expirydate2S.trim().isEmpty()){
+            else if(llsecondtestkitL.isShown() && expirydate2S.trim().isEmpty()){
 
                 Toast.makeText(this, "expiry date 2 is required", Toast.LENGTH_SHORT).show();
             }
-            else if(Selectedfinalresult.trim().isEmpty()){
+            else if(llsecondtestkitL.isShown() && Selectedfinalresult.trim().isEmpty()){
 
                 Toast.makeText(this, "final result is required", Toast.LENGTH_SHORT).show();
             }
@@ -268,6 +271,14 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             else{
 
                 String userPhoneNumber="";
+                if(!llsecondtestkitL.isShown()){
+
+                    Selectedtestkit2="-1";
+                    lotnumber2S="-1";
+                    expirydate2S="-1";
+                    Selectedfinalresult="-1";
+
+                }
 
                 List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
                 for(int y=0;y<myl.size();y++){
@@ -276,7 +287,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
                 }
 //                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
                 String message=samplenumberS+"*"+clientnameS+"*"+dobS+"*"+SelectedSex+"*"+telephoneS+"*"+testdateS+"*"
-                        +SelecteddeliveryPoint+"*"+Selectedtestkit1+"*"+lotnumber1S+"*"+expirydate1S+"*"+Selectedtestkit2+
+                        +SelecteddeliveryPoint+"*"+Selectedtestkit1+"*"+lotnumber1S+"*"+expirydate1S+"*"+SelectedTest1Result+"*"+Selectedtestkit2+
                         "*"+lotnumber2S+"*"+expirydate2S+"*"+Selectedfinalresult+"*"+sampletesternameS+"*"+dbsdateS+
                         "*"+dbsdispatchdateS+"*"+requestingproviderS;
 
@@ -337,6 +348,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             setSpinnerSexListener();
             setSpinnerTestkit1Listener();
             setSpinnerTestkit2Listener();
+            setSpinnerResult1Listener();
         }
         catch(Exception e){
 
@@ -352,6 +364,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             dtp=new DateTimePicker(HtsSampleRemoteLogin.this);
             testkit1ll=(LinearLayout) findViewById(R.id.lltestkit1);
             testkit2ll=(LinearLayout) findViewById(R.id.lltestkit2);
+            llsecondtestkitL =(LinearLayout) findViewById(R.id.llsecondtestkit);
 
             samplenumber=(EditText) findViewById(R.id.htssamplenumber);
             clientname=(EditText) findViewById(R.id.htssampleclientname);
@@ -372,12 +385,14 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             Spinnertestkit1=(MaterialBetterSpinner) findViewById(R.id.htssampletestkit1);
             Spinnertestkit2=(MaterialBetterSpinner) findViewById(R.id.htssampletestkit2);
             Spinnerfinalresult=(MaterialBetterSpinner) findViewById(R.id.htssamplefinalresult);
+            SpinnerTest1Result=(MaterialBetterSpinner) findViewById(R.id.htssampletest1result);
 
             SelectedSex="";
             SelecteddeliveryPoint="";
             Selectedtestkit1="";
             Selectedtestkit2="";
             Selectedfinalresult="";
+            SelectedTest1Result="";
 
             samplenumberS="";
             clientnameS="";
@@ -405,6 +420,9 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             arrayAdapterFinalResult = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTFINALRESULTS);
 
+            arrayAdapterResult1 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTFIRSTRESULTS);
+
         }
         catch(Exception e){
 
@@ -415,11 +433,14 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
     public void setSpinnerAdapters(){
 
         try{
+
             SpinnerSex.setAdapter(arrayAdapterSex);
             SpinnerdeliveryPoint.setAdapter(arrayAdapterDeliveryPoint);
             Spinnertestkit1.setAdapter(arrayAdapterTestkit1);
             Spinnertestkit2.setAdapter(arrayAdapterTestkit2);
             Spinnerfinalresult.setAdapter(arrayAdapterFinalResult);
+            SpinnerTest1Result.setAdapter(arrayAdapterResult1);
+
 
 
         }
@@ -626,6 +647,56 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
                     Selectedtestkit2 = Spinnertestkit2.getText().toString();
                     testkit2ll.setVisibility(View.VISIBLE);
+
+//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+    private void setSpinnerResult1Listener(){
+
+        try{
+
+
+            SpinnerTest1Result.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    SelectedTest1Result = SpinnerTest1Result.getText().toString();
+
+                    if(SelectedTest1Result.contentEquals(Config.SPINNERLISTFIRSTRESULTS[0])){
+
+                        llsecondtestkitL.setVisibility(View.GONE);
+
+
+
+                    }
+                    else{
+
+                        llsecondtestkitL.setVisibility(View.VISIBLE);
+
+                    }
 
 //                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
 
