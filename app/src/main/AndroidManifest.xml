@@ -26,7 +26,7 @@
             android:value="messages.db" />
         <meta-data
             android:name="VERSION"
-            android:value="15" />
+            android:value="16" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />

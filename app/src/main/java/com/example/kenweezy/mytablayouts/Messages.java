@@ -15,29 +15,62 @@ public class Messages extends SugarRecord {
     public String chkd;
     public String viralCount;
     public String messageId;
+    public String patientid;
 
     public Messages(){
 
     }
 
-    public Messages(String chkd,String mAddress,String mBody,String mTimeStamp,String Read,String dateRead,String vcount,String messid){
-
-        this.mAddress=mAddress;
-        this.mBody=mBody;
-        this.mTimeStamp=mTimeStamp;
-        this.read=Read;
-        this.dateRead=dateRead;
-        this.chkd=chkd;
-        this.viralCount=vcount;
-        this.messageId=messid;
-    }
-
-    public String getViralCount() {
-        return viralCount;
-    }
-
-    public void setViralCount(String viralCount) {
+    public Messages(String mAddress, String mBody, String mTimeStamp, String read, String dateRead, String chkd, String viralCount, String messageId, String patientid) {
+        this.mAddress = mAddress;
+        this.mBody = mBody;
+        this.mTimeStamp = mTimeStamp;
+        this.read = read;
+        this.dateRead = dateRead;
+        this.chkd = chkd;
         this.viralCount = viralCount;
+        this.messageId = messageId;
+        this.patientid = patientid;
+    }
+
+    public String getmAddress() {
+        return mAddress;
+    }
+
+    public void setmAddress(String mAddress) {
+        this.mAddress = mAddress;
+    }
+
+    public String getmBody() {
+        return mBody;
+    }
+
+    public void setmBody(String mBody) {
+        this.mBody = mBody;
+    }
+
+    public String getmTimeStamp() {
+        return mTimeStamp;
+    }
+
+    public void setmTimeStamp(String mTimeStamp) {
+        this.mTimeStamp = mTimeStamp;
+    }
+
+    public String getRead() {
+        return read;
+    }
+
+    public void setRead(String read) {
+        this.read = read;
+    }
+
+    public String getDateRead() {
+        return dateRead;
+    }
+
+    public void setDateRead(String dateRead) {
+        this.dateRead = dateRead;
     }
 
     public String getChkd() {
@@ -48,45 +81,12 @@ public class Messages extends SugarRecord {
         this.chkd = chkd;
     }
 
-    public String getmAddress(){
-        return mAddress;
+    public String getViralCount() {
+        return viralCount;
     }
 
-    public String getmBody(){
-
-        return mBody;
-    }
-    public String getRead(){
-
-        return read;
-    }
-
-    public String getmTimeStamp(){
-
-        return mTimeStamp;
-    }
-
-    public void setDateRead(String dateRead) {
-        this.dateRead = dateRead;
-    }
-
-    public String getDateRead() {
-        return dateRead;
-    }
-
-    public void setmAddress(String addr){
-        this.mAddress=addr;
-    }
-
-    public void setmBody(String bdy){
-        this.mBody=bdy;
-    }
-    public void setRead(String read){
-        this.read=read;
-    }
-
-    public void setmTimeStamp(String tstamp){
-        this.mTimeStamp=tstamp;
+    public void setViralCount(String viralCount) {
+        this.viralCount = viralCount;
     }
 
     public String getMessageId() {
@@ -95,5 +95,13 @@ public class Messages extends SugarRecord {
 
     public void setMessageId(String messageId) {
         this.messageId = messageId;
+    }
+
+    public String getPatientid() {
+        return patientid;
+    }
+
+    public void setPatientid(String patientid) {
+        this.patientid = patientid;
     }
 }

@@ -156,7 +156,7 @@ public class Individualresults extends AppCompatActivity {
             else{
 
                 Toast.makeText(this, "searching", Toast.LENGTH_SHORT).show();
-                getResults();
+                getResults(puidS);
             }
 
         }
@@ -168,12 +168,12 @@ public class Individualresults extends AppCompatActivity {
 
 
 
-    public void getResults(){
+    public void getResults(String patientId){
 
         try{
 
             mymesslist=new ArrayList<>();
-            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+            List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where patientid=? group by m_body", patientId);
             if(bdy.size()<0){
 
                 lm.getMessages();

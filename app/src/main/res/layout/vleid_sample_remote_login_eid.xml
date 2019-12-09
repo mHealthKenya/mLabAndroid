@@ -90,6 +90,13 @@
 
             <EditText
                 android:layout_width="match_parent"
+                android:hint="Other Entry point"
+                android:visibility="gone"
+                android:id="@+id/eidsampleotherentrypoint"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
                 android:hint="Date Of sample collection"
                 android:focusable="false"
                 android:id="@+id/eidsamplecollectiondate"
@@ -104,6 +111,13 @@
                 android:hint="Select infant prophylaxis code"
                 android:textColorHint="@color/textcolorblack"
                 app:met_floatingLabel="normal" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Other Prophylaxis code"
+                android:visibility="gone"
+                android:id="@+id/eidsampleotherprophylaxiscode"
+                android:layout_height="wrap_content" />
 
 
 

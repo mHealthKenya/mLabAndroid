@@ -29,9 +29,9 @@ import java.util.List;
 public class EidSamples extends AppCompatActivity {
 
     MaterialBetterSpinner SpinnerSex, SpinnerRegimen,Spinneralivedead,spinnerentrypoint,spinnerprophylaxiscode,spinnerinfantfeeding,spinnerpcr;
-    EditText heinumber,patientname,dob,collectiondate,alivedead,motherage,haartdate,mothervlresultsE,mothercccnumberE,infantcccnumberE;
+    EditText heinumber,patientname,dob,collectiondate,alivedead,motherage,haartdate,mothervlresultsE,mothercccnumberE,infantcccnumberE,otherEntrypointE,otherProphylaxiscodeE;
     private ArrayAdapter<String> arrayAdapterSex, arrayAdapterRegimen,arrayAdapterAliveDead,arrayAdapterEntrypoint,arrayAdapterProphylaxiscode,arrayAdapterInfantfeeding,arrayAdapterPcr;
-    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,collectiondateS,alivedeadS,motherageS,haartdateS,selectedEntrypoint,selectedProphylaxiscode,selectedInfantfeeding,selectedPcr,mothervlresultsS,mothercccnumberS,infantcccnumberS;
+    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,collectiondateS,alivedeadS,motherageS,haartdateS,selectedEntrypoint,selectedProphylaxiscode,selectedInfantfeeding,selectedPcr,mothervlresultsS,mothercccnumberS,infantcccnumberS,otherEntrypointS,otherProphylaxiscodeS;
 
     DateTimePicker dtp;
     AccessServer acs;
@@ -96,6 +96,8 @@ public class EidSamples extends AppCompatActivity {
             alivedeadS="";
             motherageS="";
             haartdateS="";
+            otherEntrypointS="";
+            otherProphylaxiscodeS="";
 
 
 
@@ -257,6 +259,32 @@ public class EidSamples extends AppCompatActivity {
             }
             else{
 
+                if(otherProphylaxiscodeE.isShown()){
+
+                    otherProphylaxiscodeS=otherProphylaxiscodeE.getText().toString();
+
+
+
+
+                }
+
+                if(otherEntrypointE.isShown()){
+
+                    otherEntrypointS=otherEntrypointE.getText().toString();
+
+
+                }
+
+                if(otherProphylaxiscodeE.isShown() && otherProphylaxiscodeS.isEmpty()){
+
+                    Toast.makeText(this, "other prophylaxis is required", Toast.LENGTH_SHORT).show();
+
+                }
+                else if(otherEntrypointE.isShown() && otherEntrypointS.isEmpty()){
+
+                    Toast.makeText(this, "other entry point is required", Toast.LENGTH_SHORT).show();
+                }
+
                 String userPhoneNumber="";
 
                 List<UsersTable> myl=UsersTable.findWithQuery(UsersTable.class,"select * from Users_table limit 1");
@@ -270,10 +298,20 @@ public class EidSamples extends AppCompatActivity {
                     infantcccnumberS="-1";
 
                 }
+                if(!otherEntrypointE.isShown()){
+
+                    otherEntrypointS="-1";
+
+                }
+                if(!otherProphylaxiscodeE.isShown()){
+
+                    otherProphylaxiscodeS="-1";
+
+                }
 //                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
 
                 String message="EID*"+selectedSex+"*"+selectedRegimen+"*"+selectedAlive+"*"+heinumberS+"*"+patientnameS
-                        +"*"+dobS+"*"+selectedEntrypoint+"*"+collectiondateS+"*"+selectedProphylaxiscode+"*"+selectedInfantfeeding+"*"
+                        +"*"+dobS+"*"+selectedEntrypoint+"*"+otherEntrypointS+"*"+collectiondateS+"*"+selectedProphylaxiscode+"*"+otherProphylaxiscodeS+"*"+selectedInfantfeeding+"*"
                         +selectedPcr+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS+"*"+mothercccnumberS+"*"+mothervlresultsS+"*"+infantcccnumberS;
 
                 System.out.println("**phone encrypted**********"+Base64Encoder.encryptString(userPhoneNumber)+"***message encrypted******"+Base64Encoder.encryptString(message));
@@ -313,7 +351,17 @@ public class EidSamples extends AppCompatActivity {
 
                     selectedEntrypoint = spinnerentrypoint.getText().toString();
 
-//                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(EidSamples.this, "selected "+selectedEntrypoint, Toast.LENGTH_SHORT).show();
+                    if(selectedEntrypoint.contentEquals("Other")){
+
+                        otherEntrypointE.setVisibility(View.VISIBLE);
+                    }
+                    else{
+
+                        otherEntrypointE.setVisibility(View.GONE);
+                        otherEntrypointE.setText("");
+                        otherEntrypointS="";
+                    }
 
 
 
@@ -349,6 +397,16 @@ public class EidSamples extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
 
                     selectedProphylaxiscode = spinnerprophylaxiscode.getText().toString();
+
+                    if(selectedProphylaxiscode.contentEquals("Other")){
+
+                        otherProphylaxiscodeE.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        otherProphylaxiscodeE.setVisibility(View.GONE);
+                        otherProphylaxiscodeE.setText("");
+                        otherProphylaxiscodeS="";
+                    }
 
 //                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
 
@@ -581,6 +639,8 @@ public class EidSamples extends AppCompatActivity {
             mothervlresultsE=(EditText) findViewById(R.id.eidsamplmothervlresults);
             mothercccnumberE=(EditText) findViewById(R.id.eidsamplmothercccnumber);
             infantcccnumberE=(EditText) findViewById(R.id.eidsampleinfantcccnumber);
+            otherEntrypointE=(EditText) findViewById(R.id.eidsampleotherentrypoint);
+            otherProphylaxiscodeE=(EditText) findViewById(R.id.eidsampleotherprophylaxiscode);
 
             heinumberS="";
             patientnameS="";

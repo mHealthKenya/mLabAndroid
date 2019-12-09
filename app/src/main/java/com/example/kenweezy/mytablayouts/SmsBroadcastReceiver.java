@@ -249,9 +249,9 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
                     String vcounts = Integer.toString(gvc.getViralCount(newMessage.toString()));
-//
-                    Messages ms = new Messages("false", getAdd, newMessage.toString(), mytimestamp, "unread", "null", vcounts, mId);
-                    ms.save();
+////
+//                    Messages ms = new Messages("false", getAdd, newMessage.toString(), mytimestamp, "unread", "null", vcounts, mId);
+//                    ms.save();
 
 
 //                    context.getContentResolver().delete(Uri.parse("content://sms"), "address=?", new String[] {msc.mainShortcode});

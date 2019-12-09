@@ -32,6 +32,7 @@ public class ProcessMessage {
             GetViralCounts gvc=new GetViralCounts();
             StringBuilder newMessage=new StringBuilder();
             String mId="";
+            String pID="";
 
             String pattern = "dd/MM/yyyy hh:mm:ss.SSS";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -47,6 +48,7 @@ public class ProcessMessage {
             String[] originalArray=decryptedmess.split(":");
 
             String[] firstpart=originalArray[0].split("\\s+");
+
 
             if(firstpart[0].contentEquals("HTS")){
 
@@ -105,6 +107,9 @@ public class ProcessMessage {
 
 
                 //************start process eid vl logic here
+
+                String[] pidpart=originalArray[1].split("\\s+");
+                pID=pidpart[0];
 
                 if(firstpart[0].contentEquals("EID")){
                     firstpart[0].replace("EID","FFEID Results");
@@ -213,7 +218,7 @@ public class ProcessMessage {
 
                 String vcounts=Integer.toString(gvc.getViralCount(newMessage.toString()));
 //
-                Messages ms = new Messages("false", Config.mainShortcode,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId);
+                Messages ms = new Messages("false", Config.mainShortcode,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId,pID);
                 ms.save();
 
 

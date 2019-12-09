@@ -39,6 +39,7 @@ public class LoadMessages {
             int indexDate = smsInboxCursor.getColumnIndex("date");
 
             String mId="";
+            String pID="";
 
 
 
@@ -123,6 +124,9 @@ public class LoadMessages {
                         String[] originalArray=decryptedmess.split(":");
 
                         String[] firstpart=originalArray[0].split("\\s+");
+
+                        String[] pidpart=originalArray[1].split("\\s+");
+                        pID=pidpart[0];
 
                         if(firstpart[0].contentEquals("EID")){
 
@@ -235,7 +239,7 @@ public class LoadMessages {
 
 
 
-                        Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId);
+                        Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId,pID);
                         ms.save();
                         newMessage.setLength(0);
 

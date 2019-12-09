@@ -94,6 +94,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/button"
+                android:drawableLeft="@mipmap/error"
+                android:drawablePadding="20sp"
                 android:text="EID/VL"
                 android:id="@+id/button" />
 
