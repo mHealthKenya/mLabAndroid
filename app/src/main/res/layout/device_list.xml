@@ -5,15 +5,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:id="@+id/mytb2"
-            android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+            android:layout_height="wrap_content"></androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView android:id="@+id/title_paired_devices"
         android:layout_width="fill_parent"

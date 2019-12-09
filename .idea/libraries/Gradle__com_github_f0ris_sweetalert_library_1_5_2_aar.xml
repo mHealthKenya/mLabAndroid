@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.f0ris.sweetalert:library:1.5.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.5.2.aar/d3a5c65485d9b4a34f3618dc15c83733/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.5.2.aar/d3a5c65485d9b4a34f3618dc15c83733/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/be6a522e1c7f8c76f642ad4798251872/library-1.5.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/be6a522e1c7f8c76f642ad4798251872/library-1.5.2/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.2/40d2b4faadee7ebb1441697bd01a99679210afdd/library-1.5.2-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.2/9d859d3d51cac39d9e7f798d60c28bb86cc00026/library-1.5.2-sources.jar!/" />
     </SOURCES>

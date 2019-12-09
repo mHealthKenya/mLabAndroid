@@ -8,7 +8,6 @@ package com.example.kenweezy.mytablayouts.printing;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -23,8 +22,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -40,7 +39,6 @@ import android.os.Environment;
 
 import com.er.bt.BluetoothService;
 import com.er.bt.PrintImage;
-import com.example.kenweezy.mytablayouts.Messages;
 import com.example.kenweezy.mytablayouts.R;
 
 

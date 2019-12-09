@@ -44,7 +44,7 @@
                 android:orientation="vertical"
                 android:paddingTop="30dp">
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -58,9 +58,9 @@
                         android:hint="Phone number e.g(071234567)"
                         android:id="@+id/regphone"
                         android:inputType="phone" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -73,7 +73,7 @@
                         android:hint="User Name"
                         android:id="@+id/reguname"
                         android:inputType="text" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_marginTop="20sp"
@@ -81,7 +81,7 @@
                     android:id="@+id/securityQnSpinner"
                     android:layout_height="wrap_content"></Spinner>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -94,10 +94,10 @@
                         android:hint="Security Answer"
                         android:id="@+id/securityans"
                         android:inputType="text" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -112,9 +112,9 @@
                         android:id="@+id/regpass"
                         android:inputType="textPassword" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -129,7 +129,7 @@
                     android:id="@+id/cregpass"
                     android:inputType="textPassword" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <CheckBox
                     android:id="@+id/regcbShowPwd"
