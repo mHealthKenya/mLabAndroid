@@ -176,52 +176,69 @@ public class Individualresults extends AppCompatActivity {
             List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages where patientid=? group by m_body", patientId);
             if(bdy.size()<0){
 
-                lm.getMessages();
+//                lm.getMessages();
+
+            }
+            else{
+
+                //process available results
+
+
+                for(int x=0;x<bdy.size();x++){
+
+
+                    String messbdy=bdy.get(x).getmBody();
+                    String messId=bdy.get(x).getMessageId();
+                    String ndate = bdy.get(x).getmTimeStamp();
+                    String read=bdy.get(x).getRead();
+                    String mychk=bdy.get(x).getChkd();
+                    String mvcnt=bdy.get(x).getViralCount();
+                    int vcount=Integer.parseInt(mvcnt);
+                    String patientid= bdy.get(x).getPatientid();
+
+                    boolean mychkB;
+                    if(mychk.contentEquals("true")){
+                        mychkB=true;
+                    }
+                    else{
+                        mychkB=false;
+                    }
+
+                    String[] checkSplitdate=ndate.split("/");
+
+
+                    if(checkSplitdate.length>1){
+
+                    }
+                    else{
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(Long.parseLong(ndate));
+                        ndate = formatter.format(calendar.getTime());
+
+                    }
+
+
+
+                    mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
+
+
+                }
+
+                Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+                myadapter=new MessagesAdapter(Individualresults.this,mymesslist);
+                lv.setAdapter(myadapter);
+
+
+                //process available results
+
 
             }
 
-            for(int x=0;x<bdy.size();x++){
-
-
-                String messbdy=bdy.get(x).getmBody();
-                String messId=bdy.get(x).getMessageId();
-                String ndate = bdy.get(x).getmTimeStamp();
-                String read=bdy.get(x).getRead();
-                String mychk=bdy.get(x).getChkd();
-                String mvcnt=bdy.get(x).getViralCount();
-                int vcount=Integer.parseInt(mvcnt);
-                boolean mychkB;
-                if(mychk.contentEquals("true")){
-                    mychkB=true;
-                }
-                else{
-                    mychkB=false;
-                }
-
-                String[] checkSplitdate=ndate.split("/");
-
-
-                if(checkSplitdate.length>1){
-
-                }
-                else{
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(Long.parseLong(ndate));
-                    ndate = formatter.format(calendar.getTime());
-
-                }
 
 
 
-                mymesslist.add(new Mydata(mychkB,messbdy,ndate,read,vcount,messId));
-
-
-            }
-            Collections.sort(mymesslist,Mydata.VlcountComparator);
-
-            myadapter=new MessagesAdapter(Individualresults.this,mymesslist);
-            lv.setAdapter(myadapter);
         }
         catch(Exception e){
 
