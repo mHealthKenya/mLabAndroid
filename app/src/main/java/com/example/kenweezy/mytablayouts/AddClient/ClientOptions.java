@@ -1,12 +1,17 @@
 package com.example.kenweezy.mytablayouts.AddClient;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.R;
 
 public class ClientOptions extends AppCompatActivity {
@@ -18,6 +23,7 @@ public class ClientOptions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_options);
         setToolbar();
+        changeStatusBarColor();
     }
 
     public void setToolbar(){
@@ -33,6 +39,15 @@ public class ClientOptions extends AppCompatActivity {
         catch(Exception e){
 
 
+        }
+    }
+
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(Config.statusBarColor));
         }
     }
 

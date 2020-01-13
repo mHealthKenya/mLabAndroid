@@ -57,6 +57,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="top"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
             android:layout_gravity="top"
             android:orientation="vertical" >
 
@@ -86,29 +88,31 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:onClick="goToResults"
-                android:textColor="#b666d2"
+                android:textColor="@color/textcolorblack"
                 android:textAllCaps="false"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/button"
-                android:drawableLeft="@mipmap/error"
-                android:drawablePadding="20sp"
+                android:drawableLeft="@drawable/eidvl"
+                android:paddingLeft="10sp"
                 android:text="EID/VL"
                 android:id="@+id/button" />
 
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:onClick="HTSResults"
-                android:textColor="#b666d2"
+                android:textColor="@color/textcolorblack"
                 android:textAllCaps="false"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:paddingLeft="10sp"
                 android:layout_marginTop="9dp"
+                android:drawableLeft="@drawable/eidvl"
                 android:background="@drawable/button"
                 android:text="HTS"
                 android:id="@+id/htsbutton" />
@@ -116,25 +120,29 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:onClick="TB"
-                android:textColor="#b666d2"
+                android:textColor="@color/textcolorblack"
                 android:textAllCaps="false"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="9dp"
+                android:paddingLeft="10sp"
+                android:drawableLeft="@drawable/eidvl"
                 android:background="@drawable/button"
                 android:text="TB"
                 android:id="@+id/Tbbutton" />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:paddingLeft="10sp"
                 android:onClick="goToDb"
-                android:textColor="#b666d2"
+                android:textColor="@color/textcolorblack"
+                android:drawableLeft="@drawable/dashboard"
                 android:textAllCaps="false"
                 android:background="@drawable/button"
                 android:text="Dashboard"/>
@@ -144,15 +152,17 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:onClick="goToClients"
-                android:textColor="#b666d2"
+                android:paddingLeft="10sp"
+                android:textColor="@color/textcolorblack"
+                android:drawableLeft="@drawable/notifyclient"
                 android:textAllCaps="false"
                 android:background="@drawable/button"
-                android:text="Add Client"/>
+                android:text="Notify Client"/>
 
 
             <!--<Button-->
@@ -170,14 +180,16 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:onClick="historicalResults"
-                android:textColor="#b666d2"
+                android:textColor="@color/textcolorblack"
                 android:textAllCaps="false"
+                android:drawableLeft="@drawable/historicalresults"
                 android:background="@drawable/button"
+                android:paddingLeft="10sp"
                 android:text="Historical Results"/>
 
             <!--<Button-->

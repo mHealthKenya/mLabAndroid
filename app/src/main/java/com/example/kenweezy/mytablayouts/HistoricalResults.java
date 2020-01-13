@@ -1,6 +1,8 @@
 package com.example.kenweezy.mytablayouts;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,12 +10,15 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Checkinternet.CheckInternet;
+import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
@@ -53,6 +58,16 @@ public class HistoricalResults extends AppCompatActivity {
 
         setDatePickerFrm();
         checkFrmDateListener();
+        changeStatusBarColor();
+    }
+
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(Config.statusBarColor));
+        }
     }
 
 

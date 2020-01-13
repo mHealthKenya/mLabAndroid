@@ -43,7 +43,7 @@
         android:id="@+id/fabhtsres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="right|center_vertical"
         android:src="@drawable/ic_refresh"
         android:layout_margin="16dp" />
 

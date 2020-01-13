@@ -3,6 +3,7 @@ package com.example.kenweezy.mytablayouts.AddClient;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Telephony;
@@ -12,18 +13,22 @@ import androidx.core.app.NotificationCompat;
 import androidx.appcompat.widget.Toolbar;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.Mylogin;
 import com.example.kenweezy.mytablayouts.Myshortcodes;
 import com.example.kenweezy.mytablayouts.Progress;
 import com.example.kenweezy.mytablayouts.R;
 import com.example.kenweezy.mytablayouts.UserTimeOut;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
+import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +45,7 @@ public class Register extends AppCompatActivity {
 
     Myshortcodes msc=new Myshortcodes();
     MCrypt mcrypt=new MCrypt();
+    SendMessage sm;
 
 
     public static final String KEY_CCNO = "cc no";
@@ -76,6 +82,9 @@ public class Register extends AppCompatActivity {
         fn=(EditText) findViewById(R.id.fname);
         ln=(EditText) findViewById(R.id.lname);
         pn=(EditText) findViewById(R.id.pno);
+        sm = new SendMessage(Register.this);
+
+        changeStatusBarColor();
 
 
         SharedPreferences settings = getSharedPreferences(SETTING_INFOS, 0);
@@ -87,6 +96,15 @@ public class Register extends AppCompatActivity {
 
     }
 
+
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(Config.statusBarColor));
+        }
+    }
 
 
     public void onRadioButtonClicked(View view) {
@@ -191,12 +209,10 @@ public class Register extends AppCompatActivity {
 
                 String finalString="mlab"+"*"+myccno+"*"+myfn+"*"+myln+"*"+mypn+"*"+consent;
 
-                SmsManager sm = SmsManager.getDefault();
 
                 String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(finalString));
 
-                ArrayList<String> parts = sm.divideMessage(encrypted);
-                sm.sendMultipartTextMessage(msc.registerShortcode, null, parts, null, null);
+                sm.sendMessageApi(encrypted,msc.registerShortcode);
 
                 pr.DissmissProgress();
                 Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();

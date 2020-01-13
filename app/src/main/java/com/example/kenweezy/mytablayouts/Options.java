@@ -22,10 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AddClient.ClientOptions;
+import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.eidvl.eidvlOptions;
 import com.example.kenweezy.mytablayouts.hts.HtsOptions;
 
@@ -112,8 +115,19 @@ public class Options extends AppCompatActivity {
 
 //        getNotification();
 
+        changeStatusBarColor();
 
 
+
+    }
+
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(Config.statusBarColor));
+        }
     }
 
 

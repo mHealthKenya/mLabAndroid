@@ -1,5 +1,10 @@
 package com.example.kenweezy.mytablayouts.Config;
 
+import android.graphics.Color;
+import android.os.Build;
+import android.view.Window;
+import android.view.WindowManager;
+
 public class Config {
 
     public static String mainShortcode="40147";
@@ -16,6 +21,9 @@ public class Config {
             "Ampath",
             "Coast lab",
             "KNH"};
+
+    public static final String statusBarColor="#3F51B5";
+
 
     public static final String[] SPINNERLISTSEX = {"Male", "Female"};
     public static final String[] SPINNERLISTDELIVERYPOINT = {"OPD", "MCH","IPD","CCC","Community"};

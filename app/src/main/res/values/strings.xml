@@ -36,4 +36,5 @@
     <string name="btnPrtImg">Print Image</string>
     <string name="print_1D">Print Barcode</string>
     <string name="print_2D">Print 2D</string>
+    <string name="statusbarcolor">#3F51B5</string>
 </resources>

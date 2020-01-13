@@ -24,6 +24,8 @@ import android.telephony.TelephonyManager;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -31,6 +33,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.getsimdetails.getSimDetails;
@@ -209,10 +212,20 @@ public class Mylogin extends AppCompatActivity {
 
 //        sendReadReport();
         Stetho.initializeWithDefaults(this);
+        changeStatusBarColor();
 
 
     }
 
+
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(Config.statusBarColor));
+        }
+    }
 
     public void loadMessages() {
 
