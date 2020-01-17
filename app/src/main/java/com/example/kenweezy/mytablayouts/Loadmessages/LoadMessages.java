@@ -238,8 +238,11 @@ public class LoadMessages {
 //                String vcounts="12";
 
 
+//                    Messages(String mAddress, String mBody, String mTimeStamp, String read, String dateRead, String chkd, String viralCount, String messageId, String patientid)
 
-                        Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId,pID);
+
+                    Messages ms=new Messages(addr,newMessage.toString(),mytimestamp,"unread","unread","false",vcounts,mId,pID);
+//                        Messages ms=new Messages("false",addr,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId,pID);
                         ms.save();
                         newMessage.setLength(0);
 

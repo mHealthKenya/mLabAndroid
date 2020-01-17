@@ -44,6 +44,9 @@ public class ProcessMessage {
 
             String decryptedmess = encoder.decryptedString(str);
 
+            System.out.println("*********the original message***************");
+            System.out.println(decryptedmess);
+
 
             String[] originalArray=decryptedmess.split(":");
 
@@ -132,12 +135,15 @@ public class ProcessMessage {
                 }
 
                 String[] secondpart=originalArray[1].split("\\s+");
+//                EID PID:13805 - 2020 - 2708 A:1.5 S:Female DC:2020-01-06 R: :Negative
+                String lastItem=secondpart[secondpart.length-1];
+                String thePatientId=originalArray[1].replace(lastItem,"");
 
 //                    for(int x=0;x<secondpart.length;x++){
-                newMessage.append(":"+secondpart[0]);
+                newMessage.append(":"+thePatientId);
 
-                if(secondpart[1].contentEquals("A")){
-                    secondpart[1].replace("A","Age");
+                if(lastItem.contentEquals("A")){
+                    lastItem.replace("A","Age");
                     decryptedmess=decryptedmess.replace("A","Age");
 
                     newMessage.append(" Age:");
@@ -166,6 +172,7 @@ public class ProcessMessage {
                 newMessage.append(fourthpart[0]);
 
                 if(fourthpart[1].contentEquals("DC")){
+
                     fourthpart[1].replace("DC","Date Collected");
                     decryptedmess=decryptedmess.replace("DC","Date Collected");
                     newMessage.append(" Date Collected:");
@@ -217,8 +224,11 @@ public class ProcessMessage {
 
 
                 String vcounts=Integer.toString(gvc.getViralCount(newMessage.toString()));
+
+
+                Messages ms=new Messages(Config.mainShortcode,newMessage.toString(),mytimestamp,"unread","unread","false",vcounts,mId,pID);
 //
-                Messages ms = new Messages("false", Config.mainShortcode,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId,pID);
+//                Messages ms = new Messages("false", Config.mainShortcode,newMessage.toString(),mytimestamp,"unread","null",vcounts,mId,pID);
                 ms.save();
 
 

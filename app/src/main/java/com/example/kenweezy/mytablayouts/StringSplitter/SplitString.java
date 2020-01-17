@@ -6,7 +6,7 @@ public class SplitString {
     public static String splittedString(String x){
 
 //        String x="<#> test message here +11AKmxGULS";
-        String newstring=substringer(x, "<#>");
+        String newstring=substringer(x, "<#");
         String strTrimmed=newstring.trim();
         System.out.println(strTrimmed);
 

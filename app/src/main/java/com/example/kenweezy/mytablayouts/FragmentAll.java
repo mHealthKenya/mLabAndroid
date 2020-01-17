@@ -24,11 +24,13 @@ import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
 import com.example.kenweezy.mytablayouts.printing.BluetoothDemo;
 import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
+import com.google.gson.Gson;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -117,9 +119,13 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
 //        if (bdy.isEmpty())
 //            return 0;
 //        myadapter.clear();
+        System.out.println("*********message saved*****************");
+        System.out.println(new Gson().toJson(bdy));
+
 
 
         for(int x=0;x<bdy.size();x++){
+            System.out.println(bdy.get(x));
 
             counter += 1;
             String messbdy=bdy.get(x).getmBody();
@@ -130,12 +136,21 @@ public class FragmentAll extends Fragment  implements AdapterView.OnItemSelected
             String mvcnt=bdy.get(x).getViralCount();
             int vcount=Integer.parseInt(mvcnt);
             boolean mychkB;
-            if(mychk.contentEquals("true")){
-                mychkB=true;
-            }
-            else{
+            if(mychk!=null){
+
+                if(mychk.contentEquals("true")){
+                    mychkB=true;
+                }
+                else{
+                    mychkB=false;
+                }
+
+            }else{
+
                 mychkB=false;
+
             }
+
 
             String[] checkSplitdate=ndate.split("/");
 

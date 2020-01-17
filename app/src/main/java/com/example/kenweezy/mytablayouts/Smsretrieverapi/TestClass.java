@@ -56,7 +56,7 @@ public class TestClass extends AppCompatActivity implements SmsReceiver.MessageR
         pm=new ProcessMessage();
 //        sendMessage();
 
-        generateAppSignature();
+//        generateAppSignature();
 //       app id for debug => qt54FS+Udrc
 //      app id for release => Z9j3qy+Ivki
 

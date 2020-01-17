@@ -168,13 +168,17 @@ public class MessageDialog {
 
     public String getPatientId(String message){
 
+        System.out.println("********************patient id message*********************************");
+        System.out.println(message);
+
         String[] messageArray=message.split(":");
-        System.out.println("**********************************message length********************");
-        System.out.println(messageArray.length);
+        System.out.println(messageArray[1]);//13805 - 2020 - 2475  Age
 
-        String[] patientIdArr=messageArray[1].split("\\s+");
+        String[] completeString=messageArray[1].split("\\s+");
+        String lastItem=completeString[completeString.length-1];
+        String thePatientId=messageArray[1].replace(lastItem,"");
 
-        return patientIdArr[0];
+        return thePatientId;
     }
 
     public String getAge(String message){
