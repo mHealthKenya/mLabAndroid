@@ -9,9 +9,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.Config.Config;
@@ -20,8 +22,13 @@ import com.example.kenweezy.mytablayouts.Loadmessages.LoadMessages;
 import com.example.kenweezy.mytablayouts.Messages;
 import com.example.kenweezy.mytablayouts.MessagesAdapter;
 import com.example.kenweezy.mytablayouts.Mydata;
+import com.example.kenweezy.mytablayouts.Myshortcodes;
 import com.example.kenweezy.mytablayouts.R;
+import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
+import com.example.kenweezy.mytablayouts.messagedialog.MessageDialog;
+import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +50,12 @@ public class Individualresults extends AppCompatActivity {
 
     LoadMessages lm;
     DateTimePicker dtp;
+    SendMessage sm;
+
+    MessageDialog mdialog;
+    Base64Encoder encoder;
+
+    Myshortcodes msc=new Myshortcodes();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +68,7 @@ public class Individualresults extends AppCompatActivity {
         setDateToPicker();
 
         changeStatusBarColor();
+        setClickListener();
     }
 
     private void changeStatusBarColor(){
@@ -110,6 +124,10 @@ public class Individualresults extends AppCompatActivity {
     public void initialise(){
 
         try{
+
+            encoder=new Base64Encoder();
+            sm=new SendMessage(Individualresults.this);
+            mdialog=new MessageDialog(Individualresults.this);
             dtp=new DateTimePicker(Individualresults.this);
             lm=new LoadMessages(Individualresults.this);
             mflcode=(EditText) findViewById(R.id.client_mflcode);
@@ -261,4 +279,123 @@ public class Individualresults extends AppCompatActivity {
 
         }
     }
+
+
+
+
+
+
+    public void setClickListener(){
+
+        try{
+
+
+
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                    TextView tvread=(TextView) view.findViewById(R.id.mstitle);
+                    tvread.setText("read");
+                    boolean sending=false;
+                    boolean txtChkd;
+
+                    try{
+
+                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            System.out.println("testing "+timestamp);
+                        String mytime=timestamp.toString();
+
+                        String msgbdy=mymesslist.get(position).getMsgbody();
+                        String msgId=mymesslist.get(position).getMsgId();
+                        String msgdate=mymesslist.get(position).getDate();
+
+//                    Toast.makeText(getActivity(), ""+date, Toast.LENGTH_SHORT).show();
+
+
+//                        MydialogBuilder(msgbdy,msgdate);
+                        mdialog.displayMessage(msgbdy,msgdate);
+
+//                    System.out.println("/*****///// "+msgbdy);
+                        List myl=Messages.findWithQuery(Messages.class,"Select * from Messages where m_body=?",msgbdy);
+                        for(int x=0;x<myl.size();x++){
+
+                            Messages ms=(Messages) myl.get(x);
+                            if(ms.getRead().contentEquals("read")){
+                                sending=false;
+
+                            }
+                            else{
+
+                                sending=true;
+                                ms.getId();
+                                ms.setRead("read");
+                                ms.setDateRead(mytime);
+//                    Toast.makeText(getActivity(), "id: "+ms.getId(), Toast.LENGTH_SHORT).show();
+                                ms.save();
+                            }
+                        }
+
+
+                        if(sending){
+
+                            String sendMessage="read*"+msgId;
+
+                            sm.sendMessageApi(encoder.encryptString(sendMessage),msc.sendSmsShortcode);
+
+                        }
+
+
+
+
+
+                        mymesslist.clear();
+                        List<Messages> bdy = Messages.findWithQuery(Messages.class, "Select * from Messages group by m_body", null);
+
+                        if (bdy.isEmpty())
+                            return;
+//        myadapter.clear();
+
+
+
+                        Collections.sort(mymesslist,Mydata.VlcountComparator);
+
+                        Mydata model = mymesslist.get(position);
+
+                        mymesslist.set(position, model);
+
+                        myadapter.notifyDataSetChanged();
+
+
+
+                    }
+
+                    catch(Exception e){}
+
+
+
+
+                }
+            });
+
+
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

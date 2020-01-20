@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginRight="0dp"
-
         android:background="@drawable/border"
         >
 
@@ -112,7 +111,7 @@
                 android:layout_marginRight="5dp"
                 android:paddingLeft="10sp"
                 android:layout_marginTop="9dp"
-                android:drawableLeft="@drawable/eidvl"
+                android:drawableLeft="@drawable/htsicon"
                 android:background="@drawable/button"
                 android:text="HTS"
                 android:id="@+id/htsbutton" />
@@ -128,7 +127,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="9dp"
                 android:paddingLeft="10sp"
-                android:drawableLeft="@drawable/eidvl"
+                android:drawableLeft="@drawable/tbicon"
                 android:background="@drawable/button"
                 android:text="TB"
                 android:id="@+id/Tbbutton" />
@@ -248,7 +247,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/mhealthlogotwo"
+                android:src="@drawable/mhealthicon"
                 android:id="@+id/imageView"
                 android:padding="4dp"
                 android:onClick="gomhealth"
