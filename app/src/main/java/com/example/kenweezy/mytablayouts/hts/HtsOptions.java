@@ -41,7 +41,7 @@ public class HtsOptions extends AppCompatActivity {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.htsoptionstoolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Hts Options");
+            getSupportActionBar().setTitle("HTS Options");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 

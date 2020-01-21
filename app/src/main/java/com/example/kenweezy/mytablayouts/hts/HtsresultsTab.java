@@ -126,7 +126,7 @@ public class HtsresultsTab extends AppCompatActivity {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.htstabtoolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Hts Results");
+            getSupportActionBar().setTitle("HTS Results");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 

@@ -46,7 +46,7 @@ public class eidvlOptions extends AppCompatActivity {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.eidvloptionstoolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Eid/Vl Options");
+            getSupportActionBar().setTitle("EID/VL Options");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 

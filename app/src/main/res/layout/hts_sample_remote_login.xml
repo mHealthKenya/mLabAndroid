@@ -234,11 +234,15 @@
             android:text="Cancel"
             android:onClick="CancelHtsSamples"
             android:layout_weight="1"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
             android:layout_height="wrap_content" />
 
         <Button
             android:layout_width="match_parent"
             android:text="Submit Sample"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
             android:layout_weight="1"
             android:onClick="SubmitHtsSample"
             android:layout_height="wrap_content" />

@@ -339,6 +339,7 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#f2f2f2"));
+        tabLayout.setTabTextColors(Color.parseColor("#ffffff"),Color.parseColor("#000050"));
         tabLayout.setSelectedTabIndicatorHeight(5);
 
 

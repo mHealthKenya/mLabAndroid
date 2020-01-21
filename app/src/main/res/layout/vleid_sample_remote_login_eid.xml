@@ -211,6 +211,8 @@
         <Button
             android:layout_width="match_parent"
             android:text="Cancel"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
             android:onClick="CancelEidSamples"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
@@ -219,6 +221,8 @@
             android:layout_width="match_parent"
             android:text="Submit Sample"
             android:layout_weight="1"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
             android:onClick="SubmitEidSample"
             android:layout_height="wrap_content" />
     </LinearLayout>

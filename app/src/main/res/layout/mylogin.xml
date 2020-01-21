@@ -10,7 +10,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#5fb0c9"
+        android:background="@color/white"
         android:orientation="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true">
 
@@ -22,7 +22,7 @@
             android:layout_marginTop="22dp"
             android:gravity="center_horizontal"
             android:text="mLab User Login"
-            android:textColor="#fff"
+            android:textColor="@color/darkblue"
             android:textSize="26sp"
             android:textStyle="bold" />
 
@@ -51,8 +51,8 @@
                     <EditText
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@mipmap/user"
-                        android:drawableTint="#FF4081"
+                        android:drawableLeft="@drawable/usermlab"
+
                         android:singleLine="true"
                         android:hint="User Name"
                         android:id="@+id/uname"
@@ -68,8 +68,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:singleLine="true"
-                        android:drawableLeft="@mipmap/lock"
-                        android:drawableTint="#FF4081"
+                        android:drawableLeft="@drawable/security"
+
                         android:hint="Password"
                         android:id="@+id/pass"
                         android:inputType="textPassword" />
@@ -89,7 +89,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="22dp"
-                    android:background="#d67601"
+                    android:background="@color/darkblue"
                     android:text="Login"
 
                     android:onClick="LoginUser"
@@ -115,7 +115,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/user_profile_image_background"
             android:elevation="4dp"
-            android:src="@mipmap/user" />
+            android:src="@drawable/usermlab" />
 
 
     </RelativeLayout>

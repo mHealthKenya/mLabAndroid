@@ -62,6 +62,8 @@
         <Button
             android:layout_width="match_parent"
             android:text="Viral Load Samples"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
             android:onClick="goToViralLoadSamples"
             android:layout_marginTop="30sp"
             android:layout_height="wrap_content" />
@@ -70,6 +72,8 @@
             android:layout_width="match_parent"
             android:text="Early infant diagnosis"
             android:layout_marginTop="30sp"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
             android:onClick="goToEidSamples"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -78,6 +82,8 @@
         android:layout_width="match_parent"
         android:layout_marginTop="30sp"
         android:text="Sample transportation"
+        android:background="@color/darkblue"
+        android:textColor="@color/white"
         android:onClick="goToSampleTransportation"
         android:layout_height="wrap_content" />
 
@@ -85,6 +91,8 @@
         android:layout_width="match_parent"
         android:text="Barcode/QR Reader"
         android:layout_marginTop="30sp"
+        android:background="@color/darkblue"
+        android:textColor="@color/white"
         android:onClick="goToBarcodeReader"
         android:layout_height="wrap_content" />
         </LinearLayout>

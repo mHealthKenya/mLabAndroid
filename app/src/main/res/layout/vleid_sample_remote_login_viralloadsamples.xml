@@ -89,7 +89,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:hint="Date started on ART"
+                android:hint="Date Started on ART"
                 android:focusable="false"
                 android:id="@+id/vlsampleartstart"
                 android:layout_height="wrap_content" />
@@ -144,12 +144,16 @@
             android:text="Cancel"
             android:onClick="CancelVlSamples"
             android:layout_weight="1"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
             android:layout_height="wrap_content" />
 
         <Button
             android:layout_width="match_parent"
             android:text="Submit Sample"
             android:layout_weight="1"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
             android:onClick="SubmitSample"
             android:layout_height="wrap_content" />
     </LinearLayout>

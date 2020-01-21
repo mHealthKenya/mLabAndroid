@@ -144,7 +144,7 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.eidvlremotelogintoolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Eid/Vl Sample remote Login");
+            getSupportActionBar().setTitle("EID/VL Sample remote login");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
