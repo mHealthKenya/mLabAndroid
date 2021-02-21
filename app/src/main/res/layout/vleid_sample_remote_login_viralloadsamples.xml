@@ -35,17 +35,24 @@
         android:layout_alignParentTop="true"
         >
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
-            <EditText
+            <TextView
+                android:id="@+id/labNameTextView"
                 android:layout_width="match_parent"
-                android:hint="CCC number"
+                android:layout_height="wrap_content"
+                android:text="Lab Selected" />
+
+            <EditText
                 android:id="@+id/vlsampleccnumber"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CCC number"
+                android:inputType="number" />
 
             <EditText
                 android:layout_width="match_parent"

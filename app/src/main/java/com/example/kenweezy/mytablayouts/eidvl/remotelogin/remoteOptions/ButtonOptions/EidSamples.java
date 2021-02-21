@@ -1,5 +1,6 @@
 package com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,12 +8,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
@@ -24,6 +28,8 @@ import com.example.kenweezy.mytablayouts.UsersTable;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class EidSamples extends AppCompatActivity {
@@ -32,14 +38,26 @@ public class EidSamples extends AppCompatActivity {
     EditText heinumber,patientname,dob,collectiondate,alivedead,motherage,haartdate,mothervlresultsE,mothercccnumberE,infantcccnumberE,otherEntrypointE,otherProphylaxiscodeE;
     private ArrayAdapter<String> arrayAdapterSex, arrayAdapterRegimen,arrayAdapterAliveDead,arrayAdapterEntrypoint,arrayAdapterProphylaxiscode,arrayAdapterInfantfeeding,arrayAdapterPcr;
     String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,collectiondateS,alivedeadS,motherageS,haartdateS,selectedEntrypoint,selectedProphylaxiscode,selectedInfantfeeding,selectedPcr,mothervlresultsS,mothercccnumberS,infantcccnumberS,otherEntrypointS,otherProphylaxiscodeS;
+    TextView labName;
+    Integer labId, entrypoint, regimen, pcrType;
+
 
     DateTimePicker dtp;
+    DatePickerDialog dp;
     AccessServer acs;
+
+    final Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vleid_sample_remote_login_eid);
+        dob = (EditText)findViewById(R.id.eidsampledob);
+        dob.setInputType(InputType.TYPE_NULL);
+        labName = findViewById(R.id.labNameTextView);
+        Bundle bundle=getIntent().getExtras();
+        String selectedLab=bundle.getString("selectedLab");
+        labName.setText(selectedLab);
         setToolBar();
         changeStatusBarColor("#3F51B5");
         initialise();
@@ -155,7 +173,22 @@ public class EidSamples extends AppCompatActivity {
             dob.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dtp.setDatePicker(dob);
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(EidSamples.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            dob.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                   // dtp.setDatePicker(dob);
+
+
                 }
             });
 
@@ -181,6 +214,74 @@ public class EidSamples extends AppCompatActivity {
             mothervlresultsS=mothervlresultsE.getText().toString();
             mothercccnumberS=mothercccnumberE.getText().toString();
 
+            if(labName.equals("KU Teaching and Referring Hospital")){
+                labId = 1;
+            } else  if(labName.equals("Kisumu Lab")){
+                labId = 2;
+            } else  if(labName.equals("Alupe")){
+                labId = 3;
+            } else  if(labName.equals("Walter Reed")){
+                labId = 4;
+            }  else  if(labName.equals("Ampath")){
+                labId = 5;
+            } else  if(labName.equals("Coast Lab")){
+                labId = 6;
+            } else  if(labName.equals("KNH")){
+                labId = 7;
+            }
+
+            if(selectedEntrypoint.equals("IPD")){
+                entrypoint = 1;
+            } else  if(selectedEntrypoint.equals("OPD")){
+                entrypoint = 2;
+            } else  if(selectedEntrypoint.equals("MATERNITY")){
+                entrypoint = 3;
+            } else  if(selectedEntrypoint.equals("CCC")){
+                entrypoint = 4;
+            }  else  if(selectedEntrypoint.equals("MCH/PMTCT")){
+                entrypoint = 5;
+            } else  if(selectedEntrypoint.equals("Other")){
+                entrypoint = 6;
+            }
+
+            if(selectedRegimen.equals("PM1X=Any other Regimen")){
+                regimen = 1;
+            } else  if(selectedRegimen.equals("PM3= AZT+3TC+NVP")){
+                regimen = 2;
+            } else  if(selectedRegimen.equals("PM4= AZT+ 3TC+ EFV")){
+                regimen = 3;
+            } else  if(selectedRegimen.equals("PM5= AZT+3TC+ LPV/r")){
+                regimen = 4;
+            }  else  if(selectedRegimen.equals("PM6= TDC+3TC+NVP")){
+                regimen = 5;
+            } else  if(selectedRegimen.equals("PM7= TDF+3TC+LPV/r")){
+                regimen = 6;
+            } else  if(selectedRegimen.equals("PM9= TDF+3TC+EFV")){
+                regimen = 2;
+            } else  if(selectedRegimen.equals("PM10= AZT+3TC+ATV/r")){
+                regimen = 3;
+            } else  if(selectedRegimen.equals("PM11= TDF+3TC+ATV/r")){
+                regimen = 4;
+            }  else  if(selectedRegimen.equals("PM12=TDF+3TC+DTG")){
+                regimen = 5;
+            } else  if(selectedRegimen.equals("PM13=None")){
+                regimen = 6;
+            }
+
+            if(selectedPcr.equals("1= Initial PCR")){
+                pcrType = 1;
+            } else  if(selectedPcr.equals("2= 2nd PCR")){
+                pcrType = 2;
+            } else  if(selectedPcr.equals("3= 3rd PCR")){
+                pcrType = 3;
+            } else  if(selectedPcr.equals("4= Confirmatory PCR and Baseline VL")){
+                pcrType = 4;
+            }  else  if(selectedPcr.equals("5= Discrepant PCR (tie breaker)")){
+                pcrType = 5;
+            } else  if(selectedPcr.equals("6= Sample redraw")){
+                pcrType = 6;
+            }
+
             if(infantcccnumberE.isShown()){
                 infantcccnumberS=infantcccnumberE.getText().toString();
             }
@@ -202,7 +303,11 @@ public class EidSamples extends AppCompatActivity {
             }
             else if(heinumberS.isEmpty()){
 
-                Toast.makeText(this, "heinumber is required", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "HEI number is required", Toast.LENGTH_SHORT).show();
+            }
+            else if(heinumberS.length() < 10 || heinumberS.length() >15){
+
+                Toast.makeText(this, "HEI number should be between 10 to 15", Toast.LENGTH_SHORT).show();
             }
             else if(patientnameS.isEmpty()){
 
@@ -309,10 +414,11 @@ public class EidSamples extends AppCompatActivity {
 
                 }
 //                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
+                System.out.println(userPhoneNumber);
 
                 String message="EID*"+selectedSex+"*"+selectedRegimen+"*"+selectedAlive+"*"+heinumberS+"*"+patientnameS
                         +"*"+dobS+"*"+selectedEntrypoint+"*"+otherEntrypointS+"*"+collectiondateS+"*"+selectedProphylaxiscode+"*"+otherProphylaxiscodeS+"*"+selectedInfantfeeding+"*"
-                        +selectedPcr+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS+"*"+mothercccnumberS+"*"+mothervlresultsS+"*"+infantcccnumberS;
+                        +selectedPcr+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS+"*"+mothercccnumberS+"*"+mothervlresultsS+"*"+infantcccnumberS+"*"+labName+"*"+ labId +"*"+ entrypoint +"*"+ regimen +"*"+ pcrType;
 
                 System.out.println("**phone encrypted**********"+Base64Encoder.encryptString(userPhoneNumber)+"***message encrypted******"+Base64Encoder.encryptString(message));
 

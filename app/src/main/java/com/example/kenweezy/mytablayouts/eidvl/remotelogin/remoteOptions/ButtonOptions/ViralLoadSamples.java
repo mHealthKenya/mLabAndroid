@@ -1,5 +1,6 @@
 package com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,12 +8,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
@@ -24,26 +28,36 @@ import com.example.kenweezy.mytablayouts.UsersTable;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ViralLoadSamples extends AppCompatActivity {
 
     MaterialBetterSpinner SpinnerSex, Spinnertype, SpinnerCurrentRegimen, SpinnerArtLine, SpinnerJustcode;
     EditText ccnumber, patientname, dob, datecollection, artstart, dateartregimen;
+    TextView labName;
+    Integer labId;
 
 
     private ArrayAdapter<String> arrayAdapterSex, arrayAdapterType, arrayAdapterCurrentArtRegimen, arrayAdapterArtLine, arrayAdapterJustCode;
-    String selectedSex, selectedType, selectedCurrentRegimen, selectedArtLine, selectedJustCode, ccnumberS, patientnameS, dobS, datecollectionS, artstartS, dateartregimenS;
+    String selectedSex, selectedType, selectedCurrentRegimen, selectedArtLine, selectedJustCode, ccnumberS, patientnameS, dobS, datecollectionS, artstartS, dateartregimenS, labNameS, labIds;
 
     DateTimePicker dtp;
+    DatePickerDialog dp;
     AccessServer acs;
-//    EditText
 
+    final Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vleid_sample_remote_login_viralloadsamples);
+        dob = (EditText)findViewById(R.id.vlsampledob);
+        dob.setInputType(InputType.TYPE_NULL);
+        labName = findViewById(R.id.labNameTextView);
+        Bundle bundle=getIntent().getExtras();
+        String selectedLab=bundle.getString("selectedLab");
+        labName.setText(selectedLab);
         setToolBar();
         changeStatusBarColor("#3F51B5");
         initialise();
@@ -114,6 +128,8 @@ public class ViralLoadSamples extends AppCompatActivity {
             artstartS = artstart.getText().toString();
 
             dateartregimenS = dateartregimen.getText().toString();
+            labNameS = labName.getText().toString();
+
 
 
 //            "VL*"+ccnumberS+"*"+patientnameS+"*"+dobS+"*"+datecollectionS+"*"+artstartS+"*"
@@ -122,6 +138,9 @@ public class ViralLoadSamples extends AppCompatActivity {
 
 
             System.out.println("****submitted data*********");
+            System.out.println("labName***" + labNameS);
+            System.out.println("artline***" + selectedArtLine);
+            System.out.println("ccnumber***" + ccnumberS);
             System.out.println("sex***" + selectedSex);
             System.out.println("type****" + selectedType);
             System.out.println("ccnumber****" + ccnumberS);
@@ -132,10 +151,33 @@ public class ViralLoadSamples extends AppCompatActivity {
 
             System.out.println("art regimen date****" + dateartregimenS);
 
+            if(labNameS.contains("KU Teaching and Referring Hospital")){
+                labId = 1;
+            } else  if(labNameS.contains("Kisumu Lab")){
+                labId = 2;
+            } else  if(labNameS.contains("Alupe")){
+                labId = 3;
+            } else  if(labNameS.contains("Walter Reed")){
+                labId = 4;
+            }  else  if(labNameS.contains("Ampath")){
+                labId = 5;
+            } else  if(labNameS.contains("Coast Lab")){
+                labId = 6;
+            } else  if(labNameS.contains("KNH")){
+                labId = 7;
+            }
+
+            if (selectedSex.contains(null)) {
+
+                selectedSex = selectedSex.replace("null", "");
+            }
 
             if (ccnumberS.isEmpty()) {
 
                 Toast.makeText(this, "ccnumber is required", Toast.LENGTH_SHORT).show();
+            } else if (ccnumberS.length() != 10) {
+
+                Toast.makeText(this, "ccnumber should be 10 characters", Toast.LENGTH_SHORT).show();
             } else if (patientnameS.isEmpty()) {
 
                 Toast.makeText(this, "patient name is required", Toast.LENGTH_SHORT).show();
@@ -176,9 +218,12 @@ public class ViralLoadSamples extends AppCompatActivity {
                     userPhoneNumber = myl.get(y).getPhonenumber();
                 }
 
+                labIds = labId.toString();
+                System.out.println("labId***" + labIds);
+
                 String message = "VL*" + ccnumberS + "*" + patientnameS + "*" + dobS + "*" + datecollectionS + "*" + artstartS + "*"
                         + selectedCurrentRegimen + "*" + dateartregimenS + "*" + selectedArtLine + "*" + selectedJustCode + "*" + selectedType
-                        + "*" + selectedSex;
+                        + "*" + selectedSex + "*" + labNameS + "*" + labIds;
 
                 System.out.println("**phone encrypted**********" + Base64Encoder.encryptString(userPhoneNumber) + "***message encrypted******" + Base64Encoder.encryptString(message));
 
@@ -203,12 +248,24 @@ public class ViralLoadSamples extends AppCompatActivity {
             dob.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(ViralLoadSamples.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            dob.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(dob);
 
                 }
             });
-
 
         } catch (Exception e) {
 
@@ -226,8 +283,21 @@ public class ViralLoadSamples extends AppCompatActivity {
             artstart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(ViralLoadSamples.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            artstart.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(artstart);
 
                 }
             });
@@ -249,8 +319,21 @@ public class ViralLoadSamples extends AppCompatActivity {
             dateartregimen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(ViralLoadSamples.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            dateartregimen.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(dateartregimen);
 
                 }
             });
@@ -266,13 +349,24 @@ public class ViralLoadSamples extends AppCompatActivity {
     private void setDatecollection() {
 
         try {
-            //            EditText ccnumber,patientname,dob,datecollection,artstart,currentregimen,dateartregimen,artline,justcode;
-
             datecollection.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(ViralLoadSamples.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            datecollection.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(datecollection);
 
                 }
             });
@@ -304,7 +398,7 @@ public class ViralLoadSamples extends AppCompatActivity {
                 @Override
                 public void afterTextChanged(Editable s) {
 
-                    selectedSex = SpinnerSex.getText().toString();
+                    selectedSex = SpinnerSex.getText().toString().replace("null", "");
 
 //                    Toast.makeText(Report.this, "selected "+selectedWhere, Toast.LENGTH_SHORT).show();
 

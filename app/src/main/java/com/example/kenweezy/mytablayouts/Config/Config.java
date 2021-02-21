@@ -14,7 +14,8 @@ public class Config {
     public static final String JSON_ARRAYRESULTS = "results";
     public static final String KEY_MESSAGECODE="message";
 
-    public static final String[] SPINNERLISTLABS = {"Kemri Nairobi",
+    public static final String[] SPINNERLISTLABS = {"KU Teaching and Referring Hospital",
+            "Kemri Nairobi",
             "Kisumu lab",
             "Alupe",
             "Walter Reed",
@@ -33,7 +34,7 @@ public class Config {
     public static final String[] SPINNERLISTENTRYPOINT = {"IPD", "OPD","MATERNITY","CCC","MCH/PMTCT","Other"};
     public static final String[] SPINNERLISTPROPHYLAXISCODE = {"AZT for 6 weeks + NVP for 12 weeks", "AZT for 6 weeks + NVP for >12 weeks","None","Other"};
     public static final String[] SPINNERLISTINFANTFEEDING = {"EBF (Exclusive Breast Feeding)", "ERF (Exclusive Replacement Feeding)","MF (Mixed feeding)","BF (Breast Feeding)","NBF (Not Breast Feeding)"};
-    public static final String[] SPINNERLISTPCR = {"1= Initial PCR","2= 2nd PCR","3= 3rd PCR","4= Comfirmatory PCR and Baseline VL","5= Discrepant PCR (tie breaker)","6= Sample redraw"};
+    public static final String[] SPINNERLISTPCR = {"1= Initial PCR","2= 2nd PCR","3= 3rd PCR","4= Confirmatory PCR and Baseline VL","5= Discrepant PCR (tie breaker)","6= Sample redraw"};
 
 
 

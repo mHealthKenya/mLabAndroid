@@ -35,11 +35,17 @@
         android:layout_alignParentTop="true"
         >
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
+
+            <TextView
+                android:id="@+id/labNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -75,10 +81,9 @@
                 android:layout_width="match_parent"
                 android:hint="Date Of Birth"
                 android:focusable="false"
+                android:clickable="true"
                 android:id="@+id/eidsampledob"
                 android:layout_height="wrap_content" />
-
-
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/eidsampleentrypointselect"
@@ -168,10 +173,11 @@
 
 
             <EditText
-                android:layout_width="match_parent"
-                android:hint="CCC number"
                 android:id="@+id/eidsamplmothercccnumber"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CCC number"
+                android:inputType="number" />
 
             <EditText
                 android:layout_width="match_parent"

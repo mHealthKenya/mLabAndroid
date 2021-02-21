@@ -165,6 +165,7 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
 //            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
 
             Intent myint=new Intent(getApplicationContext(), EidSamples.class);
+            myint.putExtra("selectedLab", selectedLab);
             startActivity(myint);
         }
         catch(Exception e){}
@@ -174,6 +175,7 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
         try{
 
             Intent myint=new Intent(getApplicationContext(), ViralLoadSamples.class);
+            myint.putExtra("selectedLab", selectedLab);
             startActivity(myint);
 
 //            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();

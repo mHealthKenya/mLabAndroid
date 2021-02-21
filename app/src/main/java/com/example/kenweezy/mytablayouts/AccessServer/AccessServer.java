@@ -58,7 +58,11 @@ public class AccessServer {
                             System.out.println("****response ***");
                             System.out.println(response);
 
-                            sweetdialog.showSuccessDialog("Submit response "+response,"SUCCESS");
+                            if(response.contains("Phone Number not Authorised to send remote samples")){
+                                sweetdialog.showErrorDialog("Phone Number not Authorised to send remote samples", "Error");
+                            } else {
+                                sweetdialog.showSuccessDialog("Submit response " + response, "SUCCESS");
+                            }
 
                     }
                 },
