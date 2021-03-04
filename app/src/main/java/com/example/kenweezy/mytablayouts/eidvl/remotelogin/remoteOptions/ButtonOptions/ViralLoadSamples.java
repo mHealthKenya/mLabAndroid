@@ -38,7 +38,7 @@ public class ViralLoadSamples extends AppCompatActivity {
 
 
     private ArrayAdapter<String> arrayAdapterSex, arrayAdapterType, arrayAdapterCurrentArtRegimen, arrayAdapterArtLine, arrayAdapterJustCode;
-    String selectedSex, selectedType, selectedCurrentRegimen, selectedArtLine, selectedJustCode, ccnumberS, patientnameS, dobS, datecollectionS, artstartS, dateartregimenS, labId;
+    String selectedSex, selectedType, selectedCurrentRegimen, selectedArtLine, selectedJustCode, ccnumberS, patientnameS, dobS, datecollectionS, artstartS, dateartregimenS, labNameS, labId;
     TextView labName;
 
 
@@ -128,6 +128,8 @@ public class ViralLoadSamples extends AppCompatActivity {
             artstartS = artstart.getText().toString();
 
             dateartregimenS = dateartregimen.getText().toString();
+            labNameS = labName.getText().toString();
+
 
 
 //            "VL*"+ccnumberS+"*"+patientnameS+"*"+dobS+"*"+datecollectionS+"*"+artstartS+"*"
@@ -146,20 +148,32 @@ public class ViralLoadSamples extends AppCompatActivity {
 
             System.out.println("art regimen date****" + dateartregimenS);
 
-            if(labName.equals("KU Teaching and Referring Hospital")){
+            if(labNameS.equals("KU Teaching and Referring Hospital")){
                 labId = "1";
-            } else  if(labName.equals("Kisumu Lab")){
+            } else  if(labNameS.equals("Kisumu Lab")){
                 labId = "2";
-            } else  if(labName.equals("Alupe")){
+            } else  if(labNameS.equals("Alupe")){
                 labId = "3";
-            } else  if(labName.equals("Walter Reed")){
+            } else  if(labNameS.equals("Walter Reed")){
                 labId = "4";
-            }  else  if(labName.equals("Ampath")){
+            }  else  if(labNameS.equals("Ampath")){
                 labId = "5";
-            } else  if(labName.equals("Coast Lab")){
+            } else  if(labNameS.equals("Coast Lab")){
                 labId = "6";
-            } else  if(labName.equals("KNH")){
+            } else  if(labNameS.equals("KNH")){
                 labId = "7";
+            }
+
+            if(selectedJustCode.equals("1=Routine VL")){
+                selectedJustCode = "1";
+            } else  if(selectedJustCode.equals("2=Confirmation of treatment failure (repeat VL)")){
+                selectedJustCode = "2";
+            } else  if(selectedJustCode.equals("3=Clinical failure")){
+                selectedJustCode = "3";
+            } else  if(selectedJustCode.equals("4=Single drug substitution")){
+                selectedJustCode = "4";
+            }  else  if(selectedJustCode.equals("5=Baseline VL (for infants diagnosed through EID)")){
+                selectedJustCode = "5";
             }
 
 
@@ -246,8 +260,10 @@ public class ViralLoadSamples extends AppCompatActivity {
 
                 String message = "VL*" + ccnumberS + "*" + patientnameS + "*" + dobS + "*" + datecollectionS + "*" + artstartS + "*"
                         + selectedCurrentRegimen + "*" + dateartregimenS + "*" + selectedArtLine + "*" + selectedJustCode + "*" + selectedType
-                        + "*" + selectedSex;
+                        + "*" + selectedSex  + "*" + labNameS + "*" + labId;
 
+                System.out.println(labId);
+                System.out.println(labNameS);
                 System.out.println("**phone encrypted**********" + Base64Encoder.encryptString(userPhoneNumber) + "***message encrypted******" + Base64Encoder.encryptString(message));
 
                 acs.submitEidVlData(Base64Encoder.encryptString(userPhoneNumber), Base64Encoder.encryptString(message));

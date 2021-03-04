@@ -61,7 +61,7 @@ public class AccessServer {
                             if(response.contains("Phone Number not Authorised to send remote samples")){
                                 sweetdialog.showErrorDialog("Phone Number not Authorised to send remote samples", "Error");
                             } else {
-                                sweetdialog.showSuccessDialog("Submit response " + response, "SUCCESS");
+                                sweetdialog.showSuccessDialog("Sample Remote Login Completed Succesfully", "SUCCESS");
                             }
 
                     }

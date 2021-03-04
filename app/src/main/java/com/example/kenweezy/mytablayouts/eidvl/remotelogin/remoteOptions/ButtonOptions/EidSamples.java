@@ -37,10 +37,8 @@ public class EidSamples extends AppCompatActivity {
     MaterialBetterSpinner SpinnerSex, SpinnerRegimen,Spinneralivedead,spinnerentrypoint,spinnerprophylaxiscode,spinnerinfantfeeding,spinnerpcr;
     EditText heinumber,patientname,dob,collectiondate,alivedead,motherage,haartdate,mothervlresultsE,mothercccnumberE,infantcccnumberE,otherEntrypointE,otherProphylaxiscodeE;
     private ArrayAdapter<String> arrayAdapterSex, arrayAdapterRegimen,arrayAdapterAliveDead,arrayAdapterEntrypoint,arrayAdapterProphylaxiscode,arrayAdapterInfantfeeding,arrayAdapterPcr;
-    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,collectiondateS,alivedeadS,motherageS,haartdateS,selectedEntrypoint,selectedProphylaxiscode,selectedInfantfeeding,selectedPcr,mothervlresultsS,mothercccnumberS,infantcccnumberS,otherEntrypointS,otherProphylaxiscodeS;
+    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,collectiondateS,alivedeadS,motherageS,haartdateS,selectedEntrypoint,selectedProphylaxiscode,selectedInfantfeeding,selectedPcr,mothervlresultsS,mothercccnumberS,infantcccnumberS,otherEntrypointS,otherProphylaxiscodeS, labNameS, labId, entrypoint, regimen, pcrType;
     TextView labName;
-    Integer labId, entrypoint, regimen, pcrType;
-
 
     DateTimePicker dtp;
     DatePickerDialog dp;
@@ -243,73 +241,74 @@ public class EidSamples extends AppCompatActivity {
             haartdateS=haartdate.getText().toString();
             mothervlresultsS=mothervlresultsE.getText().toString();
             mothercccnumberS=mothercccnumberE.getText().toString();
+            labNameS = labName.getText().toString();
 
-            if(labName.equals("KU Teaching and Referring Hospital")){
-                labId = 1;
-            } else  if(labName.equals("Kisumu Lab")){
-                labId = 2;
-            } else  if(labName.equals("Alupe")){
-                labId = 3;
-            } else  if(labName.equals("Walter Reed")){
-                labId = 4;
-            }  else  if(labName.equals("Ampath")){
-                labId = 5;
-            } else  if(labName.equals("Coast Lab")){
-                labId = 6;
-            } else  if(labName.equals("KNH")){
-                labId = 7;
+            if(labNameS.equals("KU Teaching and Referring Hospital")){
+                labId = "1";
+            } else  if(labNameS.equals("Kisumu Lab")){
+                labId = "2";
+            } else  if(labNameS.equals("Alupe")){
+                labId = "3";
+            } else  if(labNameS.equals("Walter Reed")){
+                labId = "4";
+            }  else  if(labNameS.equals("Ampath")){
+                labId = "5";
+            } else  if(labNameS.equals("Coast Lab")){
+                labId = "6";
+            } else  if(labNameS.equals("KNH")){
+                labId = "7";
             }
 
             if(selectedEntrypoint.equals("IPD")){
-                entrypoint = 1;
+                selectedEntrypoint = "1";
             } else  if(selectedEntrypoint.equals("OPD")){
-                entrypoint = 2;
+                selectedEntrypoint = "2";
             } else  if(selectedEntrypoint.equals("MATERNITY")){
-                entrypoint = 3;
+                selectedEntrypoint = "3";
             } else  if(selectedEntrypoint.equals("CCC")){
-                entrypoint = 4;
+                selectedEntrypoint = "4";
             }  else  if(selectedEntrypoint.equals("MCH/PMTCT")){
-                entrypoint = 5;
+                selectedEntrypoint = "5";
             } else  if(selectedEntrypoint.equals("Other")){
-                entrypoint = 6;
+                selectedEntrypoint = "6";
             }
 
             if(selectedRegimen.equals("PM1X=Any other Regimen")){
-                regimen = 1;
+                selectedRegimen = "1";
             } else  if(selectedRegimen.equals("PM3= AZT+3TC+NVP")){
-                regimen = 2;
+                selectedRegimen = "2";
             } else  if(selectedRegimen.equals("PM4= AZT+ 3TC+ EFV")){
-                regimen = 3;
+                selectedRegimen = "3";
             } else  if(selectedRegimen.equals("PM5= AZT+3TC+ LPV/r")){
-                regimen = 4;
+                selectedRegimen = "4";
             }  else  if(selectedRegimen.equals("PM6= TDC+3TC+NVP")){
-                regimen = 5;
+                selectedRegimen = "5";
             } else  if(selectedRegimen.equals("PM7= TDF+3TC+LPV/r")){
-                regimen = 6;
+                selectedRegimen = "6";
             } else  if(selectedRegimen.equals("PM9= TDF+3TC+EFV")){
-                regimen = 2;
+                selectedRegimen = "2";
             } else  if(selectedRegimen.equals("PM10= AZT+3TC+ATV/r")){
-                regimen = 3;
+                selectedRegimen = "3";
             } else  if(selectedRegimen.equals("PM11= TDF+3TC+ATV/r")){
-                regimen = 4;
+                selectedRegimen = "4";
             }  else  if(selectedRegimen.equals("PM12=TDF+3TC+DTG")){
-                regimen = 5;
+                selectedRegimen = "5";
             } else  if(selectedRegimen.equals("PM13=None")){
-                regimen = 6;
+                selectedRegimen = "6";
             }
 
             if(selectedPcr.equals("1= Initial PCR")){
-                pcrType = 1;
+                selectedPcr = "1";
             } else  if(selectedPcr.equals("2= 2nd PCR")){
-                pcrType = 2;
+                selectedPcr = "2";
             } else  if(selectedPcr.equals("3= 3rd PCR")){
-                pcrType = 3;
+                selectedPcr = "3";
             } else  if(selectedPcr.equals("4= Confirmatory PCR and Baseline VL")){
-                pcrType = 4;
+                selectedPcr = "4";
             }  else  if(selectedPcr.equals("5= Discrepant PCR (tie breaker)")){
-                pcrType = 5;
+                selectedPcr = "5";
             } else  if(selectedPcr.equals("6= Sample redraw")){
-                pcrType = 6;
+                selectedPcr = "6";
             }
 
             if(infantcccnumberE.isShown()){
@@ -453,7 +452,9 @@ public class EidSamples extends AppCompatActivity {
 
                 String message= "EID*" + selectedSex + "*" + selectedRegimen + "*" + selectedAlive+"*"+heinumberS+"*"+patientnameS
                         +"*"+dobS+"*"+selectedEntrypoint+"*"+collectiondateS+"*"+selectedProphylaxiscode+"*"+selectedInfantfeeding+"*"
-                        +selectedPcr+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS;//+"*"+mothercccnumberS+"*"+mothervlresultsS+"*"+infantcccnumberS;
+                        +selectedPcr+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS +"*"+ labNameS+"*"+ labId ;//+ "*" + infantcccnumberS;
+                System.out.println(labNameS);
+                System.out.println(labId);
                 System.out.println("**phone encrypted**********"+Base64Encoder.encryptString(userPhoneNumber)+"***message encrypted******"+Base64Encoder.encryptString(message));
 
 
