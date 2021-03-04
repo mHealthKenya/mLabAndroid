@@ -163,6 +163,41 @@ public class ViralLoadSamples extends AppCompatActivity {
             }
 
 
+            if(selectedCurrentRegimen.equals("1= TDF+ 3TC+ EFV")){
+                selectedCurrentRegimen = "1";
+            } else  if(selectedCurrentRegimen.equals("2=TDF+3TC+NVP")){
+                selectedCurrentRegimen = "2";
+            } else  if(selectedCurrentRegimen.equals("3=TDF+3TC+ DTG")){
+                selectedCurrentRegimen = "3";
+            } else  if(selectedCurrentRegimen.equals("4=AZT+3TC+NVP")){
+                selectedCurrentRegimen = "4";
+            }  else  if(selectedCurrentRegimen.equals("5=AZT+3TC+EFV|")){
+                selectedCurrentRegimen = "5";
+            } else  if(selectedCurrentRegimen.equals("6=ABC+3TC+NVP")){
+                selectedCurrentRegimen = "6";
+            } else  if(selectedCurrentRegimen.equals("7=ABC+3TC+EFV")){
+                selectedCurrentRegimen = "7";
+            } else  if(selectedCurrentRegimen.equals("8= ABC+3TC+DTG")){
+            selectedCurrentRegimen = "8";
+        } else  if(selectedCurrentRegimen.equals("9=ABC+3TC+LPV/r|")){
+            selectedCurrentRegimen = "9";
+        } else  if(selectedCurrentRegimen.equals("10=AZT+3TC+LPV/r+ RTV")){
+            selectedCurrentRegimen = "10";
+        }  else  if(selectedCurrentRegimen.equals("11=TDF+3TC +ATV/r")){
+            selectedCurrentRegimen = "11";
+        } else  if(selectedCurrentRegimen.equals("12=ABC+3TC+DTG")){
+            selectedCurrentRegimen = "12";
+        }else  if(selectedCurrentRegimen.equals("13=ABC+3TC+ATV/r")){
+            selectedCurrentRegimen = "13";
+        } else  if(selectedCurrentRegimen.equals("14=AZT+3TC+ATV/r")){
+            selectedCurrentRegimen = "14";
+        }  else  if(selectedCurrentRegimen.equals("15=AZT+3TC+DRV/r")){
+            selectedCurrentRegimen = "15";
+        } else  if(selectedCurrentRegimen.equals("16=Other")){
+            selectedCurrentRegimen = "16";
+        }
+
+
             if (ccnumberS.isEmpty()) {
 
                 Toast.makeText(this, "ccnumber is required", Toast.LENGTH_SHORT).show();
@@ -272,8 +307,21 @@ public class ViralLoadSamples extends AppCompatActivity {
             artstart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(ViralLoadSamples.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            artstart.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(artstart);
 
                 }
             });
