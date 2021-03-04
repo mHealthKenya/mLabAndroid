@@ -139,7 +139,22 @@ public class EidSamples extends AppCompatActivity {
             haartdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dtp.setDatePicker(haartdate);
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(EidSamples.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            haartdate.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
+
+
                 }
             });
         }
@@ -156,7 +171,22 @@ public class EidSamples extends AppCompatActivity {
             collectiondate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dtp.setDatePicker(collectiondate);
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(EidSamples.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            collectiondate.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
+
+
                 }
             });
         }
@@ -416,10 +446,14 @@ public class EidSamples extends AppCompatActivity {
 //                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
                 System.out.println(userPhoneNumber);
 
-                String message="EID*"+selectedSex+"*"+selectedRegimen+"*"+selectedAlive+"*"+heinumberS+"*"+patientnameS
+              /*  String message="EID*"+selectedSex+"*"+selectedRegimen+"*"+selectedAlive+"*"+heinumberS+"*"+patientnameS
                         +"*"+dobS+"*"+selectedEntrypoint+"*"+otherEntrypointS+"*"+collectiondateS+"*"+selectedProphylaxiscode+"*"+otherProphylaxiscodeS+"*"+selectedInfantfeeding+"*"
                         +selectedPcr+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS+"*"+mothercccnumberS+"*"+mothervlresultsS+"*"+infantcccnumberS+"*"+labName+"*"+ labId +"*"+ entrypoint +"*"+ regimen +"*"+ pcrType;
+*/
 
+                String message= "EID*" + selectedSex + "*" + selectedRegimen + "*" + selectedAlive+"*"+heinumberS+"*"+patientnameS
+                        +"*"+dobS+"*"+selectedEntrypoint+"*"+collectiondateS+"*"+selectedProphylaxiscode+"*"+selectedInfantfeeding+"*"
+                        +selectedPcr+"*"+alivedeadS+"*"+motherageS+"*"+haartdateS;//+"*"+mothercccnumberS+"*"+mothervlresultsS+"*"+infantcccnumberS;
                 System.out.println("**phone encrypted**********"+Base64Encoder.encryptString(userPhoneNumber)+"***message encrypted******"+Base64Encoder.encryptString(message));
 
 
