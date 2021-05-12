@@ -8,6 +8,7 @@ package com.example.kenweezy.mytablayouts;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,10 +32,12 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
 
     Progress pr = new Progress();
     EditText un, pw, cpw, secqnans,phone;
-    CheckBox mychkbx;
+    CheckBox mychkbx, policycheckbox;
     Spinner secqnsp;
     String selectedQuestion = "";
     String selectedQuestionId = "";
+    String checkPolicy;
+    Button rbutton;
 
     String[] options = {"Please select Security Question", "what is your favourite pet?", "what is your favourite food?", "what is your mothers first name?"};
 
@@ -58,13 +62,15 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
             cpw = (EditText) findViewById(R.id.cregpass);
             secqnsp = (Spinner) findViewById(R.id.securityQnSpinner);
             secqnans = (EditText) findViewById(R.id.securityans);
+            rbutton  = (Button) findViewById(R.id.registerButton);
+
 
             populateQuestions();
             setSpinnerListeners();
 
 
             mychkbx = (CheckBox) findViewById(R.id.regcbShowPwd);
-
+           // policycheckbox = (CheckBox) findViewById(R.id.regAcceptPoliciy);
 
             mychkbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -82,8 +88,6 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
                     }
                 }
             });
-
-
         } catch (Exception e) {
             Toast.makeText(this, "error checking run " + e, Toast.LENGTH_SHORT).show();
             System.out.println(" error occured checking run " + e);
@@ -206,6 +210,18 @@ public class MyRegister extends AppCompatActivity implements AdapterView.OnItemS
         bq.setTextColor(Color.RED);
         bn.setTextColor(Color.BLUE);
         return exiting[0];
+    }
+
+
+
+
+
+
+    public void privacyPolicyURL(View view){
+
+        Uri uri = Uri.parse("https://mlab.mhealthkenya.co.ke/terms");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     public void RegisterCheck() {

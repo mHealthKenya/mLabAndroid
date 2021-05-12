@@ -72,7 +72,7 @@ public class AccessServer {
                         pr.dissmissProgress();
                         System.out.println("*** error ***"+error);
 
-                        sweetdialog.showErrorDialog("Error occured "+error.getMessage(), "Error");
+                        sweetdialog.showErrorDialog("Error occured "+error.toString(), "Error");
 
                     }
                 }) {
@@ -115,7 +115,7 @@ public class AccessServer {
                     public void onErrorResponse(VolleyError error) {
                         pr.dissmissProgress();
 
-                        sweetdialog.showErrorDialog("Error occured "+error.getMessage(), "Error");
+                        sweetdialog.showErrorDialog("Error occured "+error.toString(), "Error");
 
                     }
                 }) {

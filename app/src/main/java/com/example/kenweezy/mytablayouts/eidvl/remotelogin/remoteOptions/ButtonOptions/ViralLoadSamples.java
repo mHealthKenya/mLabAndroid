@@ -23,7 +23,7 @@ import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
-import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+//import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.UsersTable;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
@@ -62,7 +62,7 @@ public class ViralLoadSamples extends AppCompatActivity {
         changeStatusBarColor("#3F51B5");
         initialise();
 
-        SSLTrust.nuke();
+        //SSLTrust.nuke();
 
         setSpinnerAdapters();
         setSpinnerSexListener();

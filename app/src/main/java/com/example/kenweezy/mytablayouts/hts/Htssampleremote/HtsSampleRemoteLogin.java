@@ -1,5 +1,6 @@
 package com.example.kenweezy.mytablayouts.hts.Htssampleremote;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,24 +8,29 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
-import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+//import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.UsersTable;
+import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.EidSamples;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class HtsSampleRemoteLogin extends AppCompatActivity {
@@ -32,13 +38,15 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
     DateTimePicker dtp;
     LinearLayout testkit1ll,testkit2ll, llsecondtestkitL;
     EditText samplenumber,clientname,dob,telephone,testdate,lotnumber1,expirydate1,lotnumber2,expirydate2,sampletestername,dbsdate,dbsdispatchdate,requestingprovider;
-    MaterialBetterSpinner SpinnerSex,SpinnerdeliveryPoint,Spinnertestkit1,Spinnertestkit2,Spinnerfinalresult,SpinnerTest1Result;
-    String SelectedSex,SelecteddeliveryPoint,Selectedtestkit1,Selectedtestkit2,Selectedfinalresult,SelectedTest1Result;
+    MaterialBetterSpinner SpinnerSex,SpinnerdeliveryPoint,Spinnertestkit1,Spinnertestkit2,Spinnerfinalresult,SpinnerTest1Result, SpinnerLab;
+    String SelectedSex,SelecteddeliveryPoint,Selectedtestkit1,Selectedtestkit2,Selectedfinalresult,SelectedTest1Result, SelectedLab, labId;
     String samplenumberS,clientnameS,dobS,telephoneS,testdateS,lotnumber1S,expirydate1S,lotnumber2S,expirydate2S,sampletesternameS,dbsdateS,dbsdispatchdateS,requestingproviderS;
 
-    private ArrayAdapter<String> arrayAdapterSex,arrayAdapterDeliveryPoint,arrayAdapterTestkit1,arrayAdapterTestkit2,arrayAdapterFinalResult,arrayAdapterResult1;
-
+    private ArrayAdapter<String> arrayAdapterSex,arrayAdapterDeliveryPoint,arrayAdapterTestkit1,arrayAdapterTestkit2,arrayAdapterFinalResult,arrayAdapterResult1, arrayAdapterTestingLab;
+    DatePickerDialog dp;
     AccessServer acs;
+
+    final Calendar myCalendar = Calendar.getInstance();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +54,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
         setToolBar();
         changeStatusBarColor("#3F51B5");
 
-        SSLTrust.nuke();
+        //SSLTrust.nuke();
 
         initialise();
         setSpinnerAdapters();
@@ -66,8 +74,22 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             dob.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(HtsSampleRemoteLogin.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            dob.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(dob);
+
                 }
             });
 
@@ -84,8 +106,21 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             testdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(HtsSampleRemoteLogin.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            testdate.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(testdate);
 
                 }
             });
@@ -103,8 +138,21 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             expirydate1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(HtsSampleRemoteLogin.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            expirydate1.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(expirydate1);
 
                 }
             });
@@ -122,8 +170,21 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             expirydate2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(HtsSampleRemoteLogin.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            expirydate2.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(expirydate2);
 
                 }
             });
@@ -141,8 +202,21 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             dbsdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(HtsSampleRemoteLogin.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            dbsdate.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(dbsdate);
 
                 }
             });
@@ -160,8 +234,21 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             dbsdispatchdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    myCalendar.getInstance();
+                    int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+                    int month = myCalendar.get(Calendar.MONTH);
+                    int year = myCalendar.get(Calendar.YEAR);
+                    dp = new DatePickerDialog(HtsSampleRemoteLogin.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker datePicker, int year, int monthOfyear, int dayOfMonth) {
+                            dbsdispatchdate.setText(year  + "-" + (monthOfyear +1) + "-" + dayOfMonth);
+                        }
+                    }, year, month, day);
+                    dp.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    dp.show();
+                    System.out.println(dp);
+                    // dtp.setDatePicker(dob);
 
-                    dtp.setDatePicker(dbsdispatchdate);
 
                 }
             });
@@ -192,6 +279,9 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             dbsdateS=dbsdate.getText().toString();
             dbsdispatchdateS=dbsdispatchdate.getText().toString();
             requestingproviderS=requestingprovider.getText().toString();
+            //labNameS=labName.getText().toString();
+
+
 
             if(samplenumberS.trim().isEmpty()){
                 Toast.makeText(this, "sample number is required", Toast.LENGTH_SHORT).show();
@@ -232,10 +322,10 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
                 Toast.makeText(this, "expiry date 1 is required", Toast.LENGTH_SHORT).show();
             }
-            else if(SelectedTest1Result.trim().isEmpty()){
+            /*else if(SelectedTest1Result.trim().isEmpty()){
 
                 Toast.makeText(this, "result 1 is required", Toast.LENGTH_SHORT).show();
-            }
+            }*/
             else if(llsecondtestkitL.isShown() && Selectedtestkit2.trim().isEmpty()){
 
                 Toast.makeText(this, "Test kit 2 is required", Toast.LENGTH_SHORT).show();
@@ -270,6 +360,22 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             }
             else{
 
+                if(SelectedLab.equals("KU Teaching and Referring Hospital")){
+                    labId = "1";
+                } else  if(SelectedLab.equals("Kisumu Lab")){
+                    labId = "2";
+                } else  if(SelectedLab.equals("Alupe")){
+                    labId = "3";
+                } else  if(SelectedLab.equals("Walter Reed")){
+                    labId = "4";
+                }  else  if(SelectedLab.equals("Ampath")){
+                    labId = "5";
+                } else  if(SelectedLab.equals("Coast Lab")){
+                    labId = "6";
+                } else  if(SelectedLab.equals("KNH")){
+                    labId = "7";
+                }
+
                 String userPhoneNumber="";
                 if(!llsecondtestkitL.isShown()){
 
@@ -287,11 +393,11 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
                 }
 //                Toast.makeText(this, "submitting", Toast.LENGTH_SHORT).show();
                 String message=samplenumberS+"*"+clientnameS+"*"+dobS+"*"+SelectedSex+"*"+telephoneS+"*"+testdateS+"*"
-                        +SelecteddeliveryPoint+"*"+Selectedtestkit1+"*"+lotnumber1S+"*"+expirydate1S+"*"+SelectedTest1Result+"*"+Selectedtestkit2+
-                        "*"+lotnumber2S+"*"+expirydate2S+"*"+Selectedfinalresult+"*"+sampletesternameS+"*"+dbsdateS+
-                        "*"+dbsdispatchdateS+"*"+requestingproviderS;
+                        +SelecteddeliveryPoint+"*"+Selectedtestkit1+"*"+lotnumber1S+"*"+expirydate1S+
+                        "*"+Selectedtestkit2+"*"+lotnumber2S+"*"+expirydate2S+"*"+Selectedfinalresult+"*"+sampletesternameS+"*"+dbsdateS+
+                        "*"+dbsdispatchdateS+"*"+requestingproviderS +"*"+labId+"*"+SelectedLab;
 
-
+                System.out.println(message);
                 acs.submitHtsData(Base64Encoder.encryptString(userPhoneNumber),Base64Encoder.encryptString(message));
                 clearfields();
 
@@ -343,6 +449,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
         try{
 
+            setSpinnerTestingLabListener();
             setSpinnerDeliveryPointListener();
             setSpinnerFinalresultListener();
             setSpinnerSexListener();
@@ -363,6 +470,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             acs=new AccessServer(HtsSampleRemoteLogin.this);
             dtp=new DateTimePicker(HtsSampleRemoteLogin.this);
             testkit1ll=(LinearLayout) findViewById(R.id.lltestkit1);
+           // lab=(LinearLayout) findViewById(R.id.hts_testinglab);
             testkit2ll=(LinearLayout) findViewById(R.id.lltestkit2);
             llsecondtestkitL =(LinearLayout) findViewById(R.id.llsecondtestkit);
 
@@ -385,9 +493,11 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             Spinnertestkit1=(MaterialBetterSpinner) findViewById(R.id.htssampletestkit1);
             Spinnertestkit2=(MaterialBetterSpinner) findViewById(R.id.htssampletestkit2);
             Spinnerfinalresult=(MaterialBetterSpinner) findViewById(R.id.htssamplefinalresult);
-            SpinnerTest1Result=(MaterialBetterSpinner) findViewById(R.id.htssampletest1result);
+            SpinnerTest1Result=(MaterialBetterSpinner) findViewById(R.id.htssamplefinalresult);
+            SpinnerLab=(MaterialBetterSpinner) findViewById(R.id.hts_testinglab);
 
             SelectedSex="";
+            SelectedLab="";
             SelecteddeliveryPoint="";
             Selectedtestkit1="";
             Selectedtestkit2="";
@@ -423,6 +533,9 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             arrayAdapterResult1 = new ArrayAdapter<String>(this,
                     android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTFIRSTRESULTS);
 
+            arrayAdapterTestingLab  = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, Config.SPINNERLISTLABS);
+
         }
         catch(Exception e){
 
@@ -440,6 +553,7 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
             Spinnertestkit2.setAdapter(arrayAdapterTestkit2);
             Spinnerfinalresult.setAdapter(arrayAdapterFinalResult);
             SpinnerTest1Result.setAdapter(arrayAdapterResult1);
+            SpinnerLab.setAdapter(arrayAdapterTestingLab);
 
 
 
@@ -499,8 +613,10 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
         Spinnertestkit1.setText("");
         Spinnertestkit2.setText("");
         Spinnerfinalresult.setText("");
+        SpinnerLab.setText("");
 
         SelectedSex="";
+        SelectedLab="";
         SelecteddeliveryPoint="";
         Selectedtestkit1="";
         Selectedtestkit2="";
@@ -513,6 +629,37 @@ public class HtsSampleRemoteLogin extends AppCompatActivity {
 
 
     //start set spinner listeners
+
+    private void setSpinnerTestingLabListener(){
+
+        try{
+
+
+            SpinnerLab.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    SelectedLab= SpinnerLab.getText().toString();
+
+                }
+            });
+
+        }
+        catch(Exception e){
+
+
+        }
+    }
 
     private void setSpinnerSexListener(){
 

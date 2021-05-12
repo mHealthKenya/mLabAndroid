@@ -23,7 +23,7 @@ import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.DateTimePicker.DateTimePicker;
 import com.example.kenweezy.mytablayouts.R;
-import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+//import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.UsersTable;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
@@ -37,7 +37,7 @@ public class EidSamples extends AppCompatActivity {
     MaterialBetterSpinner SpinnerSex, SpinnerRegimen,Spinneralivedead,spinnerentrypoint,spinnerprophylaxiscode,spinnerinfantfeeding,spinnerpcr;
     EditText heinumber,patientname,dob,collectiondate,alivedead,motherage,haartdate,mothervlresultsE,mothercccnumberE,infantcccnumberE,otherEntrypointE,otherProphylaxiscodeE;
     private ArrayAdapter<String> arrayAdapterSex, arrayAdapterRegimen,arrayAdapterAliveDead,arrayAdapterEntrypoint,arrayAdapterProphylaxiscode,arrayAdapterInfantfeeding,arrayAdapterPcr;
-    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,collectiondateS,alivedeadS,motherageS,haartdateS,selectedEntrypoint,selectedProphylaxiscode,selectedInfantfeeding,selectedPcr,mothervlresultsS,mothercccnumberS,infantcccnumberS,otherEntrypointS,otherProphylaxiscodeS, labNameS, labId, entrypoint, regimen, pcrType;
+    String selectedSex,selectedRegimen,selectedAlive,heinumberS,patientnameS,dobS,collectiondateS,alivedeadS,motherageS,haartdateS,selectedEntrypoint,selectedProphylaxiscode,selectedInfantfeeding,selectedPcr,mothervlresultsS,mothercccnumberS,infantcccnumberS,otherEntrypointS,otherProphylaxiscodeS, labNameS, labId;
     TextView labName;
 
     DateTimePicker dtp;
@@ -60,7 +60,7 @@ public class EidSamples extends AppCompatActivity {
         changeStatusBarColor("#3F51B5");
         initialise();
 
-        SSLTrust.nuke();
+        //SSLTrust.nuke();
 
         setSpinnerAdapters();
         setSpinnerSexListener();

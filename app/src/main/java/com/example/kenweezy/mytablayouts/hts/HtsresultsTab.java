@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Checkinternet.CheckInternet;
 import com.example.kenweezy.mytablayouts.R;
-import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+//import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.UsersTable;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 
@@ -49,7 +49,7 @@ public class HtsresultsTab extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hts_results_tab);
 
-        SSLTrust.nuke();
+        //SSLTrust.nuke();
 
         initialise();
         refreshResultsClicked();

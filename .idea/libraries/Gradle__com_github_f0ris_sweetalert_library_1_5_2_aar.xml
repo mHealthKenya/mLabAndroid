@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.f0ris.sweetalert:library:1.5.2@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ee909cbfc44ddd244100ccd7f7b5329/jetified-library-1.5.2/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ee909cbfc44ddd244100ccd7f7b5329/jetified-library-1.5.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ee909cbfc44ddd244100ccd7f7b5329/jetified-library-1.5.2/res" />
+      <root url="jar://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/8ee909cbfc44ddd244100ccd7f7b5329/jetified-library-1.5.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/8ee909cbfc44ddd244100ccd7f7b5329/jetified-library-1.5.2/res" />
+      <root url="file://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/8ee909cbfc44ddd244100ccd7f7b5329/jetified-library-1.5.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.2/40d2b4faadee7ebb1441697bd01a99679210afdd/library-1.5.2-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.2/40d2b4faadee7ebb1441697bd01a99679210afdd/library-1.5.2-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.2/9d859d3d51cac39d9e7f798d60c28bb86cc00026/library-1.5.2-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.2/9d859d3d51cac39d9e7f798d60c28bb86cc00026/library-1.5.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

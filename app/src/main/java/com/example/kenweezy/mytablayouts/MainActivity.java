@@ -52,7 +52,7 @@ import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.GetMessageCount.GetCounts;
 import com.example.kenweezy.mytablayouts.MakeCalls.makeCalls;
 import com.example.kenweezy.mytablayouts.ProcessReceivedMessage.ProcessMessage;
-import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+//import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.Smsretrieverapi.SmsReceiver;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        SSLTrust.nuke();
+        //SSLTrust.nuke();
 
         Stetho.initializeWithDefaults(this);
         initialise();

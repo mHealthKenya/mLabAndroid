@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.kenweezy.mytablayouts.AccessServer.AccessServer;
 import com.example.kenweezy.mytablayouts.Checkinternet.CheckInternet;
 import com.example.kenweezy.mytablayouts.Config.Config;
-import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
+//import com.example.kenweezy.mytablayouts.SSLTrustCertificate.SSLTrust;
 import com.example.kenweezy.mytablayouts.encryption.Base64Encoder;
 import com.example.kenweezy.mytablayouts.encryption.MCrypt;
 import com.example.kenweezy.mytablayouts.sendmessages.SendMessage;
@@ -54,7 +54,7 @@ public class HistoricalResults extends AppCompatActivity {
         initialise();
         mflcodeInpuListener();
 
-        SSLTrust.nuke();
+        //SSLTrust.nuke();
 
         setDatePickerFrm();
         checkFrmDateListener();

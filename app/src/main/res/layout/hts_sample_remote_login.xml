@@ -35,11 +35,20 @@
         android:layout_alignParentTop="true"
         >
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/hts_testinglab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
+                android:hint="Select Testing Lab"
+                android:textColorHint="@color/textcolorblack"
+                app:met_floatingLabel="normal" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -123,14 +132,6 @@
                     android:focusable="false"
                     android:id="@+id/htssampleexpirydate1"
                     android:layout_height="wrap_content" />
-
-                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                    android:id="@+id/htssampletest1result"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Select result"
-                    android:textColorHint="@color/textcolorblack"
-                    app:met_floatingLabel="normal" />
 
 
             </LinearLayout>

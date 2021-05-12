@@ -1,9 +1,11 @@
 package com.example.kenweezy.mytablayouts.AddClient;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Telephony;
@@ -15,6 +17,7 @@ import android.telephony.SmsManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -127,6 +130,7 @@ public class Register extends AppCompatActivity {
                     break;
         }
     }
+
 
 
     @Override

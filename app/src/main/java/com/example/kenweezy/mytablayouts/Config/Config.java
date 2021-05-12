@@ -56,7 +56,7 @@ public class Config {
     public static final String[] SPINNERLISTSAMPLETYPE = {"Frozen plasma","Venous blood(EDTA)","DBS capillary(infants only)","DBS venous","PPT"};
 
 
-    public static final String EIDVL_DATA_URL = "https://mlab.mhealthkenya.co.ke/api/remote/login/vl";
+    public static final String EIDVL_DATA_URL = "https://mlab.mhealthkenya.co.ke/api/remote/login/all";
     public static final String HTS_DATA_URL = "https://mlab.mhealthkenya.co.ke/api/remote/login/hts";
     public static final String RESULTS_DATA_URL = "https://mlab.mhealthkenya.co.ke/api/get/results";
     public static final String HISTORICALRESULTS_DATA_URL = "https://mlab.mhealthkenya.co.ke/api/historical/results";
