@@ -18,7 +18,10 @@ import android.widget.Toast;
 
 import com.example.kenweezy.mytablayouts.Config.Config;
 import com.example.kenweezy.mytablayouts.R;
+import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.CheckRejectedSamples;
 import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.EidSamples;
+import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.SampleTransportation;
+import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.SampleTransportationStatus;
 import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.ViralLoadSamples;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -187,7 +190,30 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
     public void goToSampleTransportation(View v){
         try{
 
-            Toast.makeText(this, "work in progress", Toast.LENGTH_SHORT).show();
+            Intent myint=new Intent(getApplicationContext(), SampleTransportation.class);
+            myint.putExtra("selectedLab", selectedLab);
+            startActivity(myint);
+
+        }
+        catch(Exception e){}
+    }
+    public void goToSampleTransportationStatus(View v){
+        try{
+
+            Intent myint=new Intent(getApplicationContext(), SampleTransportationStatus.class);
+            myint.putExtra("selectedLab", selectedLab);
+            startActivity(myint);
+
+        }
+        catch(Exception e){}
+    }
+
+    public void goToCheckRejectedSamples(View v){
+        try{
+
+            Intent myint=new Intent(getApplicationContext(), CheckRejectedSamples.class);
+            myint.putExtra("selectedLab", selectedLab);
+            startActivity(myint);
 
         }
         catch(Exception e){}

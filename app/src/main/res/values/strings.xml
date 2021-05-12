@@ -37,4 +37,6 @@
     <string name="print_1D">Print Barcode</string>
     <string name="print_2D">Print 2D</string>
     <string name="statusbarcolor">#3F51B5</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

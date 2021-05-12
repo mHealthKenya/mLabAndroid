@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.kenweezy.mytablayouts">
-
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -10,17 +15,30 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <application android:networkSecurityConfig="@xml/network_config_file"
+    <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@drawable/newlogo"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_config_file"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:replace="android:icon">
+        <activity android:name=".eidvl.remotelogin.remoteOptions.ButtonOptions.SampleTransportationStatus"></activity>
+        <activity android:name=".eidvl.remotelogin.remoteOptions.ButtonOptions.CheckRejectedSamples" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
-        <!-- database meta tags -->
-
+        <activity android:name=".eidvl.remotelogin.remoteOptions.ButtonOptions.SampleTransportation" /> <!-- database meta tags -->
         <meta-data
             android:name="DATABASE"
             android:value="messages.db" />
@@ -32,9 +50,7 @@
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.example.kenweezy.mytablayouts" />
-
-        <!-- database meta tags -->
+            android:value="com.example.kenweezy.mytablayouts" /> <!-- database meta tags -->
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -124,23 +140,21 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-
-        <!--start sms retriever details here-->
-
+        </activity> <!-- start sms retriever details here -->
         <service android:name=".Smsretrieverapi.BackgroundService" />
 
         <activity android:name=".Smsretrieverapi.TestClass">
-<!--            <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN"/>-->
 
-<!--            <category android:name="android.intent.category.LAUNCHER"/>-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <receiver
@@ -148,12 +162,9 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>
-        </receiver>
-        <!--end sms retriever details here-->
-
-
+        </receiver> <!-- end sms retriever details here -->
         <receiver
             android:name=".SmsBroadcastReceiver"
             android:exported="true">
@@ -163,10 +174,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </receiver>
-
-        <!-- new code -->
-
+        </receiver> <!-- new code -->
         <activity
             android:name=".hts.HtsresultsTab"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -179,9 +187,6 @@
             android:label="@string/app_name"
             android:parentActivityName=".hts.HtsOptions"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
-
         <activity
             android:name=".SampleLogin"
             android:label="sample login"

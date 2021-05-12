@@ -76,18 +76,41 @@
             android:onClick="goToEidSamples"
             android:text="Early infant diagnosis"
             android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/sampleTrasnButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:background="@color/darkblue"
+            android:onClick="goToSampleTransportation"
+            android:text="Sample transportation"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/sampleTransStatusButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:background="@color/darkblue"
+            android:onClick="goToSampleTransportationStatus"
+            android:text="Sample transportation status"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/checkRejectedSamplesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:background="@color/darkblue"
+            android:onClick="goToCheckRejectedSamples"
+            android:text="Check Rejected Samples"
+            android:textColor="@color/white" />
     </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_marginTop="30sp"
-        android:text="Sample transportation"
-        android:background="@color/darkblue"
-        android:textColor="@color/white"
-        android:onClick="goToSampleTransportation"
-        android:layout_height="wrap_content" />
 
-    <Button
+
+            <Button
         android:layout_width="match_parent"
         android:text="Barcode/QR Reader"
         android:layout_marginTop="30sp"

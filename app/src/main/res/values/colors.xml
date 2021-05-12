@@ -15,5 +15,7 @@
     <color name="toolbarColor">#3F51B5</color>
     <color name="darkblue">#000050</color>
     <color name="white">#FFFFFF</color>
+    <color name="red">#EA2222</color>
+    <color name="green">#2BD305</color>
 
 </resources>

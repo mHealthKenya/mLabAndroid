@@ -37,6 +37,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -68,6 +70,10 @@ dependencies {
 
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.android.support:multidex:1.0.3'
+    //google maps dependency
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    //cool circle
+    implementation 'io.github.florent37:shapeofview:1.4.7'
 }
 
 //apply plugin: 'kotlin-android'
