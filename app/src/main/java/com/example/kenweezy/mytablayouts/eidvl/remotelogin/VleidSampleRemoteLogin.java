@@ -23,6 +23,7 @@ import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonO
 import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.SampleTransportation;
 import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.SampleTransportationStatus;
 import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.ViralLoadSamples;
+import com.google.android.material.snackbar.Snackbar;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class VleidSampleRemoteLogin extends AppCompatActivity {
@@ -190,9 +191,12 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
     public void goToSampleTransportation(View v){
         try{
 
-            Intent myint=new Intent(getApplicationContext(), SampleTransportation.class);
-            myint.putExtra("selectedLab", selectedLab);
-            startActivity(myint);
+            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+
+            // Intent myint=new Intent(getApplicationContext(), SampleTransportation.class);
+            // myint.putExtra("selectedLab", selectedLab);
+            // startActivity(myint);
 
         }
         catch(Exception e){}
@@ -200,9 +204,11 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
     public void goToSampleTransportationStatus(View v){
         try{
 
-            Intent myint=new Intent(getApplicationContext(), SampleTransportationStatus.class);
-            myint.putExtra("selectedLab", selectedLab);
-            startActivity(myint);
+            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            //Intent myint=new Intent(getApplicationContext(), SampleTransportationStatus.class);
+            //myint.putExtra("selectedLab", selectedLab);
+            //startActivity(myint);
 
         }
         catch(Exception e){}
@@ -211,9 +217,11 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
     public void goToCheckRejectedSamples(View v){
         try{
 
-            Intent myint=new Intent(getApplicationContext(), CheckRejectedSamples.class);
-            myint.putExtra("selectedLab", selectedLab);
-            startActivity(myint);
+            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            //Intent myint=new Intent(getApplicationContext(), CheckRejectedSamples.class);
+            //myint.putExtra("selectedLab", selectedLab);
+            //startActivity(myint);
 
         }
         catch(Exception e){}

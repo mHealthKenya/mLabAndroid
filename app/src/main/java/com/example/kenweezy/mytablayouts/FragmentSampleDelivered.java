@@ -1,12 +1,22 @@
 package com.example.kenweezy.mytablayouts;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.CheckRejectedSamples;
+import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions.EidSamples;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +24,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FragmentSampleDelivered extends Fragment {
+
+    private Button checkRejectedSamplesBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +38,7 @@ public class FragmentSampleDelivered extends Fragment {
 
     public FragmentSampleDelivered() {
         // Required empty public constructor
+        super(R.layout.fragment_sample_delivered);
     }
 
     /**
@@ -60,5 +73,21 @@ public class FragmentSampleDelivered extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sample_delivered, container, false);
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        checkRejectedSamplesBtn = (Button)view.findViewById(R.id.checkRejectedBtn);
+
+        checkRejectedSamplesBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+
+                Intent myint=new Intent(((Activity) getContext()).getApplicationContext(), CheckRejectedSamples.class);
+
+                startActivity(myint);
+            }
+        });
     }
 }

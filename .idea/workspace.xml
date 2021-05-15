@@ -48,14 +48,23 @@
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/mLabAndroid.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/mLabAndroid.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentBodaFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentBodaFound.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentSampleDelivered.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/FragmentSampleDelivered.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/eidvl/remotelogin/VleidSampleRemoteLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/eidvl/remotelogin/VleidSampleRemoteLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/vleid_sample_remote_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/vleid_sample_remote_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/eidvl/remotelogin/remoteOptions/ButtonOptions/SampleTransportation.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/eidvl/remotelogin/remoteOptions/ButtonOptions/SampleTransportation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_boda_found.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_boda_found.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/sample_transportation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/sample_transportation.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +74,7 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R52N50MTYMY]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_4_API_30]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -521,10 +530,14 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="929" y="370" key="#Notifications/0.0.1680.1050@0.0.1680.1050" timestamp="1619113846920" />
-    <state x="751" y="213" key="#com.intellij.ide.util.MemberChooser" timestamp="1620834883884">
+    <state x="751" y="213" key="#com.intellij.ide.util.MemberChooser" timestamp="1621075663103">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="751" y="213" key="#com.intellij.ide.util.MemberChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1620834883884" />
+    <state x="751" y="213" key="#com.intellij.ide.util.MemberChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1621075663103" />
+    <state x="840" y="347" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1621073095847">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="840" y="347" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1621073095847" />
     <state x="2728" y="493" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1612849715218">
       <screen x="1920" y="64" width="1920" height="1080" />
     </state>
@@ -537,6 +550,10 @@
       <screen x="1680" y="0" width="1920" height="1080" />
     </state>
     <state x="2286" y="127" width="1194" height="800" key="AVDManager/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619072424295" />
+    <state x="690" y="312" key="AndroidCreateResourceDirectoryDialog" timestamp="1621073144872">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="690" y="312" key="AndroidCreateResourceDirectoryDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1621073144872" />
     <state x="719" y="321" key="AndroidCreateResourceFileDialog" timestamp="1620840103232">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -545,39 +562,39 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="744" y="157" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1613563808061" />
-    <state width="1497" height="169" key="GridCell.Tab.0.bottom" timestamp="1620843571576">
+    <state width="1109" height="169" key="GridCell.Tab.0.bottom" timestamp="1621099526521">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1877" height="264" key="GridCell.Tab.0.bottom/0.0.1536.864/1920.64.1920.1080@1920.64.1920.1080" timestamp="1613643074969" />
     <state width="1491" height="473" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1614860132251" />
-    <state width="1497" height="169" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1620843571576" />
+    <state width="1109" height="169" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1621099526521" />
     <state width="1337" height="271" key="GridCell.Tab.0.bottom/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619090394197" />
-    <state width="1497" height="169" key="GridCell.Tab.0.center" timestamp="1620843571575">
+    <state width="1109" height="169" key="GridCell.Tab.0.center" timestamp="1621099526520">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1877" height="264" key="GridCell.Tab.0.center/0.0.1536.864/1920.64.1920.1080@1920.64.1920.1080" timestamp="1613643074968" />
     <state width="1491" height="473" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1614860132251" />
-    <state width="1497" height="169" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1620843571575" />
+    <state width="1109" height="169" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1621099526520" />
     <state width="1337" height="271" key="GridCell.Tab.0.center/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619090394196" />
-    <state width="1497" height="169" key="GridCell.Tab.0.left" timestamp="1620843571575">
+    <state width="1109" height="169" key="GridCell.Tab.0.left" timestamp="1621099526520">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1877" height="264" key="GridCell.Tab.0.left/0.0.1536.864/1920.64.1920.1080@1920.64.1920.1080" timestamp="1613643074968" />
     <state width="1491" height="473" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1614860132250" />
-    <state width="1497" height="169" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1620843571575" />
+    <state width="1109" height="169" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1621099526520" />
     <state width="1337" height="271" key="GridCell.Tab.0.left/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619090394196" />
-    <state width="1497" height="169" key="GridCell.Tab.0.right" timestamp="1620843571576">
+    <state width="1109" height="169" key="GridCell.Tab.0.right" timestamp="1621099526520">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1877" height="264" key="GridCell.Tab.0.right/0.0.1536.864/1920.64.1920.1080@1920.64.1920.1080" timestamp="1613643074969" />
     <state width="1491" height="473" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1614860132251" />
-    <state width="1497" height="169" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1620843571576" />
+    <state width="1109" height="169" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1621099526520" />
     <state width="1337" height="271" key="GridCell.Tab.0.right/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619090394197" />
-    <state x="403" y="177" key="SettingsEditor" timestamp="1618657361363">
+    <state x="403" y="177" key="SettingsEditor" timestamp="1621012649772">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="2381" y="246" key="SettingsEditor/0.0.1536.864/1920.64.1920.1080@1920.64.1920.1080" timestamp="1612851976312" />
-    <state x="403" y="177" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1618657361363" />
+    <state x="403" y="177" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1621012649772" />
     <state x="460" y="180" key="com.intellij.ide.util.TipDialog" timestamp="1614840164847">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

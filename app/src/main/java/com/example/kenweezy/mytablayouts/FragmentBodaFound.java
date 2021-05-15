@@ -2,18 +2,30 @@ package com.example.kenweezy.mytablayouts;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentBodaFound#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentBodaFound extends Fragment {
+public class FragmentBodaFound extends Fragment{
+
+    private Button cancelBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +38,7 @@ public class FragmentBodaFound extends Fragment {
 
     public FragmentBodaFound() {
         // Required empty public constructor
+        super(R.layout.fragment_boda_found);
     }
 
     /**
@@ -49,31 +62,42 @@ public class FragmentBodaFound extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_boda_found, container, false);
+
     }
 
-    public void GoToCheckRejectedSamples(View v){
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button fab = (Button)view.findViewById(R.id.button2);
 
-        try{
-
-
-
-          //  setContentView(R.layout.sample_transportation);
-
-        }
-        catch(Exception e){
-
-
-        }
+        fab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+                 fragmentManager.beginTransaction()
+                        .replace(R.id.fragment2, FragmentSampleDelivered.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("name") // name can be null
+                        .commit();
+            }
+        });
     }
+
+    public void OnClickListener(){
+
+    }
+
+
+
 }

@@ -3,7 +3,10 @@ package com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.Button
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
+import com.example.kenweezy.mytablayouts.FragmentBodaFound;
+import com.example.kenweezy.mytablayouts.FragmentSampleDelivered;
 import com.example.kenweezy.mytablayouts.R;
 import com.example.kenweezy.mytablayouts.eidvl.eidvlOptions;
 import com.example.kenweezy.mytablayouts.eidvl.remotelogin.VleidSampleRemoteLogin;
@@ -13,17 +16,30 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 public class SampleTransportation extends AppCompatActivity implements OnMapReadyCallback{
+
+    private  GoogleMap mMap;
+    public SampleTransportation() {
+        super(R.layout.sample_transportation);
+    }
+    private Button cancelBtn;
 
     private TextView labName;
     String health_facility_name;
@@ -35,38 +51,46 @@ public class SampleTransportation extends AppCompatActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sample_transportation);
         setToolBar();
-        getLocation();
-    }
+        changeStatusBarColor("#3F51B5");
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.fragment2, FragmentBodaFound.class, null)
+                    .commit();
 
 
-
-
-    public void getLocation(){
-        Bundle bundle=getIntent().getExtras();
-        String selectedLab=bundle.getString("selectedLab");
-        labName = (TextView)findViewById(R.id.bodaFound);
-        labName.setText("Found Boda to "+selectedLab.toString());
-        health_facility_latitude = -1.06042;
-        health_facility_longitude = 34.47627;
-        health_facility_name = "Migori District Hospital";
-
-        if(selectedLab == "Kemri Nairobi"){
-            lab_latitude = 0.016037354681606393;
-            lab_latitude = 34.73013014734319;
         }
 
 
+    }
+
+    private void changeStatusBarColor(String color){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(color));
+        }
     }
 
     public void setToolBar(){
 
         try{
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.eidvlremotelogintoolbar);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.sampletransportationtoolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("EID/VL Sample Transportation");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(),VleidSampleRemoteLogin.class));
+                    finish();
+                }
+            });
 
         }
         catch(Exception e){
@@ -77,31 +101,24 @@ public class SampleTransportation extends AppCompatActivity implements OnMapRead
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //mMap = googleMap;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().setZoomGesturesEnabled(true);
-        googleMap.getUiSettings().setCompassEnabled(true);
-        LatLng sydney = new LatLng(0.016037354681606393, 34.73013014734319);
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        //Toast.makeText(this, "Map shown", Toast.LENGTH_LONG).show();
+        mMap = googleMap;
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34.0, 151.0);
+        LatLng newyork = new LatLng(40.7128, -74.0060);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(newyork).title("Marker in NewYork"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newyork, 15f));
 
-        // Toast.makeText(Context context.this, " ", Toast.LENGTH_LONG).show();
     }
 
     public void GoToCheckRejectedSamples(View v){
 
         try{
-
-
-
             setContentView(R.layout.sample_transportation);
-
         }
         catch(Exception e){
-
-
         }
     }
+
+
 }
