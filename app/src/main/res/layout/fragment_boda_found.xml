@@ -3,21 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentBodaFound">
+    tools:context=".eidvl.remotelogin.remoteOptions.ButtonOptions.FragmentBodaFound">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appBar"
-        android:onClick="onClick">
+        >
 
         <TextView
             android:id="@+id/bodaFound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-
-            android:onClick="onClick"
             android:text="Boda Found"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -47,9 +45,7 @@
 
         </LinearLayout>
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
@@ -59,8 +55,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            tools:context=".SampleTransportation"
-            tools:showIn="@layout/fragment_boda_found" />
+            tools:context=".eidvl.remotelogin.remoteOptions.ButtonOptions.FragmentBodaFound"
+            tools:showIn="@layout/fragment_boda_found"
+            />
+
 
         <Button
             android:id="@+id/button2"
@@ -69,9 +67,7 @@
             android:layout_below="@+id/map"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp"
-
             android:layout_marginRight="20dp"
-
             android:backgroundTint="@color/red"
             android:gravity="center_horizontal"
             android:lines="1"

@@ -19,9 +19,9 @@ import com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonO
 import com.google.android.material.snackbar.Snackbar;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentSampleDelivered#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by KenMusembi
+ * throughout many a day in may 2021
+ * this fragment holds the logic for showing sample delivery status.
  */
 public class FragmentSampleDelivered extends Fragment {
 
@@ -77,6 +77,8 @@ public class FragmentSampleDelivered extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //we simply change the screen on button click
         checkRejectedSamplesBtn = (Button)view.findViewById(R.id.checkRejectedBtn);
 
         checkRejectedSamplesBtn.setOnClickListener(new View.OnClickListener()

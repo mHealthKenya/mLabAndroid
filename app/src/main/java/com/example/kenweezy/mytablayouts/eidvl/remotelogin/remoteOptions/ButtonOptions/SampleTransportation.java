@@ -1,71 +1,61 @@
 package com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
+import androidx.core.app.ActivityCompat;
 
-import com.example.kenweezy.mytablayouts.FragmentBodaFound;
-import com.example.kenweezy.mytablayouts.FragmentSampleDelivered;
 import com.example.kenweezy.mytablayouts.R;
-import com.example.kenweezy.mytablayouts.eidvl.eidvlOptions;
 import com.example.kenweezy.mytablayouts.eidvl.remotelogin.VleidSampleRemoteLogin;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import android.app.ProgressDialog;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+/**
+ * Created by KenMusembi
+ * throughout many a day in may 2021
+ * this activity holds the logic for transitioning between the
+ * boda found and delivery status fragments.
+ */
 
-public class SampleTransportation extends AppCompatActivity implements OnMapReadyCallback{
-
-    private  GoogleMap mMap;
+public class SampleTransportation extends AppCompatActivity {
     public SampleTransportation() {
         super(R.layout.sample_transportation);
     }
-    private Button cancelBtn;
-
-    private TextView labName;
-    String health_facility_name;
-    double health_facility_latitude, health_facility_longitude;
-    double lab_latitude, lab_longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sample_transportation);
+        //setTool() sets the toolbar, initiating certain attributes like title
         setToolBar();
         changeStatusBarColor("#3F51B5");
 
+        //we check if there is any fragment in savedinstance
         if (savedInstanceState == null) {
+            //if there is no fragment, we set fragment2 on top of the stack and commit
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
+                    //fragment2 is FragmentFoundBoda with map activity
                     .add(R.id.fragment2, FragmentBodaFound.class, null)
                     .commit();
-
-
         }
-
-
     }
 
-    private void changeStatusBarColor(String color){
+    private void changeStatusBarColor(String color) {
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -74,10 +64,9 @@ public class SampleTransportation extends AppCompatActivity implements OnMapRead
         }
     }
 
-    public void setToolBar(){
-
-        try{
-
+    public void setToolBar() {
+        try
+        {
             Toolbar toolbar = (Toolbar) findViewById(R.id.sampletransportationtoolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("EID/VL Sample Transportation");
@@ -87,38 +76,14 @@ public class SampleTransportation extends AppCompatActivity implements OnMapRead
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getApplicationContext(),VleidSampleRemoteLogin.class));
+                    startActivity(new Intent(getApplicationContext(), VleidSampleRemoteLogin.class));
                     finish();
                 }
             });
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
 
         }
     }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34.0, 151.0);
-        LatLng newyork = new LatLng(40.7128, -74.0060);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.addMarker(new MarkerOptions().position(newyork).title("Marker in NewYork"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newyork, 15f));
-
-    }
-
-    public void GoToCheckRejectedSamples(View v){
-
-        try{
-            setContentView(R.layout.sample_transportation);
-        }
-        catch(Exception e){
-        }
-    }
-
-
 }

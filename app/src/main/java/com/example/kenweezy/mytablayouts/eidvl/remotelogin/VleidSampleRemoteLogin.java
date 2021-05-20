@@ -191,12 +191,12 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
     public void goToSampleTransportation(View v){
         try{
 
-            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+//            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
 
-            // Intent myint=new Intent(getApplicationContext(), SampleTransportation.class);
-            // myint.putExtra("selectedLab", selectedLab);
-            // startActivity(myint);
+             Intent myint=new Intent(getApplicationContext(), SampleTransportation.class);
+             myint.putExtra("selectedLab", selectedLab);
+             startActivity(myint);
 
         }
         catch(Exception e){}
@@ -204,11 +204,11 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
     public void goToSampleTransportationStatus(View v){
         try{
 
-            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-            //Intent myint=new Intent(getApplicationContext(), SampleTransportationStatus.class);
-            //myint.putExtra("selectedLab", selectedLab);
-            //startActivity(myint);
+//            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+            Intent myint=new Intent(getApplicationContext(), SampleTransportationStatus.class);
+            myint.putExtra("selectedLab", selectedLab);
+            startActivity(myint);
 
         }
         catch(Exception e){}
@@ -217,11 +217,11 @@ public class VleidSampleRemoteLogin extends AppCompatActivity {
     public void goToCheckRejectedSamples(View v){
         try{
 
-            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-            //Intent myint=new Intent(getApplicationContext(), CheckRejectedSamples.class);
-            //myint.putExtra("selectedLab", selectedLab);
-            //startActivity(myint);
+//            Snackbar.make(v, "Feature Coming Soon", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+            Intent myint=new Intent(getApplicationContext(), CheckRejectedSamples.class);
+            myint.putExtra("selectedLab", selectedLab);
+            startActivity(myint);
 
         }
         catch(Exception e){}

@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme"
         tools:replace="android:icon">
-        <activity android:name=".eidvl.remotelogin.remoteOptions.ButtonOptions.SampleTransportationStatus"></activity>
+        <activity android:name=".SelectBatch"></activity>
+        <activity android:name=".eidvl.remotelogin.remoteOptions.ButtonOptions.SampleTransportationStatus" />
         <activity android:name=".eidvl.remotelogin.remoteOptions.ButtonOptions.CheckRejectedSamples" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
