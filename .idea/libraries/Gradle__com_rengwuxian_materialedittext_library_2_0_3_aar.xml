@@ -2,11 +2,15 @@
   <library name="Gradle: com.rengwuxian.materialedittext:library:2.0.3@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/e7ac296f2c3187d0a06260ce434e0c2e/jetified-library-2.0.3/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/e8a72055c46a7f07cb5494d591be9f1f/jetified-library-2.0.3/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/e7ac296f2c3187d0a06260ce434e0c2e/jetified-library-2.0.3/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/e7ac296f2c3187d0a06260ce434e0c2e/jetified-library-2.0.3/res" />
       <root url="file://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/e7ac296f2c3187d0a06260ce434e0c2e/jetified-library-2.0.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/e8a72055c46a7f07cb5494d591be9f1f/jetified-library-2.0.3/res" />
+      <root url="jar://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/e8a72055c46a7f07cb5494d591be9f1f/jetified-library-2.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/transforms-2/files-2.1/e8a72055c46a7f07cb5494d591be9f1f/jetified-library-2.0.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/AndroidStudioProjects/TutorialCodes/gradle/caches/modules-2/files-2.1/com.rengwuxian.materialedittext/library/2.0.3/fc421f3c84e0808472fcd4e98eec1e951765322e/library-2.0.3-javadoc.jar!/" />

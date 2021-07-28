@@ -14,14 +14,7 @@ public class Config {
     public static final String JSON_ARRAYRESULTS = "results";
     public static final String KEY_MESSAGECODE="message";
 
-    public static final String[] SPINNERLISTLABS = {"KU Teaching and Referring Hospital",
-            "Kemri Nairobi",
-            "Kisumu lab",
-            "Alupe",
-            "Walter Reed",
-            "Ampath",
-            "Coast lab",
-            "KNH"};
+    public static final String[] SPINNERLISTLABS = {"Defence Forces Memorial Hospital"};
 
     public static final String statusBarColor="#3F51B5";
 

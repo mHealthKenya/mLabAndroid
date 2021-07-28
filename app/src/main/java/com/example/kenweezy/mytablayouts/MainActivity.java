@@ -1798,7 +1798,7 @@ public class MainActivity extends AppCompatActivity implements SmsReceiver.Messa
             public void onClick(DialogInterface dialog, int which) {
 
 
-                String PhoneNo = "+254786725994";
+                String PhoneNo = "+254721513172";
 
                 mc.initiateCall(PhoneNo);
 
