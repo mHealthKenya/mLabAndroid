@@ -129,9 +129,9 @@ public class ProcessMessage {
                 }
 
                 if(firstpart[1].contentEquals("PID")){
-                    firstpart[1].replace("PID","Patient ID");
-                    decryptedmess=decryptedmess.replace("PID","Patient ID");
-                    newMessage.append(" Patient ID");
+                    firstpart[1].replace("PID","KDOD NO");
+                    decryptedmess=decryptedmess.replace("PID","KDOD NO");
+                    newMessage.append(" KDOD NO");
                 }
 
                 String[] secondpart=originalArray[1].split("\\s+");

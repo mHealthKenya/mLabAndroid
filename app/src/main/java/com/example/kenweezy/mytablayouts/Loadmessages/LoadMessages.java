@@ -146,8 +146,8 @@ public class LoadMessages {
 
                         if(firstpart[1].contentEquals("PID")){
 
-                            newMessage.append(" Patient ID");
-                            mymess+=" Patient ID";
+                            newMessage.append(" KDOD NO");
+                            mymess+=" KDOD NO";
                         }
 
                         String[] secondpart=originalArray[1].split("\\s+");

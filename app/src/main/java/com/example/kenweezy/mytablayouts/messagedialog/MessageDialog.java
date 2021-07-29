@@ -168,7 +168,7 @@ public class MessageDialog {
 
     public String getPatientId(String message){
 
-        System.out.println("********************patient id message*********************************");
+        System.out.println("********************KDOD NO message*********************************");
         System.out.println(message);
 
         String[] messageArray=message.split(":");

@@ -3,6 +3,7 @@
 
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">mlab.mhealthkenya.co.ke</domain>
+        <domain includeSubdomains="true">mlab-test.mhealthkenya.co.ke</domain>
         <domain includeSubdomains="true">api.mhealthkenya.co.ke</domain>
         <domain includeSubdomains="true">mhealthkenya.co.ke</domain>
     </domain-config>

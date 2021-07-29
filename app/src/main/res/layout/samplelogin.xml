@@ -37,7 +37,7 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:hint="Patient Id"
+            android:hint="KDOD NO"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
