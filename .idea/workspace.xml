@@ -37,19 +37,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Config/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Loadmessages/LoadMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/Loadmessages/LoadMessages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/ProcessReceivedMessage/ProcessMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/ProcessReceivedMessage/ProcessMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/SmsBroadcastReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/SmsBroadcastReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/messagedialog/MessageDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/kenweezy/mytablayouts/messagedialog/MessageDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/message_format.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/message_format.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/samplelogin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/samplelogin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/network_config_file.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/network_config_file.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/client_individual_results.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/client_individual_results.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/options.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/options.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +57,7 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_4_API_30]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -147,6 +145,9 @@
     <key name="android.template.packageName">
       <recent name="com.example.kenweezy.mytablayouts.Smsretrieverapi" />
       <recent name="com.example.kenweezy.mytablayouts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.kenweezy.mytablayouts.eidvl.remotelogin.remoteOptions.ButtonOptions" />
@@ -546,38 +547,38 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="680" y="293" key="AndroidCreateXmlResourceDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1621433372781" />
-    <state width="1053" height="417" key="GridCell.Tab.0.bottom" timestamp="1627558206257">
+    <state width="1053" height="417" key="GridCell.Tab.0.bottom" timestamp="1627563933326">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1786" height="164" key="GridCell.Tab.0.bottom/0.0.1680.1050/1680.0.1920.1080@1680.0.1920.1080" timestamp="1621491940543" />
-    <state width="1053" height="417" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1627558206257" />
+    <state width="1053" height="417" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1627563933326" />
     <state width="1337" height="271" key="GridCell.Tab.0.bottom/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619090394197" />
-    <state width="1053" height="417" key="GridCell.Tab.0.center" timestamp="1627558206256">
+    <state width="1053" height="417" key="GridCell.Tab.0.center" timestamp="1627563933325">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1786" height="164" key="GridCell.Tab.0.center/0.0.1680.1050/1680.0.1920.1080@1680.0.1920.1080" timestamp="1621491940541" />
-    <state width="1053" height="417" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1627558206256" />
+    <state width="1053" height="417" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1627563933325" />
     <state width="1337" height="271" key="GridCell.Tab.0.center/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619090394196" />
-    <state width="1053" height="417" key="GridCell.Tab.0.left" timestamp="1627558206256">
+    <state width="1053" height="417" key="GridCell.Tab.0.left" timestamp="1627563933325">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1786" height="164" key="GridCell.Tab.0.left/0.0.1680.1050/1680.0.1920.1080@1680.0.1920.1080" timestamp="1621491940540" />
-    <state width="1053" height="417" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1627558206256" />
+    <state width="1053" height="417" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1627563933325" />
     <state width="1337" height="271" key="GridCell.Tab.0.left/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619090394196" />
-    <state width="1053" height="417" key="GridCell.Tab.0.right" timestamp="1627558206257">
+    <state width="1053" height="417" key="GridCell.Tab.0.right" timestamp="1627563933325">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1786" height="164" key="GridCell.Tab.0.right/0.0.1680.1050/1680.0.1920.1080@1680.0.1920.1080" timestamp="1621491940541" />
-    <state width="1053" height="417" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1627558206257" />
+    <state width="1053" height="417" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1627563933325" />
     <state width="1337" height="271" key="GridCell.Tab.0.right/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1619090394197" />
     <state x="403" y="177" key="SettingsEditor" timestamp="1621012649772">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="403" y="177" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1621012649772" />
-    <state x="553" y="275" width="890" height="548" key="find.popup" timestamp="1627557742678">
+    <state x="553" y="275" width="890" height="548" key="find.popup" timestamp="1627622513546">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="553" y="275" width="890" height="548" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1627557742678" />
+    <state x="553" y="275" width="890" height="548" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1627622513546" />
     <state x="735" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1621434219916">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>

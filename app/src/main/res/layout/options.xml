@@ -217,7 +217,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/mohkenya"
+                android:src="@drawable/dod_logo"
                 android:padding="4dp"
                 android:onClick="gomoh"
                 android:id="@+id/imageView2"

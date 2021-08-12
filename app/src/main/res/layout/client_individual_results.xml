@@ -70,7 +70,7 @@
                 android:inputType="number"
                 android:id="@+id/client_puid"
 
-                android:hint="Enter PUID"
+                android:hint="Enter KDOD NUMBER"
                 android:layout_height="wrap_content" />
 
 

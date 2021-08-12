@@ -77,7 +77,7 @@
 
                         android:drawableTint="#FF4081"
                         android:singleLine="true"
-                        android:hint="Patient Unique identifier"
+                            android:hint="KDOD NUMBER"
                         android:id="@+id/ccno"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
